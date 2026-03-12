@@ -1,7 +1,7 @@
 [project]
-name = "sample-project"
+name = "PODSV_Project"
 version = "0.1.0"
-description = "Add your description here"
+description = "Visualisation Project of Livia Wuelser, Kenan Smaili and Javier Martinez Alvarez"
 readme = "README.md"
 requires-python = "==3.12.*"
 dependencies = [
