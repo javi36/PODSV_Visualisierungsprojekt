@@ -1,0 +1,78 @@
+# Project Charta
+
+## 1.1 Context and Scope
+
+In recent years, public debates in Switzerland increasingly address the issue of a potential **generational gap**. Younger generations often face rising living costs, increasing housing prices and higher health insurance premiums, while older generations tend to benefit from greater financial stability and higher rates of property ownership. At the same time, political participation differs significantly between age groups, which may influence how societal decisions are made.
+
+This project investigates generational differences in Switzerland across three key dimensions:
+
+1. **Who pays?** – the financial burden experienced by different generations, including housing costs, health insurance premiums and taxes relative to income.
+
+2. **Who owns?** – the distribution of property ownership and housing security across age groups.
+
+3. **Who decides?** – political participation and influence, such as voting behaviour and participation in democratic processes.
+
+The project aims to explore whether younger and older generations differ in terms of economic burden, ownership of assets and political influence. By combining socio-economic and political data, the visualization seeks to highlight potential inequalities and structural differences between generations.
+
+The data visualization project addresses the following research questions:
+
+- How does the **financial burden** differ between age groups in Switzerland?
+- How is **property ownership and housing security** distributed across generations?
+- How does **political participation and influence** vary by age group?
+
+The expected benefit of the project is to provide a clear and accessible overview of generational differences in Switzerland. By visualizing complex socio-economic and political data, the project supports users in understanding patterns and relationships between financial burden, ownership and political participation.
+
+The visualization product will be developed as a **dashboard-based visualization**, providing a structured overview of the three dimensions and enabling users to compare generational patterns across the dataset.
+
+---
+
+## 1.2 Project Objectives and Success Criteria
+
+### Project Objectives
+
+From the perspective of the stakeholders, the project aims to provide a clear and understandable visualization of generational differences in Switzerland.
+
+The visualization should enable users to explore and compare generational patterns across three key dimensions:
+
+- **Financial burden (Who pays?)** – illustrating how costs such as housing, health insurance premiums and taxes relate to income across different age groups.
+
+- **Ownership (Who owns?)** – showing how property ownership and housing security are distributed between generations.
+
+- **Political participation (Who decides?)** – highlighting differences in political engagement and participation across age groups.
+
+The objective of the visualization is to support users in identifying structural patterns and potential inequalities between generations. By presenting socio-economic and political data in a structured and visual form, the project aims to make complex relationships easier to understand and compare.
+
+### Success Criteria
+
+Since the project is currently in an early conceptual phase, the success criteria focus primarily on qualitative objectives.
+
+Qualitative success criteria include:
+
+- The visualization clearly communicates the three analytical dimensions of the project.
+- Users are able to compare generational differences in financial burden, ownership and political participation.
+- The dashboard structure supports intuitive exploration and understanding of the data.
+
+If possible within the project scope, the visualization should allow users to quickly identify major patterns and differences between age groups.
+
+### Out of Scope
+
+The following aspects are explicitly excluded from the project scope:
+
+- Predictive modelling of future generational developments.
+- Detailed causal explanations of socio-economic or political inequalities.
+- Policy recommendations or political evaluation.
+- International comparisons beyond the Swiss context.
+
+The focus of the project is on the **descriptive visualization and exploration of existing data related to generational differences in Switzerland**.
+
+---
+
+# Data Sources
+
+## Political Participation – “Who decides?”
+
+For the dimension **“Who decides?”**, the project will use data from the **Selects – Swiss Election Studies** dataset. Selects is a long-running scientific research program that analyzes voting behaviour in Swiss federal elections. The study has been conducted regularly since 1995 and provides detailed survey data on political participation, voting behaviour and political attitudes in Switzerland.
+
+The dataset includes variables such as age of respondents, participation in federal elections, political preferences and party choice, as well as trust in political institutions. These variables make the dataset particularly suitable for analysing generational differences in political participation.
+
+By combining age-related variables with indicators of political engagement, the dataset allows the project to explore how political influence and participation vary across different age groups. The Selects dataset is widely used in political science research and therefore provides a reliable and well-documented data source for analysing the dimension **“Who decides?”** within the broader topic of generational differences in Switzerland.
