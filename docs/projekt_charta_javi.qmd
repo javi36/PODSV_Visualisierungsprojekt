@@ -45,6 +45,8 @@ Main data sources:
 
 These datasets allow the analysis of: **generational differences**
 
+---
+
 ### Personnel
 Tasks are distributed across:
 
@@ -53,6 +55,8 @@ Tasks are distributed across:
 - visualization design and implementation  
 - documentation and presentation  
 
+---
+
 ### Software and Tools
 
 - **Python** (Pandas, Plotly, Matplotlib or possibility of others libraries) for analysis and visualization  
@@ -60,14 +64,23 @@ Tasks are distributed across:
 - **Quarto** for documentation  
 - **GitHub Pages** for publishing the visualization online
 
+---
+
+
 ### Infrastructure
 
 All code, documentation and visualizations will be maintained in a **shared GitHub repository** provided by the course.  
 The final visualization will be published **online** to ensure accessibility and reproducibility.
 
+---
+
+
 ### Time
 
 The project is conducted during the semester and must be completed by **June 2026**.
+
+---
+
 
 ### Constraints
 
@@ -76,6 +89,8 @@ The project is conducted during the semester and must be completed by **June 202
 - Data access (e.g. SHP) may require **registration**
 - Visualizations must be **reproducible and documented**
 
+---
+
 ### Risks
 
 - Data compatibility issues between datasets  
@@ -83,22 +98,131 @@ The project is conducted during the semester and must be completed by **June 202
 - Limited comparability between survey data and official statistics  
 - Time constraints during the semester
 
+---
+
 ## Visualization Concept
-Translate the project objectives into a concrete visualization concept. This corresponds to the value map side of the Value Proposition Canvas [@Osterwalder2014] – describe how the proposed visualization product addresses the users' tasks, relieves their pains and creates gains. Address the following aspects:
 
-* **Product form**: Composition of the visualization product – dashboard, data story, infographic, exploratory tool, etc.
-* **Visual encodings**: Types of charts and visualizations to be used – e.g. bar chart, line chart, scatter plot, map, etc.
-* **Interactivity**: Static vs. dynamic/interactive elements – filtering, drill-down, tooltips, linked views, etc.
-* **Narrative and annotation**: Text elements, storytelling structure, annotations and contextual information.
-* **Target medium and integration**: Embedding in the target environment – e.g. website, intranet, app, print, etc.
+The visualization concept translates the project objectives into a **clear and interactive dashboard** that enables users to explore generational differences under the theme:
 
-For each design decision, articulate the intended value along three dimensions:
+**“Who pays, who owns, who decides.”**
 
-* **Cognitive and analytical value**: How does the design amplify the user's ability to detect patterns, identify outliers, understand distributions or discover relationships [@card1999; @vanwijk2005]?
-* **Communicative value**: How does the design support the communication of information to the target audience profile(s)? 
-* **Experiential and aesthetic value**: How do the visual and interactive qualities of the design foster engagement, trust and willingness to adopt the product in practice?
+The design focuses on **simplicity, comparability and clarity**, addressing the main user needs:  
+- reducing complexity of multi-source data (pain)  
+- enabling comparison between generations (job)  
+- providing intuitive insights (gain)
 
-Justify the concept by mapping it explicitly to the project objectives and the user needs identified in the user analysis.
+---
+
+### Product Form
+
+The final product will be an **interactive dashboard**.
+
+The dashboard is structured into three main analytical sections:
+
+1. **Who pays** → income, economic burden  
+2. **Who owns** → wealth, home ownership  
+3. **Who decides** → political attitudes, trust in institutions  
+
+A short overview section will provide key context and allow users to navigate between these dimensions.
+
+---
+
+### Visual Encodings
+
+The dashboard uses a small set of clear and effective chart types:
+
+- **Bar charts** → comparison between generations  
+- **Line charts** → trends over time  
+- **Boxplots / distributions** → variability within generations  
+- **Scatter plots** → relationships between variables  
+
+The focus is on **readability and comparability**, avoiding unnecessary complexity.
+
+---
+
+### Interactivity
+
+Interactivity will be **kept minimal and purposeful**, depending on available development time.
+
+Core features:
+
+- filter by **generation / age group**  
+- selection of **key indicators** (e.g. trust, income, ownership)  
+- **tooltips** for additional details  
+
+Optional (if time allows):
+
+- linked views between charts  
+- additional filtering options  
+
+The goal is to support exploration without overwhelming the user.
+
+---
+
+### Narrative and Annotation
+
+The dashboard will include **light narrative guidance**:
+
+- short introductory text  
+- section titles aligned with the three core questions  
+- concise annotations highlighting key patterns  
+
+This ensures that users can understand the data **without a full guided story**.
+
+---
+
+### Target Medium and Integration
+
+The visualization will be implemented as a **web-based interactive application using Streamlit**.
+
+- accessible via browser  
+- hosted online (e.g. Streamlit Cloud or similar)  
+- integrated with the project documentation via GitHub  
+
+---
+
+## Value of the Visualization
+
+### Cognitive and Analytical Value
+
+- Enables direct **comparison between generations**  
+- Supports identification of **patterns, trends and differences**  
+- Reduces complexity by structuring data into three key dimensions  
+
+---
+
+### Communicative Value
+
+- Provides a **clear and focused representation** of the central question  
+- Makes complex socio-economic data understandable for a broad audience  
+- Aligns all visualizations with the core framework  
+  → *Who pays, who owns, who decides*
+
+---
+
+### Experiential and Aesthetic Value
+
+- Simple and structured layout improves **usability and clarity**  
+- Minimal but effective interactivity increases **engagement**  
+- Clean design fosters **trust and accessibility**
+
+---
+
+## Justification
+
+The dashboard approach directly supports the project objectives:
+
+- comparison between generations → bar charts and filters  
+- understanding relationships → selected plots (e.g. scatter, distributions)  
+- accessibility → simple layout and minimal interactivity  
+
+It addresses user needs by:
+
+- simplifying complex datasets (pain)  
+- enabling flexible exploration (job)  
+- providing clear and intuitive insights (gain)
+
+The use of a **Streamlit-based web application** ensures reproducibility, accessibility and ease of deployment.
 
 
 ## Project Plan
@@ -108,29 +232,32 @@ Divide the project into individual phases, describe them briefly and draw up a p
 %%| label: fig-project-plan
 %%| fig-cap: Preliminary project plan in the form of a Gantt chart.
 gantt
-    title Project Plan
+    title Generational Conflict – "Who Pays, Who Owns, Who Decides"
     dateFormat YYYY-MM-DD
-    tickInterval 5day
-    section Project Understanding
-        Initiation workshop and context analysis     :a1, 2024-07-01, 1d
-        Stakeholder and user analysis     :a3, 2024-07-02, 5d
-        Situation assessment    :a4, 2024-07-06, 1d
-        Project objectives and visualization concept    :a5, 2024-07-07, 1d
-        Sign project charta: milestone, m1, 2024-07-08, 1d
-    
-    section Data Acquisition and Exploration
-        Acquire data :a6, 2024-07-08, 3d
-        Exploratory data analysis   :a7, 2024-07-09, 2d
-        Discuss data report: milestone, m2, 2024-07-11, 1d
-        
-    section Visual Encoding and Design
-        Overview charts   :a8, 2024-07-11, 3d
-        Maps :a9, 2024-07-11, 5d
-        Implement Dashboard prototype :a10, 2024-07-16, 5d
-        Complete visualization report :a10, 2024-07-21, 1d
-    section Evaluation
-        Prepare presentation :a10, 2024-07-22, 2d
-        Project presentation : milestone, m2, 2024-07-24, 4m
+    todayMarker off
+    tickInterval 7day
+
+    section Project Setup
+        Project Understanding & Charta            :a1, 2026-03-16, 5d
+        Sign Project Charta                       :milestone, m1, 2026-03-20, 1d
+
+    section Data Phase
+        Data Acquisition & Preparation            :b1, after m1, 10d
+        Exploratory Data Analysis                 :b2, after b1, 12d
+        Data Report Finalization                  :milestone, m2, after b2, 1d
+
+    section Design Phase
+        Storyline & Visualization Concept         :c1, after m2, 7d
+
+    section Implementation
+        Build Visualizations & Dashboard          :d1, after c1, 14d
+
+    section Finalization
+        Testing & Refinement                      :e1, after d1, 5d
+        Prepare Presentation                      :e2, after e1, 5d
+        Presentation Submission                   :milestone, m3, 2026-05-18, 1d
+        Final Adjustments                         :e3, after m3, 7d
+        Project Presentation                      :milestone, m4, 2026-06-01, 1d
 ```
 
 See [Mermaid syntax for Gantt charts](https://mermaid.js.org/syntax/gantt.html). It might not be displayed correctly in Safari &#8594; use Chrome. [Live editor with export functionality](https://mermaid.live/)
