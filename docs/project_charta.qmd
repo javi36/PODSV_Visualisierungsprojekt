@@ -106,7 +106,7 @@ Kenis data source
 
 **Political Participation – “Who decides?”**
 
-For the dimension **“Who decides?”**, the project will use data from the **Selects – Swiss Election Studies** dataset. Selects is a long-running scientific research program that analyzes voting behaviour in Swiss federal elections. The study has been conducted regularly since 1995 and provides detailed survey data on political participation, voting behaviour and political attitudes in Switzerland.
+For the dimension **“Who decides?”**, the project will use data from the **[Selects – Swiss Election Studies](https://forscenter.ch/projects/selects/)** dataset. Selects is a long-running scientific research program that analyzes voting behaviour in Swiss federal elections. The study has been conducted regularly since 1995 and provides detailed survey data on political participation, voting behaviour and political attitudes in Switzerland.
 
 The dataset includes variables such as age of respondents, participation in federal elections, political preferences and party choice, as well as trust in political institutions. These variables make the dataset particularly suitable for analysing generational differences in political participation.
 
