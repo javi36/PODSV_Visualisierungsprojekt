@@ -2,11 +2,11 @@
 
 ## Context and Scope
 
-In recent years, public debates in Switzerland increasingly address the issue of a potential **generational gap**. Younger generations often face rising living costs, increasing housing prices and higher health insurance premiums, while older generations tend to benefit from greater financial stability and higher rates of property ownership. At the same time, political participation differs significantly between age groups, which may influence how societal decisions are made.
+In recent years, public debates in Switzerland increasingly address the issue of a potential **generational conflict**. Younger generations often face rising living costs, increasing housing prices and higher health insurance premiums, while older generations tend to benefit from greater financial stability and higher rates of property ownership. At the same time, political participation differs significantly between age groups, which may influence how societal decisions are made.
 
 This project investigates generational differences in Switzerland across three key dimensions:
 
-1. **Who pays?** – the financial burden experienced by different generations, including housing costs, health insurance premiums and taxes relative to income.
+1. **Who pays?** – the financial burden experienced by different generations, including housing costs, health insurance premiums and taxes relative to income resulting in a  imbalanced cashflow between generations.
 
 2. **Who owns?** – the distribution of property ownership and housing security across age groups.
 
@@ -20,7 +20,7 @@ The data visualization project addresses the following research questions:
 - How is **property ownership and housing security** distributed across generations?
 - How does **political participation and influence** vary by age group?
 
-The expected benefit of the project is to provide a clear and accessible overview of generational differences in Switzerland. By visualizing complex socio-economic and political data, the project supports users in understanding patterns and relationships between financial burden, ownership and political participation.
+The expected benefit of the project is to provide a clear and accessible overview of potential generational conflicts in Switzerland. By visualizing complex socio-economic and political data, the project supports users in understanding patterns and relationships between financial burden, ownership and political participation.
 
 The visualization product will be developed as a **dashboard-based visualization**, providing a structured overview of the three dimensions and enabling users to compare generational patterns across the dataset.
 
