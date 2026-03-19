@@ -86,6 +86,7 @@ Age: 27
 **Data literacy:** Medium. Can understand clear charts, filters and comparisons, but does not want to interpret raw datasets or overly technical graphs.  
 
 **Technical environment:** Mostly laptop and smartphone; often accesses content in the browser, sometimes on the go. Screen sizes mainly 13–14" laptop and mobile.  
+
 **Frequency of use:** Occasional to moderate. Likely to use the dashboard before votes, during public debates, or when seeing related news coverage.  
 
 **Why this persona fits the material:** The Swiss Deloitte material suggests that younger adults in Switzerland are strongly concerned about living costs, financial security and inequality, while still caring about purpose, work-life balance and meaningful choices. The same material also shows that Gen Z and Millennials make up roughly half of the workforce in Switzerland, which makes them an important audience for a project on generational conflict.
@@ -114,11 +115,12 @@ Age: 42
 
 **Why this persona fits the material:**  The SILC and SAKE materials show that the topic spans multiple dimensions—income, housing, education, labour-market structure, household models, and institutional attitudes—which means expert users need a dashboard that can synthesize complex official statistics efficiently. The assumed project setting also explicitly positions a party or interest group as a likely commissioning stakeholder, making this persona highly plausible.
 
-**User tasks (jobs):** Functionally, Lukas wants to identify the strongest age-related patterns in the data and translate them into evidence-based messages. He needs to compare indicators across generations, validate claims, detect tensions between subjective perceptions and official statistics, and prepare communication material for colleagues or stakeholders. Socially, he wants to present credible, understandable findings to party leadership, members, journalists or the public. Emotionally, he wants confidence that the dashboard is methodologically serious and will not expose him to criticism for oversimplifying or misrepresenting the data.
+**User tasks (jobs):** Functionally, Lukas wants to identify the strongest age-related patterns in the data and translate them into evidence-based messages. He needs to compare indicators across generations, validate claims, detect tensions between subjective perceptions and official statistics, and prepare communication material for colleagues or stakeholders. Socially, he wants to present credible, understandable findings to party leadership, members, journalists or the public. Emotionally, he wants confidence that the dashboard is methodologically serious and will not expose him to criticism for oversimplifying or misrepresenting the data.  
 
 **Pains:** Lukas faces fragmented sources, different definitions across datasets, and the constant risk of drawing conclusions too quickly from complex socio-economic patterns. He must often communicate nuanced findings to non-experts under time pressure. A major pain point is the gap between official data complexity and public communication needs. He needs clarity, but not at the price of losing credibility. The SAKE report itself already shows that generational differences interact with gender, education, labour-market participation and household models, so overly simplistic visuals would be risky for his purposes.
 
-**Gains:** Lukas wants a dashboard that provides a robust overview and lets him move quickly from broad patterns to selected details. He benefits from trustworthy source labels, clear definitions, and filters by age group or generation. He would value concise annotations that summarize the main signal of a chart, as well as visuals that can be reused in briefings or presentations. A major gain would be a tool that allows him to communicate complex evidence in a form that is both politically useful and methodologically defensible.
+**Gains:** Lukas wants a dashboard that provides a robust overview and lets him move quickly from broad patterns to selected details. He benefits from trustworthy source labels, clear definitions, and filters by age group or generation. He would value concise annotations that summarize the main signal of a chart, as well as visuals that can be reused in briefings or presentations. A major gain would be a tool that allows him to communicate complex evidence in a form that is both politically useful and methodologically defensible.  
+
 ---
 
 ## Situation Assessment
@@ -127,8 +129,16 @@ The project combines several Swiss datasets to analyse generational differences 
 
 ### Available Resources
 
-**Financial burden – “Who pays?”**
-Kenis data source
+**Financial burden – “Who pays?”**  
+
+- **[Swiss Inequality Database (SID)](https://www.iwp.swiss/sid/)**  
+  Long-run data on income distribution, tax redistribution and tax contribution shares in Switzerland, based on official federal, cantonal and communal tax statistics.  
+
+- **[Eidgenössische Steuerverwaltung (ESTV)](https://www.estv.admin.ch/de/schweizer-steuerstatistiken)**  
+  Official Swiss tax data on taxable income, tax burden and wealth, providing key indicators on fiscal redistribution and the distribution of tax payments.  
+
+- **[Bundesamt für Statistik (BFS)](https://www.bfs.admin.ch/bfs/de/home/statistiken/wirtschaftliche-soziale-situation-bevoelkerung/erhebungen/habe.html)**  
+  Official survey and statistical data on household income, expenditure and living conditions in Switzerland, supporting age-based comparisons of financial burden.
 
 
 **Ownership – “Who owns?”**
