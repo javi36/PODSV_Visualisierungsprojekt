@@ -68,15 +68,57 @@ The focus of the project is on the **descriptive visualization and exploration o
 ---
 
 ## Stakeholder Analysis
-List the people involved in and affected by the project. Describe their goals and relationships with each other. Visualisation in the form of a stakeholder map can provide a quick overview.
+The primary stakeholder in this project is the **political party or interest group** that commissions the visualization. This stakeholder has high influence and high interest, as it defines the thematic focus and expects a clear, evidence-based dashboard for analysis and communication. 
+
+A second group of stakeholders consists of the **broader public**, especially **younger and older generations in Switzerland**, who are directly affected by the topic of generational conflict. Additional stakeholders include **journalists, researchers and civil society organizations**, who may use the visualization to support public debate or further analysis. Finally, **data providers** such as BFS, FORS, ESTV and Selects are relevant because the scope and quality of the dashboard depend strongly on the availability and comparability of their data.
 
 ## User Analysis
-Analyse the target audience of the visualization product and create at least 2 personas with **relevant attributes** such as domain expertise, data literacy, technical environment (devices, screen sizes), frequency of use etc. Amend each persona with the dimensions of the customer profile side in the Value Proposition Canvas @Osterwalder2014:
 
-* **User tasks** (jobs): What tasks are users trying to accomplish? Consider functional jobs (e.g. analysing data, making decisions), social jobs (e.g. reporting to stakeholders, collaborating with colleagues) and emotional jobs (e.g. feeling confident in their decisions).
-* **Pains**: What obstacles, risks or undesired outcomes do users currently face? What makes their current approach frustrating or inefficient?
-* **Gains**: What outcomes and benefits do users expect or desire? What would exceed their expectations?
+**Persona 1: Young urban voter affected by cost-of-living pressure**
 
+Name: Lea Meier  
+Age: 27  
+
+**Background:** Lives in Zurich, works in a mid-level office or service role, rents a flat, follows politics occasionally, votes in major federal referendums, and feels directly affected by rising living costs. 
+
+**Domain expertise:** Low to medium. Familiar with the topic from media and personal experience, but not with official statistics or survey methodology.  
+
+**Data literacy:** Medium. Can understand clear charts, filters and comparisons, but does not want to interpret raw datasets or overly technical graphs.  
+
+**Technical environment:** Mostly laptop and smartphone; often accesses content in the browser, sometimes on the go. Screen sizes mainly 13–14" laptop and mobile.  
+**Frequency of use:** Occasional to moderate. Likely to use the dashboard before votes, during public debates, or when seeing related news coverage.  
+
+**Why this persona fits the material:** The Swiss Deloitte material suggests that younger adults in Switzerland are strongly concerned about living costs, financial security and inequality, while still caring about purpose, work-life balance and meaningful choices. The same material also shows that Gen Z and Millennials make up roughly half of the workforce in Switzerland, which makes them an important audience for a project on generational conflict.
+
+**User tasks (jobs):** Functionally, Lea wants to understand whether younger generations in Switzerland are really under greater pressure than older ones. She wants to compare age groups on income, housing, ownership and political participation without reading long reports. Socially, she may want to share a chart in a discussion with friends, on social media, or in a university/work context. Emotionally, she wants to feel that her concerns are backed by credible evidence rather than just opinion.
+
+**Pains:** Lea is confronted with many public claims about AHV, housing, taxes and generational fairness, but she often lacks a clear and trustworthy overview. Official datasets are hard to access, fragmented and difficult to interpret. She may also feel that public debates are dominated by older, more politically confident voices, while younger people have less influence and less time to dive into complex evidence. The Deloitte material also suggests strong financial pressure and uncertainty among younger adults, which means that a confusing dashboard would quickly lose her attention.
+
+**Gains:**  Lea wants a dashboard that is visually clear, easy to navigate and immediately relevant to everyday life. She benefits from simple comparisons by generation, concise annotations, and concrete indicators such as income, rent burden, insurance costs, wealth ownership and turnout. She would value a tool that helps her quickly answer questions like: Are younger people really paying more relative to what they earn? Who owns housing? Who participates politically? An especially strong gain would be if the dashboard helps her feel informed and confident enough to discuss the topic publicly or use it before a vote.  
+
+
+**Persona 2: Policy analyst / campaign strategist in a political party or interest group**  
+
+Name: Lukas Frei  
+Age: 42  
+
+**Background:** Works as a policy analyst or campaign strategist for a political party, association or advocacy group in Switzerland. He needs evidence-based material to prepare briefings, presentations, argumentation and public communication.  
+
+**Domain expertise:** High. Strong understanding of Swiss politics, institutions and policy debates; comfortable with socio-economic indicators.  
+
+**Data literacy:** High. Can interpret distributions, trends, survey-based indicators and limitations of data sources.
+
+**Technical environment:** Desktop or large laptop, often in an office setting, sometimes dual-screen. Uses browser-based dashboards, presentations and spreadsheets.  
+
+**Frequency of use:** Regular. Likely to return weekly or at key moments in the project cycle, especially before campaign decisions, briefings or public events.  
+
+**Why this persona fits the material:**  The SILC and SAKE materials show that the topic spans multiple dimensions—income, housing, education, labour-market structure, household models, and institutional attitudes—which means expert users need a dashboard that can synthesize complex official statistics efficiently. The assumed project setting also explicitly positions a party or interest group as a likely commissioning stakeholder, making this persona highly plausible.
+
+**User tasks (jobs):** Functionally, Lukas wants to identify the strongest age-related patterns in the data and translate them into evidence-based messages. He needs to compare indicators across generations, validate claims, detect tensions between subjective perceptions and official statistics, and prepare communication material for colleagues or stakeholders. Socially, he wants to present credible, understandable findings to party leadership, members, journalists or the public. Emotionally, he wants confidence that the dashboard is methodologically serious and will not expose him to criticism for oversimplifying or misrepresenting the data.
+
+**Pains:** Lukas faces fragmented sources, different definitions across datasets, and the constant risk of drawing conclusions too quickly from complex socio-economic patterns. He must often communicate nuanced findings to non-experts under time pressure. A major pain point is the gap between official data complexity and public communication needs. He needs clarity, but not at the price of losing credibility. The SAKE report itself already shows that generational differences interact with gender, education, labour-market participation and household models, so overly simplistic visuals would be risky for his purposes.
+
+**Gains:** Lukas wants a dashboard that provides a robust overview and lets him move quickly from broad patterns to selected details. He benefits from trustworthy source labels, clear definitions, and filters by age group or generation. He would value concise annotations that summarize the main signal of a chart, as well as visuals that can be reused in briefings or presentations. A major gain would be a tool that allows him to communicate complex evidence in a form that is both politically useful and methodologically defensible.
 ---
 
 ## Situation Assessment
