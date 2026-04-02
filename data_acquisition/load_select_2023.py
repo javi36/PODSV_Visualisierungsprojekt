@@ -31,6 +31,9 @@ print(f"Raw shape: {df.shape}")
 # 3. Minimale Standardisierung
 # -----------------------------------------
 df.columns = df.columns.str.lower().str.strip()
+# hier kommt noch dropna, fillna, etc. je nachdem, was die Daten brauchen
+# Variablen die wir definitiv brauchen, könnten wir hier schon mal anlegen
+
 
 # -----------------------------------------
 # 4. Erstmal ganze Datei speichern
