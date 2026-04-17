@@ -19,6 +19,7 @@ PROCESSED_SELECTS_PATH = BASE_PATH / "data" / "whodecide" / "processed" / "selec
 
 # RAW Paths for WhoOwns Data
 RAW_WOHNEIGENTUMSQUOTE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "wohneigentumsquote_kanton_2026.csv"
+RAW_WOHNEIGENTUMS_META_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "metadaten_wohneigentumsquote_kanton_2026.ods"
 RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "bfs_bewohnertyp_groesse.xlsx"
 
 # Processed Paths for WhoOwns Data
@@ -90,6 +91,46 @@ def load_wohneigentums_data(path: Path) -> pd.DataFrame:
         print(f"✓ Loaded: {df.shape[0]} rows × {df.shape[1]} columns")
         print(f"   Columns: {df.columns.tolist()}")
 
+        return df
+
+    except Exception as e:
+        print(f"❌ Loading failed: {e}")
+        return None
+
+
+def load_geo_metadata(path: Path) -> pd.DataFrame:
+    """
+    Lade GEO-Metadaten (Kanton-Codes und Labels) aus ODS.
+
+    Args:
+        path: Pfad zur Metadaten-ODS
+
+    Returns:
+        DataFrame mit GEO-Metadaten oder None wenn nicht vorhanden
+    """
+    print("\n" + "="*50)
+    print("LOADING WHOOWNS GEO METADATA")
+    print("="*50)
+
+    if not path.exists():
+        print(f"⚠️  Datei nicht gefunden: {path}")
+        return None
+
+    print(f"📂 Loading from: {path}")
+
+    try:
+        df = pd.read_excel(path, sheet_name="GEO", engine="odf")
+        expected_cols = ["CODE", "LABEL_EN", "LABEL_FR", "LABEL_DE", "LABEL_IT"]
+        available_cols = [c for c in expected_cols if c in df.columns]
+
+        if "CODE" not in available_cols:
+            print("❌ Spalte 'CODE' fehlt im GEO-Sheet")
+            return None
+
+        df = df[available_cols].copy()
+        df["CODE"] = df["CODE"].astype(str).str.strip()
+
+        print(f"✓ Loaded GEO metadata: {df.shape[0]} rows × {df.shape[1]} columns")
         return df
 
     except Exception as e:
@@ -212,8 +253,27 @@ try:
     
     # WhoOwns Daten laden
     df_whoowns = load_wohneigentums_data(RAW_WOHNEIGENTUMSQUOTE_PATH)
+    df_whoowns_geo = load_geo_metadata(RAW_WOHNEIGENTUMS_META_PATH)
     df_bfs_bewohnertyp = load_bfs_bewohnertyp_groesse_data(RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH, "bewohnertyp")
     df_bfs_wohnflaeche = load_bfs_bewohnertyp_groesse_data(RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH, "wohnflaeche")
+
+    # WhoOwns mit GEO-Metadaten anreichern
+    if df_whoowns is not None and df_whoowns_geo is not None:
+        geo_col = next((col for col in df_whoowns.columns if str(col).strip().lower() == "geo"), None)
+        if geo_col is not None:
+            df_whoowns[geo_col] = df_whoowns[geo_col].astype(str).str.strip()
+            df_whoowns = df_whoowns.merge(
+                df_whoowns_geo,
+                left_on=geo_col,
+                right_on="CODE",
+                how="left",
+            )
+            print(
+                "✓ WhoOwns mit GEO-Metadaten angereichert "
+                f"(Match-Rate: {(df_whoowns['LABEL_DE'].notna().mean() * 100):.1f}%)"
+            )
+        else:
+            print("⚠️  Spalte 'geo' nicht in WhoOwns-Daten gefunden. GEO-Merge uebersprungen.")
 
     # Standardisierung
     print("\n" + "="*50)
