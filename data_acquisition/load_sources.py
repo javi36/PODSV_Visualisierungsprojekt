@@ -11,20 +11,26 @@ import sys
 # -----------------------------------------
 BASE_PATH = Path(__file__).resolve().parents[1]
 
-# WhoDecides Data
+# RAW Paths for WhoDecides Data
 RAW_SELECTS_PATH = BASE_PATH / "data" / "whodecide" / "raw" / "2634_Selects2023_PES_Data_v2.0.csv"
+
+# Processed Paths for WhoDecides Data
 PROCESSED_SELECTS_PATH = BASE_PATH / "data" / "whodecide" / "processed" / "selects_2023_clean.csv"
 
-# WhoOwns Data
-RAW_WHOOWNS_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "wohneigentumsquote_kanton_2026.csv"
-RAW_ANFRAGE_MARTINEZ_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "Anfrage_Martinez_20260414.xlsx"
-PROCESSED_WHOOWNS_PATH = BASE_PATH / "data" / "whoOwns" / "processed" / "wohneigentumsquote_kanton_2026_clean.csv"
-PROCESSED_ANFRAGE_MARTINEZ_PATH = BASE_PATH / "data" / "whoOwns" / "processed" / "anfrage_martinez_20260414_clean.csv"
+# RAW Paths for WhoOwns Data
+RAW_WOHNEIGENTUMSQUOTE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "wohneigentumsquote_kanton_2026.csv"
+RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "bfs_bewohnertyp_groesse.xlsx"
 
-# Ordner für verarbeitete Daten sicherstellen 
+# Processed Paths for WhoOwns Data
+PROCESSED_WOHNEIGENTUMSQUOTE_PATH = BASE_PATH / "data" / "whoOwns" / "processed" / "wohneigentumsquote_kanton_2026_clean.csv"
+PROCESSED_BFS_BEWOHNERTYP_PATH = BASE_PATH / "data" / "whoOwns" / "processed" / "bfs_bewohnertyp_20260414_clean.csv"
+PROCESSED_BFS_WOHNFLAECHE_PATH = BASE_PATH / "data" / "whoOwns" / "processed" / "bfs_wohnflaeche_20260414_clean.csv"
+
+# Ordnerstruktur sicherstellen
 PROCESSED_SELECTS_PATH.parent.mkdir(parents=True, exist_ok=True)
-PROCESSED_WHOOWNS_PATH.parent.mkdir(parents=True, exist_ok=True)
-
+PROCESSED_WOHNEIGENTUMSQUOTE_PATH.parent.mkdir(parents=True, exist_ok=True)
+PROCESSED_BFS_BEWOHNERTYP_PATH.parent.mkdir(parents=True, exist_ok=True)
+PROCESSED_BFS_WOHNFLAECHE_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 # -----------------------------------------
 # 2. Helper-Funktionen
@@ -40,24 +46,22 @@ def load_selects_data(path: Path) -> pd.DataFrame:
         DataFrame mit den geladenen Daten
     """
     print("\n" + "="*50)
-    print("LOADING SELECTS 2023 DATA")
+    print("LOADING SELECT DATA")
     print("="*50)
     
     if not path.exists():
         raise FileNotFoundError(f"Datei nicht gefunden: {path}")
     
     print(f"📂 Loading from: {path}")
-    print(f"   File size: {path.stat().st_size / (1024**2):.2f} MB")
     
     df = pd.read_csv(path, sep=";", low_memory=False)
     
     print(f"✓ Loaded: {df.shape[0]} rows × {df.shape[1]} columns")
-    print(f"   Memory usage: {df.memory_usage(deep=True).sum() / (1024**2):.2f} MB")
     
     return df
 
 
-def load_whoowns_data(path: Path) -> pd.DataFrame:
+def load_wohneigentums_data(path: Path) -> pd.DataFrame:
     """
     Lade Wohneigentum-Daten nach Kanton.
     
@@ -70,12 +74,11 @@ def load_whoowns_data(path: Path) -> pd.DataFrame:
         DataFrame mit Wohneigentum-Daten oder None wenn nicht vorhanden
     """
     print("\n" + "="*50)
-    print("LOADING WHOOWNS DATA (Wohneigentum)")
+    print("LOADING WHOOWNS DATA")
     print("="*50)
     
     if not path.exists():
         print(f"⚠️  Datei nicht gefunden: {path}")
-        print("   Fortfahren ohne WhoOwns-Daten...")
         return None
 
     print(f"📂 Loading from: {path}")
@@ -91,67 +94,77 @@ def load_whoowns_data(path: Path) -> pd.DataFrame:
 
     except Exception as e:
         print(f"❌ Loading failed: {e}")
-        print("   Fortfahren ohne WhoOwns-Daten...")
         return None
 
 
-def load_anfrage_martinez_data(path: Path) -> pd.DataFrame:
+def load_bfs_bewohnertyp_groesse_data(path: Path, sheet_type: str) -> pd.DataFrame:
     """
-    Lade Anfrage-Martinez-Daten (Excel).
+    Lade BFS-Bewohnertyp-Größe-Daten (Excel).
 
     Args:
         path: Pfad zur Excel-Datei
 
+    Args:
+        sheet_type: "bewohnertyp" oder "wohnflaeche"
+
     Returns:
-        DataFrame mit Anfrage-Daten oder None wenn nicht vorhanden
+        DataFrame mit BFS-Daten fuer genau ein Sheet oder None wenn nicht vorhanden
     """
     print("\n" + "="*50)
-    print("LOADING ANFRAGE MARTINEZ DATA")
+    print("LOADING BFS DATA")
     print("="*50)
 
     if not path.exists():
         print(f"⚠️  Datei nicht gefunden: {path}")
-        print("   Fortfahren ohne Anfrage-Martinez-Daten...")
         return None
 
     print(f"📂 Loading from: {path}")
 
     try:
-        # Header starts on row 3 in the source file (title and year rows above it).
-        df = pd.read_excel(path, sheet_name="SE2024", header=2)
+        workbook = pd.ExcelFile(path)
+        available_sheets = workbook.sheet_names
 
-        # Keep only real data columns and drop footnote/comment columns.
-        df = df.loc[:, ~df.columns.astype(str).str.startswith("Unnamed")]
+        sheet_map = {
+            "bewohnertyp": ["Bewohnertyp", "SE2024"],
+            "wohnflaeche": ["Wohnflaeche", "Wohnfläche", "GWS-STATPOP2024"],
+        }
 
-        # Keep only rows with valid numeric age values.
-        df["Alter"] = pd.to_numeric(df["Alter"], errors="coerce")
-        df = df.dropna(subset=["Alter", "Bewohnertyp"]).copy()
+        if sheet_type not in sheet_map:
+            raise ValueError(f"Unbekannter sheet_type: {sheet_type}")
 
-        # Parse numeric indicators; non-numeric placeholders (e.g. X) become NaN.
+        sheet_name = next((s for s in sheet_map[sheet_type] if s in available_sheets), None)
+        if sheet_name is None:
+            print(f"⚠️  Kein passendes Sheet fuer '{sheet_type}' gefunden. Verfuegbar: {available_sheets}")
+            return None
+
         numeric_columns = [
             "Absolute Zahlen",
             "Vertrauens-intervall : \n± (in %)",
             "Anteil in %",
             "Vertrauens-\nintervall : \n± (in %-Pkte)",
+            "Wohnfläche (in m2) pro Person",
         ]
+
+        df = pd.read_excel(path, sheet_name=sheet_name, header=2)
+        df = df.loc[:, ~df.columns.astype(str).str.startswith("Unnamed")].copy()
+
+        if "Alter" in df.columns:
+            df["Alter"] = pd.to_numeric(df["Alter"], errors="coerce")
+            df = df[df["Alter"].notna()].copy()
+
+        if "Bewohnertyp" in df.columns:
+            df = df[df["Bewohnertyp"].notna()].copy()
+
         for col in numeric_columns:
             if col in df.columns:
                 df[col] = pd.to_numeric(df[col], errors="coerce")
 
-        # Capture the survey year from the metadata rows if available.
-        meta = pd.read_excel(path, sheet_name="SE2024", header=None, nrows=2)
-        year_candidates = pd.to_numeric(meta.iloc[1], errors="coerce").dropna()
-        if not year_candidates.empty:
-            df["year"] = int(year_candidates.iloc[0])
-
-        print(f"✓ Loaded: {df.shape[0]} rows × {df.shape[1]} columns")
-        print(f"   Columns: {df.columns.tolist()}")
-
+        df["sheet_type"] = sheet_type
+  
         return df
 
     except Exception as e:
         print(f"❌ Loading failed: {e}")
-        print("   Fortfahren ohne Anfrage-Martinez-Daten...")
         return None
 
 
@@ -198,33 +211,42 @@ try:
     df_selects = load_selects_data(RAW_SELECTS_PATH)
     
     # WhoOwns Daten laden
-    df_whoowns = load_whoowns_data(RAW_WHOOWNS_PATH)
-    df_anfrage_martinez = load_anfrage_martinez_data(RAW_ANFRAGE_MARTINEZ_PATH)
-    
+    df_whoowns = load_wohneigentums_data(RAW_WOHNEIGENTUMSQUOTE_PATH)
+    df_bfs_bewohnertyp = load_bfs_bewohnertyp_groesse_data(RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH, "bewohnertyp")
+    df_bfs_wohnflaeche = load_bfs_bewohnertyp_groesse_data(RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH, "wohnflaeche")
+
     # Standardisierung
     print("\n" + "="*50)
     print("DATA STANDARDIZATION")
     print("="*50)
     
-    df_selects = standardize_columns(df_selects)
-    print("✓ Selects columns standardized")
+    if df_selects is not None:
+        df_selects = standardize_columns(df_selects)
+        print("✓ Selects columns standardized")
 
-    df_selects.to_csv(PROCESSED_SELECTS_PATH, index=False)
-    print(f"✓ Selects data saved to: {PROCESSED_SELECTS_PATH}")
+        df_selects.to_csv(PROCESSED_SELECTS_PATH, index=False)
+        print(f"✓ Selects data saved to: {PROCESSED_SELECTS_PATH}")
     
     if df_whoowns is not None:
         df_whoowns = standardize_columns(df_whoowns)
         print("✓ WhoOwns columns standardized")
 
-        df_whoowns.to_csv(PROCESSED_WHOOWNS_PATH, index=False)
-        print(f"✓ WhoOwns data saved to: {PROCESSED_WHOOWNS_PATH}")
+        df_whoowns.to_csv(PROCESSED_WOHNEIGENTUMSQUOTE_PATH, index=False)
+        print(f"✓ WhoOwns data saved to: {PROCESSED_WOHNEIGENTUMSQUOTE_PATH}")
 
-    if df_anfrage_martinez is not None:
-        df_anfrage_martinez = standardize_columns(df_anfrage_martinez)
-        print("✓ Anfrage Martinez columns standardized")
+    if df_bfs_bewohnertyp is not None:
+        df_bfs_bewohnertyp = standardize_columns(df_bfs_bewohnertyp)
+        print("✓ BFS Bewohnertyp columns standardized")
 
-        df_anfrage_martinez.to_csv(PROCESSED_ANFRAGE_MARTINEZ_PATH, index=False)
-        print(f"✓ Anfrage Martinez data saved to: {PROCESSED_ANFRAGE_MARTINEZ_PATH}")
+        df_bfs_bewohnertyp.to_csv(PROCESSED_BFS_BEWOHNERTYP_PATH, index=False)
+        print(f"✓ BFS Bewohnertyp data saved to: {PROCESSED_BFS_BEWOHNERTYP_PATH}")
+
+    if df_bfs_wohnflaeche is not None:
+        df_bfs_wohnflaeche = standardize_columns(df_bfs_wohnflaeche)
+        print("✓ BFS Wohnflaeche columns standardized")
+
+        df_bfs_wohnflaeche.to_csv(PROCESSED_BFS_WOHNFLAECHE_PATH, index=False)
+        print(f"✓ BFS Wohnflaeche data saved to: {PROCESSED_BFS_WOHNFLAECHE_PATH}")
     
     
 except FileNotFoundError as e:
