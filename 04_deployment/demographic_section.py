@@ -66,16 +66,38 @@ def build_generation_pie_data(df: pd.DataFrame) -> pd.DataFrame:
 
 def create_generation_pie(df: pd.DataFrame, selected_year: int):
 	year_data = df[df["year"] == selected_year].sort_values("generation")
+	year_total = float(year_data["year_total"].iloc[0]) if not year_data.empty else 0
 	fig = px.pie(
 		year_data,
 		names="generation",
 		values="population",
-		hole=0.35,
-		title=f"Swiss population by generation in {selected_year}",
+		hole=0.46,
+		title="",
 		category_orders={"generation": GENERATION_ORDER},
 		color="generation",
 		color_discrete_sequence=["#0f4c5c", "#1d7874", "#679289", "#f4a259", "#f25c54"],
 	)
-	fig.update_layout(height=520, margin=dict(t=70, l=20, r=20, b=20))
-	fig.update_traces(textposition="inside", textinfo="label")
+	fig.update_layout(
+		height=560,
+		margin=dict(t=30, l=20, r=20, b=20),
+		showlegend=True,
+		legend=dict(orientation="h", yanchor="bottom", y=-0.08, xanchor="center", x=0.5),
+		annotations=[
+			dict(
+				text=f"<b>{selected_year}</b><br>{int(year_total):,}".replace(",", "'"),
+				showarrow=False,
+				x=0.5,
+				y=0.5,
+				font=dict(size=20, color="#111111"),
+				align="center",
+			),
+		],
+	)
+	fig.update_traces(
+		textposition="inside",
+		textinfo="label+percent",
+		insidetextorientation="radial",
+		hovertemplate="<b>%{label}</b><br>Population: %{value:,.0f}<br>Share: %{percent}<extra></extra>",
+		marker=dict(line=dict(color="#ffffff", width=3)),
+	)
 	return fig

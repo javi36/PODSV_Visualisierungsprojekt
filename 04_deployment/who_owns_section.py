@@ -65,7 +65,11 @@ def create_ownership_donut(df: pd.DataFrame, generation_label: str):
 	return fig
 
 
-def render_who_owns_section(bewohnertyp_df: pd.DataFrame) -> None:
+def render_who_owns_section(
+	bewohnertyp_df: pd.DataFrame,
+	first_generation: str | None = None,
+	second_generation: str | None = None,
+) -> None:
 	st.markdown("<div class='section-title'>3. Who Owns</div>", unsafe_allow_html=True)
 	st.markdown(
 		"""
@@ -77,12 +81,26 @@ def render_who_owns_section(bewohnertyp_df: pd.DataFrame) -> None:
 	)
 
 	gen_options = GENERATION_ORDER
-	col_sel_1, col_sel_2 = st.columns(2)
-	with col_sel_1:
-		first_generation = st.selectbox("First generation", gen_options, index=0, key="who_owns_first_generation")
-	with col_sel_2:
-		second_options = [generation for generation in gen_options if generation != first_generation]
-		second_generation = st.selectbox("Second generation", second_options, index=0 if second_options else 0, key="who_owns_second_generation")
+	if first_generation is None:
+		col_sel_1, col_sel_2 = st.columns(2)
+		with col_sel_1:
+			first_generation = st.selectbox("First generation", gen_options, index=0, key="who_owns_first_generation")
+		with col_sel_2:
+			second_options = [generation for generation in gen_options if generation != first_generation]
+			second_generation = st.selectbox("Second generation", second_options, index=0 if second_options else 0, key="who_owns_second_generation")
+	else:
+		if second_generation is None or second_generation == first_generation:
+			second_generation = next((generation for generation in gen_options if generation != first_generation), first_generation)
+		st.markdown(
+			f"""
+			<div class='filter-panel'>
+				<div class='filter-title'>Active comparison</div>
+				<div class='filter-heading'>{first_generation} vs {second_generation}</div>
+				<div class='filter-copy'>These generations are controlled from the top filter section.</div>
+			</div>
+			""",
+			unsafe_allow_html=True,
+		)
 
 	comparison_metric_col_1, comparison_metric_col_2 = st.columns(2)
 	with comparison_metric_col_1:
