@@ -14,10 +14,12 @@ BASE_PATH = Path(__file__).resolve().parents[1]
 # RAW Paths for WhoDecides Data
 RAW_SELECTS_2023_PATH = BASE_PATH / "data" / "whodecide" / "raw" / "2634_Selects2023_PES_Data_v2.0.csv"
 RAW_SELECTS_2019_PATH = BASE_PATH / "data" / "whodecide" / "raw" / "1179_Selects2019_PES_Data_v1.1.0.csv"  # NEU
+RAW_SELECTS_2015_PATH = BASE_PATH / "data" / "whodecide" / "raw" / "726_Selects2015_PES_Data_v1.03.dta"  # NEU
 
 # Processed Paths for WhoDecides Data
 PROCESSED_SELECTS_2023_PATH = BASE_PATH / "data" / "whodecide" / "processed" / "selects_2023_clean.csv"
 PROCESSED_SELECTS_2019_PATH = BASE_PATH / "data" / "whodecide" / "processed" / "selects_2019_clean.csv"  # NEU
+PROCESSED_SELECTS_2015_PATH = BASE_PATH / "data" / "whodecide" / "processed" / "selects_2015_clean.csv"  # NEU
 
 # RAW Paths for WhoOwns Data
 RAW_WOHNEIGENTUMSQUOTE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "wohneigentumsquote_kanton_2026.csv"
@@ -64,6 +66,24 @@ def load_selects_data(path: Path) -> pd.DataFrame:
     
     return df
 
+def load_selects_2015_data(path: Path) -> pd.DataFrame:
+    """Lade Selects 2015 Daten (.dta Stata-Format)."""
+    print("\n" + "="*50)
+    print("LOADING SELECTS 2015 DATA (.dta)")
+    print("="*50)
+
+    if not path.exists():
+        raise FileNotFoundError(f"Datei nicht gefunden: {path}")
+
+    print(f"📂 Loading from: {path}")
+
+    df = pd.read_stata(path, convert_categoricals=False)
+
+    # f11100rec nachbauen: 1=gewählt, 0=nicht gewählt, Rest als NaN
+    df["f11100rec"] = df["f11100r"].map({1.0: 1, 0.0: 0})
+
+    print(f"✓ Loaded: {df.shape[0]} rows × {df.shape[1]} columns")
+    return df
 
 def load_wohneigentums_data(path: Path) -> pd.DataFrame:
     """
@@ -255,7 +275,8 @@ try:
     # Selects Daten laden
     df_selects_2023 = load_selects_data(RAW_SELECTS_2023_PATH)
     df_selects_2019 = load_selects_data(RAW_SELECTS_2019_PATH)  # NEU
-    
+    df_selects_2015 = load_selects_2015_data(RAW_SELECTS_2015_PATH)  # NEU
+
     # WhoOwns Daten laden
     df_whoowns = load_wohneigentums_data(RAW_WOHNEIGENTUMSQUOTE_PATH)
     df_whoowns_geo = load_geo_metadata(RAW_WOHNEIGENTUMS_META_PATH)
@@ -298,6 +319,12 @@ try:
         df_selects_2019["year"] = 2019  # NEU
         df_selects_2019.to_csv(PROCESSED_SELECTS_2019_PATH, index=False)
         print(f"✓ Selects 2019 saved to: {PROCESSED_SELECTS_2019_PATH}")
+
+    if df_selects_2015 is not None:
+        df_selects_2015 = standardize_columns(df_selects_2015)
+        df_selects_2015["year"] = 2015  # NEU
+        df_selects_2015.to_csv(PROCESSED_SELECTS_2015_PATH, index=False)
+        print(f"✓ Selects 2015 saved to: {PROCESSED_SELECTS_2015_PATH}")
 
     if df_whoowns is not None:
         df_whoowns = standardize_columns(df_whoowns)
