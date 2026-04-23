@@ -12,10 +12,12 @@ import sys
 BASE_PATH = Path(__file__).resolve().parents[1]
 
 # RAW Paths for WhoDecides Data
-RAW_SELECTS_PATH = BASE_PATH / "data" / "whodecide" / "raw" / "2634_Selects2023_PES_Data_v2.0.csv"
+RAW_SELECTS_2023_PATH = BASE_PATH / "data" / "whodecide" / "raw" / "2634_Selects2023_PES_Data_v2.0.csv"
+RAW_SELECTS_2019_PATH = BASE_PATH / "data" / "whodecide" / "raw" / "1179_Selects2019_PES_Data_v1.1.0.csv"  # NEU
 
 # Processed Paths for WhoDecides Data
-PROCESSED_SELECTS_PATH = BASE_PATH / "data" / "whodecide" / "processed" / "selects_2023_clean.csv"
+PROCESSED_SELECTS_2023_PATH = BASE_PATH / "data" / "whodecide" / "processed" / "selects_2023_clean.csv"
+PROCESSED_SELECTS_2019_PATH = BASE_PATH / "data" / "whodecide" / "processed" / "selects_2019_clean.csv"  # NEU
 
 # RAW Paths for WhoOwns Data
 RAW_WOHNEIGENTUMSQUOTE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "wohneigentumsquote_kanton_2026.csv"
@@ -28,7 +30,8 @@ PROCESSED_BFS_BEWOHNERTYP_PATH = BASE_PATH / "data" / "whoOwns" / "processed" / 
 PROCESSED_BFS_WOHNFLAECHE_PATH = BASE_PATH / "data" / "whoOwns" / "processed" / "bfs_wohnflaeche_20260414_clean.csv"
 
 # Ordnerstruktur sicherstellen
-PROCESSED_SELECTS_PATH.parent.mkdir(parents=True, exist_ok=True)
+PROCESSED_SELECTS_2023_PATH.parent.mkdir(parents=True, exist_ok=True)
+PROCESSED_SELECTS_2019_PATH.parent.mkdir(parents=True, exist_ok=True)
 PROCESSED_WOHNEIGENTUMSQUOTE_PATH.parent.mkdir(parents=True, exist_ok=True)
 PROCESSED_BFS_BEWOHNERTYP_PATH.parent.mkdir(parents=True, exist_ok=True)
 PROCESSED_BFS_WOHNFLAECHE_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -55,7 +58,7 @@ def load_selects_data(path: Path) -> pd.DataFrame:
     
     print(f"📂 Loading from: {path}")
     
-    df = pd.read_csv(path, sep=";", low_memory=False)
+    df = pd.read_csv(path, sep=None, engine="python")
     
     print(f"✓ Loaded: {df.shape[0]} rows × {df.shape[1]} columns")
     
@@ -248,8 +251,10 @@ def get_canton_mapping() -> dict:
 # -----------------------------------------
 
 try:
+    
     # Selects Daten laden
-    df_selects = load_selects_data(RAW_SELECTS_PATH)
+    df_selects_2023 = load_selects_data(RAW_SELECTS_2023_PATH)
+    df_selects_2019 = load_selects_data(RAW_SELECTS_2019_PATH)  # NEU
     
     # WhoOwns Daten laden
     df_whoowns = load_wohneigentums_data(RAW_WOHNEIGENTUMSQUOTE_PATH)
@@ -280,13 +285,20 @@ try:
     print("DATA STANDARDIZATION")
     print("="*50)
     
-    if df_selects is not None:
-        df_selects = standardize_columns(df_selects)
-        print("✓ Selects columns standardized")
 
-        df_selects.to_csv(PROCESSED_SELECTS_PATH, index=False)
-        print(f"✓ Selects data saved to: {PROCESSED_SELECTS_PATH}")
-    
+
+    if df_selects_2023 is not None:
+        df_selects_2023 = standardize_columns(df_selects_2023)
+        df_selects_2023["year"] = 2023  # Jahresspalte hinzufügen
+        df_selects_2023.to_csv(PROCESSED_SELECTS_2023_PATH, index=False)
+        print(f"✓ Selects 2023 saved to: {PROCESSED_SELECTS_2023_PATH}")
+
+    if df_selects_2019 is not None:
+        df_selects_2019 = standardize_columns(df_selects_2019)
+        df_selects_2019["year"] = 2019  # NEU
+        df_selects_2019.to_csv(PROCESSED_SELECTS_2019_PATH, index=False)
+        print(f"✓ Selects 2019 saved to: {PROCESSED_SELECTS_2019_PATH}")
+
     if df_whoowns is not None:
         df_whoowns = standardize_columns(df_whoowns)
         print("✓ WhoOwns columns standardized")
