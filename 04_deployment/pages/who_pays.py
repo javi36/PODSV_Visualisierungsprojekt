@@ -4,17 +4,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from app_config import inject_global_styles
 from who_pays_section import render_who_pays_section
-
-st.set_page_config(
-    page_title="Who Pays · Generational Conflict",
-    page_icon="💸",
-    layout="wide",
-    initial_sidebar_state="collapsed",
-)
-
-inject_global_styles()
 
 st.markdown("<div class='back-btn-wrapper'>", unsafe_allow_html=True)
 if st.button("← Back to Overview", key="back_btn"):

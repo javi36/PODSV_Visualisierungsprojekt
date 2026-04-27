@@ -7,6 +7,7 @@ import streamlit as st
 BASE_DIR = Path(__file__).resolve().parents[1]
 DEMOGRAPHIC_DATA_PATH = BASE_DIR / "data" / "demografischeBilanz.csv"
 BEWOHNERTYP_DATA_PATH = BASE_DIR / "data" / "whoOwns" / "processed" / "bfs_bewohnertyp_20260414_clean.csv"
+WOHNFLAECHE_DATA_PATH = BASE_DIR / "data" / "whoOwns" / "processed" / "bfs_wohnflaeche_20260414_clean.csv"
 
 GENERATION_ORDER = [
 	"Silent Generation",
@@ -34,6 +35,11 @@ GLOBAL_STYLES = """
 	}
 	[data-testid="stSidebar"] {
 		background: #ffffff;
+		min-width: 290px !important;
+		width: 290px !important;
+	}
+	section[data-testid="stSidebar"] > div:first-child {
+		padding-top: 0.5rem;
 	}
 	.hero {
 		text-align: center;

@@ -4,17 +4,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from app_config import inject_global_styles
 from who_decides_section import render_who_decides_section
-
-st.set_page_config(
-    page_title="Who Decides · Generational Conflict",
-    page_icon="🗳️",
-    layout="wide",
-    initial_sidebar_state="collapsed",
-)
-
-inject_global_styles()
 
 st.markdown(
     """

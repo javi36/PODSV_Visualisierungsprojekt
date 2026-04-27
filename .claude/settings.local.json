@@ -3,7 +3,15 @@
     "allow": [
       "Bash(python3 -c ' *)",
       "PowerShell(pip show streamlit 2>&1)",
-      "mcp__Claude_in_Chrome__tabs_context_mcp"
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(python -c \"import streamlit; print\\(streamlit.__version__\\)\")",
+      "Bash(pip show *)",
+      "Bash(conda run *)",
+      "Bash(python3 -c \"import streamlit; print\\(streamlit.__version__\\)\")",
+      "Bash(py -c \"import streamlit; print\\(streamlit.__version__\\)\")",
+      "Bash(where streamlit *)",
+      "Bash(streamlit --version)",
+      "PowerShell($paths = Get-ChildItem -Path \"$env:USERPROFILE\\\\Documents\\\\05_Studium\\\\04_Programmierprojekte\\\\04_Semester\\\\DigitalStorytellingAndVisualisation\\\\visualisierungsprojekt\" -Recurse -Filter \"streamlit.exe\" -ErrorAction SilentlyContinue; $paths | ForEach-Object { $_.FullName }; $paths[0].FullName | ForEach-Object { & $_ --version })"
     ]
   }
 }

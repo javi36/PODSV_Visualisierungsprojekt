@@ -1,24 +1,14 @@
+####### NEU: Starten über app.py und nicht diese py-Datei direkt! #######
 import streamlit as st
 
 from app_config import (
     DEMOGRAPHIC_DATA_PATH,
-    GENERATION_ORDER,
-    inject_global_styles,
     load_demographic_data,
 )
 from demographic_section import (
     build_generation_pyramid_data,
     create_generation_pyramid,
 )
-
-st.set_page_config(
-    page_title="Generational Conflict",
-    page_icon="🏠",
-    layout="wide",
-    initial_sidebar_state="collapsed",
-)
-
-inject_global_styles()
 
 GENERATION_META: dict[str, dict] = {
     "Silent Generation": {
@@ -85,7 +75,7 @@ def main() -> None:
         """
         <div class="hero">
             <h1>Generational Conflict</h1>
-            <p>Housing, power and wealth across five generations in Switzerland</p>
+            <p>blablablabla ....</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -128,7 +118,7 @@ def main() -> None:
     st.markdown("<div class='pyramid-section'>", unsafe_allow_html=True)
     st.markdown(
         "<div class='pyramid-title'>Demographic Balance of Switzerland</div>"
-        "<div class='pyramid-subtitle'>Population by generation · Swiss residents</div>",
+        "<div class='pyramid-subtitle'>Population by generation · Männer (left) &nbsp;|&nbsp; Frauen (right) · Swiss residents</div>",
         unsafe_allow_html=True,
     )
 
@@ -140,16 +130,7 @@ def main() -> None:
         st.exception(exc)
         st.stop()
 
-    available_years = sorted(pyramid_data["year"].unique().tolist())
-
-    st.markdown("<div class='slider-label'>Select year</div>", unsafe_allow_html=True)
-    selected_year = st.select_slider(
-        "Jahr",
-        options=available_years,
-        value=max(available_years),
-        label_visibility="collapsed",
-        key="pyramid_year_slider",
-    )
+    selected_year = st.session_state.get("sidebar_year", 2024)
 
     st.plotly_chart(
         create_generation_pyramid(pyramid_data, selected_year),
