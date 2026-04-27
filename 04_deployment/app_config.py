@@ -154,6 +154,110 @@ GLOBAL_STYLES = """
 		font-variant-numeric: tabular-nums;
 		color: #555555;
 	}
+	.gen-card {
+		background: #ffffff;
+		border: 1px solid #ececec;
+		border-radius: 14px;
+		padding: 1.1rem 1rem 1rem;
+		box-shadow: 0 4px 14px rgba(17,17,17,0.05);
+		height: 100%;
+	}
+	.gen-card-name {
+		font-size: 0.88rem;
+		font-weight: 700;
+		color: #111111;
+		margin-bottom: 0.25rem;
+		line-height: 1.3;
+	}
+	.gen-card-years {
+		font-size: 0.75rem;
+		color: #888888;
+		margin-bottom: 0.3rem;
+	}
+	.gen-card-age {
+		font-size: 1.05rem;
+		font-weight: 700;
+		color: #111111;
+		margin-bottom: 0.6rem;
+	}
+	.gen-card-facts {
+		font-size: 0.8rem;
+		color: #444444;
+		padding-left: 1rem;
+		margin: 0;
+		line-height: 1.5;
+	}
+	.gen-card-facts li {
+		margin-bottom: 0.2rem;
+	}
+	.pyramid-section {
+		background: #ffffff;
+		border: 1px solid #ececec;
+		border-radius: 18px;
+		padding: 1.2rem 1.4rem 0.8rem;
+		box-shadow: 0 6px 22px rgba(17,17,17,0.04);
+		margin-top: 1.4rem;
+	}
+	.pyramid-title {
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: #111111;
+		margin-bottom: 0.2rem;
+	}
+	.pyramid-subtitle {
+		font-size: 0.9rem;
+		color: #666666;
+		margin-bottom: 0.6rem;
+	}
+	.slider-label {
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #888888;
+		margin-bottom: 0.1rem;
+	}
+	.nav-section-title {
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: #111111;
+		text-align: center;
+		margin-top: 2.2rem;
+		margin-bottom: 0.4rem;
+	}
+	.nav-section-subtitle {
+		font-size: 0.95rem;
+		color: #666666;
+		text-align: center;
+		margin-bottom: 1.4rem;
+	}
+	.nav-card {
+		background: #f8f9fa;
+		border: 1px solid #e8e8e8;
+		border-radius: 16px;
+		padding: 1.4rem 1rem 1rem;
+		text-align: center;
+		margin-bottom: 0.8rem;
+		transition: box-shadow 0.15s;
+	}
+	.nav-card-icon {
+		font-size: 2.2rem;
+		margin-bottom: 0.5rem;
+	}
+	.nav-card-title {
+		font-size: 1.05rem;
+		font-weight: 700;
+		color: #111111;
+		margin-bottom: 0.3rem;
+	}
+	.nav-card-desc {
+		font-size: 0.84rem;
+		color: #666666;
+		line-height: 1.5;
+		margin-bottom: 0.2rem;
+	}
+	.back-btn-wrapper {
+		padding: 0.5rem 0 1.2rem;
+	}
 </style>
 """
 

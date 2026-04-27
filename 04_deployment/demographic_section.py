@@ -1,7 +1,16 @@
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 from app_config import GENERATION_ORDER, find_column, generation_from_birth_year
+
+GENERATION_COLORS: dict[str, str] = {
+    "Silent Generation": "#0f4c5c",
+    "Babyboomers": "#1d7874",
+    "Generation X": "#679289",
+    "Millennials / Gen Y": "#f4a259",
+    "Generation Z": "#f25c54",
+}
 
 
 def build_generation_pie_data(df: pd.DataFrame) -> pd.DataFrame:
@@ -62,6 +71,122 @@ def build_generation_pie_data(df: pd.DataFrame) -> pd.DataFrame:
 	result["year_total"] = result["year_total"].fillna(result.groupby("year")["population"].transform("sum"))
 	result["generation"] = pd.Categorical(result["generation"], categories=GENERATION_ORDER, ordered=True)
 	return result
+
+
+def build_generation_pyramid_data(df: pd.DataFrame) -> pd.DataFrame:
+    year_col = find_column(df, ["jahr"])
+    canton_col = find_column(df, ["kanton"])
+    age_col = find_column(df, ["alter"])
+    population_col = find_column(df, ["bestand", "31"])
+
+    if any(c is None for c in [year_col, canton_col, age_col, population_col]):
+        raise ValueError("Missing required columns for pyramid data")
+
+    working = df.copy()
+    working[year_col] = pd.to_numeric(working[year_col], errors="coerce")
+    working[population_col] = pd.to_numeric(working[population_col], errors="coerce")
+    working["age_num"] = pd.to_numeric(
+        working[age_col].astype(str).str.extract(r"(\d+)", expand=False), errors="coerce"
+    )
+    working = working[
+        working[year_col].notna() & working[population_col].notna() & working["age_num"].notna()
+    ].copy()
+    working[year_col] = working[year_col].astype(int)
+
+    if find_column(df, ["staatsange"]):
+        nat_col = find_column(df, ["staatsange"])
+        working = working[working[nat_col].astype(str).str.contains("total", case=False, na=False)].copy()
+
+    working = working[working[canton_col].astype(str).str.strip().str.lower() == "schweiz"].copy()
+    working = working[~working[age_col].astype(str).str.contains("total", case=False, na=False)].copy()
+
+    gender_col = find_column(df, ["geschlecht"])
+    if gender_col and set(["Mann", "Frau"]).issubset(set(working[gender_col].unique())):
+        working = working[working[gender_col].isin(["Mann", "Frau"])].copy()
+        working["gender"] = working[gender_col]
+    else:
+        working = working[working[gender_col].astype(str).str.contains("total", case=False, na=False)].copy()
+        working["gender"] = "Total"
+
+    working["birth_year"] = working[year_col] - working["age_num"]
+    working["generation"] = working["birth_year"].apply(generation_from_birth_year)
+    working = working[working["generation"].isin(GENERATION_ORDER)].copy()
+
+    result = (
+        working.groupby([year_col, "generation", "gender"], as_index=False)[population_col]
+        .sum()
+        .rename(columns={year_col: "year", population_col: "population"})
+    )
+    result["generation"] = pd.Categorical(result["generation"], categories=GENERATION_ORDER, ordered=True)
+    return result
+
+
+def create_generation_pyramid(df: pd.DataFrame, selected_year: int):
+    year_data = df[df["year"] == selected_year].copy()
+    totals = (
+        year_data.groupby("generation", as_index=False, observed=True)["population"]
+        .sum()
+    )
+    totals["generation"] = pd.Categorical(totals["generation"], categories=GENERATION_ORDER, ordered=True)
+    totals = totals.sort_values("generation")
+
+    gen_display_order = list(reversed(GENERATION_ORDER))
+    colors = [GENERATION_COLORS.get(g, "#888888") for g in gen_display_order]
+
+    pop_by_gen = {
+        row["generation"]: int(row["population"])
+        for _, row in totals.iterrows()
+    }
+
+    fig = go.Figure()
+    for gen, color in zip(gen_display_order, colors):
+        pop = pop_by_gen.get(gen, 0)
+        fig.add_trace(go.Bar(
+            name=gen,
+            y=[gen],
+            x=[pop],
+            orientation="h",
+            marker_color=color,
+            showlegend=True,
+            customdata=[[gen, pop]],
+            hovertemplate="<b>%{customdata[0]}</b><br>Population: %{customdata[1]:,.0f}<extra></extra>",
+        ))
+
+    max_pop = max(pop_by_gen.values()) if pop_by_gen else 1_000_000
+    tick_step = 200_000
+    max_tick = (int(max_pop / tick_step) + 1) * tick_step
+    tick_vals = list(range(0, max_tick + tick_step, tick_step))
+    tick_texts = [f"{v // 1_000}k" if v > 0 else "0" for v in tick_vals]
+
+    fig.update_layout(
+        barmode="group",
+        height=360,
+        margin=dict(t=20, l=10, r=30, b=10),
+        plot_bgcolor="#ffffff",
+        paper_bgcolor="#ffffff",
+        xaxis=dict(
+            tickvals=tick_vals,
+            ticktext=tick_texts,
+            gridcolor="#f0f0f0",
+            zeroline=False,
+            range=[0, max_tick * 1.08],
+        ),
+        yaxis=dict(
+            categoryorder="array",
+            categoryarray=gen_display_order,
+            tickfont=dict(size=12, color="#333333"),
+        ),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=-0.25,
+            xanchor="center",
+            x=0.5,
+            title_text="",
+            font=dict(size=11),
+        ),
+    )
+    return fig
 
 
 def create_generation_pie(df: pd.DataFrame, selected_year: int):
