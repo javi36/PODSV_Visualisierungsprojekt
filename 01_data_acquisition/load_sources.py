@@ -4,6 +4,7 @@
 
 from pathlib import Path
 import pandas as pd
+import re
 import sys
 
 # -----------------------------------------
@@ -20,7 +21,7 @@ PROCESSED_SELECTS_PATH = BASE_PATH / "data" / "whodecide" / "processed" / "selec
 # RAW Paths for WhoOwns Data
 RAW_WOHNEIGENTUMSQUOTE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "wohneigentumsquote_kanton_2026.csv"
 RAW_WOHNEIGENTUMS_META_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "metadaten_wohneigentumsquote_kanton_2026.ods"
-RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "bfs_bewohnertyp_groesse.xlsx"
+RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "bfs_bewohnertyp_groesse_v2.xlsx"
 
 # Processed Paths for WhoOwns Data
 PROCESSED_WOHNEIGENTUMSQUOTE_PATH = BASE_PATH / "data" / "whoOwns" / "processed" / "wohneigentumsquote_kanton_2026_clean.csv"
@@ -149,7 +150,7 @@ def load_bfs_bewohnertyp_groesse_data(path: Path, sheet_type: str) -> pd.DataFra
         sheet_type: "bewohnertyp" oder "wohnflaeche"
 
     Returns:
-        DataFrame mit BFS-Daten fuer genau ein Sheet oder None wenn nicht vorhanden
+        DataFrame mit BFS-Daten aus allen passenden Sheets oder None wenn nicht vorhanden
     """
     print("\n" + "="*50)
     print("LOADING BFS DATA")
@@ -165,16 +166,32 @@ def load_bfs_bewohnertyp_groesse_data(path: Path, sheet_type: str) -> pd.DataFra
         workbook = pd.ExcelFile(path)
         available_sheets = workbook.sheet_names
 
-        sheet_map = {
-            "bewohnertyp": ["Bewohnertyp", "SE2024"],
-            "wohnflaeche": ["Wohnflaeche", "Wohnfläche", "GWS-STATPOP2024"],
-        }
-
-        if sheet_type not in sheet_map:
+        if sheet_type not in {"bewohnertyp", "wohnflaeche"}:
             raise ValueError(f"Unbekannter sheet_type: {sheet_type}")
 
-        sheet_name = next((s for s in sheet_map[sheet_type] if s in available_sheets), None)
-        if sheet_name is None:
+        def is_matching_sheet(name: str) -> bool:
+            lowered = name.lower()
+            if sheet_type == "bewohnertyp":
+                return (
+                    "bewohn" in lowered
+                    or lowered.startswith("se")
+                    or "se20" in lowered
+                )
+            return (
+                "wohnflaeche" in lowered
+                or "wohnfläche" in lowered
+                or "gws" in lowered
+            )
+
+        def infer_year_from_sheet_name(name: str) -> int | None:
+            match = re.search(r"(20\d{2})", name)
+            if not match:
+                return None
+            year = int(match.group(1))
+            return year if 2019 <= year <= 2024 else None
+
+        matching_sheets = [sheet for sheet in available_sheets if is_matching_sheet(sheet)]
+        if not matching_sheets:
             print(f"⚠️  Kein passendes Sheet fuer '{sheet_type}' gefunden. Verfuegbar: {available_sheets}")
             return None
 
@@ -186,22 +203,52 @@ def load_bfs_bewohnertyp_groesse_data(path: Path, sheet_type: str) -> pd.DataFra
             "Wohnfläche (in m2) pro Person",
         ]
 
-        df = pd.read_excel(path, sheet_name=sheet_name, header=2)
-        df = df.loc[:, ~df.columns.astype(str).str.startswith("Unnamed")].copy()
+        frames = []
+        for sheet_name in matching_sheets:
+            sheet_df = pd.read_excel(path, sheet_name=sheet_name, header=2)
+            sheet_df = sheet_df.loc[:, ~sheet_df.columns.astype(str).str.startswith("Unnamed")].copy()
 
-        if "Alter" in df.columns:
-            df["Alter"] = pd.to_numeric(df["Alter"], errors="coerce")
-            df = df[df["Alter"].notna()].copy()
+            year_col = next(
+                (
+                    col
+                    for col in sheet_df.columns
+                    if "jahr" in str(col).lower() or "time_period" in str(col).lower()
+                ),
+                None,
+            )
+            if year_col is not None:
+                sheet_df["time_period"] = pd.to_numeric(sheet_df[year_col], errors="coerce")
+            else:
+                inferred_year = infer_year_from_sheet_name(sheet_name)
+                if inferred_year is not None:
+                    sheet_df["time_period"] = inferred_year
 
-        if "Bewohnertyp" in df.columns:
-            df = df[df["Bewohnertyp"].notna()].copy()
+            if "time_period" in sheet_df.columns:
+                sheet_df["time_period"] = pd.to_numeric(sheet_df["time_period"], errors="coerce")
 
-        for col in numeric_columns:
-            if col in df.columns:
-                df[col] = pd.to_numeric(df[col], errors="coerce")
+            if "Alter" in sheet_df.columns:
+                sheet_df["Alter"] = pd.to_numeric(sheet_df["Alter"], errors="coerce")
+                sheet_df = sheet_df[sheet_df["Alter"].notna()].copy()
 
-        df["sheet_type"] = sheet_type
-  
+            if "Bewohnertyp" in sheet_df.columns:
+                sheet_df = sheet_df[sheet_df["Bewohnertyp"].notna()].copy()
+
+            for col in numeric_columns:
+                if col in sheet_df.columns:
+                    sheet_df[col] = pd.to_numeric(sheet_df[col], errors="coerce")
+
+            sheet_df["source_sheet"] = sheet_name
+            sheet_df["sheet_type"] = sheet_type
+            frames.append(sheet_df)
+
+        if not frames:
+            return None
+
+        df = pd.concat(frames, ignore_index=True)
+        if "time_period" in df.columns:
+            df = df[df["time_period"].between(2019, 2024, inclusive="both") | df["time_period"].isna()].copy()
+
+        print(f"✓ Loaded {sheet_type}: {len(matching_sheets)} sheets, {df.shape[0]} rows")
         return df
 
     except Exception as e:
@@ -248,6 +295,10 @@ def get_canton_mapping() -> dict:
 # -----------------------------------------
 
 try:
+    if not RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH.exists():
+        fallback_path = BASE_PATH / "data" / "whoOwns" / "raw" / "bfs_bewohnertyp_groesse.xlsx"
+        RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH = fallback_path
+
     # Selects Daten laden
     df_selects = load_selects_data(RAW_SELECTS_PATH)
     

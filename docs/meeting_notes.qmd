@@ -18,6 +18,24 @@ Altersgruppe:
 Pro themebereich 3 bis 5 features (oder KPI)
 
 
+
+## 23.04.2026
+
+Lading Page:
+* introduction text (of our storystelling, generationvertrag)
+* overview of the generations and KPIs --> details on demand (click and expand)
+* violinplot with bars including a time filtering option. (ab 2'000)
+
+* pagination system with 3 pages each one for a topic.
+
+page who decides:
+* 
+
+page 
+
+ 
+
+
 Topics:
 
 * topic 1
