@@ -25,7 +25,7 @@ PROCESSED_SELECTS_2015_PATH = BASE_PATH / "data" / "whodecide" / "processed" / "
 # RAW Paths for WhoOwns Data
 RAW_WOHNEIGENTUMSQUOTE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "wohneigentumsquote_kanton_2026.csv"
 RAW_WOHNEIGENTUMS_META_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "metadaten_wohneigentumsquote_kanton_2026.ods"
-RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "bfs_bewohnertyp_groesse_v2.xlsx"
+RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / "bfs_bewohnertyp_groesse.xlsx"
 
 # Processed Paths for WhoOwns Data
 PROCESSED_WOHNEIGENTUMSQUOTE_PATH = BASE_PATH / "data" / "whoOwns" / "processed" / "wohneigentumsquote_kanton_2026_clean.csv"
