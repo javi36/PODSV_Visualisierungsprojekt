@@ -2,15 +2,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-from app_config import GENERATION_ORDER, find_column, generation_from_birth_year
-
-GENERATION_COLORS: dict[str, str] = {
-    "Silent Generation": "#0f4c5c",
-    "Babyboomers": "#1d7874",
-    "Generation X": "#679289",
-    "Millennials / Gen Y": "#f4a259",
-    "Generation Z": "#f25c54",
-}
+from app_config import GENERATION_COLORS, GENERATION_ORDER, find_column, generation_from_birth_year
 
 
 def build_generation_pie_data(df: pd.DataFrame) -> pd.DataFrame:
@@ -71,6 +63,7 @@ def build_generation_pie_data(df: pd.DataFrame) -> pd.DataFrame:
 	result["year_total"] = result["year_total"].fillna(result.groupby("year")["population"].transform("sum"))
 	result["generation"] = pd.Categorical(result["generation"], categories=GENERATION_ORDER, ordered=True)
 	return result
+
 
 
 # ── Alte Implementierung (nach Generation gruppiert, mit Geschlechtertrennung) ─

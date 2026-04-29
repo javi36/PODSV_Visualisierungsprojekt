@@ -5,11 +5,11 @@ import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from app_config import GENERATION_ORDER, inject_global_styles
+from app_config import GENERATION_ORDER, SIDEBAR_YEARS, inject_global_styles
 
 st.set_page_config(
     page_title="Generational Conflict",
-    page_icon="🏠",
+    page_icon=":family_man_woman_girl_boy:",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -28,8 +28,6 @@ pg = st.navigation(
 )
 
 # ── Full sidebar: Navigation Panel + Control Panel ────────────────────────────
-_YEARS = list(range(2019, 2025))
-
 with st.sidebar:
     # — Navigation Panel —
     st.markdown(
@@ -76,19 +74,19 @@ with st.sidebar:
     )
     st.slider(
         "Year",
-        min_value=_YEARS[0],
-        max_value=_YEARS[-1],
-        value=_YEARS[-1],
+        min_value=SIDEBAR_YEARS[0],
+        max_value=SIDEBAR_YEARS[-1],
+        value=SIDEBAR_YEARS[-1],
         step=1,
         key="sidebar_year",
         label_visibility="collapsed",
     )
-    _sel_year = st.session_state.get("sidebar_year", _YEARS[-1])
+    _sel_year = st.session_state.get("sidebar_year", SIDEBAR_YEARS[-1])
     _tick_spans = "".join(
         f"<span style='font-size:0.62rem;"
         f"font-weight:{'700' if y == _sel_year else '400'};"
         f"color:{'#111111' if y == _sel_year else '#bbbbbb'};'>{y}</span>"
-        for y in _YEARS
+        for y in SIDEBAR_YEARS
     )
     st.markdown(
         f"<div style='display:flex;justify-content:space-between;"

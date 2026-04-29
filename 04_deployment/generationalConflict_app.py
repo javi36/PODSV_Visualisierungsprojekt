@@ -75,7 +75,6 @@ def main() -> None:
         """
         <div class="hero">
             <h1>Generational Conflict</h1>
-            <p>blablablabla ....</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -115,10 +114,13 @@ def main() -> None:
             )
 
     # ── Demographic pyramid ───────────────────────────────────────────────────
-    st.markdown("<div class='pyramid-section'>", unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
+    selected_year = st.session_state.get("sidebar_year", 2024)
+
     st.markdown(
-        "<div class='pyramid-title'>Demographic Balance of Switzerland</div>"
-        "<div class='pyramid-subtitle'>Population by generation </div>",
+        f"<div class='pyramid-title'>Demographic Balance of Switzerland</div>"
+        f"<div class='pyramid-subtitle'>Population by generation from {selected_year}</div>",
         unsafe_allow_html=True,
     )
 
@@ -129,8 +131,6 @@ def main() -> None:
         st.error("Could not load demographic data.")
         st.exception(exc)
         st.stop()
-
-    selected_year = st.session_state.get("sidebar_year", 2024)
 
     st.plotly_chart(
         create_generation_pyramid(pyramid_data, selected_year),
