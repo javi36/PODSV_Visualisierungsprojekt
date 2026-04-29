@@ -522,6 +522,11 @@ def render_who_owns_section(
         use_container_width=True,
     )
 
+    # ── Compute living space stats (needed for year_range below) ─────────────
+    wf_data = build_wohnflaeche_data(wohnflaeche_df, selected_gens)
+    all_years = sorted(wf_data["year"].unique())
+    year_range = f"{min(all_years)}–{max(all_years)}"
+
     # ── Narrative insight box ─────────────────────────────────────────────────
     gen_summary = ", ".join(
         f"{g} ({round(eig[eig['generation'] == g]['pct'].iloc[0])}%)"
@@ -529,11 +534,21 @@ def render_who_owns_section(
         if not eig[eig["generation"] == g].empty
     )
     st.markdown(
+        f"<div style='font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;"
+        f"color:#aaaaaa;margin:0.8rem 0 0.5rem;'>What the {year_range} trend tells us</div>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
         f"""
         <div class="narrative-text">
-        <strong>The pattern is consistent.</strong> Ownership declines steadily from {gen_summary}.
+        <strong>The pattern is consistent.</strong> Ownership declines steadily.
         The trend is not random — it reflects structural barriers: rising property prices,
         stagnant wages, and increasing competition for ownership in Swiss cities.
+        For younger generations, renting is not a lifestyle choice — it is increasingly the only option.
+        As housing costs continue to rise relative to income, the generational wealth gap in Switzerland
+        is likely to widen. This connects directly to the "Who pays?" dimension of this project:
+        those who rent pay more of their income for housing, while those who own accumulate
+        financial security — and arguably more political stake in protecting it.
         </div>
         """,
         unsafe_allow_html=True,
@@ -541,33 +556,8 @@ def render_who_owns_section(
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ── Closing paragraph ─────────────────────────────────────────────────────
-    st.markdown(
-        f"""
-        <p style="font-size:1rem;line-height:1.7;color:#444444;border-top:1px solid #eeeeee;
-        padding-top:1rem;margin-top:0.5rem;">
-        For younger generations, renting is not a lifestyle choice — it is increasingly the only option.
-        As housing costs continue to rise relative to income, the generational wealth gap in Switzerland
-        is likely to widen. This connects directly to the "Who pays?" dimension of this project:
-        those who rent pay more of their income for housing, while those who own accumulate
-        financial security — and arguably more political stake in protecting it.
-        <br><br>
-        <span style="font-size:0.8rem;color:#999999;">
-        Source: Visualization based on FSO data from {selected_year}
-        </span>
-        </p>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown("<br>", unsafe_allow_html=True)
-
     # ── Chart 1: Time trend ───────────────────────────────────────────────────
-    # ── Compute living space stats ────────────────────────────────────────────
-    wf_data = build_wohnflaeche_data(wohnflaeche_df, selected_gens)
     year_wf = wf_data[wf_data["year"] == selected_year]
-    all_years = sorted(wf_data["year"].unique())
-    year_range = f"{min(all_years)}–{max(all_years)}"
 
     wf_max_row = year_wf.loc[year_wf["sqm_per_person"].idxmax()] if not year_wf.empty else None
     wf_min_row = year_wf.loc[year_wf["sqm_per_person"].idxmin()] if not year_wf.empty else None
@@ -679,20 +669,14 @@ def render_who_owns_section(
     st.markdown("<br>", unsafe_allow_html=True)
 
     # ── Scatter: ownership rate vs. living space ──────────────────────────────
+    st.markdown("<div style='border-top:1px solid #eeeeee;margin:1.5rem 0 1rem;'></div>", unsafe_allow_html=True)
+ 
     st.markdown(
-        "<div style='font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;"
-        "color:#aaaaaa;margin:0.8rem 0 0.3rem;'>Korrelation: Eigentümerquote vs. Wohnfläche</div>",
+        "<h2 style='font-size:1.7rem;font-weight:800;color:#111111;margin:0 0 1rem;'>"
+        "Korrelation: Eigentümerquote vs. Wohnfläche</h2>",
         unsafe_allow_html=True,
     )
-    # Always use full generation set — this chart shows the structural correlation, not a filtered view
-    scatter_occ, _ = build_occupancy_stacked_data(bewohnertyp_df, selected_year, GENERATION_ORDER)
-    scatter_wf = build_wohnflaeche_data(wohnflaeche_df, GENERATION_ORDER)
-    st.plotly_chart(
-        create_space_ownership_scatter(scatter_wf, scatter_occ, selected_year, GENERATION_ORDER),
-        use_container_width=True,
-    )
-
-    # ── Why-box (accent border) ───────────────────────────────────────────────
+        # ── Why-box (accent border) ───────────────────────────────────────────────
     st.markdown(
         f"""
         <div style="background:#f7f9f4;border-left:4px solid #1d7874;border-radius:6px;
@@ -709,21 +693,34 @@ def render_who_owns_section(
 
     st.markdown("<br>", unsafe_allow_html=True)
 
+    # Always use full generation set — this chart shows the structural correlation, not a filtered view
+    scatter_occ, _ = build_occupancy_stacked_data(bewohnertyp_df, selected_year, GENERATION_ORDER)
+    scatter_wf = build_wohnflaeche_data(wohnflaeche_df, GENERATION_ORDER)
+    st.plotly_chart(
+        create_space_ownership_scatter(scatter_wf, scatter_occ, selected_year, GENERATION_ORDER),
+        use_container_width=True,
+    )
+
+
+
     # ── Closing paragraph ─────────────────────────────────────────────────────
     st.markdown(
         f"""
-        <p style="font-size:1rem;line-height:1.7;color:#444444;border-top:1px solid #eeeeee;padding-top:1rem;">
+        <div style="background:#f4f8f6;border:1px solid #c8ddd6;border-left:5px solid #1d7874;
+        border-radius:8px;padding:1.3rem 1.5rem;margin-top:1rem;">
+        <h5> Conclusion: A reinforcing gap in space and ownership</h6>
+        <p style="font-size:1.08rem;line-height:1.75;color:#222222;margin:0 0 0.9rem;">
         The living space gap reinforces the ownership gap. Together, they suggest that younger generations
         in Switzerland are not only less likely to own property — they also live in significantly more
         constrained conditions. As housing prices continue to rise, the prospect of younger cohorts
         closing this gap through future ownership becomes increasingly uncertain. This connects directly
         to the "Who pays?" dimension: smaller rented spaces often come at a disproportionately high
         cost relative to income.
-        <br><br>
+        </p>
         <span style="font-size:0.8rem;color:#999999;">
         Source: Visualization based on FSO data from {selected_year}
         </span>
-        </p>
+        </div>
         """,
         unsafe_allow_html=True,
     )

@@ -83,7 +83,7 @@ with st.sidebar:
     )
     _sel_year = st.session_state.get("sidebar_year", SIDEBAR_YEARS[-1])
     _tick_spans = "".join(
-        f"<span style='font-size:0.62rem;"
+        f"<span style='font-size:0.9rem;"
         f"font-weight:{'700' if y == _sel_year else '400'};"
         f"color:{'#111111' if y == _sel_year else '#bbbbbb'};'>{y}</span>"
         for y in SIDEBAR_YEARS

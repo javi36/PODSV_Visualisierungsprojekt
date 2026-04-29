@@ -39,7 +39,7 @@ GLOBAL_STYLES = """
 		background: #ffffff;
 		color: #111111;
 	}
-	.main {
+.main {
 		max-width: 1200px;
 		margin: 0 auto;
 	}
