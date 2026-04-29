@@ -118,7 +118,7 @@ def main() -> None:
     st.markdown("<div class='pyramid-section'>", unsafe_allow_html=True)
     st.markdown(
         "<div class='pyramid-title'>Demographic Balance of Switzerland</div>"
-        "<div class='pyramid-subtitle'>Population by generation · Männer (left) &nbsp;|&nbsp; Frauen (right) · Swiss residents</div>",
+        "<div class='pyramid-subtitle'>Population by generation </div>",
         unsafe_allow_html=True,
     )
 
