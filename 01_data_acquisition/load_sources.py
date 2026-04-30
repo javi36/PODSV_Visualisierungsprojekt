@@ -420,3 +420,17 @@ try:
     print("✓ WhoPays OKP-Daten geladen und disaggregiert")
 except Exception as e:
     print(f"❌ WhoPays Pipeline fehlgeschlagen: {e}")
+
+# -----------------------------------------
+# 5. WhoPays – AHV Einnahmen
+# -----------------------------------------
+# Dieser Block wird durch load_ahv_einnahmen.py verwaltet.
+# Direkter Aufruf: python 01_data_acquisition/load_ahv_einnahmen.py
+# -----------------------------------------
+from load_ahv_einnahmen import run_ahv_einnahmen_pipeline
+
+try:
+    df_ahv_cohort, df_ahv_birth_year, df_ahv_makro = run_ahv_einnahmen_pipeline()
+    print("✓ WhoPays AHV-Einnahmen geladen und disaggregiert")
+except Exception as e:
+    print(f"❌ AHV Einnahmen Pipeline fehlgeschlagen: {e}")
