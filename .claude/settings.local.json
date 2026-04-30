@@ -11,7 +11,10 @@
       "Bash(py -c \"import streamlit; print\\(streamlit.__version__\\)\")",
       "Bash(where streamlit *)",
       "Bash(streamlit --version)",
-      "PowerShell($paths = Get-ChildItem -Path \"$env:USERPROFILE\\\\Documents\\\\05_Studium\\\\04_Programmierprojekte\\\\04_Semester\\\\DigitalStorytellingAndVisualisation\\\\visualisierungsprojekt\" -Recurse -Filter \"streamlit.exe\" -ErrorAction SilentlyContinue; $paths | ForEach-Object { $_.FullName }; $paths[0].FullName | ForEach-Object { & $_ --version })"
+      "PowerShell($paths = Get-ChildItem -Path \"$env:USERPROFILE\\\\Documents\\\\05_Studium\\\\04_Programmierprojekte\\\\04_Semester\\\\DigitalStorytellingAndVisualisation\\\\visualisierungsprojekt\" -Recurse -Filter \"streamlit.exe\" -ErrorAction SilentlyContinue; $paths | ForEach-Object { $_.FullName }; $paths[0].FullName | ForEach-Object { & $_ --version })",
+      "Read(//private/tmp/whopays_unzip/2016/**)",
+      "Bash(read f *)",
+      "Bash(python3 -c 'import openpyxl; wb = openpyxl.load_workbook\\('\\\\''__TRACKED_VAR__'\\\\'', read_only=True\\); print\\('\\\\''\\\\n'\\\\''.join\\(wb.sheetnames\\)\\)')"
     ]
   }
 }

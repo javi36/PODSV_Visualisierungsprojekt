@@ -406,3 +406,17 @@ except Exception as e:
     import traceback
     traceback.print_exc()
     sys.exit(1)
+
+# -----------------------------------------
+# 4. WhoPays – OKP Gesundheitsdaten
+# -----------------------------------------
+# Dieser Block wird durch load_whopays.py verwaltet.
+# Direkter Aufruf: python 01_data_acquisition/load_whopays.py
+# -----------------------------------------
+from load_whopays import run_whopays_pipeline
+
+try:
+    df_okp_cohort, df_okp_birth_year = run_whopays_pipeline()
+    print("✓ WhoPays OKP-Daten geladen und disaggregiert")
+except Exception as e:
+    print(f"❌ WhoPays Pipeline fehlgeschlagen: {e}")
