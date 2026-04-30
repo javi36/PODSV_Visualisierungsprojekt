@@ -21,8 +21,8 @@ warnings.filterwarnings("ignore", category=UserWarning)
 # -----------------------------------------
 BASE_PATH = Path(__file__).resolve().parents[1]
 
-RAW_WHOPAYS_PATH    = BASE_PATH / "data" / "whopays" / "raw_whopays"
-RAW_POPULATION_PATH = BASE_PATH / "data" / "raw" / "px-x-0102020000_103_20260424-164251.xlsx"
+RAW_WHOPAYS_PATH       = BASE_PATH / "data" / "whopays" / "raw_whopays"
+RAW_POPULATION_PATH    = BASE_PATH / "data" / "raw" / "px-x-0102020000_103_20260424-164251.xlsx"
 
 PROCESSED_WHOPAYS_PATH = BASE_PATH / "data" / "whopays" / "processed_whopays"
 
