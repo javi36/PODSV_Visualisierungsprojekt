@@ -434,3 +434,17 @@ try:
     print("✓ WhoPays AHV-Einnahmen geladen und disaggregiert")
 except Exception as e:
     print(f"❌ AHV Einnahmen Pipeline fehlgeschlagen: {e}")
+
+# -----------------------------------------
+# 6. WhoPays – AHV Ausgaben (Rentendaten)
+# -----------------------------------------
+# Dieser Block wird durch load_ahv_ausgaben.py verwaltet.
+# Direkter Aufruf: python 01_data_acquisition/load_ahv_ausgaben.py
+# -----------------------------------------
+from load_ahv_ausgaben import run_ahv_ausgaben_pipeline
+
+try:
+    df_ahv_ausgaben = run_ahv_ausgaben_pipeline()
+    print("✓ WhoPays AHV-Ausgaben (Rentendaten) geladen")
+except Exception as e:
+    print(f"❌ AHV Ausgaben Pipeline fehlgeschlagen: {e}")

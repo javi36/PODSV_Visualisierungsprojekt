@@ -1,0 +1,1405 @@
+year,variable_name,age,birth_year,project_age_group,project_age_order,metric,value,unit,scale,notes
+2012,ahv_ausgaben,65,1947,Babyboomers,2,anzahl_renten,85400.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,65,1948,Babyboomers,2,anzahl_renten,86103.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,65,1949,Babyboomers,2,anzahl_renten,84781.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,65,1950,Babyboomers,2,anzahl_renten,85248.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,65,1951,Babyboomers,2,anzahl_renten,82920.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,65,1952,Babyboomers,2,anzahl_renten,84746.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,65,1953,Babyboomers,2,anzahl_renten,84563.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,65,1954,Babyboomers,2,anzahl_renten,86421.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,65,1955,Babyboomers,2,anzahl_renten,88323.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,65,1956,Babyboomers,2,anzahl_renten,91007.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,65,1957,Babyboomers,2,anzahl_renten,92178.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,65,1958,Babyboomers,2,anzahl_renten,93957.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,65,1959,Babyboomers,2,anzahl_renten,97639.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,66,1946,Babyboomers,2,anzahl_renten,85654.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,66,1947,Babyboomers,2,anzahl_renten,85444.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,66,1948,Babyboomers,2,anzahl_renten,86109.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,66,1949,Babyboomers,2,anzahl_renten,84870.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,66,1950,Babyboomers,2,anzahl_renten,85351.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,66,1951,Babyboomers,2,anzahl_renten,82824.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,66,1952,Babyboomers,2,anzahl_renten,84717.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,66,1953,Babyboomers,2,anzahl_renten,84609.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,66,1954,Babyboomers,2,anzahl_renten,86760.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,66,1955,Babyboomers,2,anzahl_renten,88618.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,66,1956,Babyboomers,2,anzahl_renten,91336.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,66,1957,Babyboomers,2,anzahl_renten,92838.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,66,1958,Babyboomers,2,anzahl_renten,94719.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,67,1945,Silent Generation,1,anzahl_renten,82110.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,67,1946,Babyboomers,2,anzahl_renten,85123.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,67,1947,Babyboomers,2,anzahl_renten,84818.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,67,1948,Babyboomers,2,anzahl_renten,85496.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,67,1949,Babyboomers,2,anzahl_renten,84276.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,67,1950,Babyboomers,2,anzahl_renten,84658.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,67,1951,Babyboomers,2,anzahl_renten,82141.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,67,1952,Babyboomers,2,anzahl_renten,84203.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,67,1953,Babyboomers,2,anzahl_renten,84192.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,67,1954,Babyboomers,2,anzahl_renten,86242.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,67,1955,Babyboomers,2,anzahl_renten,88044.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,67,1956,Babyboomers,2,anzahl_renten,90978.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,67,1957,Babyboomers,2,anzahl_renten,92554.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,68,1944,Silent Generation,1,anzahl_renten,80951.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,68,1945,Silent Generation,1,anzahl_renten,81275.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,68,1946,Babyboomers,2,anzahl_renten,84338.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,68,1947,Babyboomers,2,anzahl_renten,84015.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,68,1948,Babyboomers,2,anzahl_renten,84746.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,68,1949,Babyboomers,2,anzahl_renten,83406.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,68,1950,Babyboomers,2,anzahl_renten,83755.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,68,1951,Babyboomers,2,anzahl_renten,81372.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,68,1952,Babyboomers,2,anzahl_renten,83484.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,68,1953,Babyboomers,2,anzahl_renten,83378.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,68,1954,Babyboomers,2,anzahl_renten,85533.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,68,1955,Babyboomers,2,anzahl_renten,87372.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,68,1956,Babyboomers,2,anzahl_renten,90219.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,69,1943,Silent Generation,1,anzahl_renten,77467.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,69,1944,Silent Generation,1,anzahl_renten,80100.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,69,1945,Silent Generation,1,anzahl_renten,80570.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,69,1946,Babyboomers,2,anzahl_renten,83436.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,69,1947,Babyboomers,2,anzahl_renten,83202.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,69,1948,Babyboomers,2,anzahl_renten,83776.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,69,1949,Babyboomers,2,anzahl_renten,82546.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,69,1950,Babyboomers,2,anzahl_renten,82992.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,69,1951,Babyboomers,2,anzahl_renten,80664.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,69,1952,Babyboomers,2,anzahl_renten,82698.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,69,1953,Babyboomers,2,anzahl_renten,82616.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,69,1954,Babyboomers,2,anzahl_renten,84784.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,69,1955,Babyboomers,2,anzahl_renten,86627.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,70,1942,Silent Generation,1,anzahl_renten,73423.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,70,1943,Silent Generation,1,anzahl_renten,76588.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,70,1944,Silent Generation,1,anzahl_renten,79278.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,70,1945,Silent Generation,1,anzahl_renten,79757.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,70,1946,Babyboomers,2,anzahl_renten,82694.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,70,1947,Babyboomers,2,anzahl_renten,82285.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,70,1948,Babyboomers,2,anzahl_renten,82895.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,70,1949,Babyboomers,2,anzahl_renten,81737.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,70,1950,Babyboomers,2,anzahl_renten,82192.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,70,1951,Babyboomers,2,anzahl_renten,79869.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,70,1952,Babyboomers,2,anzahl_renten,82008.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,70,1953,Babyboomers,2,anzahl_renten,81927.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,70,1954,Babyboomers,2,anzahl_renten,84157.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,71,1941,Silent Generation,1,anzahl_renten,67978.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,71,1942,Silent Generation,1,anzahl_renten,72361.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,71,1943,Silent Generation,1,anzahl_renten,75502.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,71,1944,Silent Generation,1,anzahl_renten,78076.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,71,1945,Silent Generation,1,anzahl_renten,78634.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,71,1946,Babyboomers,2,anzahl_renten,81436.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,71,1947,Babyboomers,2,anzahl_renten,81062.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,71,1948,Babyboomers,2,anzahl_renten,81670.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,71,1949,Babyboomers,2,anzahl_renten,80568.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,71,1950,Babyboomers,2,anzahl_renten,80939.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,71,1951,Babyboomers,2,anzahl_renten,78792.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,71,1952,Babyboomers,2,anzahl_renten,80869.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,71,1953,Babyboomers,2,anzahl_renten,80845.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,72,1940,Silent Generation,1,anzahl_renten,62285.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,72,1941,Silent Generation,1,anzahl_renten,66940.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,72,1942,Silent Generation,1,anzahl_renten,71305.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,72,1943,Silent Generation,1,anzahl_renten,74337.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,72,1944,Silent Generation,1,anzahl_renten,76821.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,72,1945,Silent Generation,1,anzahl_renten,77365.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,72,1946,Babyboomers,2,anzahl_renten,80186.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,72,1947,Babyboomers,2,anzahl_renten,79783.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,72,1948,Babyboomers,2,anzahl_renten,80404.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,72,1949,Babyboomers,2,anzahl_renten,79296.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,72,1950,Babyboomers,2,anzahl_renten,79603.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,72,1951,Babyboomers,2,anzahl_renten,77650.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,72,1952,Babyboomers,2,anzahl_renten,79708.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,73,1939,Silent Generation,1,anzahl_renten,60527.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,73,1940,Silent Generation,1,anzahl_renten,61149.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,73,1941,Silent Generation,1,anzahl_renten,65829.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,73,1942,Silent Generation,1,anzahl_renten,70044.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,73,1943,Silent Generation,1,anzahl_renten,73147.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,73,1944,Silent Generation,1,anzahl_renten,75524.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,73,1945,Silent Generation,1,anzahl_renten,76039.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,73,1946,Babyboomers,2,anzahl_renten,78734.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,73,1947,Babyboomers,2,anzahl_renten,78473.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,73,1948,Babyboomers,2,anzahl_renten,78903.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,73,1949,Babyboomers,2,anzahl_renten,77928.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,73,1950,Babyboomers,2,anzahl_renten,78277.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,73,1951,Babyboomers,2,anzahl_renten,76366.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,74,1938,Silent Generation,1,anzahl_renten,57669.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,74,1939,Silent Generation,1,anzahl_renten,59382.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,74,1940,Silent Generation,1,anzahl_renten,60106.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,74,1941,Silent Generation,1,anzahl_renten,64505.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,74,1942,Silent Generation,1,anzahl_renten,68766.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,74,1943,Silent Generation,1,anzahl_renten,71740.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,74,1944,Silent Generation,1,anzahl_renten,74145.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,74,1945,Silent Generation,1,anzahl_renten,74650.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,74,1946,Babyboomers,2,anzahl_renten,77213.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,74,1947,Babyboomers,2,anzahl_renten,76937.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,74,1948,Babyboomers,2,anzahl_renten,77445.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,74,1949,Babyboomers,2,anzahl_renten,76512.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,74,1950,Babyboomers,2,anzahl_renten,76926.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,75,1937,Silent Generation,1,anzahl_renten,54707.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,75,1938,Silent Generation,1,anzahl_renten,56455.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,75,1939,Silent Generation,1,anzahl_renten,58185.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,75,1940,Silent Generation,1,anzahl_renten,58831.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,75,1941,Silent Generation,1,anzahl_renten,63205.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,75,1942,Silent Generation,1,anzahl_renten,67330.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,75,1943,Silent Generation,1,anzahl_renten,70239.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,75,1944,Silent Generation,1,anzahl_renten,72674.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,75,1945,Silent Generation,1,anzahl_renten,73164.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,75,1946,Babyboomers,2,anzahl_renten,75632.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,75,1947,Babyboomers,2,anzahl_renten,75318.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,75,1948,Babyboomers,2,anzahl_renten,75956.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,75,1949,Babyboomers,2,anzahl_renten,75007.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,76,1936,Silent Generation,1,anzahl_renten,54101.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,76,1937,Silent Generation,1,anzahl_renten,53536.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,76,1938,Silent Generation,1,anzahl_renten,55229.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,76,1939,Silent Generation,1,anzahl_renten,56820.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,76,1940,Silent Generation,1,anzahl_renten,57485.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,76,1941,Silent Generation,1,anzahl_renten,61830.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,76,1942,Silent Generation,1,anzahl_renten,65910.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,76,1943,Silent Generation,1,anzahl_renten,68710.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,76,1944,Silent Generation,1,anzahl_renten,71003.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,76,1945,Silent Generation,1,anzahl_renten,71418.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,76,1946,Babyboomers,2,anzahl_renten,73937.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,76,1947,Babyboomers,2,anzahl_renten,73669.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,76,1948,Babyboomers,2,anzahl_renten,74339.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,77,1935,Silent Generation,1,anzahl_renten,52803.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,77,1936,Silent Generation,1,anzahl_renten,52712.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,77,1937,Silent Generation,1,anzahl_renten,52191.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,77,1938,Silent Generation,1,anzahl_renten,53733.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,77,1939,Silent Generation,1,anzahl_renten,55444.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,77,1940,Silent Generation,1,anzahl_renten,56020.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,77,1941,Silent Generation,1,anzahl_renten,60343.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,77,1942,Silent Generation,1,anzahl_renten,64347.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,77,1943,Silent Generation,1,anzahl_renten,67087.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,77,1944,Silent Generation,1,anzahl_renten,69209.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,77,1945,Silent Generation,1,anzahl_renten,69646.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,77,1946,Babyboomers,2,anzahl_renten,72166.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,77,1947,Babyboomers,2,anzahl_renten,71964.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,78,1934,Silent Generation,1,anzahl_renten,49936.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,78,1935,Silent Generation,1,anzahl_renten,51242.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,78,1936,Silent Generation,1,anzahl_renten,51267.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,78,1937,Silent Generation,1,anzahl_renten,50685.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,78,1938,Silent Generation,1,anzahl_renten,52370.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,78,1939,Silent Generation,1,anzahl_renten,53878.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,78,1940,Silent Generation,1,anzahl_renten,54404.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,78,1941,Silent Generation,1,anzahl_renten,58735.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,78,1942,Silent Generation,1,anzahl_renten,62559.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,78,1943,Silent Generation,1,anzahl_renten,65143.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,78,1944,Silent Generation,1,anzahl_renten,67333.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,78,1945,Silent Generation,1,anzahl_renten,67724.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,78,1946,Babyboomers,2,anzahl_renten,70321.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,79,1933,Silent Generation,1,anzahl_renten,47128.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,79,1934,Silent Generation,1,anzahl_renten,48341.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,79,1935,Silent Generation,1,anzahl_renten,49703.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,79,1936,Silent Generation,1,anzahl_renten,49580.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,79,1937,Silent Generation,1,anzahl_renten,49164.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,79,1938,Silent Generation,1,anzahl_renten,50720.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,79,1939,Silent Generation,1,anzahl_renten,52206.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,79,1940,Silent Generation,1,anzahl_renten,52768.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,79,1941,Silent Generation,1,anzahl_renten,56983.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,79,1942,Silent Generation,1,anzahl_renten,60571.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,79,1943,Silent Generation,1,anzahl_renten,63147.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,79,1944,Silent Generation,1,anzahl_renten,65250.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,79,1945,Silent Generation,1,anzahl_renten,65835.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,80,1932,Silent Generation,1,anzahl_renten,45595.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,80,1933,Silent Generation,1,anzahl_renten,45413.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,80,1934,Silent Generation,1,anzahl_renten,46602.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,80,1935,Silent Generation,1,anzahl_renten,47905.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,80,1936,Silent Generation,1,anzahl_renten,47821.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,80,1937,Silent Generation,1,anzahl_renten,47452.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,80,1938,Silent Generation,1,anzahl_renten,48988.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,80,1939,Silent Generation,1,anzahl_renten,50497.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,80,1940,Silent Generation,1,anzahl_renten,50898.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,80,1941,Silent Generation,1,anzahl_renten,55018.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,80,1942,Silent Generation,1,anzahl_renten,58410.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,80,1943,Silent Generation,1,anzahl_renten,61106.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,80,1944,Silent Generation,1,anzahl_renten,63041.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,81,1931,Silent Generation,1,anzahl_renten,42656.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,81,1932,Silent Generation,1,anzahl_renten,43701.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,81,1933,Silent Generation,1,anzahl_renten,43527.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,81,1934,Silent Generation,1,anzahl_renten,44583.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,81,1935,Silent Generation,1,anzahl_renten,45971.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,81,1936,Silent Generation,1,anzahl_renten,45888.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,81,1937,Silent Generation,1,anzahl_renten,45594.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,81,1938,Silent Generation,1,anzahl_renten,47100.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,81,1939,Silent Generation,1,anzahl_renten,48506.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,81,1940,Silent Generation,1,anzahl_renten,48831.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,81,1941,Silent Generation,1,anzahl_renten,52864.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,81,1942,Silent Generation,1,anzahl_renten,56191.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,81,1943,Silent Generation,1,anzahl_renten,58892.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,82,1930,Silent Generation,1,anzahl_renten,40609.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,82,1931,Silent Generation,1,anzahl_renten,40586.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,82,1932,Silent Generation,1,anzahl_renten,41664.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,82,1933,Silent Generation,1,anzahl_renten,41448.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,82,1934,Silent Generation,1,anzahl_renten,42566.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,82,1935,Silent Generation,1,anzahl_renten,43928.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,82,1936,Silent Generation,1,anzahl_renten,43803.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,82,1937,Silent Generation,1,anzahl_renten,43600.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,82,1938,Silent Generation,1,anzahl_renten,45001.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,82,1939,Silent Generation,1,anzahl_renten,46327.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,82,1940,Silent Generation,1,anzahl_renten,46661.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,82,1941,Silent Generation,1,anzahl_renten,50442.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,82,1942,Silent Generation,1,anzahl_renten,53906.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,83,1929,Silent Generation,1,anzahl_renten,36945.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,83,1930,Silent Generation,1,anzahl_renten,38362.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,83,1931,Silent Generation,1,anzahl_renten,38437.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,83,1932,Silent Generation,1,anzahl_renten,39351.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,83,1933,Silent Generation,1,anzahl_renten,39283.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,83,1934,Silent Generation,1,anzahl_renten,40330.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,83,1935,Silent Generation,1,anzahl_renten,41707.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,83,1936,Silent Generation,1,anzahl_renten,41565.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,83,1937,Silent Generation,1,anzahl_renten,41438.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,83,1938,Silent Generation,1,anzahl_renten,42682.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,83,1939,Silent Generation,1,anzahl_renten,43972.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,83,1940,Silent Generation,1,anzahl_renten,44417.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,83,1941,Silent Generation,1,anzahl_renten,48134.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,84,1928,Silent Generation,1,anzahl_renten,33973.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,84,1929,Silent Generation,1,anzahl_renten,34577.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,84,1930,Silent Generation,1,anzahl_renten,36107.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,84,1931,Silent Generation,1,anzahl_renten,36019.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,84,1932,Silent Generation,1,anzahl_renten,37084.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,84,1933,Silent Generation,1,anzahl_renten,36959.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,84,1934,Silent Generation,1,anzahl_renten,37970.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,84,1935,Silent Generation,1,anzahl_renten,39291.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,84,1936,Silent Generation,1,anzahl_renten,39052.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,84,1937,Silent Generation,1,anzahl_renten,38986.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,84,1938,Silent Generation,1,anzahl_renten,40199.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,84,1939,Silent Generation,1,anzahl_renten,41520.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,84,1940,Silent Generation,1,anzahl_renten,42085.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,85,1927,Silent Generation,1,anzahl_renten,30532.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,85,1928,Silent Generation,1,anzahl_renten,31532.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,85,1929,Silent Generation,1,anzahl_renten,32144.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,85,1930,Silent Generation,1,anzahl_renten,33570.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,85,1931,Silent Generation,1,anzahl_renten,33561.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,85,1932,Silent Generation,1,anzahl_renten,34547.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,85,1933,Silent Generation,1,anzahl_renten,34472.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,85,1934,Silent Generation,1,anzahl_renten,35474.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,85,1935,Silent Generation,1,anzahl_renten,36557.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,85,1936,Silent Generation,1,anzahl_renten,36366.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,85,1937,Silent Generation,1,anzahl_renten,36410.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,85,1938,Silent Generation,1,anzahl_renten,37592.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,85,1939,Silent Generation,1,anzahl_renten,39013.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,86,1926,Silent Generation,1,anzahl_renten,27945.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,86,1927,Silent Generation,1,anzahl_renten,27901.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,86,1928,Silent Generation,1,anzahl_renten,29094.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,86,1929,Silent Generation,1,anzahl_renten,29463.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,86,1930,Silent Generation,1,anzahl_renten,30994.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,86,1931,Silent Generation,1,anzahl_renten,31001.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,86,1932,Silent Generation,1,anzahl_renten,31912.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,86,1933,Silent Generation,1,anzahl_renten,31906.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,86,1934,Silent Generation,1,anzahl_renten,32675.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,86,1935,Silent Generation,1,anzahl_renten,33660.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,86,1936,Silent Generation,1,anzahl_renten,33522.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,86,1937,Silent Generation,1,anzahl_renten,33764.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,86,1938,Silent Generation,1,anzahl_renten,34880.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,87,1925,Silent Generation,1,anzahl_renten,24988.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,87,1926,Silent Generation,1,anzahl_renten,25319.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,87,1927,Silent Generation,1,anzahl_renten,25319.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,87,1928,Silent Generation,1,anzahl_renten,26276.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,87,1929,Silent Generation,1,anzahl_renten,26830.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,87,1930,Silent Generation,1,anzahl_renten,28153.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,87,1931,Silent Generation,1,anzahl_renten,28288.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,87,1932,Silent Generation,1,anzahl_renten,29147.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,87,1933,Silent Generation,1,anzahl_renten,29054.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,87,1934,Silent Generation,1,anzahl_renten,29755.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,87,1935,Silent Generation,1,anzahl_renten,30695.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,87,1936,Silent Generation,1,anzahl_renten,30705.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,87,1937,Silent Generation,1,anzahl_renten,31049.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,88,1924,Silent Generation,1,anzahl_renten,21756.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,88,1925,Silent Generation,1,anzahl_renten,22305.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,88,1926,Silent Generation,1,anzahl_renten,22687.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,88,1927,Silent Generation,1,anzahl_renten,22540.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,88,1928,Silent Generation,1,anzahl_renten,23630.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,88,1929,Silent Generation,1,anzahl_renten,24098.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,88,1930,Silent Generation,1,anzahl_renten,25373.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,88,1931,Silent Generation,1,anzahl_renten,25593.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,88,1932,Silent Generation,1,anzahl_renten,26221.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,88,1933,Silent Generation,1,anzahl_renten,25986.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,88,1934,Silent Generation,1,anzahl_renten,26750.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,88,1935,Silent Generation,1,anzahl_renten,27626.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,88,1936,Silent Generation,1,anzahl_renten,27929.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,89,1923,Silent Generation,1,anzahl_renten,18554.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,89,1924,Silent Generation,1,anzahl_renten,19085.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,89,1925,Silent Generation,1,anzahl_renten,19652.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,89,1926,Silent Generation,1,anzahl_renten,19882.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,89,1927,Silent Generation,1,anzahl_renten,19964.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,89,1928,Silent Generation,1,anzahl_renten,20853.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,89,1929,Silent Generation,1,anzahl_renten,21298.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,89,1930,Silent Generation,1,anzahl_renten,22531.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,89,1931,Silent Generation,1,anzahl_renten,22548.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,89,1932,Silent Generation,1,anzahl_renten,23138.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,89,1933,Silent Generation,1,anzahl_renten,23054.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,89,1934,Silent Generation,1,anzahl_renten,23808.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,89,1935,Silent Generation,1,anzahl_renten,24666.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,90,1922,Silent Generation,1,anzahl_renten,15687.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,90,1923,Silent Generation,1,anzahl_renten,15996.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,90,1924,Silent Generation,1,anzahl_renten,16662.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,90,1925,Silent Generation,1,anzahl_renten,16782.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,90,1926,Silent Generation,1,anzahl_renten,17229.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,90,1927,Silent Generation,1,anzahl_renten,17326.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,90,1928,Silent Generation,1,anzahl_renten,18120.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,90,1929,Silent Generation,1,anzahl_renten,18603.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,90,1930,Silent Generation,1,anzahl_renten,19556.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,90,1931,Silent Generation,1,anzahl_renten,19508.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,90,1932,Silent Generation,1,anzahl_renten,20156.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,90,1933,Silent Generation,1,anzahl_renten,20130.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,90,1934,Silent Generation,1,anzahl_renten,20933.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,91,1921,Silent Generation,1,anzahl_renten,13246.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,91,1922,Silent Generation,1,anzahl_renten,13221.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,91,1923,Silent Generation,1,anzahl_renten,13546.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,91,1924,Silent Generation,1,anzahl_renten,14016.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,91,1925,Silent Generation,1,anzahl_renten,14390.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,91,1926,Silent Generation,1,anzahl_renten,14592.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,91,1927,Silent Generation,1,anzahl_renten,14772.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,91,1928,Silent Generation,1,anzahl_renten,15549.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,91,1929,Silent Generation,1,anzahl_renten,15748.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,91,1930,Silent Generation,1,anzahl_renten,16503.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,91,1931,Silent Generation,1,anzahl_renten,16517.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,91,1932,Silent Generation,1,anzahl_renten,17228.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,91,1933,Silent Generation,1,anzahl_renten,17392.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,92,1920,Silent Generation,1,anzahl_renten,10312.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,92,1921,Silent Generation,1,anzahl_renten,10953.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,92,1922,Silent Generation,1,anzahl_renten,10994.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,92,1923,Silent Generation,1,anzahl_renten,11153.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,92,1924,Silent Generation,1,anzahl_renten,11680.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,92,1925,Silent Generation,1,anzahl_renten,11997.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,92,1926,Silent Generation,1,anzahl_renten,12122.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,92,1927,Silent Generation,1,anzahl_renten,12308.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,92,1928,Silent Generation,1,anzahl_renten,12850.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,92,1929,Silent Generation,1,anzahl_renten,13043.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,92,1930,Silent Generation,1,anzahl_renten,13754.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,92,1931,Silent Generation,1,anzahl_renten,13752.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,92,1932,Silent Generation,1,anzahl_renten,14517.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,93,1919,Silent Generation,1,anzahl_renten,6799.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,93,1920,Silent Generation,1,anzahl_renten,8187.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,93,1921,Silent Generation,1,anzahl_renten,8914.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,93,1922,Silent Generation,1,anzahl_renten,8703.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,93,1923,Silent Generation,1,anzahl_renten,9136.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,93,1924,Silent Generation,1,anzahl_renten,9446.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,93,1925,Silent Generation,1,anzahl_renten,9792.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,93,1926,Silent Generation,1,anzahl_renten,9920.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,93,1927,Silent Generation,1,anzahl_renten,10023.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,93,1928,Silent Generation,1,anzahl_renten,10401.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,93,1929,Silent Generation,1,anzahl_renten,10478.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,93,1930,Silent Generation,1,anzahl_renten,11187.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,93,1931,Silent Generation,1,anzahl_renten,11326.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,94,1918,Silent Generation,1,anzahl_renten,5075.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,94,1919,Silent Generation,1,anzahl_renten,5278.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,94,1920,Silent Generation,1,anzahl_renten,6475.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,94,1921,Silent Generation,1,anzahl_renten,6913.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,94,1922,Silent Generation,1,anzahl_renten,6943.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,94,1923,Silent Generation,1,anzahl_renten,7175.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,94,1924,Silent Generation,1,anzahl_renten,7505.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,94,1925,Silent Generation,1,anzahl_renten,7733.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,94,1926,Silent Generation,1,anzahl_renten,7856.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,94,1927,Silent Generation,1,anzahl_renten,7919.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,94,1928,Silent Generation,1,anzahl_renten,8206.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,94,1929,Silent Generation,1,anzahl_renten,8232.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,94,1930,Silent Generation,1,anzahl_renten,8968.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,95,1917,Silent Generation,1,anzahl_renten,3872.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,95,1918,Silent Generation,1,anzahl_renten,3845.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,95,1919,Silent Generation,1,anzahl_renten,4029.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,95,1920,Silent Generation,1,anzahl_renten,4843.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,95,1921,Silent Generation,1,anzahl_renten,5337.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,95,1922,Silent Generation,1,anzahl_renten,5334.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,95,1923,Silent Generation,1,anzahl_renten,5561.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,95,1924,Silent Generation,1,anzahl_renten,5853.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,95,1925,Silent Generation,1,anzahl_renten,5975.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,95,1926,Silent Generation,1,anzahl_renten,6009.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,95,1927,Silent Generation,1,anzahl_renten,6035.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,95,1928,Silent Generation,1,anzahl_renten,6299.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,95,1929,Silent Generation,1,anzahl_renten,6403.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,96,1916,Silent Generation,1,anzahl_renten,2806.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,96,1917,Silent Generation,1,anzahl_renten,2835.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,96,1918,Silent Generation,1,anzahl_renten,2891.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,96,1919,Silent Generation,1,anzahl_renten,2911.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,96,1920,Silent Generation,1,anzahl_renten,3642.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,96,1921,Silent Generation,1,anzahl_renten,3940.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,96,1922,Silent Generation,1,anzahl_renten,4030.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,96,1923,Silent Generation,1,anzahl_renten,4157.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,96,1924,Silent Generation,1,anzahl_renten,4346.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,96,1925,Silent Generation,1,anzahl_renten,4346.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,96,1926,Silent Generation,1,anzahl_renten,4371.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,96,1927,Silent Generation,1,anzahl_renten,4452.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,96,1928,Silent Generation,1,anzahl_renten,4780.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,97,1915,Silent Generation,1,anzahl_renten,1969.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,97,1916,Silent Generation,1,anzahl_renten,2006.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,97,1917,Silent Generation,1,anzahl_renten,2022.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,97,1918,Silent Generation,1,anzahl_renten,1997.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,97,1919,Silent Generation,1,anzahl_renten,2135.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,97,1920,Silent Generation,1,anzahl_renten,2589.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,97,1921,Silent Generation,1,anzahl_renten,2837.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,97,1922,Silent Generation,1,anzahl_renten,2884.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,97,1923,Silent Generation,1,anzahl_renten,3027.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,97,1924,Silent Generation,1,anzahl_renten,3128.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,97,1925,Silent Generation,1,anzahl_renten,3149.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,97,1926,Silent Generation,1,anzahl_renten,3127.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,97,1927,Silent Generation,1,anzahl_renten,3326.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,98,1914,Silent Generation,1,anzahl_renten,1467.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,98,1915,Silent Generation,1,anzahl_renten,1344.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,98,1916,Silent Generation,1,anzahl_renten,1429.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,98,1917,Silent Generation,1,anzahl_renten,1366.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,98,1918,Silent Generation,1,anzahl_renten,1461.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,98,1919,Silent Generation,1,anzahl_renten,1490.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,98,1920,Silent Generation,1,anzahl_renten,1798.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,98,1921,Silent Generation,1,anzahl_renten,2002.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,98,1922,Silent Generation,1,anzahl_renten,2087.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,98,1923,Silent Generation,1,anzahl_renten,2079.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,98,1924,Silent Generation,1,anzahl_renten,2171.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,98,1925,Silent Generation,1,anzahl_renten,2170.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,98,1926,Silent Generation,1,anzahl_renten,2199.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,99,1913,Silent Generation,1,anzahl_renten,958.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,99,1914,Silent Generation,1,anzahl_renten,986.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,99,1915,Silent Generation,1,anzahl_renten,930.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,99,1916,Silent Generation,1,anzahl_renten,898.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,99,1917,Silent Generation,1,anzahl_renten,933.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,99,1918,Silent Generation,1,anzahl_renten,938.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,99,1919,Silent Generation,1,anzahl_renten,1034.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,99,1920,Silent Generation,1,anzahl_renten,1216.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,99,1921,Silent Generation,1,anzahl_renten,1324.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,99,1922,Silent Generation,1,anzahl_renten,1388.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,99,1923,Silent Generation,1,anzahl_renten,1404.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,99,1924,Silent Generation,1,anzahl_renten,1434.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,99,1925,Silent Generation,1,anzahl_renten,1483.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,100,1912,Silent Generation,1,anzahl_renten,1387.0,Anzahl,count,altersrenten_ab_65
+2013,ahv_ausgaben,100,1913,Silent Generation,1,anzahl_renten,1465.0,Anzahl,count,altersrenten_ab_65
+2014,ahv_ausgaben,100,1914,Silent Generation,1,anzahl_renten,1531.0,Anzahl,count,altersrenten_ab_65
+2015,ahv_ausgaben,100,1915,Silent Generation,1,anzahl_renten,1516.0,Anzahl,count,altersrenten_ab_65
+2016,ahv_ausgaben,100,1916,Silent Generation,1,anzahl_renten,1536.0,Anzahl,count,altersrenten_ab_65
+2017,ahv_ausgaben,100,1917,Silent Generation,1,anzahl_renten,1505.0,Anzahl,count,altersrenten_ab_65
+2018,ahv_ausgaben,100,1918,Silent Generation,1,anzahl_renten,1532.0,Anzahl,count,altersrenten_ab_65
+2019,ahv_ausgaben,100,1919,Silent Generation,1,anzahl_renten,1578.0,Anzahl,count,altersrenten_ab_65
+2020,ahv_ausgaben,100,1920,Silent Generation,1,anzahl_renten,1718.0,Anzahl,count,altersrenten_ab_65
+2021,ahv_ausgaben,100,1921,Silent Generation,1,anzahl_renten,1845.0,Anzahl,count,altersrenten_ab_65
+2022,ahv_ausgaben,100,1922,Silent Generation,1,anzahl_renten,1913.0,Anzahl,count,altersrenten_ab_65
+2023,ahv_ausgaben,100,1923,Silent Generation,1,anzahl_renten,2041.0,Anzahl,count,altersrenten_ab_65
+2024,ahv_ausgaben,100,1924,Silent Generation,1,anzahl_renten,2166.0,Anzahl,count,altersrenten_ab_65
+2012,ahv_ausgaben,65,1947,Babyboomers,2,rentensumme_tausend_chf,155041.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,65,1948,Babyboomers,2,rentensumme_tausend_chf,157616.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,65,1949,Babyboomers,2,rentensumme_tausend_chf,154925.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,65,1950,Babyboomers,2,rentensumme_tausend_chf,155630.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,65,1951,Babyboomers,2,rentensumme_tausend_chf,151646.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,65,1952,Babyboomers,2,rentensumme_tausend_chf,154123.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,65,1953,Babyboomers,2,rentensumme_tausend_chf,153553.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,65,1954,Babyboomers,2,rentensumme_tausend_chf,157745.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,65,1955,Babyboomers,2,rentensumme_tausend_chf,160962.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,65,1956,Babyboomers,2,rentensumme_tausend_chf,167311.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,65,1957,Babyboomers,2,rentensumme_tausend_chf,169672.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,65,1958,Babyboomers,2,rentensumme_tausend_chf,176564.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,65,1959,Babyboomers,2,rentensumme_tausend_chf,182781.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,66,1946,Babyboomers,2,rentensumme_tausend_chf,155249.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,66,1947,Babyboomers,2,rentensumme_tausend_chf,155599.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,66,1948,Babyboomers,2,rentensumme_tausend_chf,156815.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,66,1949,Babyboomers,2,rentensumme_tausend_chf,154978.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,66,1950,Babyboomers,2,rentensumme_tausend_chf,155089.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,66,1951,Babyboomers,2,rentensumme_tausend_chf,150832.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,66,1952,Babyboomers,2,rentensumme_tausend_chf,153401.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,66,1953,Babyboomers,2,rentensumme_tausend_chf,154263.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,66,1954,Babyboomers,2,rentensumme_tausend_chf,157561.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,66,1955,Babyboomers,2,rentensumme_tausend_chf,162213.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,66,1956,Babyboomers,2,rentensumme_tausend_chf,167162.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,66,1957,Babyboomers,2,rentensumme_tausend_chf,174414.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,66,1958,Babyboomers,2,rentensumme_tausend_chf,177168.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,67,1945,Silent Generation,1,rentensumme_tausend_chf,148313.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,67,1946,Babyboomers,2,rentensumme_tausend_chf,154831.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,67,1947,Babyboomers,2,rentensumme_tausend_chf,153709.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,67,1948,Babyboomers,2,rentensumme_tausend_chf,155754.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,67,1949,Babyboomers,2,rentensumme_tausend_chf,153223.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,67,1950,Babyboomers,2,rentensumme_tausend_chf,153219.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,67,1951,Babyboomers,2,rentensumme_tausend_chf,148920.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,67,1952,Babyboomers,2,rentensumme_tausend_chf,153090.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,67,1953,Babyboomers,2,rentensumme_tausend_chf,152857.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,67,1954,Babyboomers,2,rentensumme_tausend_chf,157322.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,67,1955,Babyboomers,2,rentensumme_tausend_chf,160485.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,67,1956,Babyboomers,2,rentensumme_tausend_chf,169929.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,67,1957,Babyboomers,2,rentensumme_tausend_chf,173132.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,68,1944,Silent Generation,1,rentensumme_tausend_chf,145223.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,68,1945,Silent Generation,1,rentensumme_tausend_chf,147453.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,68,1946,Babyboomers,2,rentensumme_tausend_chf,152715.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,68,1947,Babyboomers,2,rentensumme_tausend_chf,152330.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,68,1948,Babyboomers,2,rentensumme_tausend_chf,153801.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,68,1949,Babyboomers,2,rentensumme_tausend_chf,151068.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,68,1950,Babyboomers,2,rentensumme_tausend_chf,151041.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,68,1951,Babyboomers,2,rentensumme_tausend_chf,148314.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,68,1952,Babyboomers,2,rentensumme_tausend_chf,151237.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,68,1953,Babyboomers,2,rentensumme_tausend_chf,152228.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,68,1954,Babyboomers,2,rentensumme_tausend_chf,155537.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,68,1955,Babyboomers,2,rentensumme_tausend_chf,162722.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,68,1956,Babyboomers,2,rentensumme_tausend_chf,167969.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,69,1943,Silent Generation,1,rentensumme_tausend_chf,138983.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,69,1944,Silent Generation,1,rentensumme_tausend_chf,144630.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,69,1945,Silent Generation,1,rentensumme_tausend_chf,145848.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,69,1946,Babyboomers,2,rentensumme_tausend_chf,151452.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,69,1947,Babyboomers,2,rentensumme_tausend_chf,150583.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,69,1948,Babyboomers,2,rentensumme_tausend_chf,151703.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,69,1949,Babyboomers,2,rentensumme_tausend_chf,149265.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,69,1950,Babyboomers,2,rentensumme_tausend_chf,150683.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,69,1951,Babyboomers,2,rentensumme_tausend_chf,146792.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,69,1952,Babyboomers,2,rentensumme_tausend_chf,150848.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,69,1953,Babyboomers,2,rentensumme_tausend_chf,150619.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,69,1954,Babyboomers,2,rentensumme_tausend_chf,157785.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,69,1955,Babyboomers,2,rentensumme_tausend_chf,161114.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,70,1942,Silent Generation,1,rentensumme_tausend_chf,131637.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,70,1943,Silent Generation,1,rentensumme_tausend_chf,138533.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,70,1944,Silent Generation,1,rentensumme_tausend_chf,143033.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,70,1945,Silent Generation,1,rentensumme_tausend_chf,144943.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,70,1946,Babyboomers,2,rentensumme_tausend_chf,150029.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,70,1947,Babyboomers,2,rentensumme_tausend_chf,148861.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,70,1948,Babyboomers,2,rentensumme_tausend_chf,150087.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,70,1949,Babyboomers,2,rentensumme_tausend_chf,149003.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,70,1950,Babyboomers,2,rentensumme_tausend_chf,149196.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,70,1951,Babyboomers,2,rentensumme_tausend_chf,146546.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,70,1952,Babyboomers,2,rentensumme_tausend_chf,149596.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,70,1953,Babyboomers,2,rentensumme_tausend_chf,153092.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,70,1954,Babyboomers,2,rentensumme_tausend_chf,156710.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,71,1941,Silent Generation,1,rentensumme_tausend_chf,122209.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,71,1942,Silent Generation,1,rentensumme_tausend_chf,130795.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,71,1943,Silent Generation,1,rentensumme_tausend_chf,136489.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,71,1944,Silent Generation,1,rentensumme_tausend_chf,141445.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,71,1945,Silent Generation,1,rentensumme_tausend_chf,142858.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,71,1946,Babyboomers,2,rentensumme_tausend_chf,147754.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,71,1947,Babyboomers,2,rentensumme_tausend_chf,146627.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,71,1948,Babyboomers,2,rentensumme_tausend_chf,149147.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,71,1949,Babyboomers,2,rentensumme_tausend_chf,146791.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,71,1950,Babyboomers,2,rentensumme_tausend_chf,148161.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,71,1951,Babyboomers,2,rentensumme_tausend_chf,144546.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,71,1952,Babyboomers,2,rentensumme_tausend_chf,151230.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,71,1953,Babyboomers,2,rentensumme_tausend_chf,151006.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,72,1940,Silent Generation,1,rentensumme_tausend_chf,111448.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,72,1941,Silent Generation,1,rentensumme_tausend_chf,121423.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,72,1942,Silent Generation,1,rentensumme_tausend_chf,128936.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,72,1943,Silent Generation,1,rentensumme_tausend_chf,135058.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,72,1944,Silent Generation,1,rentensumme_tausend_chf,139254.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,72,1945,Silent Generation,1,rentensumme_tausend_chf,140612.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,72,1946,Babyboomers,2,rentensumme_tausend_chf,145537.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,72,1947,Babyboomers,2,rentensumme_tausend_chf,145616.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,72,1948,Babyboomers,2,rentensumme_tausend_chf,146961.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,72,1949,Babyboomers,2,rentensumme_tausend_chf,145770.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,72,1950,Babyboomers,2,rentensumme_tausend_chf,145856.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,72,1951,Babyboomers,2,rentensumme_tausend_chf,146100.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,72,1952,Babyboomers,2,rentensumme_tausend_chf,149169.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,73,1939,Silent Generation,1,rentensumme_tausend_chf,108358.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,73,1940,Silent Generation,1,rentensumme_tausend_chf,110543.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,73,1941,Silent Generation,1,rentensumme_tausend_chf,119554.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,73,1942,Silent Generation,1,rentensumme_tausend_chf,127373.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,73,1943,Silent Generation,1,rentensumme_tausend_chf,133061.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,73,1944,Silent Generation,1,rentensumme_tausend_chf,137072.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,73,1945,Silent Generation,1,rentensumme_tausend_chf,138362.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,73,1946,Babyboomers,2,rentensumme_tausend_chf,144289.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,73,1947,Babyboomers,2,rentensumme_tausend_chf,143466.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,73,1948,Babyboomers,2,rentensumme_tausend_chf,145733.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,73,1949,Babyboomers,2,rentensumme_tausend_chf,143513.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,73,1950,Babyboomers,2,rentensumme_tausend_chf,147196.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,73,1951,Babyboomers,2,rentensumme_tausend_chf,143897.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,74,1938,Silent Generation,1,rentensumme_tausend_chf,103965.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,74,1939,Silent Generation,1,rentensumme_tausend_chf,107467.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,74,1940,Silent Generation,1,rentensumme_tausend_chf,108855.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,74,1941,Silent Generation,1,rentensumme_tausend_chf,117949.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,74,1942,Silent Generation,1,rentensumme_tausend_chf,125288.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,74,1943,Silent Generation,1,rentensumme_tausend_chf,130796.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,74,1944,Silent Generation,1,rentensumme_tausend_chf,134859.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,74,1945,Silent Generation,1,rentensumme_tausend_chf,137248.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,74,1946,Babyboomers,2,rentensumme_tausend_chf,141794.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,74,1947,Babyboomers,2,rentensumme_tausend_chf,142137.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,74,1948,Babyboomers,2,rentensumme_tausend_chf,143338.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,74,1949,Babyboomers,2,rentensumme_tausend_chf,144653.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,74,1950,Babyboomers,2,rentensumme_tausend_chf,144893.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,75,1937,Silent Generation,1,rentensumme_tausend_chf,98924.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,75,1938,Silent Generation,1,rentensumme_tausend_chf,102930.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,75,1939,Silent Generation,1,rentensumme_tausend_chf,105563.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,75,1940,Silent Generation,1,rentensumme_tausend_chf,107346.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,75,1941,Silent Generation,1,rentensumme_tausend_chf,115871.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,75,1942,Silent Generation,1,rentensumme_tausend_chf,122969.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,75,1943,Silent Generation,1,rentensumme_tausend_chf,128341.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,75,1944,Silent Generation,1,rentensumme_tausend_chf,133627.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,75,1945,Silent Generation,1,rentensumme_tausend_chf,134858.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,75,1946,Babyboomers,2,rentensumme_tausend_chf,140445.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,75,1947,Babyboomers,2,rentensumme_tausend_chf,139513.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,75,1948,Babyboomers,2,rentensumme_tausend_chf,144439.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,75,1949,Babyboomers,2,rentensumme_tausend_chf,142137.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,76,1936,Silent Generation,1,rentensumme_tausend_chf,98493.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,76,1937,Silent Generation,1,rentensumme_tausend_chf,97955.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,76,1938,Silent Generation,1,rentensumme_tausend_chf,101013.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,76,1939,Silent Generation,1,rentensumme_tausend_chf,103882.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,76,1940,Silent Generation,1,rentensumme_tausend_chf,105183.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,76,1941,Silent Generation,1,rentensumme_tausend_chf,113708.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,76,1942,Silent Generation,1,rentensumme_tausend_chf,120727.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,76,1943,Silent Generation,1,rentensumme_tausend_chf,126987.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,76,1944,Silent Generation,1,rentensumme_tausend_chf,130927.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,76,1945,Silent Generation,1,rentensumme_tausend_chf,133173.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,76,1946,Babyboomers,2,rentensumme_tausend_chf,137729.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,76,1947,Babyboomers,2,rentensumme_tausend_chf,140220.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,76,1948,Babyboomers,2,rentensumme_tausend_chf,141751.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,77,1935,Silent Generation,1,rentensumme_tausend_chf,96346.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,77,1936,Silent Generation,1,rentensumme_tausend_chf,97119.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,77,1937,Silent Generation,1,rentensumme_tausend_chf,95836.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,77,1938,Silent Generation,1,rentensumme_tausend_chf,99063.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,77,1939,Silent Generation,1,rentensumme_tausend_chf,101742.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,77,1940,Silent Generation,1,rentensumme_tausend_chf,102870.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,77,1941,Silent Generation,1,rentensumme_tausend_chf,111369.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,77,1942,Silent Generation,1,rentensumme_tausend_chf,119271.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,77,1943,Silent Generation,1,rentensumme_tausend_chf,124431.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,77,1944,Silent Generation,1,rentensumme_tausend_chf,129138.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,77,1945,Silent Generation,1,rentensumme_tausend_chf,130361.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,77,1946,Babyboomers,2,rentensumme_tausend_chf,138210.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,77,1947,Babyboomers,2,rentensumme_tausend_chf,137342.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,78,1934,Silent Generation,1,rentensumme_tausend_chf,92356.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,78,1935,Silent Generation,1,rentensumme_tausend_chf,94691.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,78,1936,Silent Generation,1,rentensumme_tausend_chf,94835.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,78,1937,Silent Generation,1,rentensumme_tausend_chf,93877.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,78,1938,Silent Generation,1,rentensumme_tausend_chf,96912.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,78,1939,Silent Generation,1,rentensumme_tausend_chf,99295.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,78,1940,Silent Generation,1,rentensumme_tausend_chf,100303.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,78,1941,Silent Generation,1,rentensumme_tausend_chf,109761.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,78,1942,Silent Generation,1,rentensumme_tausend_chf,116445.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,78,1943,Silent Generation,1,rentensumme_tausend_chf,122303.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,78,1944,Silent Generation,1,rentensumme_tausend_chf,126128.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,78,1945,Silent Generation,1,rentensumme_tausend_chf,130411.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,78,1946,Babyboomers,2,rentensumme_tausend_chf,135170.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,79,1933,Silent Generation,1,rentensumme_tausend_chf,87707.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,79,1934,Silent Generation,1,rentensumme_tausend_chf,90586.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,79,1935,Silent Generation,1,rentensumme_tausend_chf,92262.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,79,1936,Silent Generation,1,rentensumme_tausend_chf,92503.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,79,1937,Silent Generation,1,rentensumme_tausend_chf,91467.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,79,1938,Silent Generation,1,rentensumme_tausend_chf,94267.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,79,1939,Silent Generation,1,rentensumme_tausend_chf,96650.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,79,1940,Silent Generation,1,rentensumme_tausend_chf,98557.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,79,1941,Silent Generation,1,rentensumme_tausend_chf,106949.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,79,1942,Silent Generation,1,rentensumme_tausend_chf,114232.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,79,1943,Silent Generation,1,rentensumme_tausend_chf,119047.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,79,1944,Silent Generation,1,rentensumme_tausend_chf,125847.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,79,1945,Silent Generation,1,rentensumme_tausend_chf,127227.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,80,1932,Silent Generation,1,rentensumme_tausend_chf,85369.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,80,1933,Silent Generation,1,rentensumme_tausend_chf,85651.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,80,1934,Silent Generation,1,rentensumme_tausend_chf,87766.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,80,1935,Silent Generation,1,rentensumme_tausend_chf,89758.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,80,1936,Silent Generation,1,rentensumme_tausend_chf,89629.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,80,1937,Silent Generation,1,rentensumme_tausend_chf,88736.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,80,1938,Silent Generation,1,rentensumme_tausend_chf,91479.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,80,1939,Silent Generation,1,rentensumme_tausend_chf,94720.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,80,1940,Silent Generation,1,rentensumme_tausend_chf,95580.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,80,1941,Silent Generation,1,rentensumme_tausend_chf,104618.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,80,1942,Silent Generation,1,rentensumme_tausend_chf,110679.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,80,1943,Silent Generation,1,rentensumme_tausend_chf,118631.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,80,1944,Silent Generation,1,rentensumme_tausend_chf,122170.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,81,1931,Silent Generation,1,rentensumme_tausend_chf,80077.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,81,1932,Silent Generation,1,rentensumme_tausend_chf,82986.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,81,1933,Silent Generation,1,rentensumme_tausend_chf,82578.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,81,1934,Silent Generation,1,rentensumme_tausend_chf,84811.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,81,1935,Silent Generation,1,rentensumme_tausend_chf,86535.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,81,1936,Silent Generation,1,rentensumme_tausend_chf,86491.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,81,1937,Silent Generation,1,rentensumme_tausend_chf,85689.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,81,1938,Silent Generation,1,rentensumme_tausend_chf,89143.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,81,1939,Silent Generation,1,rentensumme_tausend_chf,91491.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,81,1940,Silent Generation,1,rentensumme_tausend_chf,92954.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,81,1941,Silent Generation,1,rentensumme_tausend_chf,101064.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,81,1942,Silent Generation,1,rentensumme_tausend_chf,109660.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,81,1943,Silent Generation,1,rentensumme_tausend_chf,114891.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,82,1930,Silent Generation,1,rentensumme_tausend_chf,76702.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,82,1931,Silent Generation,1,rentensumme_tausend_chf,77288.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,82,1932,Silent Generation,1,rentensumme_tausend_chf,79560.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,82,1933,Silent Generation,1,rentensumme_tausend_chf,79445.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,82,1934,Silent Generation,1,rentensumme_tausend_chf,81439.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,82,1935,Silent Generation,1,rentensumme_tausend_chf,83178.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,82,1936,Silent Generation,1,rentensumme_tausend_chf,83011.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,82,1937,Silent Generation,1,rentensumme_tausend_chf,83111.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,82,1938,Silent Generation,1,rentensumme_tausend_chf,85681.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,82,1939,Silent Generation,1,rentensumme_tausend_chf,88630.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,82,1940,Silent Generation,1,rentensumme_tausend_chf,89311.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,82,1941,Silent Generation,1,rentensumme_tausend_chf,99353.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,82,1942,Silent Generation,1,rentensumme_tausend_chf,105738.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,83,1929,Silent Generation,1,rentensumme_tausend_chf,70311.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,83,1930,Silent Generation,1,rentensumme_tausend_chf,73534.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,83,1931,Silent Generation,1,rentensumme_tausend_chf,73634.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,83,1932,Silent Generation,1,rentensumme_tausend_chf,75955.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,83,1933,Silent Generation,1,rentensumme_tausend_chf,75744.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,83,1934,Silent Generation,1,rentensumme_tausend_chf,77600.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,83,1935,Silent Generation,1,rentensumme_tausend_chf,79432.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,83,1936,Silent Generation,1,rentensumme_tausend_chf,79887.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,83,1937,Silent Generation,1,rentensumme_tausend_chf,79484.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,83,1938,Silent Generation,1,rentensumme_tausend_chf,82460.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,83,1939,Silent Generation,1,rentensumme_tausend_chf,84606.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,83,1940,Silent Generation,1,rentensumme_tausend_chf,87684.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,83,1941,Silent Generation,1,rentensumme_tausend_chf,95325.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,84,1928,Silent Generation,1,rentensumme_tausend_chf,65309.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,84,1929,Silent Generation,1,rentensumme_tausend_chf,66803.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,84,1930,Silent Generation,1,rentensumme_tausend_chf,69671.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,84,1931,Silent Generation,1,rentensumme_tausend_chf,69798.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,84,1932,Silent Generation,1,rentensumme_tausend_chf,72032.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,84,1933,Silent Generation,1,rentensumme_tausend_chf,71704.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,84,1934,Silent Generation,1,rentensumme_tausend_chf,73522.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,84,1935,Silent Generation,1,rentensumme_tausend_chf,75930.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,84,1936,Silent Generation,1,rentensumme_tausend_chf,75541.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,84,1937,Silent Generation,1,rentensumme_tausend_chf,75931.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,84,1938,Silent Generation,1,rentensumme_tausend_chf,78152.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,84,1939,Silent Generation,1,rentensumme_tausend_chf,82361.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,84,1940,Silent Generation,1,rentensumme_tausend_chf,83582.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,85,1927,Silent Generation,1,rentensumme_tausend_chf,58900.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,85,1928,Silent Generation,1,rentensumme_tausend_chf,61555.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,85,1929,Silent Generation,1,rentensumme_tausend_chf,62524.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,85,1930,Silent Generation,1,rentensumme_tausend_chf,65540.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,85,1931,Silent Generation,1,rentensumme_tausend_chf,65471.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,85,1932,Silent Generation,1,rentensumme_tausend_chf,67583.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,85,1933,Silent Generation,1,rentensumme_tausend_chf,67336.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,85,1934,Silent Generation,1,rentensumme_tausend_chf,69801.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,85,1935,Silent Generation,1,rentensumme_tausend_chf,71158.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,85,1936,Silent Generation,1,rentensumme_tausend_chf,71437.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,85,1937,Silent Generation,1,rentensumme_tausend_chf,71356.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,85,1938,Silent Generation,1,rentensumme_tausend_chf,75394.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,85,1939,Silent Generation,1,rentensumme_tausend_chf,77856.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,86,1926,Silent Generation,1,rentensumme_tausend_chf,54343.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,86,1927,Silent Generation,1,rentensumme_tausend_chf,54690.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,86,1928,Silent Generation,1,rentensumme_tausend_chf,57157.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,86,1929,Silent Generation,1,rentensumme_tausend_chf,57973.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,86,1930,Silent Generation,1,rentensumme_tausend_chf,60896.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,86,1931,Silent Generation,1,rentensumme_tausend_chf,60887.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,86,1932,Silent Generation,1,rentensumme_tausend_chf,62856.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,86,1933,Silent Generation,1,rentensumme_tausend_chf,63312.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,86,1934,Silent Generation,1,rentensumme_tausend_chf,64754.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,86,1935,Silent Generation,1,rentensumme_tausend_chf,66519.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,86,1936,Silent Generation,1,rentensumme_tausend_chf,66298.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,86,1937,Silent Generation,1,rentensumme_tausend_chf,68294.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,86,1938,Silent Generation,1,rentensumme_tausend_chf,70411.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,87,1925,Silent Generation,1,rentensumme_tausend_chf,49099.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,87,1926,Silent Generation,1,rentensumme_tausend_chf,50025.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,87,1927,Silent Generation,1,rentensumme_tausend_chf,49983.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,87,1928,Silent Generation,1,rentensumme_tausend_chf,52250.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,87,1929,Silent Generation,1,rentensumme_tausend_chf,53100.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,87,1930,Silent Generation,1,rentensumme_tausend_chf,55715.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,87,1931,Silent Generation,1,rentensumme_tausend_chf,56013.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,87,1932,Silent Generation,1,rentensumme_tausend_chf,58298.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,87,1933,Silent Generation,1,rentensumme_tausend_chf,58039.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,87,1934,Silent Generation,1,rentensumme_tausend_chf,59911.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,87,1935,Silent Generation,1,rentensumme_tausend_chf,61168.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,87,1936,Silent Generation,1,rentensumme_tausend_chf,62736.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,87,1937,Silent Generation,1,rentensumme_tausend_chf,63217.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,88,1924,Silent Generation,1,rentensumme_tausend_chf,43036.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,88,1925,Silent Generation,1,rentensumme_tausend_chf,44529.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,88,1926,Silent Generation,1,rentensumme_tausend_chf,45141.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,88,1927,Silent Generation,1,rentensumme_tausend_chf,45032.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,88,1928,Silent Generation,1,rentensumme_tausend_chf,47330.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,88,1929,Silent Generation,1,rentensumme_tausend_chf,48083.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,88,1930,Silent Generation,1,rentensumme_tausend_chf,50583.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,88,1931,Silent Generation,1,rentensumme_tausend_chf,51545.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,88,1932,Silent Generation,1,rentensumme_tausend_chf,52865.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,88,1933,Silent Generation,1,rentensumme_tausend_chf,52726.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,88,1934,Silent Generation,1,rentensumme_tausend_chf,54222.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,88,1935,Silent Generation,1,rentensumme_tausend_chf,56795.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,88,1936,Silent Generation,1,rentensumme_tausend_chf,57481.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,89,1923,Silent Generation,1,rentensumme_tausend_chf,36930.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,89,1924,Silent Generation,1,rentensumme_tausend_chf,38329.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,89,1925,Silent Generation,1,rentensumme_tausend_chf,39521.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,89,1926,Silent Generation,1,rentensumme_tausend_chf,40023.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,89,1927,Silent Generation,1,rentensumme_tausend_chf,40157.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,89,1928,Silent Generation,1,rentensumme_tausend_chf,42080.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,89,1929,Silent Generation,1,rentensumme_tausend_chf,42808.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,89,1930,Silent Generation,1,rentensumme_tausend_chf,45605.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,89,1931,Silent Generation,1,rentensumme_tausend_chf,45801.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,89,1932,Silent Generation,1,rentensumme_tausend_chf,47426.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,89,1933,Silent Generation,1,rentensumme_tausend_chf,47193.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,89,1934,Silent Generation,1,rentensumme_tausend_chf,49807.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,89,1935,Silent Generation,1,rentensumme_tausend_chf,51045.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,90,1922,Silent Generation,1,rentensumme_tausend_chf,31483.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,90,1923,Silent Generation,1,rentensumme_tausend_chf,32326.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,90,1924,Silent Generation,1,rentensumme_tausend_chf,33688.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,90,1925,Silent Generation,1,rentensumme_tausend_chf,34184.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,90,1926,Silent Generation,1,rentensumme_tausend_chf,34903.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,90,1927,Silent Generation,1,rentensumme_tausend_chf,35093.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,90,1928,Silent Generation,1,rentensumme_tausend_chf,36830.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,90,1929,Silent Generation,1,rentensumme_tausend_chf,37985.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,90,1930,Silent Generation,1,rentensumme_tausend_chf,39860.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,90,1931,Silent Generation,1,rentensumme_tausend_chf,40280.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,90,1932,Silent Generation,1,rentensumme_tausend_chf,41605.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,90,1933,Silent Generation,1,rentensumme_tausend_chf,42581.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,90,1934,Silent Generation,1,rentensumme_tausend_chf,44093.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,91,1921,Silent Generation,1,rentensumme_tausend_chf,26683.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,91,1922,Silent Generation,1,rentensumme_tausend_chf,26976.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,91,1923,Silent Generation,1,rentensumme_tausend_chf,27539.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,91,1924,Silent Generation,1,rentensumme_tausend_chf,28680.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,91,1925,Silent Generation,1,rentensumme_tausend_chf,29459.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,91,1926,Silent Generation,1,rentensumme_tausend_chf,29756.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,91,1927,Silent Generation,1,rentensumme_tausend_chf,30097.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,91,1928,Silent Generation,1,rentensumme_tausend_chf,32059.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,91,1929,Silent Generation,1,rentensumme_tausend_chf,32381.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,91,1930,Silent Generation,1,rentensumme_tausend_chf,34209.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,91,1931,Silent Generation,1,rentensumme_tausend_chf,34386.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,91,1932,Silent Generation,1,rentensumme_tausend_chf,36753.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,91,1933,Silent Generation,1,rentensumme_tausend_chf,37014.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,92,1920,Silent Generation,1,rentensumme_tausend_chf,20936.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,92,1921,Silent Generation,1,rentensumme_tausend_chf,22391.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,92,1922,Silent Generation,1,rentensumme_tausend_chf,22580.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,92,1923,Silent Generation,1,rentensumme_tausend_chf,22947.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,92,1924,Silent Generation,1,rentensumme_tausend_chf,24058.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,92,1925,Silent Generation,1,rentensumme_tausend_chf,24703.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,92,1926,Silent Generation,1,rentensumme_tausend_chf,24868.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,92,1927,Silent Generation,1,rentensumme_tausend_chf,25497.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,92,1928,Silent Generation,1,rentensumme_tausend_chf,26636.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,92,1929,Silent Generation,1,rentensumme_tausend_chf,27257.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,92,1930,Silent Generation,1,rentensumme_tausend_chf,28703.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,92,1931,Silent Generation,1,rentensumme_tausend_chf,29514.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,92,1932,Silent Generation,1,rentensumme_tausend_chf,31189.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,93,1919,Silent Generation,1,rentensumme_tausend_chf,13862.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,93,1920,Silent Generation,1,rentensumme_tausend_chf,16876.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,93,1921,Silent Generation,1,rentensumme_tausend_chf,18344.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,93,1922,Silent Generation,1,rentensumme_tausend_chf,18094.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,93,1923,Silent Generation,1,rentensumme_tausend_chf,18926.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,93,1924,Silent Generation,1,rentensumme_tausend_chf,19585.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,93,1925,Silent Generation,1,rentensumme_tausend_chf,20283.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,93,1926,Silent Generation,1,rentensumme_tausend_chf,20648.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,93,1927,Silent Generation,1,rentensumme_tausend_chf,20858.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,93,1928,Silent Generation,1,rentensumme_tausend_chf,21907.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,93,1929,Silent Generation,1,rentensumme_tausend_chf,22023.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,93,1930,Silent Generation,1,rentensumme_tausend_chf,24118.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,93,1931,Silent Generation,1,rentensumme_tausend_chf,24488.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,94,1918,Silent Generation,1,rentensumme_tausend_chf,10465.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,94,1919,Silent Generation,1,rentensumme_tausend_chf,10910.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,94,1920,Silent Generation,1,rentensumme_tausend_chf,13408.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,94,1921,Silent Generation,1,rentensumme_tausend_chf,14368.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,94,1922,Silent Generation,1,rentensumme_tausend_chf,14493.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,94,1923,Silent Generation,1,rentensumme_tausend_chf,14989.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,94,1924,Silent Generation,1,rentensumme_tausend_chf,15655.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,94,1925,Silent Generation,1,rentensumme_tausend_chf,16271.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,94,1926,Silent Generation,1,rentensumme_tausend_chf,16482.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,94,1927,Silent Generation,1,rentensumme_tausend_chf,16733.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,94,1928,Silent Generation,1,rentensumme_tausend_chf,17410.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,94,1929,Silent Generation,1,rentensumme_tausend_chf,17827.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,94,1930,Silent Generation,1,rentensumme_tausend_chf,19470.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,95,1917,Silent Generation,1,rentensumme_tausend_chf,8012.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,95,1918,Silent Generation,1,rentensumme_tausend_chf,8015.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,95,1919,Silent Generation,1,rentensumme_tausend_chf,8387.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,95,1920,Silent Generation,1,rentensumme_tausend_chf,10105.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,95,1921,Silent Generation,1,rentensumme_tausend_chf,11145.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,95,1922,Silent Generation,1,rentensumme_tausend_chf,11185.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,95,1923,Silent Generation,1,rentensumme_tausend_chf,11678.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,95,1924,Silent Generation,1,rentensumme_tausend_chf,12362.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,95,1925,Silent Generation,1,rentensumme_tausend_chf,12666.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,95,1926,Silent Generation,1,rentensumme_tausend_chf,12762.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,95,1927,Silent Generation,1,rentensumme_tausend_chf,12821.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,95,1928,Silent Generation,1,rentensumme_tausend_chf,13807.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,95,1929,Silent Generation,1,rentensumme_tausend_chf,13932.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,96,1916,Silent Generation,1,rentensumme_tausend_chf,5796.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,96,1917,Silent Generation,1,rentensumme_tausend_chf,5960.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,96,1918,Silent Generation,1,rentensumme_tausend_chf,6053.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,96,1919,Silent Generation,1,rentensumme_tausend_chf,6108.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,96,1920,Silent Generation,1,rentensumme_tausend_chf,7629.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,96,1921,Silent Generation,1,rentensumme_tausend_chf,8277.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,96,1922,Silent Generation,1,rentensumme_tausend_chf,8494.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,96,1923,Silent Generation,1,rentensumme_tausend_chf,8836.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,96,1924,Silent Generation,1,rentensumme_tausend_chf,9233.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,96,1925,Silent Generation,1,rentensumme_tausend_chf,9337.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,96,1926,Silent Generation,1,rentensumme_tausend_chf,9327.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,96,1927,Silent Generation,1,rentensumme_tausend_chf,9745.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,96,1928,Silent Generation,1,rentensumme_tausend_chf,10542.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,97,1915,Silent Generation,1,rentensumme_tausend_chf,4085.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,97,1916,Silent Generation,1,rentensumme_tausend_chf,4190.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,97,1917,Silent Generation,1,rentensumme_tausend_chf,4276.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,97,1918,Silent Generation,1,rentensumme_tausend_chf,4205.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,97,1919,Silent Generation,1,rentensumme_tausend_chf,4497.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,97,1920,Silent Generation,1,rentensumme_tausend_chf,5442.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,97,1921,Silent Generation,1,rentensumme_tausend_chf,6003.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,97,1922,Silent Generation,1,rentensumme_tausend_chf,6162.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,97,1923,Silent Generation,1,rentensumme_tausend_chf,6469.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,97,1924,Silent Generation,1,rentensumme_tausend_chf,6730.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,97,1925,Silent Generation,1,rentensumme_tausend_chf,6812.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,97,1926,Silent Generation,1,rentensumme_tausend_chf,6873.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,97,1927,Silent Generation,1,rentensumme_tausend_chf,7287.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,98,1914,Silent Generation,1,rentensumme_tausend_chf,3022.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,98,1915,Silent Generation,1,rentensumme_tausend_chf,2827.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,98,1916,Silent Generation,1,rentensumme_tausend_chf,2988.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,98,1917,Silent Generation,1,rentensumme_tausend_chf,2925.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,98,1918,Silent Generation,1,rentensumme_tausend_chf,3087.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,98,1919,Silent Generation,1,rentensumme_tausend_chf,3164.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,98,1920,Silent Generation,1,rentensumme_tausend_chf,3810.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,98,1921,Silent Generation,1,rentensumme_tausend_chf,4281.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,98,1922,Silent Generation,1,rentensumme_tausend_chf,4469.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,98,1923,Silent Generation,1,rentensumme_tausend_chf,4501.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,98,1924,Silent Generation,1,rentensumme_tausend_chf,4681.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,98,1925,Silent Generation,1,rentensumme_tausend_chf,4839.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,98,1926,Silent Generation,1,rentensumme_tausend_chf,4846.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,99,1913,Silent Generation,1,rentensumme_tausend_chf,1979.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,99,1914,Silent Generation,1,rentensumme_tausend_chf,2046.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,99,1915,Silent Generation,1,rentensumme_tausend_chf,1966.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,99,1916,Silent Generation,1,rentensumme_tausend_chf,1892.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,99,1917,Silent Generation,1,rentensumme_tausend_chf,2010.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,99,1918,Silent Generation,1,rentensumme_tausend_chf,1995.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,99,1919,Silent Generation,1,rentensumme_tausend_chf,2196.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,99,1920,Silent Generation,1,rentensumme_tausend_chf,2592.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,99,1921,Silent Generation,1,rentensumme_tausend_chf,2853.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,99,1922,Silent Generation,1,rentensumme_tausend_chf,3003.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,99,1923,Silent Generation,1,rentensumme_tausend_chf,3048.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,99,1924,Silent Generation,1,rentensumme_tausend_chf,3177.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,99,1925,Silent Generation,1,rentensumme_tausend_chf,3320.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,100,1912,Silent Generation,1,rentensumme_tausend_chf,2869.0,CHF,tausend_chf,altersrenten_ab_65
+2013,ahv_ausgaben,100,1913,Silent Generation,1,rentensumme_tausend_chf,3053.0,CHF,tausend_chf,altersrenten_ab_65
+2014,ahv_ausgaben,100,1914,Silent Generation,1,rentensumme_tausend_chf,3196.0,CHF,tausend_chf,altersrenten_ab_65
+2015,ahv_ausgaben,100,1915,Silent Generation,1,rentensumme_tausend_chf,3202.0,CHF,tausend_chf,altersrenten_ab_65
+2016,ahv_ausgaben,100,1916,Silent Generation,1,rentensumme_tausend_chf,3258.0,CHF,tausend_chf,altersrenten_ab_65
+2017,ahv_ausgaben,100,1917,Silent Generation,1,rentensumme_tausend_chf,3202.0,CHF,tausend_chf,altersrenten_ab_65
+2018,ahv_ausgaben,100,1918,Silent Generation,1,rentensumme_tausend_chf,3261.0,CHF,tausend_chf,altersrenten_ab_65
+2019,ahv_ausgaben,100,1919,Silent Generation,1,rentensumme_tausend_chf,3406.0,CHF,tausend_chf,altersrenten_ab_65
+2020,ahv_ausgaben,100,1920,Silent Generation,1,rentensumme_tausend_chf,3696.0,CHF,tausend_chf,altersrenten_ab_65
+2021,ahv_ausgaben,100,1921,Silent Generation,1,rentensumme_tausend_chf,4015.0,CHF,tausend_chf,altersrenten_ab_65
+2022,ahv_ausgaben,100,1922,Silent Generation,1,rentensumme_tausend_chf,4172.0,CHF,tausend_chf,altersrenten_ab_65
+2023,ahv_ausgaben,100,1923,Silent Generation,1,rentensumme_tausend_chf,4573.0,CHF,tausend_chf,altersrenten_ab_65
+2024,ahv_ausgaben,100,1924,Silent Generation,1,rentensumme_tausend_chf,4835.0,CHF,tausend_chf,altersrenten_ab_65
+2012,ahv_ausgaben,65,1947,Babyboomers,2,renten_mittelwert_chf,1815.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,65,1948,Babyboomers,2,renten_mittelwert_chf,1831.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,65,1949,Babyboomers,2,renten_mittelwert_chf,1827.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,65,1950,Babyboomers,2,renten_mittelwert_chf,1826.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,65,1951,Babyboomers,2,renten_mittelwert_chf,1829.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,65,1952,Babyboomers,2,renten_mittelwert_chf,1819.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,65,1953,Babyboomers,2,renten_mittelwert_chf,1816.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,65,1954,Babyboomers,2,renten_mittelwert_chf,1825.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,65,1955,Babyboomers,2,renten_mittelwert_chf,1822.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,65,1956,Babyboomers,2,renten_mittelwert_chf,1838.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,65,1957,Babyboomers,2,renten_mittelwert_chf,1841.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,65,1958,Babyboomers,2,renten_mittelwert_chf,1879.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,65,1959,Babyboomers,2,renten_mittelwert_chf,1872.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,66,1946,Babyboomers,2,renten_mittelwert_chf,1813.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,66,1947,Babyboomers,2,renten_mittelwert_chf,1821.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,66,1948,Babyboomers,2,renten_mittelwert_chf,1821.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,66,1949,Babyboomers,2,renten_mittelwert_chf,1826.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,66,1950,Babyboomers,2,renten_mittelwert_chf,1817.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,66,1951,Babyboomers,2,renten_mittelwert_chf,1821.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,66,1952,Babyboomers,2,renten_mittelwert_chf,1811.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,66,1953,Babyboomers,2,renten_mittelwert_chf,1823.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,66,1954,Babyboomers,2,renten_mittelwert_chf,1816.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,66,1955,Babyboomers,2,renten_mittelwert_chf,1830.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,66,1956,Babyboomers,2,renten_mittelwert_chf,1830.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,66,1957,Babyboomers,2,renten_mittelwert_chf,1879.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,66,1958,Babyboomers,2,renten_mittelwert_chf,1870.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,67,1945,Silent Generation,1,renten_mittelwert_chf,1806.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,67,1946,Babyboomers,2,renten_mittelwert_chf,1819.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,67,1947,Babyboomers,2,renten_mittelwert_chf,1812.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,67,1948,Babyboomers,2,renten_mittelwert_chf,1822.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,67,1949,Babyboomers,2,renten_mittelwert_chf,1818.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,67,1950,Babyboomers,2,renten_mittelwert_chf,1810.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,67,1951,Babyboomers,2,renten_mittelwert_chf,1813.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,67,1952,Babyboomers,2,renten_mittelwert_chf,1818.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,67,1953,Babyboomers,2,renten_mittelwert_chf,1816.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,67,1954,Babyboomers,2,renten_mittelwert_chf,1824.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,67,1955,Babyboomers,2,renten_mittelwert_chf,1823.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,67,1956,Babyboomers,2,renten_mittelwert_chf,1868.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,67,1957,Babyboomers,2,renten_mittelwert_chf,1871.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,68,1944,Silent Generation,1,renten_mittelwert_chf,1794.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,68,1945,Silent Generation,1,renten_mittelwert_chf,1814.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,68,1946,Babyboomers,2,renten_mittelwert_chf,1811.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,68,1947,Babyboomers,2,renten_mittelwert_chf,1813.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,68,1948,Babyboomers,2,renten_mittelwert_chf,1815.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,68,1949,Babyboomers,2,renten_mittelwert_chf,1811.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,68,1950,Babyboomers,2,renten_mittelwert_chf,1803.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,68,1951,Babyboomers,2,renten_mittelwert_chf,1823.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,68,1952,Babyboomers,2,renten_mittelwert_chf,1812.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,68,1953,Babyboomers,2,renten_mittelwert_chf,1826.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,68,1954,Babyboomers,2,renten_mittelwert_chf,1818.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,68,1955,Babyboomers,2,renten_mittelwert_chf,1862.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,68,1956,Babyboomers,2,renten_mittelwert_chf,1862.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,69,1943,Silent Generation,1,renten_mittelwert_chf,1794.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,69,1944,Silent Generation,1,renten_mittelwert_chf,1806.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,69,1945,Silent Generation,1,renten_mittelwert_chf,1810.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,69,1946,Babyboomers,2,renten_mittelwert_chf,1815.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,69,1947,Babyboomers,2,renten_mittelwert_chf,1810.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,69,1948,Babyboomers,2,renten_mittelwert_chf,1811.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,69,1949,Babyboomers,2,renten_mittelwert_chf,1808.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,69,1950,Babyboomers,2,renten_mittelwert_chf,1816.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,69,1951,Babyboomers,2,renten_mittelwert_chf,1820.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,69,1952,Babyboomers,2,renten_mittelwert_chf,1824.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,69,1953,Babyboomers,2,renten_mittelwert_chf,1823.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,69,1954,Babyboomers,2,renten_mittelwert_chf,1861.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,69,1955,Babyboomers,2,renten_mittelwert_chf,1860.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,70,1942,Silent Generation,1,renten_mittelwert_chf,1793.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,70,1943,Silent Generation,1,renten_mittelwert_chf,1809.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,70,1944,Silent Generation,1,renten_mittelwert_chf,1804.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,70,1945,Silent Generation,1,renten_mittelwert_chf,1817.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,70,1946,Babyboomers,2,renten_mittelwert_chf,1814.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,70,1947,Babyboomers,2,renten_mittelwert_chf,1809.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,70,1948,Babyboomers,2,renten_mittelwert_chf,1811.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,70,1949,Babyboomers,2,renten_mittelwert_chf,1823.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,70,1950,Babyboomers,2,renten_mittelwert_chf,1815.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,70,1951,Babyboomers,2,renten_mittelwert_chf,1835.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,70,1952,Babyboomers,2,renten_mittelwert_chf,1824.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,70,1953,Babyboomers,2,renten_mittelwert_chf,1869.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,70,1954,Babyboomers,2,renten_mittelwert_chf,1862.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,71,1941,Silent Generation,1,renten_mittelwert_chf,1798.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,71,1942,Silent Generation,1,renten_mittelwert_chf,1808.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,71,1943,Silent Generation,1,renten_mittelwert_chf,1808.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,71,1944,Silent Generation,1,renten_mittelwert_chf,1812.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,71,1945,Silent Generation,1,renten_mittelwert_chf,1817.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,71,1946,Babyboomers,2,renten_mittelwert_chf,1814.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,71,1947,Babyboomers,2,renten_mittelwert_chf,1809.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,71,1948,Babyboomers,2,renten_mittelwert_chf,1826.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,71,1949,Babyboomers,2,renten_mittelwert_chf,1822.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,71,1950,Babyboomers,2,renten_mittelwert_chf,1831.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,71,1951,Babyboomers,2,renten_mittelwert_chf,1835.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,71,1952,Babyboomers,2,renten_mittelwert_chf,1870.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,71,1953,Babyboomers,2,renten_mittelwert_chf,1868.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,72,1940,Silent Generation,1,renten_mittelwert_chf,1789.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,72,1941,Silent Generation,1,renten_mittelwert_chf,1814.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,72,1942,Silent Generation,1,renten_mittelwert_chf,1808.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,72,1943,Silent Generation,1,renten_mittelwert_chf,1817.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,72,1944,Silent Generation,1,renten_mittelwert_chf,1813.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,72,1945,Silent Generation,1,renten_mittelwert_chf,1818.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,72,1946,Babyboomers,2,renten_mittelwert_chf,1815.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,72,1947,Babyboomers,2,renten_mittelwert_chf,1825.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,72,1948,Babyboomers,2,renten_mittelwert_chf,1828.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,72,1949,Babyboomers,2,renten_mittelwert_chf,1838.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,72,1950,Babyboomers,2,renten_mittelwert_chf,1832.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,72,1951,Babyboomers,2,renten_mittelwert_chf,1882.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,72,1952,Babyboomers,2,renten_mittelwert_chf,1871.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,73,1939,Silent Generation,1,renten_mittelwert_chf,1790.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,73,1940,Silent Generation,1,renten_mittelwert_chf,1808.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,73,1941,Silent Generation,1,renten_mittelwert_chf,1816.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,73,1942,Silent Generation,1,renten_mittelwert_chf,1818.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,73,1943,Silent Generation,1,renten_mittelwert_chf,1819.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,73,1944,Silent Generation,1,renten_mittelwert_chf,1815.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,73,1945,Silent Generation,1,renten_mittelwert_chf,1820.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,73,1946,Babyboomers,2,renten_mittelwert_chf,1833.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,73,1947,Babyboomers,2,renten_mittelwert_chf,1828.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,73,1948,Babyboomers,2,renten_mittelwert_chf,1847.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,73,1949,Babyboomers,2,renten_mittelwert_chf,1842.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,73,1950,Babyboomers,2,renten_mittelwert_chf,1880.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,73,1951,Babyboomers,2,renten_mittelwert_chf,1884.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,74,1938,Silent Generation,1,renten_mittelwert_chf,1803.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,74,1939,Silent Generation,1,renten_mittelwert_chf,1810.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,74,1940,Silent Generation,1,renten_mittelwert_chf,1811.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,74,1941,Silent Generation,1,renten_mittelwert_chf,1829.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,74,1942,Silent Generation,1,renten_mittelwert_chf,1822.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,74,1943,Silent Generation,1,renten_mittelwert_chf,1823.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,74,1944,Silent Generation,1,renten_mittelwert_chf,1819.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,74,1945,Silent Generation,1,renten_mittelwert_chf,1839.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,74,1946,Babyboomers,2,renten_mittelwert_chf,1836.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,74,1947,Babyboomers,2,renten_mittelwert_chf,1847.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,74,1948,Babyboomers,2,renten_mittelwert_chf,1851.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,74,1949,Babyboomers,2,renten_mittelwert_chf,1891.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,74,1950,Babyboomers,2,renten_mittelwert_chf,1884.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,75,1937,Silent Generation,1,renten_mittelwert_chf,1808.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,75,1938,Silent Generation,1,renten_mittelwert_chf,1823.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,75,1939,Silent Generation,1,renten_mittelwert_chf,1814.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,75,1940,Silent Generation,1,renten_mittelwert_chf,1825.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,75,1941,Silent Generation,1,renten_mittelwert_chf,1833.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,75,1942,Silent Generation,1,renten_mittelwert_chf,1826.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,75,1943,Silent Generation,1,renten_mittelwert_chf,1827.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,75,1944,Silent Generation,1,renten_mittelwert_chf,1839.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,75,1945,Silent Generation,1,renten_mittelwert_chf,1843.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,75,1946,Babyboomers,2,renten_mittelwert_chf,1857.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,75,1947,Babyboomers,2,renten_mittelwert_chf,1852.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,75,1948,Babyboomers,2,renten_mittelwert_chf,1902.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,75,1949,Babyboomers,2,renten_mittelwert_chf,1895.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,76,1936,Silent Generation,1,renten_mittelwert_chf,1821.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,76,1937,Silent Generation,1,renten_mittelwert_chf,1830.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,76,1938,Silent Generation,1,renten_mittelwert_chf,1829.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,76,1939,Silent Generation,1,renten_mittelwert_chf,1828.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,76,1940,Silent Generation,1,renten_mittelwert_chf,1830.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,76,1941,Silent Generation,1,renten_mittelwert_chf,1839.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,76,1942,Silent Generation,1,renten_mittelwert_chf,1832.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,76,1943,Silent Generation,1,renten_mittelwert_chf,1848.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,76,1944,Silent Generation,1,renten_mittelwert_chf,1844.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,76,1945,Silent Generation,1,renten_mittelwert_chf,1865.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,76,1946,Babyboomers,2,renten_mittelwert_chf,1863.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,76,1947,Babyboomers,2,renten_mittelwert_chf,1903.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,76,1948,Babyboomers,2,renten_mittelwert_chf,1907.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,77,1935,Silent Generation,1,renten_mittelwert_chf,1825.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,77,1936,Silent Generation,1,renten_mittelwert_chf,1842.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,77,1937,Silent Generation,1,renten_mittelwert_chf,1836.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,77,1938,Silent Generation,1,renten_mittelwert_chf,1844.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,77,1939,Silent Generation,1,renten_mittelwert_chf,1835.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,77,1940,Silent Generation,1,renten_mittelwert_chf,1836.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,77,1941,Silent Generation,1,renten_mittelwert_chf,1846.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,77,1942,Silent Generation,1,renten_mittelwert_chf,1854.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,77,1943,Silent Generation,1,renten_mittelwert_chf,1855.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,77,1944,Silent Generation,1,renten_mittelwert_chf,1866.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,77,1945,Silent Generation,1,renten_mittelwert_chf,1872.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,77,1946,Babyboomers,2,renten_mittelwert_chf,1915.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,77,1947,Babyboomers,2,renten_mittelwert_chf,1908.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,78,1934,Silent Generation,1,renten_mittelwert_chf,1849.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,78,1935,Silent Generation,1,renten_mittelwert_chf,1848.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,78,1936,Silent Generation,1,renten_mittelwert_chf,1850.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,78,1937,Silent Generation,1,renten_mittelwert_chf,1852.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,78,1938,Silent Generation,1,renten_mittelwert_chf,1851.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,78,1939,Silent Generation,1,renten_mittelwert_chf,1843.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,78,1940,Silent Generation,1,renten_mittelwert_chf,1844.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,78,1941,Silent Generation,1,renten_mittelwert_chf,1869.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,78,1942,Silent Generation,1,renten_mittelwert_chf,1861.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,78,1943,Silent Generation,1,renten_mittelwert_chf,1877.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,78,1944,Silent Generation,1,renten_mittelwert_chf,1873.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,78,1945,Silent Generation,1,renten_mittelwert_chf,1926.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,78,1946,Babyboomers,2,renten_mittelwert_chf,1922.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,79,1933,Silent Generation,1,renten_mittelwert_chf,1861.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,79,1934,Silent Generation,1,renten_mittelwert_chf,1874.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,79,1935,Silent Generation,1,renten_mittelwert_chf,1856.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,79,1936,Silent Generation,1,renten_mittelwert_chf,1866.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,79,1937,Silent Generation,1,renten_mittelwert_chf,1860.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,79,1938,Silent Generation,1,renten_mittelwert_chf,1859.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,79,1939,Silent Generation,1,renten_mittelwert_chf,1851.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,79,1940,Silent Generation,1,renten_mittelwert_chf,1868.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,79,1941,Silent Generation,1,renten_mittelwert_chf,1877.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,79,1942,Silent Generation,1,renten_mittelwert_chf,1886.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,79,1943,Silent Generation,1,renten_mittelwert_chf,1885.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,79,1944,Silent Generation,1,renten_mittelwert_chf,1929.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,79,1945,Silent Generation,1,renten_mittelwert_chf,1933.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,80,1932,Silent Generation,1,renten_mittelwert_chf,1872.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,80,1933,Silent Generation,1,renten_mittelwert_chf,1886.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,80,1934,Silent Generation,1,renten_mittelwert_chf,1883.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,80,1935,Silent Generation,1,renten_mittelwert_chf,1874.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,80,1936,Silent Generation,1,renten_mittelwert_chf,1874.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,80,1937,Silent Generation,1,renten_mittelwert_chf,1870.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,80,1938,Silent Generation,1,renten_mittelwert_chf,1867.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,80,1939,Silent Generation,1,renten_mittelwert_chf,1876.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,80,1940,Silent Generation,1,renten_mittelwert_chf,1878.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,80,1941,Silent Generation,1,renten_mittelwert_chf,1902.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,80,1942,Silent Generation,1,renten_mittelwert_chf,1895.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,80,1943,Silent Generation,1,renten_mittelwert_chf,1941.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,80,1944,Silent Generation,1,renten_mittelwert_chf,1938.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,81,1931,Silent Generation,1,renten_mittelwert_chf,1877.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,81,1932,Silent Generation,1,renten_mittelwert_chf,1899.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,81,1933,Silent Generation,1,renten_mittelwert_chf,1897.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,81,1934,Silent Generation,1,renten_mittelwert_chf,1902.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,81,1935,Silent Generation,1,renten_mittelwert_chf,1882.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,81,1936,Silent Generation,1,renten_mittelwert_chf,1885.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,81,1937,Silent Generation,1,renten_mittelwert_chf,1879.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,81,1938,Silent Generation,1,renten_mittelwert_chf,1893.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,81,1939,Silent Generation,1,renten_mittelwert_chf,1886.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,81,1940,Silent Generation,1,renten_mittelwert_chf,1904.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,81,1941,Silent Generation,1,renten_mittelwert_chf,1912.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,81,1942,Silent Generation,1,renten_mittelwert_chf,1952.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,81,1943,Silent Generation,1,renten_mittelwert_chf,1951.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,82,1930,Silent Generation,1,renten_mittelwert_chf,1889.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,82,1931,Silent Generation,1,renten_mittelwert_chf,1904.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,82,1932,Silent Generation,1,renten_mittelwert_chf,1910.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,82,1933,Silent Generation,1,renten_mittelwert_chf,1917.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,82,1934,Silent Generation,1,renten_mittelwert_chf,1913.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,82,1935,Silent Generation,1,renten_mittelwert_chf,1894.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,82,1936,Silent Generation,1,renten_mittelwert_chf,1895.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,82,1937,Silent Generation,1,renten_mittelwert_chf,1906.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,82,1938,Silent Generation,1,renten_mittelwert_chf,1904.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,82,1939,Silent Generation,1,renten_mittelwert_chf,1913.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,82,1940,Silent Generation,1,renten_mittelwert_chf,1914.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,82,1941,Silent Generation,1,renten_mittelwert_chf,1970.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,82,1942,Silent Generation,1,renten_mittelwert_chf,1962.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,83,1929,Silent Generation,1,renten_mittelwert_chf,1903.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,83,1930,Silent Generation,1,renten_mittelwert_chf,1917.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,83,1931,Silent Generation,1,renten_mittelwert_chf,1916.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,83,1932,Silent Generation,1,renten_mittelwert_chf,1930.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,83,1933,Silent Generation,1,renten_mittelwert_chf,1928.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,83,1934,Silent Generation,1,renten_mittelwert_chf,1924.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,83,1935,Silent Generation,1,renten_mittelwert_chf,1905.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,83,1936,Silent Generation,1,renten_mittelwert_chf,1922.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,83,1937,Silent Generation,1,renten_mittelwert_chf,1918.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,83,1938,Silent Generation,1,renten_mittelwert_chf,1932.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,83,1939,Silent Generation,1,renten_mittelwert_chf,1924.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,83,1940,Silent Generation,1,renten_mittelwert_chf,1974.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,83,1941,Silent Generation,1,renten_mittelwert_chf,1980.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,84,1928,Silent Generation,1,renten_mittelwert_chf,1922.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,84,1929,Silent Generation,1,renten_mittelwert_chf,1932.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,84,1930,Silent Generation,1,renten_mittelwert_chf,1930.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,84,1931,Silent Generation,1,renten_mittelwert_chf,1938.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,84,1932,Silent Generation,1,renten_mittelwert_chf,1942.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,84,1933,Silent Generation,1,renten_mittelwert_chf,1940.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,84,1934,Silent Generation,1,renten_mittelwert_chf,1936.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,84,1935,Silent Generation,1,renten_mittelwert_chf,1933.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,84,1936,Silent Generation,1,renten_mittelwert_chf,1934.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,84,1937,Silent Generation,1,renten_mittelwert_chf,1948.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,84,1938,Silent Generation,1,renten_mittelwert_chf,1944.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,84,1939,Silent Generation,1,renten_mittelwert_chf,1984.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,84,1940,Silent Generation,1,renten_mittelwert_chf,1986.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,85,1927,Silent Generation,1,renten_mittelwert_chf,1929.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,85,1928,Silent Generation,1,renten_mittelwert_chf,1952.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,85,1929,Silent Generation,1,renten_mittelwert_chf,1945.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,85,1930,Silent Generation,1,renten_mittelwert_chf,1952.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,85,1931,Silent Generation,1,renten_mittelwert_chf,1951.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,85,1932,Silent Generation,1,renten_mittelwert_chf,1956.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,85,1933,Silent Generation,1,renten_mittelwert_chf,1953.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,85,1934,Silent Generation,1,renten_mittelwert_chf,1968.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,85,1935,Silent Generation,1,renten_mittelwert_chf,1947.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,85,1936,Silent Generation,1,renten_mittelwert_chf,1964.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,85,1937,Silent Generation,1,renten_mittelwert_chf,1960.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,85,1938,Silent Generation,1,renten_mittelwert_chf,2006.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,85,1939,Silent Generation,1,renten_mittelwert_chf,1996.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,86,1926,Silent Generation,1,renten_mittelwert_chf,1945.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,86,1927,Silent Generation,1,renten_mittelwert_chf,1960.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,86,1928,Silent Generation,1,renten_mittelwert_chf,1965.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,86,1929,Silent Generation,1,renten_mittelwert_chf,1968.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,86,1930,Silent Generation,1,renten_mittelwert_chf,1965.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,86,1931,Silent Generation,1,renten_mittelwert_chf,1964.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,86,1932,Silent Generation,1,renten_mittelwert_chf,1970.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,86,1933,Silent Generation,1,renten_mittelwert_chf,1984.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,86,1934,Silent Generation,1,renten_mittelwert_chf,1982.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,86,1935,Silent Generation,1,renten_mittelwert_chf,1976.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,86,1936,Silent Generation,1,renten_mittelwert_chf,1978.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,86,1937,Silent Generation,1,renten_mittelwert_chf,2023.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,86,1938,Silent Generation,1,renten_mittelwert_chf,2019.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,87,1925,Silent Generation,1,renten_mittelwert_chf,1965.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,87,1926,Silent Generation,1,renten_mittelwert_chf,1976.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,87,1927,Silent Generation,1,renten_mittelwert_chf,1974.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,87,1928,Silent Generation,1,renten_mittelwert_chf,1989.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,87,1929,Silent Generation,1,renten_mittelwert_chf,1979.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,87,1930,Silent Generation,1,renten_mittelwert_chf,1979.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,87,1931,Silent Generation,1,renten_mittelwert_chf,1980.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,87,1932,Silent Generation,1,renten_mittelwert_chf,2000.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,87,1933,Silent Generation,1,renten_mittelwert_chf,1998.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,87,1934,Silent Generation,1,renten_mittelwert_chf,2013.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,87,1935,Silent Generation,1,renten_mittelwert_chf,1993.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,87,1936,Silent Generation,1,renten_mittelwert_chf,2043.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,87,1937,Silent Generation,1,renten_mittelwert_chf,2036.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,88,1924,Silent Generation,1,renten_mittelwert_chf,1978.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,88,1925,Silent Generation,1,renten_mittelwert_chf,1996.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,88,1926,Silent Generation,1,renten_mittelwert_chf,1990.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,88,1927,Silent Generation,1,renten_mittelwert_chf,1998.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,88,1928,Silent Generation,1,renten_mittelwert_chf,2003.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,88,1929,Silent Generation,1,renten_mittelwert_chf,1995.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,88,1930,Silent Generation,1,renten_mittelwert_chf,1994.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,88,1931,Silent Generation,1,renten_mittelwert_chf,2014.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,88,1932,Silent Generation,1,renten_mittelwert_chf,2016.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,88,1933,Silent Generation,1,renten_mittelwert_chf,2029.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,88,1934,Silent Generation,1,renten_mittelwert_chf,2027.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,88,1935,Silent Generation,1,renten_mittelwert_chf,2056.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,88,1936,Silent Generation,1,renten_mittelwert_chf,2058.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,89,1923,Silent Generation,1,renten_mittelwert_chf,1990.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,89,1924,Silent Generation,1,renten_mittelwert_chf,2008.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,89,1925,Silent Generation,1,renten_mittelwert_chf,2011.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,89,1926,Silent Generation,1,renten_mittelwert_chf,2013.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,89,1927,Silent Generation,1,renten_mittelwert_chf,2011.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,89,1928,Silent Generation,1,renten_mittelwert_chf,2018.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,89,1929,Silent Generation,1,renten_mittelwert_chf,2010.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,89,1930,Silent Generation,1,renten_mittelwert_chf,2024.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,89,1931,Silent Generation,1,renten_mittelwert_chf,2031.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,89,1932,Silent Generation,1,renten_mittelwert_chf,2050.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,89,1933,Silent Generation,1,renten_mittelwert_chf,2047.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,89,1934,Silent Generation,1,renten_mittelwert_chf,2092.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,89,1935,Silent Generation,1,renten_mittelwert_chf,2069.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,90,1922,Silent Generation,1,renten_mittelwert_chf,2007.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,90,1923,Silent Generation,1,renten_mittelwert_chf,2021.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,90,1924,Silent Generation,1,renten_mittelwert_chf,2022.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,90,1925,Silent Generation,1,renten_mittelwert_chf,2037.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,90,1926,Silent Generation,1,renten_mittelwert_chf,2026.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,90,1927,Silent Generation,1,renten_mittelwert_chf,2025.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,90,1928,Silent Generation,1,renten_mittelwert_chf,2033.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,90,1929,Silent Generation,1,renten_mittelwert_chf,2042.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,90,1930,Silent Generation,1,renten_mittelwert_chf,2038.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,90,1931,Silent Generation,1,renten_mittelwert_chf,2065.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,90,1932,Silent Generation,1,renten_mittelwert_chf,2064.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,90,1933,Silent Generation,1,renten_mittelwert_chf,2115.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,90,1934,Silent Generation,1,renten_mittelwert_chf,2106.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,91,1921,Silent Generation,1,renten_mittelwert_chf,2014.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,91,1922,Silent Generation,1,renten_mittelwert_chf,2040.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,91,1923,Silent Generation,1,renten_mittelwert_chf,2033.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,91,1924,Silent Generation,1,renten_mittelwert_chf,2046.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,91,1925,Silent Generation,1,renten_mittelwert_chf,2047.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,91,1926,Silent Generation,1,renten_mittelwert_chf,2039.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,91,1927,Silent Generation,1,renten_mittelwert_chf,2037.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,91,1928,Silent Generation,1,renten_mittelwert_chf,2062.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,91,1929,Silent Generation,1,renten_mittelwert_chf,2056.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,91,1930,Silent Generation,1,renten_mittelwert_chf,2073.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,91,1931,Silent Generation,1,renten_mittelwert_chf,2082.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,91,1932,Silent Generation,1,renten_mittelwert_chf,2133.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,91,1933,Silent Generation,1,renten_mittelwert_chf,2128.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,92,1920,Silent Generation,1,renten_mittelwert_chf,2030.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,92,1921,Silent Generation,1,renten_mittelwert_chf,2044.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,92,1922,Silent Generation,1,renten_mittelwert_chf,2054.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,92,1923,Silent Generation,1,renten_mittelwert_chf,2057.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,92,1924,Silent Generation,1,renten_mittelwert_chf,2060.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,92,1925,Silent Generation,1,renten_mittelwert_chf,2059.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,92,1926,Silent Generation,1,renten_mittelwert_chf,2051.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,92,1927,Silent Generation,1,renten_mittelwert_chf,2072.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,92,1928,Silent Generation,1,renten_mittelwert_chf,2073.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,92,1929,Silent Generation,1,renten_mittelwert_chf,2090.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,92,1930,Silent Generation,1,renten_mittelwert_chf,2087.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,92,1931,Silent Generation,1,renten_mittelwert_chf,2146.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,92,1932,Silent Generation,1,renten_mittelwert_chf,2148.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,93,1919,Silent Generation,1,renten_mittelwert_chf,2039.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,93,1920,Silent Generation,1,renten_mittelwert_chf,2061.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,93,1921,Silent Generation,1,renten_mittelwert_chf,2058.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,93,1922,Silent Generation,1,renten_mittelwert_chf,2079.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,93,1923,Silent Generation,1,renten_mittelwert_chf,2072.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,93,1924,Silent Generation,1,renten_mittelwert_chf,2073.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,93,1925,Silent Generation,1,renten_mittelwert_chf,2071.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,93,1926,Silent Generation,1,renten_mittelwert_chf,2081.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,93,1927,Silent Generation,1,renten_mittelwert_chf,2081.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,93,1928,Silent Generation,1,renten_mittelwert_chf,2106.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,93,1929,Silent Generation,1,renten_mittelwert_chf,2102.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,93,1930,Silent Generation,1,renten_mittelwert_chf,2156.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,93,1931,Silent Generation,1,renten_mittelwert_chf,2162.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,94,1918,Silent Generation,1,renten_mittelwert_chf,2062.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,94,1919,Silent Generation,1,renten_mittelwert_chf,2067.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,94,1920,Silent Generation,1,renten_mittelwert_chf,2071.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,94,1921,Silent Generation,1,renten_mittelwert_chf,2078.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,94,1922,Silent Generation,1,renten_mittelwert_chf,2087.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,94,1923,Silent Generation,1,renten_mittelwert_chf,2089.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,94,1924,Silent Generation,1,renten_mittelwert_chf,2086.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,94,1925,Silent Generation,1,renten_mittelwert_chf,2104.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,94,1926,Silent Generation,1,renten_mittelwert_chf,2098.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,94,1927,Silent Generation,1,renten_mittelwert_chf,2113.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,94,1928,Silent Generation,1,renten_mittelwert_chf,2122.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,94,1929,Silent Generation,1,renten_mittelwert_chf,2166.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,94,1930,Silent Generation,1,renten_mittelwert_chf,2171.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,95,1917,Silent Generation,1,renten_mittelwert_chf,2069.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,95,1918,Silent Generation,1,renten_mittelwert_chf,2084.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,95,1919,Silent Generation,1,renten_mittelwert_chf,2082.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,95,1920,Silent Generation,1,renten_mittelwert_chf,2086.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,95,1921,Silent Generation,1,renten_mittelwert_chf,2088.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,95,1922,Silent Generation,1,renten_mittelwert_chf,2097.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,95,1923,Silent Generation,1,renten_mittelwert_chf,2100.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,95,1924,Silent Generation,1,renten_mittelwert_chf,2112.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,95,1925,Silent Generation,1,renten_mittelwert_chf,2120.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,95,1926,Silent Generation,1,renten_mittelwert_chf,2124.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,95,1927,Silent Generation,1,renten_mittelwert_chf,2125.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,95,1928,Silent Generation,1,renten_mittelwert_chf,2192.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,95,1929,Silent Generation,1,renten_mittelwert_chf,2176.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,96,1916,Silent Generation,1,renten_mittelwert_chf,2066.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,96,1917,Silent Generation,1,renten_mittelwert_chf,2102.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,96,1918,Silent Generation,1,renten_mittelwert_chf,2094.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,96,1919,Silent Generation,1,renten_mittelwert_chf,2098.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,96,1920,Silent Generation,1,renten_mittelwert_chf,2095.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,96,1921,Silent Generation,1,renten_mittelwert_chf,2101.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,96,1922,Silent Generation,1,renten_mittelwert_chf,2108.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,96,1923,Silent Generation,1,renten_mittelwert_chf,2126.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,96,1924,Silent Generation,1,renten_mittelwert_chf,2124.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,96,1925,Silent Generation,1,renten_mittelwert_chf,2149.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,96,1926,Silent Generation,1,renten_mittelwert_chf,2134.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,96,1927,Silent Generation,1,renten_mittelwert_chf,2189.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,96,1928,Silent Generation,1,renten_mittelwert_chf,2205.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,97,1915,Silent Generation,1,renten_mittelwert_chf,2075.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,97,1916,Silent Generation,1,renten_mittelwert_chf,2089.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,97,1917,Silent Generation,1,renten_mittelwert_chf,2115.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,97,1918,Silent Generation,1,renten_mittelwert_chf,2106.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,97,1919,Silent Generation,1,renten_mittelwert_chf,2106.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,97,1920,Silent Generation,1,renten_mittelwert_chf,2102.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,97,1921,Silent Generation,1,renten_mittelwert_chf,2116.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,97,1922,Silent Generation,1,renten_mittelwert_chf,2137.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,97,1923,Silent Generation,1,renten_mittelwert_chf,2137.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,97,1924,Silent Generation,1,renten_mittelwert_chf,2152.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,97,1925,Silent Generation,1,renten_mittelwert_chf,2163.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,97,1926,Silent Generation,1,renten_mittelwert_chf,2198.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,97,1927,Silent Generation,1,renten_mittelwert_chf,2191.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,98,1914,Silent Generation,1,renten_mittelwert_chf,2060.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,98,1915,Silent Generation,1,renten_mittelwert_chf,2103.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,98,1916,Silent Generation,1,renten_mittelwert_chf,2091.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,98,1917,Silent Generation,1,renten_mittelwert_chf,2141.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,98,1918,Silent Generation,1,renten_mittelwert_chf,2113.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,98,1919,Silent Generation,1,renten_mittelwert_chf,2123.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,98,1920,Silent Generation,1,renten_mittelwert_chf,2119.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,98,1921,Silent Generation,1,renten_mittelwert_chf,2138.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,98,1922,Silent Generation,1,renten_mittelwert_chf,2141.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,98,1923,Silent Generation,1,renten_mittelwert_chf,2165.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,98,1924,Silent Generation,1,renten_mittelwert_chf,2156.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,98,1925,Silent Generation,1,renten_mittelwert_chf,2230.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,98,1926,Silent Generation,1,renten_mittelwert_chf,2204.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,99,1913,Silent Generation,1,renten_mittelwert_chf,2066.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,99,1914,Silent Generation,1,renten_mittelwert_chf,2075.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,99,1915,Silent Generation,1,renten_mittelwert_chf,2114.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,99,1916,Silent Generation,1,renten_mittelwert_chf,2107.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,99,1917,Silent Generation,1,renten_mittelwert_chf,2154.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,99,1918,Silent Generation,1,renten_mittelwert_chf,2127.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,99,1919,Silent Generation,1,renten_mittelwert_chf,2124.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,99,1920,Silent Generation,1,renten_mittelwert_chf,2131.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,99,1921,Silent Generation,1,renten_mittelwert_chf,2155.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,99,1922,Silent Generation,1,renten_mittelwert_chf,2164.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,99,1923,Silent Generation,1,renten_mittelwert_chf,2171.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,99,1924,Silent Generation,1,renten_mittelwert_chf,2215.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,99,1925,Silent Generation,1,renten_mittelwert_chf,2239.0,CHF,chf,altersrenten_ab_65
+2012,ahv_ausgaben,100,1912,Silent Generation,1,renten_mittelwert_chf,2068.0,CHF,chf,altersrenten_ab_65
+2013,ahv_ausgaben,100,1913,Silent Generation,1,renten_mittelwert_chf,2084.0,CHF,chf,altersrenten_ab_65
+2014,ahv_ausgaben,100,1914,Silent Generation,1,renten_mittelwert_chf,2088.0,CHF,chf,altersrenten_ab_65
+2015,ahv_ausgaben,100,1915,Silent Generation,1,renten_mittelwert_chf,2112.0,CHF,chf,altersrenten_ab_65
+2016,ahv_ausgaben,100,1916,Silent Generation,1,renten_mittelwert_chf,2121.0,CHF,chf,altersrenten_ab_65
+2017,ahv_ausgaben,100,1917,Silent Generation,1,renten_mittelwert_chf,2128.0,CHF,chf,altersrenten_ab_65
+2018,ahv_ausgaben,100,1918,Silent Generation,1,renten_mittelwert_chf,2129.0,CHF,chf,altersrenten_ab_65
+2019,ahv_ausgaben,100,1919,Silent Generation,1,renten_mittelwert_chf,2158.0,CHF,chf,altersrenten_ab_65
+2020,ahv_ausgaben,100,1920,Silent Generation,1,renten_mittelwert_chf,2151.0,CHF,chf,altersrenten_ab_65
+2021,ahv_ausgaben,100,1921,Silent Generation,1,renten_mittelwert_chf,2176.0,CHF,chf,altersrenten_ab_65
+2022,ahv_ausgaben,100,1922,Silent Generation,1,renten_mittelwert_chf,2181.0,CHF,chf,altersrenten_ab_65
+2023,ahv_ausgaben,100,1923,Silent Generation,1,renten_mittelwert_chf,2241.0,CHF,chf,altersrenten_ab_65
+2024,ahv_ausgaben,100,1924,Silent Generation,1,renten_mittelwert_chf,2232.0,CHF,chf,altersrenten_ab_65

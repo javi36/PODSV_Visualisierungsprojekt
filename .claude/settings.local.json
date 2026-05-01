@@ -16,7 +16,14 @@
       "Bash(read f *)",
       "Bash(python3 -c 'import openpyxl; wb = openpyxl.load_workbook\\('\\\\''__TRACKED_VAR__'\\\\'', read_only=True\\); print\\('\\\\''\\\\n'\\\\''.join\\(wb.sheetnames\\)\\)')",
       "Bash(cat)",
-      "Bash('/Users/K.Smaili_ZHAW/Desktop/ZHAW/4. Semester/PoDSV_Project Orientated Digital Storytelling and Visualization/PODSV_Visualisierungsprojekt/podsv-project/bin/python3' /tmp/ahv_probe.py)"
+      "Bash('/Users/K.Smaili_ZHAW/Desktop/ZHAW/4. Semester/PoDSV_Project Orientated Digital Storytelling and Visualization/PODSV_Visualisierungsprojekt/podsv-project/bin/python3' /tmp/ahv_probe.py)",
+      "Bash(\"/Users/K.Smaili_ZHAW/Desktop/ZHAW/4. Semester/PoDSV_Project Orientated Digital Storytelling and Visualization/PODSV_Visualisierungsprojekt/podsv-project/bin/python3\" /tmp/ausgaben_probe.py)",
+      "Bash(\"/Users/K.Smaili_ZHAW/Desktop/ZHAW/4. Semester/PoDSV_Project Orientated Digital Storytelling and Visualization/PODSV_Visualisierungsprojekt/podsv-project/bin/python3\" /tmp/ausgaben_probe2.py)",
+      "Bash(\"../podsv-project/bin/python3\" load_ahv_ausgaben.py)"
+    ],
+    "additionalDirectories": [
+      "/tmp",
+      "/private/tmp"
     ]
   }
 }
