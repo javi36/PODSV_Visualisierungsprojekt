@@ -1,0 +1,10 @@
+#!/bin/sh
+'''exec' "/Users/K.Smaili_ZHAW/Desktop/ZHAW/4. Semester/PoDSV_Project Orientated Digital Storytelling and Visualization/PODSV_Visualisierungsprojekt/podsv-project/bin/python" "$0" "$@"
+' '''
+# -*- coding: utf-8 -*-
+import re
+import sys
+from debugpy.adapter.__main__ import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
