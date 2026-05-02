@@ -34,7 +34,16 @@ _UNZIP_TMP = Path("/tmp/whopays_unzip")
 # 2. File Dictionaries
 # -----------------------------------------
 
+GROUP_B_FILES: dict[int, str] = {
+    2006: "statistik-oblig-kv-2006-tab-laufend.xlsx",
+    2007: "statistik-okv-2007-tab-laufend.xlsx",
+    2008: "statistik-okv-2008-tab-laufend.xlsx",
+    2009: "statistik-oblig-kv-2009-tab-laufend.xlsx",
+    2010: "statistik-oblig-kv-2010-tabellen-laufende.xlsx",
+}
+
 GROUP_C_FILES: dict[int, str] = {
+    2011: "statistik-oblig-kv-2011-tabellen-laufende.xlsx",
     2012: "statistik-oblig-kv-2012-tabellen-xls-laufende.xlsx",
     2013: "statistik-oblig-kv-2013-tabellen-xls-laufende.xlsx",
     2014: "statistik-oblig-kv-2014-tabellen.xlsx",
@@ -90,6 +99,42 @@ SHEET_CONFIG: dict[str, tuple[str, list[tuple[int, str, str, str]]]] = {
         [
             (5, "total_mio_chf", "mio_chf", "CHF"),
             (7, "per_capita_chf", "chf_per_capita_year", "CHF"),
+        ],
+    ),
+}
+
+# Older files (2006–2010) use sheet "315d" for okp_premium; per-capita col absent.
+GROUP_B_SHEET_CONFIG: dict[str, tuple[str, list[tuple[int, str, str, str]]]] = {
+    "315d": (
+        "okp_premium",
+        [
+            (5, "total_mio_chf", "mio_chf", "CHF"),
+        ],
+    ),
+    "403": (
+        "praemienverbilligung",
+        [
+            (3, "beneficiaries_count", "count", "Anzahl"),
+            (4, "beneficiary_rate", "rate", "Anteil"),
+            (5, "total_mio_chf", "mio_chf", "CHF"),
+        ],
+    ),
+    "211": (
+        "okp_kostenbeteiligung",
+        [
+            (5, "total_mio_chf", "mio_chf", "CHF"),
+        ],
+    ),
+    "209": (
+        "okp_nettoleistungen",
+        [
+            (5, "total_mio_chf", "mio_chf", "CHF"),
+        ],
+    ),
+    "206": (
+        "okp_bruttoleistungen",
+        [
+            (5, "total_mio_chf", "mio_chf", "CHF"),
         ],
     ),
 }
@@ -488,17 +533,25 @@ def extract_from_sheet(
     return records
 
 
-def _read_all_sheets_from_file(xlsx_path: Path, year: int) -> list[dict]:
+def _read_all_sheets_from_file(
+    xlsx_path: Path,
+    year: int,
+    sheet_config: dict | None = None,
+) -> list[dict]:
     """
-    Read all five configured tables (307, 403, 211, 209, 206) from a single workbook.
+    Read all configured tables from a single workbook.
 
     Args:
-        xlsx_path: Path to the xlsx workbook.
-        year:      Data year.
+        xlsx_path:    Path to the xlsx workbook.
+        year:         Data year.
+        sheet_config: Table config to use; defaults to SHEET_CONFIG.
 
     Returns:
         Combined list of long-format records from all matched sheets.
     """
+    if sheet_config is None:
+        sheet_config = SHEET_CONFIG
+
     records: list[dict] = []
     try:
         wb = pd.ExcelFile(xlsx_path)
@@ -506,7 +559,7 @@ def _read_all_sheets_from_file(xlsx_path: Path, year: int) -> list[dict]:
         print(f"   ❌ Cannot open {xlsx_path.name}: {e}")
         return records
 
-    for table_num, (variable_name, col_specs) in SHEET_CONFIG.items():
+    for table_num, (variable_name, col_specs) in sheet_config.items():
         sheet_name = _find_sheet(wb, table_num)
         if sheet_name is None:
             print(f"   ⚠️  Sheet '{table_num}' not found in {xlsx_path.name}")
@@ -522,19 +575,27 @@ def _read_all_sheets_from_file(xlsx_path: Path, year: int) -> list[dict]:
 # 7. Year-level Processing
 # -----------------------------------------
 
-def process_direct_file(year: int, filename: str) -> list[dict]:
+def process_direct_file(
+    year: int,
+    filename: str,
+    sheet_config: dict | None = None,
+) -> list[dict]:
     """
     Process a direct xlsx (or xls, converted via LibreOffice) file.
 
-    Used for Group C years 2012–2015.
+    Used for Group B years 2006–2010 and Group C years 2012–2015.
 
     Args:
-        year:     Data year.
-        filename: File name within RAW_WHOPAYS_PATH.
+        year:         Data year.
+        filename:     File name within RAW_WHOPAYS_PATH.
+        sheet_config: Table config to use; defaults to SHEET_CONFIG.
 
     Returns:
         List of extracted long-format records.
     """
+    if sheet_config is None:
+        sheet_config = SHEET_CONFIG
+
     path = RAW_WHOPAYS_PATH / filename
     if not path.exists():
         print(f"   ⚠️  File not found: {path}")
@@ -558,7 +619,7 @@ def process_direct_file(year: int, filename: str) -> list[dict]:
         else:
             xlsx_path = path
 
-        return _read_all_sheets_from_file(xlsx_path, year)
+        return _read_all_sheets_from_file(xlsx_path, year, sheet_config)
 
 
 def process_zip_group_c(year: int, filename: str) -> list[dict]:
@@ -710,6 +771,272 @@ def process_zip_group_d(year: int, filename: str) -> list[dict]:
         recs = extract_from_sheet(file_path, sheet_name, year, variable_name, col_specs)
         print(f"   ✓ Table {table_num} ({variable_name}): {len(recs)} rows")
         records.extend(recs)
+
+    return records
+
+
+def _read_312d_percapita(df: pd.DataFrame, year: int) -> dict[str, float]:
+    """
+    Extract per-capita annual premium (CHF/year) from a 312d sheet.
+
+    Handles two layouts found across 2006–2008:
+    - Vertical (2006-2007): three stacked sub-tables, each introduced by an
+      age-group header in col 0 ('Kinder', 'Junge Erwachsene', 'Erwachsene'),
+      followed by a 'Jahr' label row, then year-data rows with col 5 = Total.
+    - Horizontal (2008): a single table where col 0 = Jahr, col 1 = Kinder,
+      col 3 = Junge Erwachsene, col 5 = Erwachsene.
+
+    Args:
+        df:   Raw 312d DataFrame (header=None, dtype=object).
+        year: Target data year.
+
+    Returns:
+        Dict mapping group keyword to per-capita CHF/year for the three groups.
+        Returns an empty dict on parse failure.
+    """
+    # Detect layout by scanning rows 20-45
+    layout = None
+    for row_i in range(20, min(45, len(df))):
+        c0 = str(df.iloc[row_i, 0]).strip()
+        c1 = str(df.iloc[row_i, 1]).strip() if df.shape[1] > 1 else ""
+        if "Kinder" in c0:
+            layout = "vertical"
+            break
+        if "Kinder" in c1:
+            layout = "horizontal"
+            break
+
+    result: dict[str, float] = {}
+
+    if layout == "vertical":
+        for keyword in ("Kinder", "Junge Erwachsene", "Erwachsene"):
+            header_row = next(
+                (i for i in range(20, len(df)) if str(df.iloc[i, 0]).strip() == keyword),
+                None,
+            )
+            if header_row is None:
+                continue
+            jahr_row = next(
+                (
+                    i for i in range(header_row + 1, header_row + 10)
+                    if str(df.iloc[i, 0]).strip() == "Jahr"
+                ),
+                None,
+            )
+            if jahr_row is None:
+                continue
+            for row_i in range(jahr_row + 1, jahr_row + 20):
+                try:
+                    yr = int(float(str(df.iloc[row_i, 0]).strip()))
+                except (ValueError, TypeError):
+                    break
+                if yr == year:
+                    v = _clean_numeric(df.iloc[row_i, 5])
+                    if v is not None:
+                        result[keyword] = v
+                    break
+
+    elif layout == "horizontal":
+        jahr_row = next(
+            (
+                i for i in range(25, min(40, len(df)))
+                if str(df.iloc[i, 0]).strip() == "Jahr"
+            ),
+            None,
+        )
+        if jahr_row is not None:
+            for row_i in range(jahr_row + 1, jahr_row + 20):
+                try:
+                    yr = int(float(str(df.iloc[row_i, 0]).strip()))
+                except (ValueError, TypeError):
+                    break
+                if yr == year:
+                    for keyword, col in (
+                        ("Kinder", 1),
+                        ("Junge Erwachsene", 3),
+                        ("Erwachsene", 5),
+                    ):
+                        v = _clean_numeric(df.iloc[row_i, col])
+                        if v is not None:
+                            result[keyword] = v
+                    break
+
+    return result
+
+
+def _j1d_praemien_total(workbook_path: Path, year: int) -> float | None:
+    """
+    Read the reference Prämien total (Mio CHF) for *year* from the J1d sheet.
+
+    Locates the year header row (first row in rows 0-10 that contains *year*
+    as an integer value), reads the corresponding column from the 'Prämien'
+    data row (col 1 == 'Prämien').
+
+    Args:
+        workbook_path: Path to the xlsx workbook.
+        year:          Target data year.
+
+    Returns:
+        Reference Prämien total in Mio CHF, or None on failure.
+    """
+    try:
+        wb = pd.ExcelFile(workbook_path)
+    except Exception:
+        return None
+
+    j1_sheet = next(
+        (s for s in wb.sheet_names if re.match(r"^j1", s.lower())), None
+    )
+    if j1_sheet is None:
+        return None
+
+    try:
+        dfj = pd.read_excel(workbook_path, sheet_name=j1_sheet, header=None, dtype=object)
+    except Exception:
+        return None
+
+    # Find year header row and the column for the target year
+    year_col = None
+    for row_i in range(min(10, len(dfj))):
+        for col_i, val in enumerate(dfj.iloc[row_i].tolist()):
+            try:
+                if int(float(str(val))) == year:
+                    year_col = col_i
+                    break
+            except (ValueError, TypeError):
+                continue
+        if year_col is not None:
+            break
+
+    if year_col is None:
+        return None
+
+    # Find Prämien row (col 1 exactly == 'Prämien')
+    pram_row = next(
+        (
+            i for i in range(len(dfj))
+            if str(dfj.iloc[i, 1]).strip() == "Prämien"
+        ),
+        None,
+    )
+    if pram_row is None:
+        return None
+
+    return _clean_numeric(dfj.iloc[pram_row, year_col])
+
+
+def extract_okp_premium_group_b(
+    year: int,
+    workbook_path: Path,
+    pop_df: pd.DataFrame,
+) -> list[dict]:
+    """
+    Derive okp_premium cohort records for 2006–2008 from sheet 312d.
+
+    Sheet 315d (the standard okp_premium source for Group B) is absent in
+    2006–2008.  Sheet 312d carries per-capita annual premiums (CHF/year) for
+    three age groups. This function converts those per-capita values to
+    total_mio_chf by multiplying by the BFS average population for each group,
+    then runs a 10 % plausibility check against the J1d 'Prämien' total.
+
+    Args:
+        year:          Data year (2006, 2007, or 2008).
+        workbook_path: Path to the xlsx workbook.
+        pop_df:        Population reference DataFrame (year, age, pop_avg).
+
+    Returns:
+        Three cohort-level records (Kinder / Junge Erwachsene / Erwachsene),
+        formatted identically to records from extract_from_sheet(), or an
+        empty list on failure.
+    """
+    print(f"   312d okp_premium (year {year}): {workbook_path.name}")
+
+    try:
+        wb = pd.ExcelFile(workbook_path)
+    except Exception as e:
+        print(f"   ❌ Cannot open {workbook_path.name}: {e}")
+        return []
+
+    sheet_312 = _find_sheet(wb, "312")
+    if sheet_312 is None:
+        print(f"   ⚠️  Sheet '312d' not found in {workbook_path.name}")
+        return []
+
+    try:
+        df312 = pd.read_excel(workbook_path, sheet_name=sheet_312, header=None, dtype=object)
+    except Exception as e:
+        print(f"   ❌ Cannot read sheet '{sheet_312}': {e}")
+        return []
+
+    percapita = _read_312d_percapita(df312, year)
+    if len(percapita) < 3:
+        print(
+            f"   ⚠️  Could not parse all three age-group per-capita values from 312d "
+            f"(got {list(percapita.keys())})"
+        )
+        return []
+
+    # Age-group definitions: (keyword, age_min, age_max, label)
+    age_groups = [
+        ("Kinder",           0,   18, "0 – 18"),
+        ("Junge Erwachsene", 19,  25, "19 – 25"),
+        ("Erwachsene",       26, 100, "> 25"),
+    ]
+
+    pop_year = pop_df[pop_df["year"] == year]
+
+    records: list[dict] = []
+    computed_totals: list[float] = []
+
+    for keyword, age_min, age_max, label in age_groups:
+        per_capita = percapita[keyword]
+        pop_sum = float(
+            pop_year[(pop_year["age"] >= age_min) & (pop_year["age"] <= age_max)]["pop_avg"].sum()
+        )
+        if pop_sum == 0:
+            print(f"   ⚠️  Zero population for {keyword} {year} — skipping")
+            continue
+
+        total_mio = per_capita * pop_sum / 1_000_000
+        computed_totals.append(total_mio)
+
+        records.append(
+            {
+                "year":            year,
+                "variable_name":   "okp_premium",
+                "age_group_label": label,
+                "age_min":         age_min,
+                "age_max":         age_max,
+                "metric":          "total_mio_chf",
+                "value":           total_mio,
+                "unit":            "CHF",
+                "scale":           "mio_chf",
+                "notes":           "312d_per_capita_x_pop",
+            }
+        )
+
+    if not records:
+        return []
+
+    our_total = sum(computed_totals)
+    print(
+        f"   ✓ 312d: Kinder={percapita['Kinder']:.2f}, "
+        f"JE={percapita['Junge Erwachsene']:.2f}, "
+        f"Erw={percapita['Erwachsene']:.2f} CHF/yr  →  "
+        f"sum={our_total:.1f} Mio CHF"
+    )
+
+    # Plausibility: compare against J1d Prämien reference
+    ref = _j1d_praemien_total(workbook_path, year)
+    if ref is not None and ref > 0:
+        rel_err = abs(our_total - ref) / ref
+        status = "✓" if rel_err <= 0.10 else "⚠️ "
+        print(
+            f"   {status} J1d reference={ref:.1f} Mio CHF  "
+            f"rel. error={rel_err:.1%}  ({'OK' if rel_err <= 0.10 else 'EXCEEDS 10%'})"
+        )
+    else:
+        print("   ⚠️  J1d Prämien reference not found — plausibility check skipped")
 
     return records
 
@@ -987,6 +1314,17 @@ def run_whopays_pipeline() -> tuple[pd.DataFrame, pd.DataFrame]:
     pop_df = load_population_data(RAW_POPULATION_PATH)
 
     all_records: list[dict] = []
+
+    # Group B: 2006–2010, direct xlsx files with older sheet structure
+    # 2006-2008 lack sheet 315d; okp_premium is derived from 312d per-capita data.
+    for year, filename in GROUP_B_FILES.items():
+        recs = process_direct_file(year, filename, sheet_config=GROUP_B_SHEET_CONFIG)
+        if year in {2006, 2007, 2008}:
+            filepath = RAW_WHOPAYS_PATH / filename
+            recs_312d = extract_okp_premium_group_b(year, filepath, pop_df)
+            recs.extend(recs_312d)
+        print(f"   ↳ Year {year}: {len(recs):,} records")
+        all_records.extend(recs)
 
     # Group C: 2012–2015 direct files, 2016–2021 ZIP archives
     for year, filename in GROUP_C_FILES.items():
