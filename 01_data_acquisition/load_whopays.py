@@ -799,7 +799,10 @@ def disaggregate_to_single_age(
 
         base = row.to_dict()
 
-        if scale == "mio_chf":
+        if scale in ("mio_chf", "count"):
+            # Population-weighted split: both total amounts and beneficiary counts
+            # are additive across ages and must be distributed, not copied.
+            # beneficiary_rate (scale="rate") stays on direct copy below.
             weights = {a: pop_lookup.get((year, a)) for a in ages}
             valid   = {a: w for a, w in weights.items() if w is not None}
             total_w = sum(valid.values())
@@ -817,7 +820,7 @@ def disaggregate_to_single_age(
                     records.append(_make_disagg_record(base, year, age, share, method))
 
         else:
-            # chf_per_capita_year, count, rate → direct copy
+            # chf_per_capita_year, rate → direct copy (rates are not additive)
             method = "direct"
             for age in ages:
                 records.append(_make_disagg_record(base, year, age, value, method))
@@ -831,7 +834,73 @@ def disaggregate_to_single_age(
 
 
 # -----------------------------------------
-# 9. Plausibility Check
+# 9. Missing-Year Interpolation
+# -----------------------------------------
+
+def interpolate_missing_okp_premium(df_birth_year: pd.DataFrame) -> pd.DataFrame:
+    """
+    Fill missing okp_premium rows for 2016 by linear interpolation from 2015 and 2017.
+
+    2016 is absent because the source ZIP contained no table-307 file.
+    For every (age, metric) combination present in both 2015 and 2017,
+    the interpolated value is the arithmetic mean of the two years.
+
+    Non-value columns (birth_year, project_age_group, project_age_order,
+    method) are copied from the 2017 rows and then corrected for 2016.
+
+    No rows are added if 2016 data are already present, or if neither
+    2015 nor 2017 rows exist.
+
+    Args:
+        df_birth_year: Disaggregated single-age DataFrame (all variables).
+
+    Returns:
+        DataFrame with 2016 okp_premium rows appended, or unchanged if
+        the condition is not triggered.
+    """
+    mask_premium = df_birth_year["variable_name"] == "okp_premium"
+
+    if (mask_premium & (df_birth_year["year"] == 2016)).any():
+        print("   ↳ 2016 okp_premium already present — interpolation skipped.")
+        return df_birth_year
+
+    df_2015 = df_birth_year[mask_premium & (df_birth_year["year"] == 2015)].copy()
+    df_2017 = df_birth_year[mask_premium & (df_birth_year["year"] == 2017)].copy()
+
+    if df_2015.empty or df_2017.empty:
+        print("   ⚠️  Cannot interpolate 2016 okp_premium: 2015 or 2017 data missing.")
+        return df_birth_year
+
+    # Average value per (age, metric) across 2015 and 2017
+    key_cols = ["age", "metric"]
+    avg_2015 = df_2015.set_index(key_cols)["value"]
+    avg_2017 = df_2017.set_index(key_cols)["value"]
+    common   = avg_2015.index.intersection(avg_2017.index)
+    avg_vals = ((avg_2015.loc[common] + avg_2017.loc[common]) / 2).reset_index()
+    avg_vals.columns = ["age", "metric", "value"]
+
+    # Use 2017 rows as structural template, overwrite year-dependent fields
+    template = df_2017[df_2017.set_index(key_cols).index.isin(common)].copy()
+    template = template.merge(avg_vals, on=key_cols, suffixes=("_old", ""))
+    template.drop(columns=["value_old"], inplace=True)
+
+    template["year"]       = 2016
+    template["birth_year"] = 2016 - template["age"]
+    template["notes"]      = "interpolated_2015_2017"
+    template["method"]     = "interpolated"
+
+    gen_cols = template["birth_year"].apply(
+        lambda by: pd.Series(map_generation(int(by)))
+    )
+    template[["project_age_group", "project_age_order"]] = gen_cols
+
+    n = len(template)
+    print(f"   ✓ Interpolated {n} okp_premium rows for 2016 (notes='interpolated_2015_2017')")
+    return pd.concat([df_birth_year, template], ignore_index=True)
+
+
+# -----------------------------------------
+# 10. Plausibility Check
 # -----------------------------------------
 
 def run_plausibility_check(
@@ -953,6 +1022,7 @@ def run_whopays_pipeline() -> tuple[pd.DataFrame, pd.DataFrame]:
 
     # Single-age / birth-year output
     df_birth_year = disaggregate_to_single_age(df_cohort, pop_df)
+    df_birth_year = interpolate_missing_okp_premium(df_birth_year)
     birth_year_path = PROCESSED_WHOPAYS_PATH / "okp_by_birth_year.csv"
     df_birth_year.to_csv(birth_year_path, index=False)
 
