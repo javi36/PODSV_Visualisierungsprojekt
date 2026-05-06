@@ -72,26 +72,26 @@ CHART_NARRATIVE = {
     "trust": {
         "title": "Does Institutional Trust Explain the Gap?",
         "intro": (
-            "Democratic satisfaction from 2015 to 2023 — a slope up means more satisfied, "
-            "a slope down means less. The badge shows the net change."
+            "Democratic satisfaction across three elections (2015, 2019, 2023) — "
+            "a line going up means more satisfied, down means less. "
+            "The badge shows the net change from 2015 to 2023."
         ),
         "insight": (
-            "No consistent trend across generations. "
-            "Neither trust nor democratic satisfaction fully explains the turnout decline. "
-            "Millennials and Gen Z remain consistently more sceptical throughout."
+            "No consistent trend across generations — most dip in 2019 before diverging by 2023. "
+            "Millennials are the only generation with rising satisfaction over the full period. "
+            "Gen Z and Silent Generation lost the most ground."
         ),
     },
     "lr": {
-        "title": "Is There a Generational Political Shift?",
+        "title": "Same Views, Different Turnout?",
         "intro": (
-            "Beyond participation, we examine whether generations have shifted their political orientation "
-            "over time — from left to right on the ideological spectrum (1 = left, 11 = right)."
+            "If generations vote differently, is it because they think differently? "
+            "We compare political orientation across generations — from left (1) to right (5)."
         ),
         "insight": (
-            "Silent Generation and Babyboomers shifted measurably rightward between 2015 and 2019, "
-            "and the shift consolidated by 2023. Millennials followed with a slower, gradual drift. "
-            "Generation X and Z remained stable. Combined with lower youth turnout, "
-            "older and increasingly right-leaning generations are dominating electoral outcomes."
+            "All generations cluster between 2.3 and 2.6 — barely distinguishable on the spectrum. "
+            "Political orientation does not explain the turnout gap. "
+            "Young and old share similar views, yet older generations show up to vote far more consistently."
         ),
     },
 }
@@ -130,7 +130,7 @@ def _prepare(df: pd.DataFrame) -> pd.DataFrame:
         .map({1: 1, 2: 0})
     )
     lr_col = "f12900rec" if "f12900rec" in df.columns else "f12900"
-    df["lr_scale"] = pd.to_numeric(df[lr_col], errors="coerce").replace([-99, -98], np.nan) / 10
+    df["lr_scale"] = pd.to_numeric(df[lr_col], errors="coerce").replace([-99, -98], np.nan)
     df["lr_scale"] = df["lr_scale"].where(df["lr_scale"].between(1, 11))
     return df
 
@@ -301,6 +301,7 @@ def _chart_parliament(frames: dict, selected_gens: list[str], year: int) -> go.F
         paper_bgcolor="white",
         xaxis=dict(visible=False, range=[-1.25, 1.25]),
         yaxis=dict(visible=False, range=[-0.25, 1.15], scaleanchor="x", scaleratio=1),
+        showlegend=False,
         legend=dict(
             orientation="h", yanchor="top", y=-0.02,
             xanchor="center", x=0.5,
@@ -316,25 +317,99 @@ def _chart_parliament(frames: dict, selected_gens: list[str], year: int) -> go.F
 # ─────────────────────────────────────────────
 
 def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
+    import math
+
+    # Compute ranks per year
+    years = [2015, 2019, 2023]
+    vals_all = {}
+    for gen in selected_gens:
+        v = _agg(frames, "political_interest", gen)
+        vals_all[gen] = v
+
+    ranks = {}
+    for y in years:
+        scores = {g: vals_all[g].get(y, 0) for g in selected_gens}
+        sorted_gens = sorted(scores, key=lambda g: scores[g], reverse=True)
+        for g in selected_gens:
+            if g not in ranks:
+                ranks[g] = {}
+            ranks[g][y] = sorted_gens.index(g) + 1
+
+    n = len(selected_gens)
     fig = go.Figure()
+
+    short = {
+        "Silent Generation": "Silent",
+        "Babyboomers": "Boomers",
+        "Generation X": "Gen X",
+        "Millennials / Gen Y": "Millennials",
+        "Generation Z": "Gen Z",
+    }
+
     for gen in selected_gens:
         color = GEN_COLORS[gen]
-        vals = _agg(frames, "political_interest", gen)
-        years = sorted(vals.keys())
-        y_vals = [vals[y] for y in years]
+        x_vals = years
+        y_vals = [ranks[gen][y] for y in years]
+
+        # Smooth cubic bezier via many points
+        smooth_x, smooth_y = [], []
+        for i in range(len(x_vals) - 1):
+            for t in [k / 30 for k in range(31)]:
+                mx = (x_vals[i] + x_vals[i+1]) / 2
+                bx = x_vals[i] + t * (x_vals[i+1] - x_vals[i])
+                by = y_vals[i] + (3*t**2 - 2*t**3) * (y_vals[i+1] - y_vals[i])
+                smooth_x.append(bx)
+                smooth_y.append(by)
 
         fig.add_trace(go.Scatter(
-            x=years, y=y_vals, mode="lines+markers+text",
-            name=gen, line=dict(color=color, width=2),
-            marker=dict(color=color, size=8),
-            text=[f"{v:.2f}" for v in y_vals],
-            textposition="top center",
-            textfont=dict(size=10, color=color),
+            x=smooth_x, y=smooth_y,
+            mode="lines",
+            name=gen,
+            line=dict(color=color, width=2.5),
+            showlegend=False,
+            hoverinfo="skip",
         ))
 
+        # Dots with rank number
+        fig.add_trace(go.Scatter(
+            x=x_vals, y=y_vals,
+            mode="markers+text",
+            name=gen,
+            marker=dict(color=color, size=22, symbol="circle",
+                        line=dict(color="white", width=2)),
+            text=[str(r) for r in y_vals],
+            textposition="middle center",
+            textfont=dict(size=10, color="white", family="Inter, Arial, sans-serif"),
+            hovertemplate=f"<b>{gen}</b><br>Rang %{{y}} · %{{x}}<extra></extra>",
+        ))
+
+        # Left label
+        fig.add_annotation(
+            x=2015, y=ranks[gen][2015],
+            text=f"<b>{short.get(gen, gen)}</b>",
+            xanchor="right", xshift=-18,
+            showarrow=False,
+            font=dict(size=11, color=color, family="Inter, Arial, sans-serif"),
+        )
+        # Right label
+        fig.add_annotation(
+            x=2023, y=ranks[gen][2023],
+            text=f"<b>{short.get(gen, gen)}</b>",
+            xanchor="left", xshift=18,
+            showarrow=False,
+            font=dict(size=11, color=color, family="Inter, Arial, sans-serif"),
+        )
+
     fig.update_layout(**_base_layout(
-        yaxis=dict(range=[1, 4.5], title="Avg. interest (1=low, 4=high)", **_AXIS),
+        yaxis=dict(
+            range=[n + 0.6, 0.4],
+            tickvals=list(range(1, n + 1)),
+            ticktext=[f"#{i}" for i in range(1, n + 1)],
+            title="Rang (1 = höchstes Interesse)",
+            **_AXIS,
+        ),
         xaxis=dict(tickvals=[2015, 2019, 2023], **_AXIS),
+        showlegend=False,
     ))
     return fig
 
@@ -343,43 +418,43 @@ def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
 # Chart 3 — Slope Chart (2015 vs 2023)
 # ─────────────────────────────────────────────
 
-def _chart_slope(frames: dict, selected_gens: list[str]) -> go.Figure:
-    fig = go.Figure()
+def _chart_slope(frames: dict, selected_gens: list[str]) -> list:
+    """Returns list of (gen, fig, v2023, diff) for small multiples."""
+    results = []
     for gen in selected_gens:
         color = GEN_COLORS[gen]
         vals = _agg(frames, "demo_satisfaction", gen)
         if 2015 not in vals or 2023 not in vals:
             continue
+        years = [y for y in [2015, 2019, 2023] if y in vals]
+        y_vals = [vals[y] * 100 for y in years]
         v15 = vals[2015] * 100
         v23 = vals[2023] * 100
         diff = v23 - v15
-        badge_color = GEN_COLORS["Generation X"] if diff > 0 else GEN_COLORS["Babyboomers"]
 
+        fig = go.Figure()
         fig.add_trace(go.Scatter(
-            x=[2015, 2023], y=[v15, v23],
-            mode="lines+markers", name=gen,
-            line=dict(color=color, width=2),
-            marker=dict(color=color, size=9),
-            hovertemplate=f"{gen}<br>2015: {v15:.1f}%<br>2023: {v23:.1f}%<br>Δ {diff:+.1f}%<extra></extra>",
+            x=years, y=y_vals,
+            mode="lines+markers",
+            line=dict(color=color, width=2.5),
+            marker=dict(color=color, size=6),
+            fill="tozeroy",
+            fillcolor=f"rgba({int(color[1:3],16)},{int(color[3:5],16)},{int(color[5:7],16)},0.1)",
+            hovertemplate=f"%{{x}}: %{{y:.1f}}%<extra></extra>",
+            showlegend=False,
         ))
-        fig.add_annotation(x=2015, y=v15, text=f"{v15:.1f}%",
-            showarrow=False, xanchor="right", xshift=-8,
-            font=dict(size=10, color=color))
-        fig.add_annotation(x=2023, y=v23, text=f"{v23:.1f}%",
-            showarrow=False, xanchor="left", xshift=8,
-            font=dict(size=10, color=color))
-        fig.add_annotation(
-            x=2019, y=(v15 + v23) / 2,
-            text=f"{diff:+.1f}%", showarrow=False,
-            font=dict(size=9, color=badge_color),
-            bgcolor="rgba(26,120,116,0.13)" if diff > 0 else "rgba(244,162,89,0.13)", borderpad=3,
+        fig.update_layout(
+            height=130,
+            margin=dict(t=8, b=24, l=8, r=8),
+            plot_bgcolor="white",
+            paper_bgcolor="white",
+            xaxis=dict(tickvals=years, tickfont=dict(size=9, color="#aaa"),
+                       gridcolor="#f0f0f0", linecolor="#eeeeee", showgrid=False),
+            yaxis=dict(range=[35, 65], showticklabels=False,
+                       gridcolor="#f5f5f5", linecolor="#eeeeee"),
         )
-
-    fig.update_layout(**_base_layout(
-        yaxis=dict(range=[25, 75], title="Share satisfied (%)", **_AXIS),
-        xaxis=dict(tickvals=[2015, 2023], range=[2013, 2025], **_AXIS),
-    ))
-    return fig
+        results.append((gen, fig, v23, diff))
+    return results
 
 
 # ─────────────────────────────────────────────
@@ -387,28 +462,99 @@ def _chart_slope(frames: dict, selected_gens: list[str]) -> go.Figure:
 # ─────────────────────────────────────────────
 
 def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
+    import math
     fig = go.Figure()
+def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
+    import math
+    fig = go.Figure()
+
+    short = {
+        "Silent Generation":   "Silent",
+        "Babyboomers":         "Boomers",
+        "Generation X":        "Gen X",
+        "Millennials / Gen Y": "Millennials",
+        "Generation Z":        "Gen Z",
+    }
+
     for gen in selected_gens:
         color = GEN_COLORS[gen]
         vals = _agg(frames, "lr_scale", gen)
-        years = sorted(vals.keys())
-        y_vals = [vals[y] for y in years]
+        if 2015 not in vals or 2023 not in vals:
+            continue
 
-        fig.add_trace(go.Bar(
-            name=gen, x=years, y=y_vals,
-            marker_color=color, opacity=0.88,
-            text=[f"{v:.2f}" for v in y_vals],
-            textposition="outside",
-            textfont=dict(size=10),
+        v15 = vals[2015]
+        v19 = vals.get(2019)
+        v23 = vals[2023]
+        diff = v23 - v15
+
+        # ── Arrow line 2015 → 2023 ──
+        fig.add_trace(go.Scatter(
+            x=[v15, v23], y=[gen, gen],
+            mode="lines",
+            line=dict(color=color, width=2),
+            showlegend=False,
+            hoverinfo="skip",
         ))
 
-    fig.add_hline(y=6, line_dash="dot", line_color="#aaaaaa",
-        annotation_text="Centre (6)", annotation_position="top right")
+        # ── 2015 open circle ──
+        fig.add_trace(go.Scatter(
+            x=[v15], y=[gen],
+            mode="markers",
+            name=gen,
+            marker=dict(
+                color="white", size=10, symbol="circle",
+                line=dict(color=color, width=2),
+            ),
+            hovertemplate=f"<b>{gen}</b><br>2015: {v15:.2f}<extra></extra>",
+            showlegend=True,
+        ))
+
+        # ── 2019 mid dot ──
+        if v19 is not None:
+            fig.add_trace(go.Scatter(
+                x=[v19], y=[gen],
+                mode="markers",
+                marker=dict(color=color, size=7, opacity=0.5),
+                showlegend=False,
+                hovertemplate=f"<b>{gen}</b><br>2019: {v19:.2f}<extra></extra>",
+            ))
+
+        # ── 2023 filled circle (arrowhead effect) ──
+        fig.add_trace(go.Scatter(
+            x=[v23], y=[gen],
+            mode="markers+text",
+            marker=dict(color=color, size=14,
+                        line=dict(color="white", width=2)),
+            text=[f"{v23:.1f}"],
+            textposition="middle right",
+            textfont=dict(size=10, color=color),
+            showlegend=False,
+            hovertemplate=f"<b>{gen}</b><br>2023: {v23:.2f}<br>Δ {diff:+.2f}<extra></extra>",
+        ))
+
+        # ── Delta annotation on the right ──
+        fig.add_annotation(
+            x=8.2, y=gen,
+            text=f"{'→ +' if diff > 0.05 else '→ '}{abs(diff):.1f}",
+            showarrow=False,
+            font=dict(size=10, color=color),
+            bgcolor=f"rgba({','.join(str(int(int(color.lstrip('#')[i:i+2],16))) for i in (0,2,4))},0.12)",
+            borderpad=3,
+            xanchor="left",
+        )
+
+    # Centre line
+    fig.add_vline(x=3, line_dash="dot", line_color="#cccccc",
+        annotation_text="Mitte (3)", annotation_position="top")
 
     fig.update_layout(**_base_layout(
-        barmode="group",
-        yaxis=dict(range=[1, 11], title="Avg. L–R scale (1=left, 11=right)", **_AXIS),
-        xaxis=dict(tickvals=[2015, 2019, 2023], **_AXIS),
+        xaxis=dict(range=[1, 5], title="Ø L–R Skala (1=links, 5=rechts)", **_AXIS),
+        yaxis=dict(
+            categoryorder="array",
+            categoryarray=list(reversed(selected_gens)),
+            **_AXIS,
+        ),
+        showlegend=False,
     ))
     return fig
 
@@ -540,15 +686,36 @@ def render_who_decides_section() -> None:
 
     # ── Chart 3: Slope — Democratic Satisfaction ────────────────────
     st.markdown("---")
-    col_text3, col_chart3 = st.columns([1, 2])
+    col_text3, _ = st.columns([1, 2])
     with col_text3:
         st.markdown(f"### {CHART_NARRATIVE['trust']['title']}")
         st.markdown(
             f"<div class='narrative-text'>{CHART_NARRATIVE['trust']['intro']}</div>",
             unsafe_allow_html=True,
         )
-    with col_chart3:
-        st.plotly_chart(_chart_slope(frames, selected_gens), use_container_width=True)
+
+    short_names = {
+        "Silent Generation": "Silent", "Babyboomers": "Boomers",
+        "Generation X": "Gen X", "Millennials / Gen Y": "Millennials",
+        "Generation Z": "Gen Z",
+    }
+    slope_data = _chart_slope(frames, selected_gens)
+    cols = st.columns(len(slope_data))
+    for i, (gen, fig, v23, diff) in enumerate(slope_data):
+        color = GEN_COLORS[gen]
+        diff_color = "#1d7874" if diff > 0 else "#f25c54"
+        arrow = "↑" if diff > 0 else "↓"
+        with cols[i]:
+            st.markdown(
+                f"<div style='font-size:12px;font-weight:500;color:{color};'>"
+                f"{short_names.get(gen, gen)}</div>"
+                f"<div style='font-size:22px;font-weight:500;color:var(--color-text-primary);'>"
+                f"{v23:.1f}%</div>"
+                f"<div style='font-size:11px;color:{diff_color};margin-bottom:4px;'>"
+                f"{arrow} {abs(diff):.1f}% seit 2015</div>",
+                unsafe_allow_html=True,
+            )
+            st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
     with st.expander("📊 Statistical significance (Chi²-test, 2015 vs 2023)"):
         st.markdown(_stat_continuous(frames, "demo_satisfaction", selected_gens, [2015, 2023]) or "—")
