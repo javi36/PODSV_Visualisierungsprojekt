@@ -54,13 +54,22 @@ with st.sidebar:
         "color:#666666;margin-bottom:0.3rem;margin-top:0.4rem;'>Compare Generations</div>",
         unsafe_allow_html=True,
     )
-    st.multiselect(
+    _GEN_DISPLAY = {
+        "Silent Generation":   "Silent (79+)",
+        "Babyboomers":         "Boomers (60-78)",
+        "Generation X":        "Gen X (44-59)",
+        "Millennials / Gen Y": "Millennials (28-43)",
+        "Generation Z":        "Gen Z (12-27)",
+    }
+    _selected_display = st.multiselect(
         "Generations",
-        options=GENERATION_ORDER,
-        default=GENERATION_ORDER,
-        key="sidebar_generations",
+        options=list(_GEN_DISPLAY.values()),
+        default=list(_GEN_DISPLAY.values()),
         label_visibility="collapsed",
     )
+    _reverse = {v: k for k, v in _GEN_DISPLAY.items()}
+    st.session_state["sidebar_generations"] = [_reverse[d] for d in _selected_display]
+
     current_gens = st.session_state.get("sidebar_generations", GENERATION_ORDER)
     if len(current_gens) < 2:
         st.warning("Select at least 2 generations.", icon="⚠️")
@@ -73,22 +82,17 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     st.select_slider(
-    "Year",
-    options=SIDEBAR_YEARS,
-    value=SIDEBAR_YEARS[-1],
-    key="sidebar_year",
-    label_visibility="collapsed",
-)
-    _sel_year = st.session_state.get("sidebar_year", SIDEBAR_YEARS[-1])
-    _tick_spans = "".join(
-        f"<span style='font-size:0.9rem;"
-        f"font-weight:{'700' if y == _sel_year else '400'};"
-        f"color:{'#111111' if y == _sel_year else '#bbbbbb'};'>{y}</span>"
-        for y in SIDEBAR_YEARS
+        "Year",
+        options=SIDEBAR_YEARS,
+        value=SIDEBAR_YEARS[-1],
+        key="sidebar_year",
+        label_visibility="collapsed",
     )
     st.markdown(
-        f"<div style='display:flex;justify-content:space-between;"
-        f"margin-top:-0.5rem;padding:0 0.3rem;'>{_tick_spans}</div>",
+        "<div style='display:flex;justify-content:space-between;"
+        "margin-top:-0.8rem;padding:0 0.3rem;font-size:0.75rem;color:#bbbbbb;'>"
+        + "".join(f"<span>{y}</span>" for y in SIDEBAR_YEARS)
+        + "</div>",
         unsafe_allow_html=True,
     )
 
