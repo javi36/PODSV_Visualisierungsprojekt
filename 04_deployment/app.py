@@ -72,15 +72,13 @@ with st.sidebar:
         "color:#666666;margin-bottom:0.3rem;'>Year</div>",
         unsafe_allow_html=True,
     )
-    st.slider(
-        "Year",
-        min_value=SIDEBAR_YEARS[0],
-        max_value=SIDEBAR_YEARS[-1],
-        value=SIDEBAR_YEARS[-1],
-        step=1,
-        key="sidebar_year",
-        label_visibility="collapsed",
-    )
+    st.select_slider(
+    "Year",
+    options=SIDEBAR_YEARS,
+    value=SIDEBAR_YEARS[-1],
+    key="sidebar_year",
+    label_visibility="collapsed",
+)
     _sel_year = st.session_state.get("sidebar_year", SIDEBAR_YEARS[-1])
     _tick_spans = "".join(
         f"<span style='font-size:0.9rem;"

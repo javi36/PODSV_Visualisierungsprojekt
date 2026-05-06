@@ -33,6 +33,11 @@ page who decides:
 
 page 
 
+## 6.05.2026
+
+Dinge die man verbessern könnte:
+* Plot auf landing page: Violinplot mit Balken--> ist ja einfach gespiegelt. Das macht aus meiner Sicht nicht so viel Sinn. Sieht zwar mega aus!
+
  
 
 

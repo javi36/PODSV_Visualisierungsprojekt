@@ -6,10 +6,8 @@ import plotly.graph_objects as go
 import streamlit as st
 from scipy.stats import chi2_contingency, f_oneway
 
-from app_config import GENERATION_COLORS as GEN_COLORS, GENERATION_ORDER
-
 # ─────────────────────────────────────────────
-# Paths
+# Constants — müssen mit app_config.py übereinstimmen
 # ─────────────────────────────────────────────
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -18,30 +16,21 @@ SELECTS_2015_PATH = BASE_DIR / "data" / "whodecide" / "raw" / "726_Selects2015_P
 SELECTS_2019_PATH = BASE_DIR / "data" / "whodecide" / "processed" / "selects_2019_clean.csv"
 SELECTS_2023_PATH = BASE_DIR / "data" / "whodecide" / "processed" / "selects_2023_clean.csv"
 
-# ─────────────────────────────────────────────
-# Shared chart style helpers
-# ─────────────────────────────────────────────
+GENERATION_ORDER = [
+    "Silent Generation",
+    "Babyboomers",
+    "Generation X",
+    "Millennials / Gen Y",
+    "Generation Z",
+]
 
-_FONT = dict(family="Inter, Arial, sans-serif", size=12, color="#111111")
-_AXIS = dict(tickfont=dict(size=11, color="#555555"), gridcolor="#eeeeee", linecolor="#dddddd")
-
-def _base_layout(**kwargs) -> dict:
-    return dict(
-        font=_FONT,
-        plot_bgcolor="white",
-        paper_bgcolor="white",
-        legend=dict(
-            orientation="h",
-            yanchor="bottom", y=1.02,
-            xanchor="right", x=1,
-            font=dict(size=11, color="#333333"),
-            bgcolor="rgba(0,0,0,0)",
-            borderwidth=0,
-        ),
-        margin=dict(t=40, b=40, l=50, r=20),
-        height=340,
-        **kwargs,
-    )
+GEN_COLORS = {
+    "Silent Generation":  "#4C72B0",
+    "Babyboomers":        "#DD8452",
+    "Generation X":       "#55A868",
+    "Millennials / Gen Y":"#9467BD",
+    "Generation Z":       "#E377C2",
+}
 
 CHART_NARRATIVE = {
     "turnout": {
@@ -192,10 +181,13 @@ def _chart_dot_range(frames: dict, selected_gens: list[str]) -> go.Figure:
             textfont=dict(size=10, color=color),
         ))
 
-    fig.update_layout(**_base_layout(
-        yaxis=dict(range=[30, 105], title="Share voted (%)", **_AXIS),
-        xaxis=dict(tickvals=[2015, 2019, 2023], **_AXIS),
-    ))
+    fig.update_layout(
+        yaxis=dict(range=[30, 105], title="Share voted (%)", gridcolor="#eeeeee"),
+        xaxis=dict(tickvals=[2015, 2019, 2023], tickfont=dict(size=12)),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        plot_bgcolor="white", paper_bgcolor="white",
+        margin=dict(t=40, b=40, l=50, r=20), height=340,
+    )
     return fig
 
 
@@ -204,109 +196,141 @@ def _chart_dot_range(frames: dict, selected_gens: list[str]) -> go.Figure:
 # ─────────────────────────────────────────────
 
 def _chart_parliament(frames: dict, selected_gens: list[str], year: int) -> go.Figure:
+    """
+    Semicircle parliament chart.
+    Generations ordered left (Gen Z) → right (Silent Generation).
+    Each generation gets seats proportional to its share of VOTERS (voted==1)
+    in the selected year. Total seats = 200.
+    """
     import math
 
-    # Left = youngest (Gen Z), right = oldest (Silent) — reversed GENERATION_ORDER
+    # ── Generation order in chart: left = youngest, right = oldest ──
     display_order = [g for g in reversed(GENERATION_ORDER) if g in selected_gens]
 
     df = frames[year]
     voters = df[df["voted"] == 1]
 
-    counts = {g: int((voters["generation"] == g).sum()) for g in display_order}
+    counts = {}
+    for gen in display_order:
+        n = (voters["generation"] == gen).sum()
+        counts[gen] = max(n, 0)
+
     total = sum(counts.values()) or 1
-
     TOTAL_SEATS = 200
-    seats: dict[str, int] = {}
-    assigned = 0
-    for i, g in enumerate(display_order):
-        if i == len(display_order) - 1:
-            seats[g] = max(1, TOTAL_SEATS - assigned)
-        else:
-            s = max(1, round(counts[g] / total * TOTAL_SEATS))
-            seats[g] = s
-            assigned += s
+    seats = {g: max(1, round(counts[g] / total * TOTAL_SEATS)) for g in display_order}
+    # Adjust rounding to exactly TOTAL_SEATS
+    diff = TOTAL_SEATS - sum(seats.values())
+    if diff != 0:
+        seats[display_order[0]] += diff
 
-    ROW_FRACTIONS = [0.10, 0.13, 0.16, 0.18, 0.20, 0.23]
-    total_frac = sum(ROW_FRACTIONS)
-    seats_per_row = [max(8, round(f / total_frac * TOTAL_SEATS)) for f in ROW_FRACTIONS]
+    # ── Place seats in semicircle rows ──────────────────────────────
+    ROWS = 6
+    # Inner rows have fewer seats, outer rows more (realistic parliament look)
+    row_fractions = [0.10, 0.13, 0.16, 0.18, 0.20, 0.23]
+    total_frac = sum(row_fractions)
+    seats_per_row = [max(8, round(f / total_frac * TOTAL_SEATS)) for f in row_fractions]
     seats_per_row[-1] += TOTAL_SEATS - sum(seats_per_row)
 
+    # ── For each row, assign seats proportionally left→right by generation ──
+    # display_order: [Gen Z, Millennials, Gen X, Babyboomers, Silent Generation]
     seat_x, seat_y, seat_colors, seat_labels = [], [], [], []
 
     for row_i, n_seats in enumerate(seats_per_row):
-        r = 0.35 + row_i * 0.11
-        # Distribute gens proportionally across this row
-        row_seats: list[str] = []
-        row_assigned = 0
-        for k, g in enumerate(display_order):
-            if k == len(display_order) - 1:
-                cnt = max(0, n_seats - row_assigned)
-            else:
-                cnt = max(0, round(seats[g] / TOTAL_SEATS * n_seats))
-                row_assigned += cnt
-            row_seats.extend([g] * cnt)
+        r = 0.35 + row_i * 0.11  # radius: inner → outer
 
-        for s, g in enumerate(row_seats):
-            angle = math.pi - math.pi * s / max(len(row_seats) - 1, 1)
-            seat_x.append(r * math.cos(angle))
-            seat_y.append(r * math.sin(angle))
-            seat_colors.append(GEN_COLORS.get(g, "#cccccc"))
-            seat_labels.append(g)
+        # How many seats per gen in THIS row (proportional, same ratio every row)
+        row_seats = {}
+        assigned = 0
+        for k, gen in enumerate(display_order):
+            if k == len(display_order) - 1:
+                row_seats[gen] = max(0, n_seats - assigned)
+            else:
+                s = max(0, round(seats[gen] / TOTAL_SEATS * n_seats))
+                row_seats[gen] = s
+                assigned += s
+
+        # Build the row's seat list in order (left = Gen Z ... right = Silent)
+        row_seat_list = []
+        for gen in display_order:
+            row_seat_list.extend([gen] * row_seats[gen])
+
+        # Place them along the arc
+        n = len(row_seat_list)
+        for s, gen in enumerate(row_seat_list):
+            angle = math.pi - math.pi * s / max(n - 1, 1)  # pi (left) -> 0 (right)
+            x = r * math.cos(angle)
+            y = r * math.sin(angle)
+            seat_x.append(x)
+            seat_y.append(y)
+            seat_colors.append(GEN_COLORS.get(gen, "#cccccc"))
+            seat_labels.append(gen)
 
     fig = go.Figure()
-    added: set[str] = set()
-    for i, g in enumerate(seat_labels):
+
+    # One trace per generation for legend
+    added = set()
+    for i, gen in enumerate(seat_labels):
+        show = gen not in added
+        added.add(gen)
         fig.add_trace(go.Scatter(
             x=[seat_x[i]], y=[seat_y[i]],
             mode="markers",
-            name=g,
-            legendgroup=g,
-            showlegend=(g not in added),
+            name=gen,
+            legendgroup=gen,
+            showlegend=show,
             marker=dict(
-                color=seat_colors[i], size=12, symbol="square",
+                color=seat_colors[i],
+                size=13,
+                symbol="square",
                 line=dict(color="#ffffff", width=1.5),
             ),
-            hovertemplate=(
-                f"<b>{g}</b><br>"
-                f"{seats.get(g, 0)} seats<br>"
-                f"{counts.get(g, 0):,} voters ({counts.get(g,0)/total*100:.1f}%)"
-                "<extra></extra>"
-            ),
+            hovertemplate=f"<b>{gen}</b><br>{seats.get(gen,0)} seats ({counts.get(gen,0):,} voters)<extra></extra>",
         ))
-        added.add(g)
 
-    # % labels along the bottom arc
-    for k, g in enumerate(display_order):
-        pct = counts[g] / total * 100
-        angle = math.pi - math.pi * (
-            sum(seats[dg] for dg in display_order[:k]) + seats[g] / 2
-        ) / TOTAL_SEATS
-        lx = 1.08 * math.cos(angle)
-        ly = 1.08 * math.sin(angle)
-        short = {"Silent Generation": "Silent", "Babyboomers": "Boomers",
-                 "Generation X": "Gen X", "Millennials / Gen Y": "Millennials",
-                 "Generation Z": "Gen Z"}.get(g, g)
+    # Generation labels at arc midpoints
+    for gen in display_order:
+        gen_indices = [i for i, g in enumerate(seat_labels) if g == gen]
+        if not gen_indices:
+            continue
+        mid_i = gen_indices[len(gen_indices) // 2]
+        # Place label slightly outside outermost row
+        angle = math.atan2(seat_y[mid_i], seat_x[mid_i])
+        lx = 1.02 * math.cos(angle)
+        ly = 1.02 * math.sin(angle)
+        short = gen.split(" ")[0] if gen != "Millennials / Gen Y" else "Mill."
         fig.add_annotation(
             x=lx, y=ly,
-            text=f"<b>{short}</b><br>{pct:.1f}%",
+            text=f"<b>{short}</b>",
             showarrow=False,
-            font=dict(size=10, color=GEN_COLORS.get(g, "#333333"), family="Inter, Arial, sans-serif"),
+            font=dict(size=10, color=GEN_COLORS.get(gen, "#333")),
             xanchor="center",
         )
 
+    # Voter share text per gen (bottom area)
+    for k, gen in enumerate(display_order):
+        pct = counts[gen] / total * 100 if total else 0
+        short = gen.split(" ")[0] if gen != "Millennials / Gen Y" else "Mill."
+        fig.add_annotation(
+            x=-0.9 + k * (1.8 / max(len(display_order) - 1, 1)),
+            y=-0.18,
+            text=f"{pct:.1f}%",
+            showarrow=False,
+            font=dict(size=11, color=GEN_COLORS.get(gen, "#555")),
+        )
+
     fig.update_layout(
-        height=420,
-        margin=dict(t=10, b=20, l=10, r=10),
-        plot_bgcolor="white",
-        paper_bgcolor="white",
-        xaxis=dict(visible=False, range=[-1.25, 1.25]),
-        yaxis=dict(visible=False, range=[-0.25, 1.15], scaleanchor="x", scaleratio=1),
+        height=380,
+        margin=dict(t=10, b=50, l=10, r=10),
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        xaxis=dict(visible=False, range=[-1.15, 1.15]),
+        yaxis=dict(visible=False, range=[-0.3, 1.1], scaleanchor="x", scaleratio=1),
         legend=dict(
-            orientation="h", yanchor="top", y=-0.02,
+            orientation="h", yanchor="top", y=-0.05,
             xanchor="center", x=0.5,
-            font=dict(size=11, color="#333333", family="Inter, Arial, sans-serif"),
-            bgcolor="rgba(0,0,0,0)", borderwidth=0,
+            font=dict(size=10),
         ),
+        showlegend=True,
     )
     return fig
 
@@ -332,10 +356,13 @@ def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
             textfont=dict(size=10, color=color),
         ))
 
-    fig.update_layout(**_base_layout(
-        yaxis=dict(range=[1, 4.5], title="Avg. interest (1=low, 4=high)", **_AXIS),
-        xaxis=dict(tickvals=[2015, 2019, 2023], **_AXIS),
-    ))
+    fig.update_layout(
+        yaxis=dict(range=[1, 4.5], title="Avg. interest (1=low, 4=high)", gridcolor="#eeeeee"),
+        xaxis=dict(tickvals=[2015, 2019, 2023], tickfont=dict(size=12)),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        plot_bgcolor="white", paper_bgcolor="white",
+        margin=dict(t=40, b=40, l=50, r=20), height=340,
+    )
     return fig
 
 
@@ -353,7 +380,7 @@ def _chart_slope(frames: dict, selected_gens: list[str]) -> go.Figure:
         v15 = vals[2015] * 100
         v23 = vals[2023] * 100
         diff = v23 - v15
-        badge_color = GEN_COLORS["Generation X"] if diff > 0 else GEN_COLORS["Babyboomers"]
+        badge_color = "#55A868" if diff > 0 else "#DD8452"
 
         fig.add_trace(go.Scatter(
             x=[2015, 2023], y=[v15, v23],
@@ -372,13 +399,16 @@ def _chart_slope(frames: dict, selected_gens: list[str]) -> go.Figure:
             x=2019, y=(v15 + v23) / 2,
             text=f"{diff:+.1f}%", showarrow=False,
             font=dict(size=9, color=badge_color),
-            bgcolor="rgba(26,120,116,0.13)" if diff > 0 else "rgba(244,162,89,0.13)", borderpad=3,
+            bgcolor="rgba(221,132,82,0.13)" if badge_color == "#DD8452" else "rgba(85,168,104,0.13)", borderpad=3,
         )
 
-    fig.update_layout(**_base_layout(
-        yaxis=dict(range=[25, 75], title="Share satisfied (%)", **_AXIS),
-        xaxis=dict(tickvals=[2015, 2023], range=[2013, 2025], **_AXIS),
-    ))
+    fig.update_layout(
+        yaxis=dict(range=[25, 75], title="Share satisfied (%)", gridcolor="#eeeeee"),
+        xaxis=dict(tickvals=[2015, 2023], tickfont=dict(size=12), range=[2013, 2025]),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        plot_bgcolor="white", paper_bgcolor="white",
+        margin=dict(t=40, b=40, l=50, r=20), height=340,
+    )
     return fig
 
 
@@ -405,11 +435,14 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
     fig.add_hline(y=6, line_dash="dot", line_color="#aaaaaa",
         annotation_text="Centre (6)", annotation_position="top right")
 
-    fig.update_layout(**_base_layout(
+    fig.update_layout(
         barmode="group",
-        yaxis=dict(range=[1, 11], title="Avg. L–R scale (1=left, 11=right)", **_AXIS),
-        xaxis=dict(tickvals=[2015, 2019, 2023], **_AXIS),
-    ))
+        yaxis=dict(range=[1, 11], title="Avg. L–R scale (1=left, 11=right)", gridcolor="#eeeeee"),
+        xaxis=dict(tickvals=[2015, 2019, 2023], tickfont=dict(size=12)),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        plot_bgcolor="white", paper_bgcolor="white",
+        margin=dict(t=40, b=40, l=50, r=20), height=340,
+    )
     return fig
 
 
@@ -481,11 +514,20 @@ def render_who_decides_section() -> None:
         st.exception(exc)
         return
 
-    # ── Read shared generation filter from sidebar ──────────────────
-    selected_gens: list[str] = st.session_state.get("sidebar_generations", GENERATION_ORDER)
+    # ── Generation filter ───────────────────────────────────────────
+    st.markdown(
+        "<div class='filter-panel'><div class='filter-title'>Compare generations</div></div>",
+        unsafe_allow_html=True,
+    )
+    gen_cols = st.columns(len(GENERATION_ORDER))
+    selected_gens = []
+    for i, gen in enumerate(GENERATION_ORDER):
+        with gen_cols[i]:
+            if st.checkbox(gen, value=True, key=f"wd_gen_{i}"):
+                selected_gens.append(gen)
 
-    if len(selected_gens) < 1:
-        st.info("Please select at least one generation in the sidebar Control Panel.")
+    if not selected_gens:
+        st.warning("Select at least one generation.")
         return
 
     # ── Chart 1: Parliament — Voter Turnout ─────────────────────────
@@ -580,7 +622,7 @@ def render_who_decides_section() -> None:
     st.markdown("---")
     st.markdown(
         """
-        <div class='template-box' style='border-left: 4px solid #1d7874; padding: 1rem 1.5rem;'>
+        <div class='template-box' style='border-left: 4px solid #DD8452; padding: 1rem 1.5rem;'>
         <strong>Key takeaway:</strong> Younger generations are increasingly disengaged from the ballot box —
         even as their political interest rises. Institutional trust and democratic satisfaction do not explain
         the gap. Older, increasingly right-leaning generations continue to dominate electoral outcomes.

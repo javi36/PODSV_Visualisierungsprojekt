@@ -274,6 +274,14 @@ GLOBAL_STYLES = """
 	.back-btn-wrapper {
 		padding: 0.5rem 0 1.2rem;
 	}
+	div[data-testid="stSlider"] [data-testid="stTickBarMin"],
+	div[data-testid="stSlider"] [data-testid="stTickBarMax"],
+	div[data-testid="stSlider"] [data-testid="stTickBarMin"]:hover,
+	div[data-testid="stSlider"] [data-testid="stTickBarMax"]:hover {
+		display: none !important;
+		visibility: hidden !important;
+		opacity: 0 !important;
+	}
 </style>
 """
 
