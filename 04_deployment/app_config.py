@@ -18,13 +18,13 @@ GENERATION_ORDER = [
 ]
 
 GENERATION_COLORS: dict[str, str] = {
-	"Silent Generation": "#0f4c5c",
-	"Babyboomers": "#1d7874",
-	"Generation X": "#679289",
-	"Millennials / Gen Y": "#f4a259",
-	"Generation Z": "#f25c54",
+    "Silent Generation": "#0f4c5c",
+    "Babyboomers": "#1d7874",
+    "Generation X": "#679289",
+    "Millennials / Gen Y": "#f4a259",
+    "Generation Z": "#f25c54",
 }
-
+ 
 SIDEBAR_YEARS: list[int] = list(range(2019, 2025))
 DEMOGRAPHIC_YEARS: list[int] = list(range(1981, 2025))
 

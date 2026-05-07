@@ -7,23 +7,18 @@ import streamlit as st
 
 from app_config import (
     BEWOHNERTYP_DATA_PATH,
+    GENERATION_COLORS,
     GENERATION_ORDER,
     WOHNFLAECHE_DATA_PATH,
     generation_from_birth_year,
 )
 
 OCCUPANCY_CATEGORIES = ["Eigentümer", "Mieter / Genossenschaftler"]
-OCCUPANCY_COLORS = {
-    "Eigentümer": "#18a33b",
-    "Mieter / Genossenschaftler": "#949396",
-}
-
-GENERATION_COLORS = {
-    "Silent Generation": "#0f4c5c",
-    "Babyboomers": "#1d7874",
-    "Generation X": "#679289",
-    "Millennials / Gen Y": "#ff7700",
-    "Generation Z": "#f0564e",
+OWNER_COLOR = "#020c0b"
+RENTER_COLOR = "#a0a0a0"
+LABEL_EN = {
+    "Eigentümer": "Owner",
+    "Mieter / Genossenschaftler": "Renter / Cooperative",
 }
 
 
@@ -105,30 +100,30 @@ def create_occupancy_stacked_bar(df: pd.DataFrame, sorted_gens: list[str]) -> go
 
     for cat in OCCUPANCY_CATEGORIES:
         cat_data = df[df["bewohnertyp"] == cat]
-        x_vals, text_labels = [], []
+        x_vals, text_labels, bar_colors = [], [], []
         for gen in y_order:
             row = cat_data[cat_data["generation"] == gen]
             pct = float(row["pct"].iloc[0]) if not row.empty else 0.0
-            cnt = row["count_fmt"].iloc[0] if not row.empty else "—"
             x_vals.append(pct)
             text_labels.append(f"{pct:.0f}%" if pct >= 8 else "")
+            bar_colors.append(OWNER_COLOR if cat == "Eigentümer" else RENTER_COLOR)
 
         fig.add_trace(go.Bar(
-            name=cat,
+            name=LABEL_EN.get(cat, cat),
             orientation="h",
             y=y_order,
             x=x_vals,
-            marker_color=OCCUPANCY_COLORS[cat],
+            marker_color=bar_colors,
             marker_line=dict(color="#ffffff", width=1.2),
             hovertemplate=[
-                f"<b>{gen}</b><br>{cat}<br><b>{pct:.1f}%</b> · "
+                f"<b>{gen}</b><br>{LABEL_EN.get(cat, cat)}<br><b>{pct:.1f}%</b> · "
                 f"{(cat_data[cat_data['generation'] == gen]['count_fmt'].iloc[0] if not cat_data[cat_data['generation'] == gen].empty else '—')}"
                 f"<extra></extra>"
                 for gen, pct in zip(y_order, x_vals)
             ],
             text=text_labels,
             textposition="inside",
-            textfont=dict(color="#ffffff", size=12, family="Arial", weight="bold"),
+            textfont=dict(color="#ffffff", size=14, family="Arial", weight="bold"),
             insidetextanchor="middle",
         ))
 
@@ -144,11 +139,11 @@ def create_occupancy_stacked_bar(df: pd.DataFrame, sorted_gens: list[str]) -> go
             ticksuffix="%",
             gridcolor="#f0f0f0",
             title="",
-            tickfont=dict(size=10, color="#888888"),
+            tickfont=dict(size=12, color="#888888"),
         ),
         yaxis=dict(
             title="",
-            tickfont=dict(size=12, color="#333333"),
+            tickfont=dict(size=13, color="#333333"),
             automargin=True,
         ),
         legend=dict(
@@ -157,10 +152,10 @@ def create_occupancy_stacked_bar(df: pd.DataFrame, sorted_gens: list[str]) -> go
             y=-0.15,
             xanchor="left",
             x=0,
-            font=dict(size=11),
+            font=dict(size=13),
             traceorder="normal",
         ),
-        hoverlabel=dict(bgcolor="#ffffff", bordercolor="#dddddd", font_size=12, font_family="Arial"),
+        hoverlabel=dict(bgcolor="#ffffff", bordercolor="#dddddd", font_size=14, font_family="Arial"),
     )
     return fig
 
@@ -240,7 +235,7 @@ def create_wohnflaeche_line_chart(df: pd.DataFrame, selected_gens: list[str]) ->
                 yanchor="middle",
                 text=f"  <b>{gen}</b>",
                 showarrow=False,
-                font=dict(size=10, color=color),
+                font=dict(size=12, color=color),
                 xref="x", yref="y",
             ))
 
@@ -258,7 +253,7 @@ def create_wohnflaeche_line_chart(df: pd.DataFrame, selected_gens: list[str]) ->
             yanchor="middle",
             text=f"<b>+{gap:.0f} m²</b> difference",
             showarrow=False,
-            font=dict(size=11, color="#555555"),
+            font=dict(size=13, color="#555555"),
             bgcolor="rgba(255,255,255,0.75)",
             bordercolor="#cccccc",
             borderwidth=1,
@@ -323,7 +318,7 @@ def create_wohnflaeche_ranking_chart(
         text=[f"  {v:.1f} m²" for v in vals],
         textposition="inside",
         insidetextanchor="start",
-        textfont=dict(size=12, color="#ffffff", weight="bold"),
+        textfont=dict(size=14, color="#ffffff", weight="bold"),
         hovertemplate="<b>%{y}</b><br><b>%{x:.1f} m²/Person</b><extra></extra>",
         showlegend=False,
     ))
@@ -338,7 +333,7 @@ def create_wohnflaeche_ranking_chart(
         xaxis=dict(visible=False, range=[0, x_max]),
         yaxis=dict(
             title="",
-            tickfont=dict(size=12, color="#444444"),
+            tickfont=dict(size=13, color="#444444"),
             automargin=True,
         ),
         showlegend=False,
@@ -396,7 +391,7 @@ def create_space_ownership_scatter(
             ),
             text=[gen],
             textposition="top center",
-            textfont=dict(size=10, color=GENERATION_COLORS.get(gen, "#888888")),
+            textfont=dict(size=13, color=GENERATION_COLORS.get(gen, "#888888")),
             hovertemplate=(
                 f"<b>{gen}</b><br>"
                 f"Eigentümer: <b>{row['pct']:.1f}%</b><br>"
@@ -410,7 +405,7 @@ def create_space_ownership_scatter(
         x=0.98, y=0.04, xref="paper", yref="paper",
         text=f"r = {r:.2f}",
         showarrow=False,
-        font=dict(size=12, color="#888888"),
+        font=dict(size=13, color="#888888"),
         xanchor="right",
     )
 
@@ -442,14 +437,31 @@ def render_who_owns_section(
 ) -> None:
     # ── Read shared filters from sidebar session_state ────────────────────────
     selected_gens: list[str] = st.session_state.get("sidebar_generations", GENERATION_ORDER)
-    selected_year: int = st.session_state.get("sidebar_year", 2024)
 
     if len(selected_gens) < 2:
         st.info("Please select at least 2 generations in the sidebar Control Panel.", icon="ℹ️")
         return
 
+    _avail_years = sorted(int(y) for y in bewohnertyp_df["time_period"].dropna().unique())
+    _avail_years_str = [str(y) for y in _avail_years]
+
+    def _year_radio(label: str, key: str) -> int:
+        col_label, col_radio = st.columns([1, 6])
+        with col_label:
+            st.markdown(
+                f"<div style='font-size:0.75rem;font-weight:600;text-transform:uppercase;"
+                f"letter-spacing:0.07em;color:#999999;padding-top:0.55rem;'>{label}</div>",
+                unsafe_allow_html=True,
+            )
+        with col_radio:
+            val = st.radio(label, options=_avail_years_str, index=len(_avail_years_str) - 1,
+                           horizontal=True, key=key, label_visibility="collapsed")
+        return int(val)
+
     # ── Compute occupancy stats for storytelling ──────────────────────────────
-    stacked_data, sorted_gens = build_occupancy_stacked_data(bewohnertyp_df, selected_year, selected_gens)
+    # Read year from session_state first so header/text already reflect the chosen year
+    year_occ = int(st.session_state.get("whoowns_year_occ", str(_avail_years[-1])))
+    stacked_data, sorted_gens = build_occupancy_stacked_data(bewohnertyp_df, year_occ, selected_gens)
     eig = stacked_data[stacked_data["bewohnertyp"] == "Eigentümer"]
     max_row = eig.loc[eig["pct"].idxmax()] if not eig.empty else None
     min_row = eig.loc[eig["pct"].idxmin()] if not eig.empty else None
@@ -467,72 +479,48 @@ def render_who_owns_section(
     )
 
     # ── Intro paragraph ───────────────────────────────────────────────────────
+    _boomer_row = eig[eig["generation"] == "Babyboomers"]
+    _milli_row  = eig[eig["generation"] == "Millennials / Gen Y"]
+    _boomer_pct = round(float(_boomer_row["pct"].iloc[0])) if not _boomer_row.empty else max_pct
+    _milli_pct  = round(float(_milli_row["pct"].iloc[0]))  if not _milli_row.empty  else min_pct
+    _gap_pct    = abs(_boomer_pct - _milli_pct)
+    _bc = GENERATION_COLORS.get("Babyboomers", "#2a9d8f")
+    _mc = GENERATION_COLORS.get("Millennials / Gen Y", "#e9c46a")
+
     st.markdown(
         f"""
-        <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:1.4rem;">
-        Homeownership in Switzerland is closely tied to generation. 
-        Older populations accumulated property during a more accessible market era, 
-        while younger generations find themselves priced into renting.
-          {min_gen} own at less than half the rate of {max_gen}.
+        <p style="font-size:1.05rem;line-height:1.8;color:#333333;margin-bottom:1.4rem;">
+        Homeownership in Switzerland is closely tied to generation. Older populations accumulated
+        property during a more accessible market era, while younger generations find themselves
+        priced into renting. <span style="color:{_bc};font-weight:700;">Babyboomers</span> lead
+        with an ownership rate of <span style="color:{_bc};font-weight:700;">{_boomer_pct}%</span>,
+        while <span style="color:{_mc};font-weight:700;">Millennials&nbsp;/&nbsp;Gen&nbsp;Y</span>
+        sit at just <span style="color:{_mc};font-weight:700;">{_milli_pct}%</span>&nbsp;—
+        a gap of <span style="font-weight:700;color:#111111;">{_gap_pct}&nbsp;percentage&nbsp;points</span>.
         </p>
         """,
         unsafe_allow_html=True,
     )
-
-    # ── KPI cards ─────────────────────────────────────────────────────────────
-    k1, k2, k3 = st.columns(3)
-    with k1:
-        st.markdown(
-            f"""<div class="stat-card">
-                <div class="stat-label">{max_gen} ownership rate</div>
-                <div class="stat-value" style="color:{GENERATION_COLORS.get(max_gen, '#1d7874')};font-size:2rem;">{max_pct}%</div>
-                <div class="stat-subtle">Highest among all generations</div>
-            </div>""",
-            unsafe_allow_html=True,
-        )
-    with k2:
-        st.markdown(
-            f"""<div class="stat-card">
-                <div class="stat-label">{min_gen} ownership rate</div>
-                <div class="stat-value" style="color:{GENERATION_COLORS.get(min_gen, '#f25c54')};font-size:2rem;">{min_pct}%</div>
-                <div class="stat-subtle">Lowest among all generations</div>
-            </div>""",
-            unsafe_allow_html=True,
-        )
-    with k3:
-        st.markdown(
-            f"""<div class="stat-card">
-                <div class="stat-label">Generational gap</div>
-                <div class="stat-value" style="color:black;font-size:2rem;">{gap} %</div>
-                <div class="stat-subtle">Percentage points difference</div>
-            </div>""",
-            unsafe_allow_html=True,
-        )
 
     st.markdown("<br>", unsafe_allow_html=True)
 
     # ── 100% Horizontal stacked bar ───────────────────────────────────────────
     st.markdown(
         "<div style='font-size:0.85rem;color:#666666;margin-bottom:0.3rem;'>"
-        f"Share of owners vs. renters/cooperative members, by generation · {selected_year}</div>",
+        f"Share of owners vs. renters/cooperative members, by generation · {year_occ}</div>",
         unsafe_allow_html=True,
     )
     st.plotly_chart(
         create_occupancy_stacked_bar(stacked_data, sorted_gens),
         use_container_width=True,
     )
+    _year_radio("Filter by Year", "whoowns_year_occ")
 
-    # ── Compute living space stats (needed for year_range below) ─────────────
+    # ── Narrative insight box ─────────────────────────────────────────────────
     wf_data = build_wohnflaeche_data(wohnflaeche_df, selected_gens)
     all_years = sorted(wf_data["year"].unique())
     year_range = f"{min(all_years)}–{max(all_years)}"
 
-    # ── Narrative insight box ─────────────────────────────────────────────────
-    gen_summary = ", ".join(
-        f"{g} ({round(eig[eig['generation'] == g]['pct'].iloc[0])}%)"
-        for g in sorted_gens
-        if not eig[eig["generation"] == g].empty
-    )
     st.markdown(
         f"<div style='font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;"
         f"color:#aaaaaa;margin:0.8rem 0 0.5rem;'>What the {year_range} trend tells us</div>",
@@ -556,8 +544,17 @@ def render_who_owns_section(
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ── Chart 1: Time trend ───────────────────────────────────────────────────
-    year_wf = wf_data[wf_data["year"] == selected_year]
+    # ── Living space section ──────────────────────────────────────────────────
+    st.markdown("<div style='border-top:1px solid #eeeeee;margin:1.5rem 0 1rem;'></div>", unsafe_allow_html=True)
+
+    st.markdown(
+        "<h2 style='font-size:1.7rem;font-weight:800;color:#111111;margin:0 0 1rem;'>"
+        "Older generations live in twice the space — and the gap is not closing</h2>",
+        unsafe_allow_html=True,
+    )
+
+    year_wf_sel = int(st.session_state.get("whoowns_year_wf", str(_avail_years[-1])))
+    year_wf = wf_data[wf_data["year"] == year_wf_sel]
 
     wf_max_row = year_wf.loc[year_wf["sqm_per_person"].idxmax()] if not year_wf.empty else None
     wf_min_row = year_wf.loc[year_wf["sqm_per_person"].idxmin()] if not year_wf.empty else None
@@ -567,7 +564,6 @@ def render_who_owns_section(
     wf_min_val = wf_min_row["sqm_per_person"] if wf_min_row is not None else 0.0
     wf_gap = wf_max_val - wf_min_val
 
-    # Check if gap existed in earliest year too (for "persisted" claim)
     first_year_wf = wf_data[wf_data["year"] == min(all_years)]
     gap_persisted = False
     if not first_year_wf.empty and wf_max_gen != "—" and wf_min_gen != "—":
@@ -575,87 +571,53 @@ def render_who_owns_section(
         first_min = first_year_wf[first_year_wf["generation"] == wf_min_gen]["sqm_per_person"]
         gap_persisted = not first_max.empty and not first_min.empty
 
-    # ── Section header ────────────────────────────────────────────────────────
-    st.markdown("<div style='border-top:1px solid #eeeeee;margin:1.5rem 0 1rem;'></div>", unsafe_allow_html=True)
- 
-    st.markdown(
-        "<h2 style='font-size:1.7rem;font-weight:800;color:#111111;margin:0 0 1rem;'>"
-        "Older generations live in twice the space — and the gap is not closing</h2>",
-        unsafe_allow_html=True,
+    _max_color = GENERATION_COLORS.get(wf_max_gen, "#1d7874")
+    _min_color = GENERATION_COLORS.get(wf_min_gen, "#f25c54")
+    _persisted_note = (
+        f"a gap that has persisted across all {len(all_years)} years without narrowing"
+        if gap_persisted else f"a gap measured in {year_wf_sel}"
     )
-
-    # ── Intro paragraph ───────────────────────────────────────────────────────
     st.markdown(
         f"""
-        <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:1.4rem;">
-        In Switzerland, the average living space per person differs by more than {wf_gap:.0f} m²
-        between the oldest and youngest generations. While the {wf_max_gen} enjoys nearly
-        {wf_max_val:.0f} m² per person, {wf_min_gen} and others have barely a third of that —
-        and the trend since {min(all_years)} shows no convergence.
+        <p style="font-size:1.05rem;line-height:1.8;color:#333333;margin-bottom:1.4rem;">
+        In Switzerland, the average living space per person differs sharply by generation.
+        The <span style="color:{_max_color};font-weight:700;">{wf_max_gen}</span> enjoys
+        <span style="color:{_max_color};font-weight:700;">{wf_max_val:.1f}&nbsp;m²</span> per person,
+        while <span style="color:{_min_color};font-weight:700;">{wf_min_gen}</span> has just
+        <span style="color:{_min_color};font-weight:700;">{wf_min_val:.1f}&nbsp;m²</span>&nbsp;—
+        a difference of <span style="font-weight:700;color:#111111;">+{wf_gap:.0f}&nbsp;m²</span>,
+        {_persisted_note}.
         </p>
         """,
         unsafe_allow_html=True,
     )
 
-    # ── KPI cards ─────────────────────────────────────────────────────────────
-    w1, w2, w3 = st.columns(3)
-    with w1:
-        st.markdown(
-            f"""<div class="stat-card">
-                <div class="stat-label">{wf_max_gen} ({selected_year})</div>
-                <div class="stat-value" style="color:{GENERATION_COLORS.get(wf_max_gen, '#1d7874')};font-size:2rem;">{wf_max_val:.1f} m²</div>
-                <div class="stat-subtle">Most space per person</div>
-            </div>""",
-            unsafe_allow_html=True,
-        )
-    with w2:
-        st.markdown(
-            f"""<div class="stat-card">
-                <div class="stat-label">{wf_min_gen} ({selected_year})</div>
-                <div class="stat-value" style="color:{GENERATION_COLORS.get(wf_min_gen, '#f25c54')};font-size:2rem;">{wf_min_val:.1f} m²</div>
-                <div class="stat-subtle">Least space per person</div>
-            </div>""",
-            unsafe_allow_html=True,
-        )
-    with w3:
-        persisted_label = f"Persisted across all {len(all_years)} years" if gap_persisted else f"In {selected_year}"
-        st.markdown(
-            f"""<div class="stat-card">
-                <div class="stat-label">Gap ({selected_year})</div>
-                <div class="stat-value" style="color:black;font-size:2rem;">+{wf_gap:.0f} m²</div>
-                <div class="stat-subtle">{persisted_label}</div>
-            </div>""",
-            unsafe_allow_html=True,
-        )
-
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ── Ranking bar chart ─────────────────────────────────────────────────────
     st.markdown(
         f"<div style='font-size:0.85rem;color:#888888;margin-bottom:0.3rem;'>"
-        f"Living space ranking by generation · {selected_year}</div>",
+        f"Living space ranking by generation · {year_wf_sel}</div>",
         unsafe_allow_html=True,
     )
     st.plotly_chart(
-        create_wohnflaeche_ranking_chart(wf_data, selected_year, selected_gens),
+        create_wohnflaeche_ranking_chart(wf_data, year_wf_sel, selected_gens),
         use_container_width=True,
     )
+    _year_radio("Filter by Year", "whoowns_year_wf")
 
-    # ── Trend section ─────────────────────────────────────────────────────────
     st.markdown(
         f"<div style='font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;"
         f"color:#aaaaaa;margin:0.8rem 0 0.5rem;'>What the {year_range} trend tells us</div>",
         unsafe_allow_html=True,
     )
-
-    # Build dynamic gen summary for narrative (sorted by sqm desc)
     sorted_wf = year_wf.sort_values("sqm_per_person", ascending=False)
-    gen_trend_summary = " No generation overtook another. " + wf_max_gen + " and " + \
-        (sorted_wf.iloc[1]["generation"] if len(sorted_wf) > 1 else "") + \
-        " maintained their lead, while " + wf_min_gen + \
-        (" and " + sorted_wf.iloc[-2]["generation"] if len(sorted_wf) > 2 else "") + \
+    gen_trend_summary = (
+        " No generation overtook another. " + wf_max_gen + " and " +
+        (sorted_wf.iloc[1]["generation"] if len(sorted_wf) > 1 else "") +
+        " maintained their lead, while " + wf_min_gen +
+        (" and " + sorted_wf.iloc[-2]["generation"] if len(sorted_wf) > 2 else "") +
         " stayed at the bottom — with both groups seeing only marginal changes in absolute m²."
-
+    )
     st.markdown(
         f"""
         <div class="narrative-text">
@@ -670,21 +632,22 @@ def render_who_owns_section(
 
     # ── Scatter: ownership rate vs. living space ──────────────────────────────
     st.markdown("<div style='border-top:1px solid #eeeeee;margin:1.5rem 0 1rem;'></div>", unsafe_allow_html=True)
- 
+
     st.markdown(
         "<h2 style='font-size:1.7rem;font-weight:800;color:#111111;margin:0 0 1rem;'>"
         "Korrelation: Eigentümerquote vs. Wohnfläche</h2>",
         unsafe_allow_html=True,
     )
-        # ── Why-box (accent border) ───────────────────────────────────────────────
+
+    year_scatter = int(st.session_state.get("whoowns_year_scatter", str(_avail_years[-1])))
+
     st.markdown(
         f"""
-        <div style="background:#f7f9f4;border-left:4px solid #1d7874;border-radius:6px;
-        padding:1.2rem 1.4rem;margin-bottom:1rem;">
+        <div padding:1.2rem 1.4rem;margin-bottom:1rem;">
         <strong>Why does space correlate with ownership?</strong> Living space and property ownership
         are closely linked. Owners typically live in larger homes — houses and larger flats — while
         renters occupy smaller apartments. The same generational divide seen in the ownership chart
-        ({max_pct}% vs. {min_pct}%) is mirrored here: those who own more tend to live in more.
+        (<span style="color:{GENERATION_COLORS.get(max_gen, '#1d7874')};font-weight:700;">{max_pct}%</span> vs. <span style="color:{GENERATION_COLORS.get(min_gen, '#f25c54')};font-weight:700;">{min_pct}%</span>) is mirrored here: those who own more tend to live in more.
         Living space is not just comfort — it is a proxy for wealth accumulation and housing security.
         </div>
         """,
@@ -693,20 +656,20 @@ def render_who_owns_section(
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # Always use full generation set — this chart shows the structural correlation, not a filtered view
-    scatter_occ, _ = build_occupancy_stacked_data(bewohnertyp_df, selected_year, GENERATION_ORDER)
+    scatter_occ, _ = build_occupancy_stacked_data(bewohnertyp_df, year_scatter, GENERATION_ORDER)
     scatter_wf = build_wohnflaeche_data(wohnflaeche_df, GENERATION_ORDER)
     st.plotly_chart(
-        create_space_ownership_scatter(scatter_wf, scatter_occ, selected_year, GENERATION_ORDER),
+        create_space_ownership_scatter(scatter_wf, scatter_occ, year_scatter, GENERATION_ORDER),
         use_container_width=True,
     )
+    _year_radio("Filter by Year", "whoowns_year_scatter")
 
 
 
     # ── Closing paragraph ─────────────────────────────────────────────────────
     st.markdown(
         f"""
-        <div style="background:#f4f8f6;border:1px solid #c8ddd6;border-left:5px solid #1d7874;
+        <div style="background:#f4f8f6;border:1px solid #c8ddd6;
         border-radius:8px;padding:1.3rem 1.5rem;margin-top:1rem;">
         <h5> Conclusion: A reinforcing gap in space and ownership</h6>
         <p style="font-size:1.08rem;line-height:1.75;color:#222222;margin:0 0 0.9rem;">
@@ -718,7 +681,7 @@ def render_who_owns_section(
         cost relative to income.
         </p>
         <span style="font-size:0.8rem;color:#999999;">
-        Source: Visualization based on FSO data from {selected_year}
+        Source: Visualization based on FSO data from {year_scatter}
         </span>
         </div>
         """,
