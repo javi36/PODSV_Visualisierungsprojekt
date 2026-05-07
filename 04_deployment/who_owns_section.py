@@ -503,7 +503,7 @@ def render_who_owns_section(
         st.markdown(
             f"""<div class="stat-card">
                 <div class="stat-label">Generational gap</div>
-                <div class="stat-value" style="color:black;font-size:2rem;">{gap} pp</div>
+                <div class="stat-value" style="color:black;font-size:2rem;">{gap} %</div>
                 <div class="stat-subtle">Percentage points difference</div>
             </div>""",
             unsafe_allow_html=True,

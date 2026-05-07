@@ -5,7 +5,7 @@ import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from app_config import GENERATION_ORDER, SIDEBAR_YEARS, inject_global_styles
+from app_config import inject_global_styles
 
 st.set_page_config(
     page_title="Generational Conflict",
@@ -40,60 +40,5 @@ with st.sidebar:
     st.page_link("pages/who_pays.py", label="Who Pays", icon="💸")
     st.page_link("pages/who_owns.py", label="Who Owns", icon="🏡")
 
-    st.divider()
-
-    # — Control Panel —
-    st.markdown(
-        "<div style='font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;"
-        "color:#888888;font-weight:700;padding:0.2rem 0 0.4rem;'>🎛️ Control Panel</div>",
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(
-        "<div style='font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;"
-        "color:#666666;margin-bottom:0.3rem;margin-top:0.4rem;'>Compare Generations</div>",
-        unsafe_allow_html=True,
-    )
-    _GEN_DISPLAY = {
-        "Silent Generation":   "Silent (79+)",
-        "Babyboomers":         "Boomers (60-78)",
-        "Generation X":        "Gen X (44-59)",
-        "Millennials / Gen Y": "Millennials (28-43)",
-        "Generation Z":        "Gen Z (12-27)",
-    }
-    _selected_display = st.multiselect(
-        "Generations",
-        options=list(_GEN_DISPLAY.values()),
-        default=list(_GEN_DISPLAY.values()),
-        label_visibility="collapsed",
-    )
-    _reverse = {v: k for k, v in _GEN_DISPLAY.items()}
-    st.session_state["sidebar_generations"] = [_reverse[d] for d in _selected_display]
-
-    current_gens = st.session_state.get("sidebar_generations", GENERATION_ORDER)
-    if len(current_gens) < 2:
-        st.warning("Select at least 2 generations.", icon="⚠️")
-
-    st.markdown("<div style='height:0.5rem'></div>", unsafe_allow_html=True)
-
-    st.markdown(
-        "<div style='font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;"
-        "color:#666666;margin-bottom:0.3rem;'>Year</div>",
-        unsafe_allow_html=True,
-    )
-    st.select_slider(
-        "Year",
-        options=SIDEBAR_YEARS,
-        value=SIDEBAR_YEARS[-1],
-        key="sidebar_year",
-        label_visibility="collapsed",
-    )
-    st.markdown(
-        "<div style='display:flex;justify-content:space-between;"
-        "margin-top:-0.8rem;padding:0 0.3rem;font-size:0.75rem;color:#bbbbbb;'>"
-        + "".join(f"<span>{y}</span>" for y in SIDEBAR_YEARS)
-        + "</div>",
-        unsafe_allow_html=True,
-    )
 
 pg.run()
