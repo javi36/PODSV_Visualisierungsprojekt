@@ -435,6 +435,8 @@ def render_who_owns_section(
     bewohnertyp_df: pd.DataFrame,
     wohnflaeche_df: pd.DataFrame,
 ) -> None:
+    st.markdown('<div id="who-owns"></div>', unsafe_allow_html=True)
+
     # ── Read shared filters from sidebar session_state ────────────────────────
     selected_gens: list[str] = st.session_state.get("sidebar_generations", GENERATION_ORDER)
 

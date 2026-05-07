@@ -2,6 +2,7 @@ import streamlit as st
 
 
 def render_who_pays_section() -> None:
+	st.markdown('<div id="who-pays"></div>', unsafe_allow_html=True)
 	st.markdown("<div class='section-title'>2. Who Pays</div>", unsafe_allow_html=True)
 	st.markdown(
 		"""

@@ -71,6 +71,8 @@ GENERATION_META: dict[str, dict] = {
 
 
 def main() -> None:
+    st.markdown('<div id="home"></div>', unsafe_allow_html=True)
+
     # ── Hero ─────────────────────────────────────────────────────────────────
     st.markdown(
         """
@@ -147,57 +149,6 @@ def main() -> None:
         create_generation_area_chart(pyramid_data, area_from, area_to, relative),
         use_container_width=True,
     )
-
-    # ── Navigation buttons ────────────────────────────────────────────────────
-    st.markdown(
-        "<div class='nav-section-title'>Dive Deeper</div>"
-        "<div class='nav-section-subtitle'>Explore each dimension of the generational conflict</div>",
-        unsafe_allow_html=True,
-    )
-
-    nav_col1, nav_col2, nav_col3 = st.columns(3, gap="large")
-
-    with nav_col1:
-        st.markdown(
-            """
-            <div class="nav-card" style="border-top: 4px solid #0f4c5c;">
-                <div class="nav-card-icon">🗳️</div>
-                <div class="nav-card-title">Who Decides</div>
-                <div class="nav-card-desc">Political power and voting influence across generations</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        if st.button("Explore Who Decides →", use_container_width=True, key="btn_decides"):
-            st.switch_page("pages/who_decides.py")
-
-    with nav_col2:
-        st.markdown(
-            """
-            <div class="nav-card" style="border-top: 4px solid #f4a259;">
-                <div class="nav-card-icon">💸</div>
-                <div class="nav-card-title">Who Pays</div>
-                <div class="nav-card-desc">Housing cost burden and rent pressure by generation</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        if st.button("Explore Who Pays →", use_container_width=True, key="btn_pays"):
-            st.switch_page("pages/who_pays.py")
-
-    with nav_col3:
-        st.markdown(
-            """
-            <div class="nav-card" style="border-top: 4px solid #f25c54;">
-                <div class="nav-card-icon">🏠</div>
-                <div class="nav-card-title">Who Owns</div>
-                <div class="nav-card-desc">Homeownership rates and asset distribution in 2024</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        if st.button("Explore Who Owns →", use_container_width=True, key="btn_owns"):
-            st.switch_page("pages/who_owns.py")
 
     st.markdown("<br><br>", unsafe_allow_html=True)
 
