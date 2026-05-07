@@ -461,10 +461,6 @@ def _chart_slope(frames: dict, selected_gens: list[str]) -> list:
 # ─────────────────────────────────────────────
 # Chart 4 — Grouped Bar (L-R orientation)
 # ─────────────────────────────────────────────
-
-def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
-    import math
-    fig = go.Figure()
 def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
     import math
     fig = go.Figure()
