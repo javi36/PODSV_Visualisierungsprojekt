@@ -103,7 +103,7 @@ def main() -> None:
         with col:
             st.markdown(
                 f"""
-                <div class="gen-card" style="border-top: 5px solid {meta['color']};">
+                <div class="gen-card" style="border-top: 5px solid {meta['color']}; min-height: 380px;">
                     <div class="gen-card-name">{gen_name}</div>
                     <div class="gen-card-years">{meta['years']}</div>
                     <div class="gen-card-age">{meta['age']}</div>

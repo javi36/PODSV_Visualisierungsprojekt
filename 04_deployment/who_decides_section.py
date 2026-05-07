@@ -448,8 +448,9 @@ def _chart_slope(frames: dict, selected_gens: list[str]) -> list:
             margin=dict(t=8, b=24, l=8, r=8),
             plot_bgcolor="white",
             paper_bgcolor="white",
-            xaxis=dict(tickvals=years, tickfont=dict(size=9, color="#aaa"),
-                       gridcolor="#f0f0f0", linecolor="#eeeeee", showgrid=False),
+            xaxis=dict(tickvals=years, ticktext=[str(y) for y in years],
+                tickfont=dict(size=9, color="#aaa"), gridcolor="#f0f0f0",
+                linecolor="#eeeeee", showgrid=False, range=[2014, 2024],),
             yaxis=dict(range=[35, 65], showticklabels=False,
                        gridcolor="#f5f5f5", linecolor="#eeeeee"),
         )
@@ -606,18 +607,19 @@ def _stat_continuous(frames: dict, metric: str, selected_gens: list[str], years:
 # ─────────────────────────────────────────────
 
 def render_who_decides_section() -> None:
-    st.markdown("<div class='section-title'>1. Who Decides</div>", unsafe_allow_html=True)
     st.markdown(
-        """
-        <div class='narrative-text'>
-        Political participation is not evenly distributed across generations.
-        This section traces voter turnout, political interest, institutional trust,
-        and ideological orientation from 2015 to 2023 — revealing who truly shapes
-        Switzerland's political landscape.
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    """
+    <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:1.4rem;">
+    Democracy assumes every voice counts equally. 
+    But in Switzerland, age tilts the scales. 
+    Older generations show up — younger ones stay home. 
+    And as the population ages, that gap only widens. 
+    From voter turnout to ideological drift,
+    the numbers tell a story of who really decides — and who gets left out.
+    </p>
+    """,
+    unsafe_allow_html=True,
+)
 
     # ── Load data ───────────────────────────────────────────────────
     try:
@@ -656,14 +658,23 @@ def render_who_decides_section() -> None:
             _chart_parliament(frames, selected_gens, selected_parl_year),
             use_container_width=True,
         )
-
-    with st.expander("📊 Statistical significance (Chi²-test, 2015–2023)"):
-        st.markdown(_stat_turnout(frames, selected_gens) or "—")
-        st.caption("Red = highly significant. White = no significant difference.")
+    # ── Conclusion: Parliament chart ────────────────────────────────
+    
     st.markdown(
-        f"<div class='narrative-text'>{CHART_NARRATIVE['turnout']['insight']}</div>",
+        """
+        <p style="font-size:1.05rem;line-height:1.75;color:#333333;margin-top:0.8rem;">
+        <strong>Who shows up — and who doesn't.</strong> In the 2023 elections, older generations 
+        still dominated the ballot box. Babyboomers and the Silent Generation collectively held the 
+        majority of active votes — not because they are the largest population group, but because 
+        they turn out. Gen Z and Millennials, though growing in numbers, remain structurally 
+        underrepresented at the ballot. Democracy counts votes, not people — and right now, 
+        age decides who gets counted.
+        </p>
+        """,
         unsafe_allow_html=True,
     )
+
+    
 
     # ── Chart 2: Line — Political Interest ──────────────────────────
     st.markdown("---")
@@ -677,22 +688,28 @@ def render_who_decides_section() -> None:
     with col_chart2:
         st.plotly_chart(_chart_line(frames, selected_gens), use_container_width=True)
 
-    with st.expander("📊 Statistical significance (ANOVA, 2015–2023)"):
-        st.markdown(_stat_continuous(frames, "political_interest", selected_gens, [2015, 2019, 2023]) or "—")
+    # ── Conclusion: Interest chart ───────────────────────────────────
     st.markdown(
-        f"<div class='narrative-text'>{CHART_NARRATIVE['interest']['insight']}</div>",
+        """
+        <p style="font-size:1.05rem;line-height:1.75;color:#333333;margin-top:0.8rem;">
+        <strong>Interested — but absent.</strong> Political interest has risen across nearly every 
+        generation since 2019. Yet at the same ballot, turnout fell. This paradox points to something 
+        deeper than apathy: younger generations care about politics, but something stops them from 
+        converting that interest into a vote. Structural barriers, distrust in the process, or simply 
+        the feeling that it won't make a difference — the data can't tell us which. But the gap between 
+        caring and acting is real, and it widens with every election.
+        </p>
+        """,
         unsafe_allow_html=True,
     )
 
     # ── Chart 3: Slope — Democratic Satisfaction ────────────────────
     st.markdown("---")
-    col_text3, _ = st.columns([1, 2])
-    with col_text3:
-        st.markdown(f"### {CHART_NARRATIVE['trust']['title']}")
-        st.markdown(
-            f"<div class='narrative-text'>{CHART_NARRATIVE['trust']['intro']}</div>",
-            unsafe_allow_html=True,
-        )
+    st.markdown(f"### {CHART_NARRATIVE['trust']['title']}")
+    st.markdown(
+        f"<div class='narrative-text'>{CHART_NARRATIVE['trust']['intro']}</div>",
+        unsafe_allow_html=True,
+    )
 
     short_names = {
         "Silent Generation": "Silent", "Babyboomers": "Boomers",
@@ -717,10 +734,18 @@ def render_who_decides_section() -> None:
             )
             st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-    with st.expander("📊 Statistical significance (Chi²-test, 2015 vs 2023)"):
-        st.markdown(_stat_continuous(frames, "demo_satisfaction", selected_gens, [2015, 2023]) or "—")
+    # ── Conclusion: Trust chart ──────────────────────────────────────
     st.markdown(
-        f"<div class='narrative-text'>{CHART_NARRATIVE['trust']['insight']}</div>",
+        """
+        <p style="font-size:1.05rem;line-height:1.75;color:#333333;margin-top:0.8rem;">
+        <strong>Trust doesn't explain the gap either.</strong> Democratic satisfaction has moved in 
+        different directions across generations — with no clear generational pattern. Millennials 
+        are the only group whose satisfaction consistently grew over the full period. Gen Z and the 
+        Silent Generation lost the most ground. But crucially: satisfaction levels don't align with 
+        turnout. Generations that trust less don't necessarily vote less. The missing piece lies 
+        elsewhere.
+        </p>
+        """,
         unsafe_allow_html=True,
     )
 
@@ -735,14 +760,22 @@ def render_who_decides_section() -> None:
         )
     with col_chart4:
         st.plotly_chart(_chart_bar_lr(frames, selected_gens), use_container_width=True)
-
-    with st.expander("📊 Statistical significance (ANOVA, 2015–2023)"):
-        st.markdown(_stat_continuous(frames, "lr_scale", selected_gens, [2015, 2019, 2023]) or "—")
+        
+# ── Conclusion: L-R Orientation chart ───────────────────────────
     st.markdown(
-        f"<div class='narrative-text'>{CHART_NARRATIVE['lr']['insight']}</div>",
+        """
+        <p style="font-size:1.05rem;line-height:1.75;color:#333333;margin-top:0.8rem;">
+        <strong>Same views, unequal voice.</strong> Across all generations, political orientation 
+        clusters in a surprisingly narrow band — no generation sits firmly left or right. Young and 
+        old think more alike than the political debate suggests. And yet older generations dominate 
+        the ballot box. The turnout gap is not a values gap. It is a participation gap — and in a 
+        direct democracy like Switzerland, that difference shapes every vote, every referendum, 
+        every policy that follows.
+        </p>
+        """,
         unsafe_allow_html=True,
     )
-
+    
     # ── Summary callout ─────────────────────────────────────────────
     st.markdown("---")
     st.markdown(

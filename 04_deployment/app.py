@@ -55,11 +55,11 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     _GEN_DISPLAY = {
-        "Silent Generation":   "Silent (79+)",
-        "Babyboomers":         "Boomers (60-78)",
-        "Generation X":        "Gen X (44-59)",
-        "Millennials / Gen Y": "Millennials (28-43)",
-        "Generation Z":        "Gen Z (12-27)",
+        "Silent Generation":   "Silent, 79+",
+        "Babyboomers":         "Boomers, 60-78",
+        "Generation X":        "Gen X, 44-59",
+        "Millennials / Gen Y": "Millennials, 28-43",
+        "Generation Z":        "Gen Z, 12-27",
     }
     _selected_display = st.multiselect(
         "Generations",
