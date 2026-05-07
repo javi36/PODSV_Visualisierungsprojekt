@@ -643,26 +643,22 @@ def render_who_decides_section() -> None:
 
     # ── Chart 1: Parliament — Voter Turnout ─────────────────────────
     st.markdown("---")
-    col_text, col_chart = st.columns([1, 2])
-    with col_text:
-        st.markdown(f"### {CHART_NARRATIVE['turnout']['title']}")
-        st.markdown(
-            f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['turnout']['intro']}</p>",
-            unsafe_allow_html=True,
-        )
-        st.markdown("<br>", unsafe_allow_html=True)
-        selected_parl_year = st.radio(
-            "Election year",
-            options=[2015, 2019, 2023],
-            index=2,
-            horizontal=True,
-            key="wd_parl_year",
-        )
-    with col_chart:
-        st.plotly_chart(
-            _chart_parliament(frames, selected_gens, selected_parl_year),
-            use_container_width=True,
-        )
+    st.markdown(f"### {CHART_NARRATIVE['turnout']['title']}")
+    st.markdown(
+        f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['turnout']['intro']}</p>",
+        unsafe_allow_html=True,
+    )
+    selected_parl_year = st.radio(
+        "Election year",
+        options=[2015, 2019, 2023],
+        index=2,
+        horizontal=True,
+        key="wd_parl_year",
+    )
+    st.plotly_chart(
+        _chart_parliament(frames, selected_gens, selected_parl_year),
+        use_container_width=True,
+    )
     st.markdown(
         f"<div style='{_CONCLUSION_STYLE}'>"
         "<strong>Who shows up — and who doesn't.</strong> In the 2023 elections, older generations "
@@ -677,15 +673,12 @@ def render_who_decides_section() -> None:
 
     # ── Chart 2: Line — Political Interest ──────────────────────────
     st.markdown("---")
-    col_chart2, col_text2 = st.columns([2, 1])
-    with col_text2:
-        st.markdown(f"### {CHART_NARRATIVE['interest']['title']}")
-        st.markdown(
-            f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['interest']['intro']}</p>",
-            unsafe_allow_html=True,
-        )
-    with col_chart2:
-        st.plotly_chart(_chart_line(frames, selected_gens), use_container_width=True)
+    st.markdown(f"### {CHART_NARRATIVE['interest']['title']}")
+    st.markdown(
+        f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['interest']['intro']}</p>",
+        unsafe_allow_html=True,
+    )
+    st.plotly_chart(_chart_line(frames, selected_gens), use_container_width=True)
     st.markdown(
         f"<div style='{_CONCLUSION_STYLE}'>"
         "<strong>Interested — but absent.</strong> Political interest has risen across nearly every "
@@ -740,15 +733,12 @@ def render_who_decides_section() -> None:
 
     # ── Chart 4: Bar — Political Orientation ────────────────────────
     st.markdown("---")
-    col_chart4, col_text4 = st.columns([2, 1])
-    with col_text4:
-        st.markdown(f"### {CHART_NARRATIVE['lr']['title']}")
-        st.markdown(
-            f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['lr']['intro']}</p>",
-            unsafe_allow_html=True,
-        )
-    with col_chart4:
-        st.plotly_chart(_chart_bar_lr(frames, selected_gens), use_container_width=True)
+    st.markdown(f"### {CHART_NARRATIVE['lr']['title']}")
+    st.markdown(
+        f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['lr']['intro']}</p>",
+        unsafe_allow_html=True,
+    )
+    st.plotly_chart(_chart_bar_lr(frames, selected_gens), use_container_width=True)
     st.markdown(
         f"<div style='{_CONCLUSION_STYLE}'>"
         "<strong>Same views, unequal voice.</strong> Across all generations, political orientation "
