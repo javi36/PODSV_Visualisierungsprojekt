@@ -636,18 +636,13 @@ def render_who_decides_section() -> None:
         st.info("Please select at least one generation in the sidebar Control Panel.")
         return
 
-    _CONCLUSION_STYLE = (
-        "background:#f5f7f6;border-radius:8px;padding:1.1rem 1.4rem;"
-        "margin-top:0.8rem;font-size:1.05rem;line-height:1.75;color:#333333;"
-    )
-
     # ── Chart 1: Parliament — Voter Turnout ─────────────────────────
     st.markdown("---")
     col_text, col_chart = st.columns([1, 2])
     with col_text:
         st.markdown(f"### {CHART_NARRATIVE['turnout']['title']}")
         st.markdown(
-            f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['turnout']['intro']}</p>",
+            f"<div class='narrative-text'>{CHART_NARRATIVE['turnout']['intro']}</div>",
             unsafe_allow_html=True,
         )
         st.markdown("<br>", unsafe_allow_html=True)
@@ -663,17 +658,23 @@ def render_who_decides_section() -> None:
             _chart_parliament(frames, selected_gens, selected_parl_year),
             use_container_width=True,
         )
+    # ── Conclusion: Parliament chart ────────────────────────────────
+    
     st.markdown(
-        f"<div style='{_CONCLUSION_STYLE}'>"
-        "<strong>Who shows up — and who doesn't.</strong> In the 2023 elections, older generations "
-        "still dominated the ballot box. Babyboomers and the Silent Generation collectively held the "
-        "majority of active votes — not because they are the largest population group, but because "
-        "they turn out. Gen Z and Millennials, though growing in numbers, remain structurally "
-        "underrepresented at the ballot. Democracy counts votes, not people — and right now, "
-        "age decides who gets counted."
-        "</div>",
+        """
+        <p style="font-size:1.05rem;line-height:1.75;color:#333333;margin-top:0.8rem;">
+        <strong>Who shows up — and who doesn't.</strong> In the 2023 elections, older generations 
+        still dominated the ballot box. Babyboomers and the Silent Generation collectively held the 
+        majority of active votes — not because they are the largest population group, but because 
+        they turn out. Gen Z and Millennials, though growing in numbers, remain structurally 
+        underrepresented at the ballot. Democracy counts votes, not people — and right now, 
+        age decides who gets counted.
+        </p>
+        """,
         unsafe_allow_html=True,
     )
+
+    
 
     # ── Chart 2: Line — Political Interest ──────────────────────────
     st.markdown("---")
@@ -681,30 +682,35 @@ def render_who_decides_section() -> None:
     with col_text2:
         st.markdown(f"### {CHART_NARRATIVE['interest']['title']}")
         st.markdown(
-            f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['interest']['intro']}</p>",
+            f"<div class='narrative-text'>{CHART_NARRATIVE['interest']['intro']}</div>",
             unsafe_allow_html=True,
         )
     with col_chart2:
         st.plotly_chart(_chart_line(frames, selected_gens), use_container_width=True)
+
+    # ── Conclusion: Interest chart ───────────────────────────────────
     st.markdown(
-        f"<div style='{_CONCLUSION_STYLE}'>"
-        "<strong>Interested — but absent.</strong> Political interest has risen across nearly every "
-        "generation since 2019. Yet at the same ballot, turnout fell. This paradox points to something "
-        "deeper than apathy: younger generations care about politics, but something stops them from "
-        "converting that interest into a vote. Structural barriers, distrust in the process, or simply "
-        "the feeling that it won't make a difference — the data can't tell us which. But the gap between "
-        "caring and acting is real, and it widens with every election."
-        "</div>",
+        """
+        <p style="font-size:1.05rem;line-height:1.75;color:#333333;margin-top:0.8rem;">
+        <strong>Interested — but absent.</strong> Political interest has risen across nearly every 
+        generation since 2019. Yet at the same ballot, turnout fell. This paradox points to something 
+        deeper than apathy: younger generations care about politics, but something stops them from 
+        converting that interest into a vote. Structural barriers, distrust in the process, or simply 
+        the feeling that it won't make a difference — the data can't tell us which. But the gap between 
+        caring and acting is real, and it widens with every election.
+        </p>
+        """,
         unsafe_allow_html=True,
     )
 
-    # ── Chart 3: Slope — Democratic Satisfaction ────────────────────
+    ## ── Chart 3: Slope — Democratic Satisfaction ────────────────────
     st.markdown("---")
     st.markdown(f"### {CHART_NARRATIVE['trust']['title']}")
     st.markdown(
         f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['trust']['intro']}</p>",
         unsafe_allow_html=True,
     )
+
     short_names = {
         "Silent Generation": "Silent", "Babyboomers": "Boomers",
         "Generation X": "Gen X", "Millennials / Gen Y": "Millennials",
@@ -727,14 +733,20 @@ def render_who_decides_section() -> None:
                 unsafe_allow_html=True,
             )
             st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # ── Conclusion: Trust chart ──────────────────────────────────────
     st.markdown(
-        f"<div style='{_CONCLUSION_STYLE}'>"
-        "<strong>Trust doesn't explain the gap either.</strong> Democratic satisfaction has moved in "
-        "different directions across generations — with no clear generational pattern. Millennials "
-        "are the only group whose satisfaction consistently grew over the full period. Gen Z and the "
-        "Silent Generation lost the most ground. But crucially: satisfaction levels don't align with "
-        "turnout. Generations that trust less don't necessarily vote less. The missing piece lies elsewhere."
-        "</div>",
+        """
+        <p style="font-size:1.05rem;line-height:1.75;color:#333333;margin-top:0.8rem;">
+        <strong>Trust doesn't explain the gap either.</strong> Democratic satisfaction has moved in 
+        different directions across generations — with no clear generational pattern. Millennials 
+        are the only group whose satisfaction consistently grew over the full period. Gen Z and the 
+        Silent Generation lost the most ground. But crucially: satisfaction levels don't align with 
+        turnout. Generations that trust less don't necessarily vote less. The missing piece lies 
+        elsewhere.
+        </p>
+        """,
         unsafe_allow_html=True,
     )
 
@@ -744,19 +756,36 @@ def render_who_decides_section() -> None:
     with col_text4:
         st.markdown(f"### {CHART_NARRATIVE['lr']['title']}")
         st.markdown(
-            f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['lr']['intro']}</p>",
+            f"<div class='narrative-text'>{CHART_NARRATIVE['lr']['intro']}</div>",
             unsafe_allow_html=True,
         )
     with col_chart4:
         st.plotly_chart(_chart_bar_lr(frames, selected_gens), use_container_width=True)
+        
+# ── Conclusion: L-R Orientation chart ───────────────────────────
     st.markdown(
-        f"<div style='{_CONCLUSION_STYLE}'>"
-        "<strong>Same views, unequal voice.</strong> Across all generations, political orientation "
-        "clusters in a surprisingly narrow band — no generation sits firmly left or right. Young and "
-        "old think more alike than the political debate suggests. And yet older generations dominate "
-        "the ballot box. The turnout gap is not a values gap. It is a participation gap — and in a "
-        "direct democracy like Switzerland, that difference shapes every vote, every referendum, "
-        "every policy that follows."
-        "</div>",
+        """
+        <p style="font-size:1.05rem;line-height:1.75;color:#333333;margin-top:0.8rem;">
+        <strong>Same views, unequal voice.</strong> Across all generations, political orientation 
+        clusters in a surprisingly narrow band — no generation sits firmly left or right. Young and 
+        old think more alike than the political debate suggests. And yet older generations dominate 
+        the ballot box. The turnout gap is not a values gap. It is a participation gap — and in a 
+        direct democracy like Switzerland, that difference shapes every vote, every referendum, 
+        every policy that follows.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # ── Summary callout ─────────────────────────────────────────────
+    st.markdown("---")
+    st.markdown(
+        """
+        <div class='template-box' style='border-left: 4px solid #1d7874; padding: 1rem 1.5rem;'>
+        <strong>Key takeaway:</strong> Younger generations are increasingly disengaged from the ballot box —
+        even as their political interest rises. Institutional trust and democratic satisfaction do not explain
+        the gap. Older, increasingly right-leaning generations continue to dominate electoral outcomes.
+        </div>
+        """,
         unsafe_allow_html=True,
     )

@@ -69,7 +69,7 @@ GLOBAL_STYLES = """
 		font-size: 1.05rem;
 		line-height: 1.7;
 		background: #f7f7f7;
-		border-left: 4px solid #1f77b4;
+		border-left: none;
 		padding: 1.25rem 1.4rem;
 		border-radius: 4px;
 		color: #111111;
@@ -282,6 +282,10 @@ GLOBAL_STYLES = """
 		display: none !important;
 		visibility: hidden !important;
 		opacity: 0 !important;
+	}
+	[data-testid="stVerticalBlock"]:has(> [data-testid="stColumns"].trust-chart) {
+    background: #f5f7f6;
+    padding: 0.5rem 1rem;
 	}
 </style>
 """
