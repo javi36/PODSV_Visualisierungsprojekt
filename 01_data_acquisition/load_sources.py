@@ -7,6 +7,12 @@ import pandas as pd
 import re
 import sys
 
+from load_whopays_final import (
+    run_whopays_pipeline,
+    run_ahv_einnahmen_pipeline,
+    run_ahv_ausgaben_pipeline,
+)
+
 # -----------------------------------------
 # 1. Define Paths and Constants
 # -----------------------------------------
@@ -31,6 +37,7 @@ RAW_BFS_BEWOHNERTYP_WOHNFLAECHE_PATH = BASE_PATH / "data" / "whoOwns" / "raw" / 
 PROCESSED_WOHNEIGENTUMSQUOTE_PATH = BASE_PATH / "data" / "whoOwns" / "processed" / "wohneigentumsquote_kanton_2026_clean.csv"
 PROCESSED_BFS_BEWOHNERTYP_PATH = BASE_PATH / "data" / "whoOwns" / "processed" / "bfs_bewohnertyp_20260414_clean.csv"
 PROCESSED_BFS_WOHNFLAECHE_PATH = BASE_PATH / "data" / "whoOwns" / "processed" / "bfs_wohnflaeche_20260414_clean.csv"
+
 
 # Ordnerstruktur sicherstellen
 PROCESSED_SELECTS_2023_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -410,11 +417,6 @@ except Exception as e:
 # -----------------------------------------
 # 4. WhoPays – OKP Gesundheitsdaten
 # -----------------------------------------
-# Dieser Block wird durch load_whopays.py verwaltet.
-# Direkter Aufruf: python 01_data_acquisition/load_whopays.py
-# -----------------------------------------
-from load_whopays import run_whopays_pipeline
-
 try:
     df_okp_cohort, df_okp_birth_year = run_whopays_pipeline()
     print("✓ WhoPays OKP-Daten geladen und disaggregiert")
@@ -424,11 +426,6 @@ except Exception as e:
 # -----------------------------------------
 # 5. WhoPays – AHV Einnahmen
 # -----------------------------------------
-# Dieser Block wird durch load_ahv_einnahmen.py verwaltet.
-# Direkter Aufruf: python 01_data_acquisition/load_ahv_einnahmen.py
-# -----------------------------------------
-from load_ahv_einnahmen import run_ahv_einnahmen_pipeline
-
 try:
     df_ahv_cohort, df_ahv_birth_year, df_ahv_makro = run_ahv_einnahmen_pipeline()
     print("✓ WhoPays AHV-Einnahmen geladen und disaggregiert")
@@ -438,11 +435,6 @@ except Exception as e:
 # -----------------------------------------
 # 6. WhoPays – AHV Ausgaben (Rentendaten)
 # -----------------------------------------
-# Dieser Block wird durch load_ahv_ausgaben.py verwaltet.
-# Direkter Aufruf: python 01_data_acquisition/load_ahv_ausgaben.py
-# -----------------------------------------
-from load_ahv_ausgaben import run_ahv_ausgaben_pipeline
-
 try:
     df_ahv_ausgaben = run_ahv_ausgaben_pipeline()
     print("✓ WhoPays AHV-Ausgaben (Rentendaten) geladen")

@@ -603,6 +603,8 @@ def _stat_continuous(frames: dict, metric: str, selected_gens: list[str], years:
 # ─────────────────────────────────────────────
 
 def render_who_decides_section() -> None:
+    st.markdown('<div id="who-decides"></div>', unsafe_allow_html=True)
+
     st.markdown(
     """
     <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:1.4rem;">

@@ -5,7 +5,19 @@ import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from app_config import inject_global_styles
+from app_config import (
+    BEWOHNERTYP_DATA_PATH,
+    WOHNFLAECHE_DATA_PATH,
+    inject_global_styles,
+)
+from generationalConflict_app import main as render_home
+from who_decides_section import render_who_decides_section
+from who_owns_section import (
+    load_bewohnertyp_data,
+    load_wohnflaeche_data,
+    render_who_owns_section,
+)
+from who_pays_section import render_who_pays_section
 
 st.set_page_config(
     page_title="Generational Conflict",
@@ -16,29 +28,93 @@ st.set_page_config(
 
 inject_global_styles()
 
-# ── Page routing (nav hidden — sidebar built manually below) ──────────────────
-pg = st.navigation(
-    [
-        st.Page("generationalConflict_app.py", title="Home", icon="🏠", default=True),
-        st.Page("pages/who_decides.py", title="Who Decides", icon="🗳️"),
-        st.Page("pages/who_pays.py", title="Who Pays", icon="💸"),
-        st.Page("pages/who_owns.py", title="Who Owns", icon="🏡"),
-    ],
-    position="hidden",
+# ── Sidebar anchor-link styling ───────────────────────────────────────────────
+st.markdown(
+    """
+    <style>
+    .sidebar-nav-links a {
+        display: block;
+        padding: 0.38rem 0.6rem;
+        font-size: 0.95rem;
+        color: #111111;
+        text-decoration: none;
+        border-radius: 6px;
+        margin-bottom: 2px;
+        transition: background 0.12s;
+    }
+    .sidebar-nav-links a:hover {
+        background: #f0f0f0;
+        color: #111111;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
 )
 
-# ── Full sidebar: Navigation Panel + Control Panel ────────────────────────────
+# ── Sidebar: Navigation Panel ─────────────────────────────────────────────────
 with st.sidebar:
-    # — Navigation Panel —
     st.markdown(
         "<div style='font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;"
         "color:#888888;font-weight:700;padding:0.6rem 0 0.5rem;'>🧭 Navigation Panel</div>",
         unsafe_allow_html=True,
     )
-    st.page_link("generationalConflict_app.py", label="Home", icon="🏠")
-    st.page_link("pages/who_decides.py", label="Who Decides", icon="🗳️")
-    st.page_link("pages/who_pays.py", label="Who Pays", icon="💸")
-    st.page_link("pages/who_owns.py", label="Who Owns", icon="🏡")
+    st.markdown(
+        """
+        <div class="sidebar-nav-links">
+            <a href="#home">Home</a>
+            <a href="#who-decides">🗳️ Who Decides</a>
+            <a href="#who-pays">💸 Who Pays</a>
+            <a href="#who-owns">🏡 Who Owns</a>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
+# ── Main content — single scrollable page ────────────────────────────────────
 
-pg.run()
+# 1. Home
+render_home()
+
+# 2. Who Decides
+st.markdown(
+    """
+    <div class="hero">
+        <h1>Who Decides</h1>
+        <p>Political power and voting influence across generations in Switzerland</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+render_who_decides_section()
+
+# 3. Who Pays
+st.markdown(
+    """
+    <div class="hero">
+        <h1>Who Pays</h1>
+        <p>Housing cost burden and rent pressure across generations in Switzerland</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+render_who_pays_section()
+
+# 4. Who Owns
+st.markdown(
+    """
+    <div class="hero">
+        <h1>Who Owns</h1>
+        <p>Homeownership rates and living space by generation in Switzerland</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+try:
+    bewohnertyp_df = load_bewohnertyp_data(BEWOHNERTYP_DATA_PATH)
+    wohnflaeche_df = load_wohnflaeche_data(WOHNFLAECHE_DATA_PATH)
+except Exception as exc:
+    st.error("Could not load ownership data.")
+    st.exception(exc)
+    st.stop()
+
+render_who_owns_section(bewohnertyp_df, wohnflaeche_df)
