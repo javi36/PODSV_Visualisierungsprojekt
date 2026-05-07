@@ -3,11 +3,12 @@ import streamlit as st
 
 from app_config import (
     DEMOGRAPHIC_DATA_PATH,
+    DEMOGRAPHIC_YEARS,
     load_demographic_data,
 )
 from demographic_section import (
     build_generation_pyramid_data,
-    create_generation_pyramid,
+    create_generation_area_chart,
 )
 
 GENERATION_META: dict[str, dict] = {
@@ -113,15 +114,17 @@ def main() -> None:
                 unsafe_allow_html=True,
             )
 
-    # ── Demographic pyramid ───────────────────────────────────────────────────
+    # ── Demographic balance (stacked area) ───────────────────────────────────
     st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown("<div class='pyramid-title'>Demographic Balance of Switzerland</div>", unsafe_allow_html=True)
 
-    selected_year = st.session_state.get("sidebar_year", 2024)
-
-    st.markdown(
-        f"<div class='pyramid-title'>Demographic Balance of Switzerland</div>"
-        f"<div class='pyramid-subtitle'>Population by generation from {selected_year}</div>",
-        unsafe_allow_html=True,
+    # Toggle absolute/relative
+    view_mode = st.radio(
+        "View",
+        options=["Absolute", "Relative (%)"],
+        horizontal=True,
+        key="area_view_mode",
+        label_visibility="collapsed",
     )
 
     try:
@@ -132,11 +135,18 @@ def main() -> None:
         st.exception(exc)
         st.stop()
 
+    relative = st.session_state.get("area_view_mode", "Absolute") == "Relative (%)"
+    area_from, area_to = DEMOGRAPHIC_YEARS[0], DEMOGRAPHIC_YEARS[-1]
+
+    st.markdown(
+        f"<div class='pyramid-subtitle'>{area_from}–{area_to}</div>",
+        unsafe_allow_html=True,
+    )
+
     st.plotly_chart(
-        create_generation_pyramid(pyramid_data, selected_year),
+        create_generation_area_chart(pyramid_data, area_from, area_to, relative),
         use_container_width=True,
     )
-    st.markdown("</div>", unsafe_allow_html=True)
 
     # ── Navigation buttons ────────────────────────────────────────────────────
     st.markdown(

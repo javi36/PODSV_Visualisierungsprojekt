@@ -211,7 +211,7 @@ def load_bfs_bewohnertyp_groesse_data(path: Path, sheet_type: str) -> pd.DataFra
             if not match:
                 return None
             year = int(match.group(1))
-            return year if 2019 <= year <= 2024 else None
+            return year if 1981 <= year <= 2024 else None
 
         matching_sheets = [sheet for sheet in available_sheets if is_matching_sheet(sheet)]
         if not matching_sheets:
@@ -269,7 +269,7 @@ def load_bfs_bewohnertyp_groesse_data(path: Path, sheet_type: str) -> pd.DataFra
 
         df = pd.concat(frames, ignore_index=True)
         if "time_period" in df.columns:
-            df = df[df["time_period"].between(2019, 2024, inclusive="both") | df["time_period"].isna()].copy()
+            df = df[df["time_period"].between(1981, 2024, inclusive="both") | df["time_period"].isna()].copy()
 
         print(f"✓ Loaded {sheet_type}: {len(matching_sheets)} sheets, {df.shape[0]} rows")
         return df

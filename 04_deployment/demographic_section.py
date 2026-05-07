@@ -64,186 +64,6 @@ def build_generation_pie_data(df: pd.DataFrame) -> pd.DataFrame:
 	result["generation"] = pd.Categorical(result["generation"], categories=GENERATION_ORDER, ordered=True)
 	return result
 
-
-
-# ── Alte Implementierung (nach Generation gruppiert, mit Geschlechtertrennung) ─
-# def build_generation_pyramid_data(df: pd.DataFrame) -> pd.DataFrame:
-#     year_col = find_column(df, ["jahr"])
-#     canton_col = find_column(df, ["kanton"])
-#     age_col = find_column(df, ["alter"])
-#     population_col = find_column(df, ["bestand", "31"])
-#
-#     if any(c is None for c in [year_col, canton_col, age_col, population_col]):
-#         raise ValueError("Missing required columns for pyramid data")
-#
-#     working = df.copy()
-#     working[year_col] = pd.to_numeric(working[year_col], errors="coerce")
-#     working[population_col] = pd.to_numeric(working[population_col], errors="coerce")
-#     working["age_num"] = pd.to_numeric(
-#         working[age_col].astype(str).str.extract(r"(\d+)", expand=False), errors="coerce"
-#     )
-#     working = working[
-#         working[year_col].notna() & working[population_col].notna() & working["age_num"].notna()
-#     ].copy()
-#     working[year_col] = working[year_col].astype(int)
-#
-#     if find_column(df, ["staatsange"]):
-#         nat_col = find_column(df, ["staatsange"])
-#         working = working[working[nat_col].astype(str).str.contains("total", case=False, na=False)].copy()
-#
-#     working = working[working[canton_col].astype(str).str.strip().str.lower() == "schweiz"].copy()
-#     working = working[~working[age_col].astype(str).str.contains("total", case=False, na=False)].copy()
-#
-#     gender_col = find_column(df, ["geschlecht"])
-#     if gender_col and set(["Mann", "Frau"]).issubset(set(working[gender_col].unique())):
-#         working = working[working[gender_col].isin(["Mann", "Frau"])].copy()
-#         working["gender"] = working[gender_col]
-#     else:
-#         working = working[working[gender_col].astype(str).str.contains("total", case=False, na=False)].copy()
-#         working["gender"] = "Total"
-#
-#     working["birth_year"] = working[year_col] - working["age_num"]
-#     working["generation"] = working["birth_year"].apply(generation_from_birth_year)
-#     working = working[working["generation"].isin(GENERATION_ORDER)].copy()
-#
-#     result = (
-#         working.groupby([year_col, "generation", "gender"], as_index=False)[population_col]
-#         .sum()
-#         .rename(columns={year_col: "year", population_col: "population"})
-#     )
-#     result["generation"] = pd.Categorical(result["generation"], categories=GENERATION_ORDER, ordered=True)
-#     return result
-#
-#
-# def create_generation_pyramid(df: pd.DataFrame, selected_year: int):
-#     year_data = df[df["year"] == selected_year].copy()
-#     gen_display_order = list(reversed(GENERATION_ORDER))  # oldest at top
-#
-#     fig = go.Figure()
-#     all_pops: list[int] = []
-#
-#     for gen in gen_display_order:
-#         gen_data = year_data[year_data["generation"] == gen]
-#         color = GENERATION_COLORS.get(gen, "#888888")
-#
-#         male_pop = int(gen_data[gen_data["gender"] == "Mann"]["population"].sum())
-#         female_pop = int(gen_data[gen_data["gender"] == "Frau"]["population"].sum())
-#         all_pops += [male_pop, female_pop]
-#
-#         fig.add_trace(go.Bar(
-#             name=gen,
-#             y=[gen],
-#             x=[-male_pop],
-#             orientation="h",
-#             marker_color=color,
-#             showlegend=False,
-#             customdata=[[gen, male_pop]],
-#             hovertemplate="<b>%{customdata[0]}</b><br>Männer: %{customdata[1]:,.0f}<extra></extra>",
-#         ))
-#         fig.add_trace(go.Bar(
-#             name=gen,
-#             y=[gen],
-#             x=[female_pop],
-#             orientation="h",
-#             marker_color=color,
-#             showlegend=True,
-#             customdata=[[gen, female_pop]],
-#             hovertemplate="<b>%{customdata[0]}</b><br>Frauen: %{customdata[1]:,.0f}<extra></extra>",
-#         ))
-#
-#     max_pop = max(all_pops) if all_pops else 1_000_000
-#     tick_step = 200_000
-#     max_tick = (int(max_pop / tick_step) + 1) * tick_step
-#     tick_vals = list(range(-max_tick, max_tick + tick_step, tick_step))
-#     tick_texts = [f"{abs(v) // 1_000}k" if v != 0 else "0" for v in tick_vals]
-#
-#     fig.update_layout(
-#         barmode="overlay",
-#         height=370,
-#         margin=dict(t=40, l=10, r=10, b=10),
-#         plot_bgcolor="#ffffff",
-#         paper_bgcolor="#ffffff",
-#         xaxis=dict(
-#             tickvals=tick_vals,
-#             ticktext=tick_texts,
-#             zeroline=True,
-#             zerolinecolor="#bbbbbb",
-#             zerolinewidth=2,
-#             gridcolor="#f0f0f0",
-#             range=[-max_tick * 1.08, max_tick * 1.08],
-#         ),
-#         yaxis=dict(
-#             categoryorder="array",
-#             categoryarray=gen_display_order,
-#             tickfont=dict(size=12, color="#333333"),
-#         ),
-#         legend=dict(
-#             orientation="h",
-#             yanchor="bottom",
-#             y=-0.22,
-#             xanchor="center",
-#             x=0.5,
-#             title_text="",
-#             font=dict(size=11),
-#         ),
-#         annotations=[
-#             dict(
-#                 text="← Männer",
-#                 x=0.01, y=1.06, xref="paper", yref="paper",
-#                 showarrow=False, font=dict(size=12, color="#555555"), xanchor="left",
-#             ),
-#             dict(
-#                 text="Frauen →",
-#                 x=0.99, y=1.06, xref="paper", yref="paper",
-#                 showarrow=False, font=dict(size=12, color="#555555"), xanchor="right",
-#             ),
-#         ],
-#     )
-#     return fig
-#
-# ── Alternative: single bar per generation (no gender split) ─────────────────
-# def create_generation_pyramid(df: pd.DataFrame, selected_year: int):
-#     year_data = df[df["year"] == selected_year].copy()
-#     totals = (
-#         year_data.groupby("generation", as_index=False, observed=True)["population"]
-#         .sum()
-#     )
-#     totals["generation"] = pd.Categorical(
-#         totals["generation"], categories=GENERATION_ORDER, ordered=True
-#     )
-#     totals = totals.sort_values("generation")
-#     gen_display_order = list(reversed(GENERATION_ORDER))
-#     pop_by_gen = {row["generation"]: int(row["population"]) for _, row in totals.iterrows()}
-#
-#     fig = go.Figure()
-#     for gen in gen_display_order:
-#         pop = pop_by_gen.get(gen, 0)
-#         fig.add_trace(go.Bar(
-#             name=gen, y=[gen], x=[pop], orientation="h",
-#             marker_color=GENERATION_COLORS.get(gen, "#888888"), showlegend=True,
-#             customdata=[[gen, pop]],
-#             hovertemplate="<b>%{customdata[0]}</b><br>Population: %{customdata[1]:,.0f}<extra></extra>",
-#         ))
-#     max_pop = max(pop_by_gen.values()) if pop_by_gen else 1_000_000
-#     tick_step = 200_000
-#     max_tick = (int(max_pop / tick_step) + 1) * tick_step
-#     tick_vals = list(range(0, max_tick + tick_step, tick_step))
-#     tick_texts = [f"{v // 1_000}k" if v > 0 else "0" for v in tick_vals]
-#     fig.update_layout(
-#         barmode="group", height=360,
-#         margin=dict(t=20, l=10, r=30, b=10),
-#         plot_bgcolor="#ffffff", paper_bgcolor="#ffffff",
-#         xaxis=dict(tickvals=tick_vals, ticktext=tick_texts, gridcolor="#f0f0f0",
-#                    zeroline=False, range=[0, max_tick * 1.08]),
-#         yaxis=dict(categoryorder="array", categoryarray=gen_display_order,
-#                    tickfont=dict(size=12, color="#333333")),
-#         legend=dict(orientation="h", yanchor="bottom", y=-0.25,
-#                     xanchor="center", x=0.5, title_text="", font=dict(size=11)),
-#     )
-#     return fig
-# ─────────────────────────────────────────────────────────────────────────────
-
-
 def build_generation_pyramid_data(df: pd.DataFrame) -> pd.DataFrame:
     """Returns one row per (year, age, generation) with total population (no gender split)."""
     year_col = find_column(df, ["jahr"])
@@ -361,6 +181,73 @@ def create_generation_pyramid(df: pd.DataFrame, selected_year: int):
             title_text="",
             font=dict(size=11),
         ),
+    )
+    return fig
+
+
+def create_generation_area_chart(df: pd.DataFrame, from_year: int, to_year: int, relative: bool):
+    """Stacked area chart: x = year, areas = generations, colored by GENERATION_COLORS."""
+    gen_year = (
+        df.groupby(["year", "generation"], observed=True)["population"]
+        .sum()
+        .reset_index()
+    )
+    gen_year = gen_year[(gen_year["year"] >= from_year) & (gen_year["year"] <= to_year)].copy()
+
+    if relative:
+        total_per_year = gen_year.groupby("year")["population"].transform("sum")
+        gen_year["value"] = gen_year["population"] / total_per_year * 100
+    else:
+        gen_year["value"] = gen_year["population"]
+
+    fig = go.Figure()
+    for gen in GENERATION_ORDER:
+        sub = gen_year[gen_year["generation"] == gen].sort_values("year")
+        color = GENERATION_COLORS.get(gen, "#888888")
+        hover = f"<b>{gen}</b><br>Year: %{{x}}<br>{'Share: %{y:.1f}%' if relative else 'Population: %{y:,.0f}'}<extra></extra>"
+        fig.add_trace(go.Scatter(
+            name=gen,
+            x=sub["year"],
+            y=sub["value"],
+            mode="lines",
+            stackgroup="one",
+            line=dict(width=0.5, color=color),
+            fillcolor=color,
+            hovertemplate=hover,
+        ))
+
+    fig.update_layout(
+        height=400,
+        margin=dict(t=10, l=10, r=30, b=50),
+        plot_bgcolor="#ffffff",
+        paper_bgcolor="#ffffff",
+        xaxis=dict(
+            tickmode="linear",
+            dtick=1,
+            gridcolor="#f0f0f0",
+            tickfont=dict(size=13, color="#555555"),
+            tickangle=45,
+        ),
+        yaxis=dict(
+            gridcolor="#f0f0f0",
+            ticksuffix="%" if relative else "",
+            tickformat=".0f" if relative else ",.0f",
+            tickfont=dict(size=13, color="#555555"),
+        ),
+        legend=dict(
+            orientation="v",
+            yanchor="top",
+            y=1,
+            xanchor="right",
+            x=1,
+            title_text="",
+            font=dict(size=13),
+            bgcolor="rgba(255,255,255,0.8)",
+        ),
+        hoverlabel=dict(font=dict(size=14)),
+        hovermode="x unified",
+        legend_itemclick=False,
+        legend_itemdoubleclick=False,
     )
     return fig
 

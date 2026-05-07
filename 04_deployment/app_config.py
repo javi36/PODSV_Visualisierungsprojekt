@@ -26,6 +26,7 @@ GENERATION_COLORS: dict[str, str] = {
 }
 
 SIDEBAR_YEARS: list[int] = list(range(2019, 2025))
+DEMOGRAPHIC_YEARS: list[int] = list(range(1981, 2025))
 
 WHO_OWNS_CATEGORIES = [
 	"Andere Situation",
@@ -292,7 +293,7 @@ def inject_global_styles() -> None:
 
 @st.cache_data
 def load_demographic_data(csv_path: Path) -> pd.DataFrame:
-	df = pd.read_csv(csv_path, sep=";", encoding="latin1")
+	df = pd.read_csv(csv_path, encoding="latin1")
 	df.columns = df.columns.str.strip()
 	return df
 
