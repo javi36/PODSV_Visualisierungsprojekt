@@ -92,6 +92,7 @@ with st.sidebar:
             <a href="#who-decides">🗳️ Who Decides</a>
             <a href="#who-pays">💸 Who Pays</a>
             <a href="#who-owns">🏡 Who Owns</a>
+            <a href="#references" style="margin-top:0.5rem;border-top:1px solid #eeeeee;padding-top:0.5rem;">📚 References</a>
         </div>
         """,
         unsafe_allow_html=True,
@@ -145,3 +146,17 @@ except Exception as exc:
     st.stop()
 
 render_who_owns_section(bewohnertyp_df, wohnflaeche_df)
+
+# 5. References
+from references import render_references_section
+
+st.markdown(
+    """
+    <div class="hero">
+        <h1>📚 References</h1>
+        <p>Data sources and academic literature cited in this dashboard</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+render_references_section()
