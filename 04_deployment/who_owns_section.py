@@ -9,6 +9,7 @@ from app_config import (
     BEWOHNERTYP_DATA_PATH,
     GENERATION_COLORS,
     GENERATION_ORDER,
+    GENERATION_YEAR_LABELS,
     WOHNFLAECHE_DATA_PATH,
     generation_from_birth_year,
 )
@@ -116,7 +117,7 @@ def create_occupancy_stacked_bar(df: pd.DataFrame, sorted_gens: list[str]) -> go
             marker_color=bar_colors,
             marker_line=dict(color="#ffffff", width=1.2),
             hovertemplate=[
-                f"<b>{gen}</b><br>{LABEL_EN.get(cat, cat)}<br><b>{pct:.1f}%</b> · "
+                f"<b>{GENERATION_YEAR_LABELS.get(gen, gen)}</b><br>{LABEL_EN.get(cat, cat)}<br><b>{pct:.1f}%</b> · "
                 f"{(cat_data[cat_data['generation'] == gen]['count_fmt'].iloc[0] if not cat_data[cat_data['generation'] == gen].empty else '—')}"
                 f"<extra></extra>"
                 for gen, pct in zip(y_order, x_vals)
@@ -143,6 +144,8 @@ def create_occupancy_stacked_bar(df: pd.DataFrame, sorted_gens: list[str]) -> go
         ),
         yaxis=dict(
             title="",
+            tickvals=y_order,
+            ticktext=[GENERATION_YEAR_LABELS.get(g, g) for g in y_order],
             tickfont=dict(size=13, color="#333333"),
             automargin=True,
         ),
@@ -222,7 +225,7 @@ def create_wohnflaeche_line_chart(df: pd.DataFrame, selected_gens: list[str]) ->
             line=dict(color=color, width=2.5),
             marker=dict(size=8, color=color, line=dict(color="#ffffff", width=1.5)),
             showlegend=False,
-            hovertemplate=f"<b>{gen}</b><br>%{{x}}: <b>%{{y:.1f}} m²/Person</b><extra></extra>",
+            hovertemplate=f"<b>{GENERATION_YEAR_LABELS.get(gen, gen)}</b><br>%{{x}}: <b>%{{y:.1f}} m²/Person</b><extra></extra>",
         ))
 
         # Direct label at the right end of each line
@@ -233,7 +236,7 @@ def create_wohnflaeche_line_chart(df: pd.DataFrame, selected_gens: list[str]) ->
                 y=float(last_val.iloc[0]),
                 xanchor="left",
                 yanchor="middle",
-                text=f"  <b>{gen}</b>",
+                text=f"  <b>{GENERATION_YEAR_LABELS.get(gen, gen)}</b>",
                 showarrow=False,
                 font=dict(size=12, color=color),
                 xref="x", yref="y",
@@ -291,6 +294,7 @@ def create_wohnflaeche_ranking_chart(
     year_data = year_data.sort_values("sqm_per_person", ascending=True)  # top = largest
 
     gens = list(year_data["generation"])
+    labeled_gens = [GENERATION_YEAR_LABELS.get(g, g) for g in gens]
     vals = list(year_data["sqm_per_person"])
     colors = [GENERATION_COLORS.get(g, "#888888") for g in gens]
     x_max = max(vals) * 1.05 if vals else 80
@@ -300,7 +304,7 @@ def create_wohnflaeche_ranking_chart(
     # Light background track (full width per bar)
     fig.add_trace(go.Bar(
         orientation="h",
-        y=gens,
+        y=labeled_gens,
         x=[x_max] * len(gens),
         marker_color="#f0ede6",
         marker_line_width=0,
@@ -311,7 +315,7 @@ def create_wohnflaeche_ranking_chart(
     # Colored foreground bars
     fig.add_trace(go.Bar(
         orientation="h",
-        y=gens,
+        y=labeled_gens,
         x=vals,
         marker_color=colors,
         marker_line_width=0,
@@ -389,11 +393,11 @@ def create_space_ownership_scatter(
                 size=14,
                 line=dict(color="#ffffff", width=2),
             ),
-            text=[gen],
+            text=[GENERATION_YEAR_LABELS.get(gen, gen)],
             textposition="top center",
-            textfont=dict(size=13, color=GENERATION_COLORS.get(gen, "#888888")),
+            textfont=dict(size=14, color="#111111", family="sans-serif"),
             hovertemplate=(
-                f"<b>{gen}</b><br>"
+                f"<b>{GENERATION_YEAR_LABELS.get(gen, gen)}</b><br>"
                 f"Eigentümer: <b>{row['pct']:.1f}%</b><br>"
                 f"Wohnfläche: <b>{row['sqm_per_person']:.1f} m²/Person</b>"
                 "<extra></extra>"
@@ -405,7 +409,7 @@ def create_space_ownership_scatter(
         x=0.98, y=0.04, xref="paper", yref="paper",
         text=f"r = {r:.2f}",
         showarrow=False,
-        font=dict(size=13, color="#888888"),
+        font=dict(size=14, color="#111111", family="sans-serif"),
         xanchor="right",
     )
 
@@ -415,15 +419,17 @@ def create_space_ownership_scatter(
         plot_bgcolor="#ffffff",
         paper_bgcolor="#ffffff",
         xaxis=dict(
-            title="Eigentümerquote (%)",
+            title=dict(text="Eigentümerquote (%)", font=dict(size=14, color="#111111")),
             ticksuffix="%",
-            gridcolor="#f5f5f5",
+            tickfont=dict(size=13, color="#111111"),
+            gridcolor="#e8e8e8",
             zeroline=False,
         ),
         yaxis=dict(
-            title="m² pro Person",
+            title=dict(text="m² pro Person", font=dict(size=14, color="#111111")),
             ticksuffix=" m²",
-            gridcolor="#f5f5f5",
+            tickfont=dict(size=13, color="#111111"),
+            gridcolor="#e8e8e8",
             zeroline=False,
         ),
         showlegend=False,

@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 import streamlit as st
 from scipy.stats import chi2_contingency, f_oneway
 
-from app_config import GENERATION_COLORS as GEN_COLORS, GENERATION_ORDER
+from app_config import GENERATION_COLORS as GEN_COLORS, GENERATION_ORDER, GENERATION_YEAR_LABELS, GENERATION_SHORT_YEAR_LABELS
 
 # ─────────────────────────────────────────────
 # Paths
@@ -186,7 +186,7 @@ def _chart_dot_range(frames: dict, selected_gens: list[str]) -> go.Figure:
         ))
         fig.add_trace(go.Scatter(
             x=years, y=y_vals, mode="markers+text",
-            name=gen, marker=dict(color=color, size=10),
+            name=GENERATION_YEAR_LABELS.get(gen, gen), marker=dict(color=color, size=10),
             text=[f"{v:.1f}%" for v in y_vals],
             textposition="top center",
             textfont=dict(size=10, color=color),
@@ -267,7 +267,7 @@ def _chart_parliament(frames: dict, selected_gens: list[str], year: int) -> go.F
                 line=dict(color="#ffffff", width=1.5),
             ),
             hovertemplate=(
-                f"<b>{g}</b><br>"
+                f"<b>{GENERATION_YEAR_LABELS.get(g, g)}</b><br>"
                 f"{seats.get(g, 0)} seats<br>"
                 f"{counts.get(g, 0):,} voters ({counts.get(g,0)/total*100:.1f}%)"
                 "<extra></extra>"
@@ -283,9 +283,7 @@ def _chart_parliament(frames: dict, selected_gens: list[str], year: int) -> go.F
         ) / TOTAL_SEATS
         lx = 1.08 * math.cos(angle)
         ly = 1.08 * math.sin(angle)
-        short = {"Silent Generation": "Silent", "Babyboomers": "Boomers",
-                 "Generation X": "Gen X", "Millennials / Gen Y": "Millennials",
-                 "Generation Z": "Gen Z"}.get(g, g)
+        short = GENERATION_SHORT_YEAR_LABELS.get(g, g)
         fig.add_annotation(
             x=lx, y=ly,
             text=f"<b>{short}</b><br>{pct:.1f}%",
@@ -338,14 +336,6 @@ def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
     n = len(selected_gens)
     fig = go.Figure()
 
-    short = {
-        "Silent Generation": "Silent",
-        "Babyboomers": "Boomers",
-        "Generation X": "Gen X",
-        "Millennials / Gen Y": "Millennials",
-        "Generation Z": "Gen Z",
-    }
-
     for gen in selected_gens:
         color = GEN_COLORS[gen]
         x_vals = years
@@ -364,7 +354,7 @@ def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
         fig.add_trace(go.Scatter(
             x=smooth_x, y=smooth_y,
             mode="lines",
-            name=gen,
+            name=GENERATION_YEAR_LABELS.get(gen, gen),
             line=dict(color=color, width=2.5),
             showlegend=False,
             hoverinfo="skip",
@@ -374,19 +364,19 @@ def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
         fig.add_trace(go.Scatter(
             x=x_vals, y=y_vals,
             mode="markers+text",
-            name=gen,
+            name=GENERATION_YEAR_LABELS.get(gen, gen),
             marker=dict(color=color, size=22, symbol="circle",
                         line=dict(color="white", width=2)),
             text=[str(r) for r in y_vals],
             textposition="middle center",
             textfont=dict(size=10, color="white", family="Inter, Arial, sans-serif"),
-            hovertemplate=f"<b>{gen}</b><br>Rang %{{y}} · %{{x}}<extra></extra>",
+            hovertemplate=f"<b>{GENERATION_YEAR_LABELS.get(gen, gen)}</b><br>Rang %{{y}} · %{{x}}<extra></extra>",
         ))
 
         # Left label
         fig.add_annotation(
             x=2015, y=ranks[gen][2015],
-            text=f"<b>{short.get(gen, gen)}</b>",
+            text=f"<b>{GENERATION_SHORT_YEAR_LABELS.get(gen, gen)}</b>",
             xanchor="right", xshift=-18,
             showarrow=False,
             font=dict(size=11, color=color, family="Inter, Arial, sans-serif"),
@@ -394,7 +384,7 @@ def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
         # Right label
         fig.add_annotation(
             x=2023, y=ranks[gen][2023],
-            text=f"<b>{short.get(gen, gen)}</b>",
+            text=f"<b>{GENERATION_SHORT_YEAR_LABELS.get(gen, gen)}</b>",
             xanchor="left", xshift=18,
             showarrow=False,
             font=dict(size=11, color=color, family="Inter, Arial, sans-serif"),
@@ -469,14 +459,6 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
     import math
     fig = go.Figure()
 
-    short = {
-        "Silent Generation":   "Silent",
-        "Babyboomers":         "Boomers",
-        "Generation X":        "Gen X",
-        "Millennials / Gen Y": "Millennials",
-        "Generation Z":        "Gen Z",
-    }
-
     for gen in selected_gens:
         color = GEN_COLORS[gen]
         vals = _agg(frames, "lr_scale", gen)
@@ -488,9 +470,11 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
         v23 = vals[2023]
         diff = v23 - v15
 
+        lgen = GENERATION_YEAR_LABELS.get(gen, gen)
+
         # ── Arrow line 2015 → 2023 ──
         fig.add_trace(go.Scatter(
-            x=[v15, v23], y=[gen, gen],
+            x=[v15, v23], y=[lgen, lgen],
             mode="lines",
             line=dict(color=color, width=2),
             showlegend=False,
@@ -499,30 +483,30 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
 
         # ── 2015 open circle ──
         fig.add_trace(go.Scatter(
-            x=[v15], y=[gen],
+            x=[v15], y=[lgen],
             mode="markers",
-            name=gen,
+            name=lgen,
             marker=dict(
                 color="white", size=10, symbol="circle",
                 line=dict(color=color, width=2),
             ),
-            hovertemplate=f"<b>{gen}</b><br>2015: {v15:.2f}<extra></extra>",
+            hovertemplate=f"<b>{lgen}</b><br>2015: {v15:.2f}<extra></extra>",
             showlegend=True,
         ))
 
         # ── 2019 mid dot ──
         if v19 is not None:
             fig.add_trace(go.Scatter(
-                x=[v19], y=[gen],
+                x=[v19], y=[lgen],
                 mode="markers",
                 marker=dict(color=color, size=7, opacity=0.5),
                 showlegend=False,
-                hovertemplate=f"<b>{gen}</b><br>2019: {v19:.2f}<extra></extra>",
+                hovertemplate=f"<b>{lgen}</b><br>2019: {v19:.2f}<extra></extra>",
             ))
 
         # ── 2023 filled circle (arrowhead effect) ──
         fig.add_trace(go.Scatter(
-            x=[v23], y=[gen],
+            x=[v23], y=[lgen],
             mode="markers+text",
             marker=dict(color=color, size=14,
                         line=dict(color="white", width=2)),
@@ -530,12 +514,12 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
             textposition="middle right",
             textfont=dict(size=10, color=color),
             showlegend=False,
-            hovertemplate=f"<b>{gen}</b><br>2023: {v23:.2f}<br>Δ {diff:+.2f}<extra></extra>",
+            hovertemplate=f"<b>{lgen}</b><br>2023: {v23:.2f}<br>Δ {diff:+.2f}<extra></extra>",
         ))
 
         # ── Delta annotation on the right ──
         fig.add_annotation(
-            x=8.2, y=gen,
+            x=8.2, y=lgen,
             text=f"{'→ +' if diff > 0.05 else '→ '}{abs(diff):.1f}",
             showarrow=False,
             font=dict(size=10, color=color),
@@ -552,7 +536,7 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
         xaxis=dict(range=[1, 5], title="Ø L–R Skala (1=links, 5=rechts)", **_AXIS),
         yaxis=dict(
             categoryorder="array",
-            categoryarray=list(reversed(selected_gens)),
+            categoryarray=[GENERATION_YEAR_LABELS.get(g, g) for g in reversed(selected_gens)],
             **_AXIS,
         ),
         showlegend=False,

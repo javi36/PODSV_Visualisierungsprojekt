@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-from app_config import GENERATION_COLORS, GENERATION_ORDER, find_column, generation_from_birth_year
+from app_config import GENERATION_COLORS, GENERATION_ORDER, GENERATION_YEAR_LABELS, find_column, generation_from_birth_year
 
 
 def build_generation_pie_data(df: pd.DataFrame) -> pd.DataFrame:
@@ -122,26 +122,27 @@ def create_generation_pyramid(df: pd.DataFrame, selected_year: int):
         pops = [int(gen_data.loc[age, "population"]) if age in gen_data.index else 0 for age in all_ages]
         color = GENERATION_COLORS.get(gen, "#888888")
 
+        lgen = GENERATION_YEAR_LABELS.get(gen, gen)
         # left side (negative)
         fig.add_trace(go.Bar(
-            name=gen,
+            name=lgen,
             y=all_ages,
             x=[-p for p in pops],
             orientation="h",
             marker_color=color,
             showlegend=False,
-            hovertemplate=f"<b>{gen}</b><br>Alter: %{{y}}<br>Bevölkerung: %{{customdata:,.0f}}<extra></extra>",
+            hovertemplate=f"<b>{lgen}</b><br>Alter: %{{y}}<br>Bevölkerung: %{{customdata:,.0f}}<extra></extra>",
             customdata=pops,
         ))
         # right side (positive) — carries the legend entry
         fig.add_trace(go.Bar(
-            name=gen,
+            name=lgen,
             y=all_ages,
             x=pops,
             orientation="h",
             marker_color=color,
             showlegend=True,
-            hovertemplate=f"<b>{gen}</b><br>Alter: %{{y}}<br>Bevölkerung: %{{x:,.0f}}<extra></extra>",
+            hovertemplate=f"<b>{lgen}</b><br>Alter: %{{y}}<br>Bevölkerung: %{{x:,.0f}}<extra></extra>",
         ))
 
     max_pop = int(year_data["population"].max()) if not year_data.empty else 100_000
@@ -204,9 +205,10 @@ def create_generation_area_chart(df: pd.DataFrame, from_year: int, to_year: int,
     for gen in GENERATION_ORDER:
         sub = gen_year[gen_year["generation"] == gen].sort_values("year")
         color = GENERATION_COLORS.get(gen, "#888888")
-        hover = f"<b>{gen}</b><br>Year: %{{x}}<br>{'Share: %{y:.1f}%' if relative else 'Population: %{y:,.0f}'}<extra></extra>"
+        lgen = GENERATION_YEAR_LABELS.get(gen, gen)
+        hover = f"<b>{lgen}</b><br>Year: %{{x}}<br>{'Share: %{y:.1f}%' if relative else 'Population: %{y:,.0f}'}<extra></extra>"
         fig.add_trace(go.Scatter(
-            name=gen,
+            name=lgen,
             x=sub["year"],
             y=sub["value"],
             mode="lines",
