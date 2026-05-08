@@ -15,6 +15,7 @@ from app_config import GENERATION_COLORS as GEN_COLORS, GENERATION_ORDER, GENERA
 BASE_DIR = Path(__file__).resolve().parents[1]
 
 SELECTS_2015_PATH = BASE_DIR / "data" / "whodecide" / "raw" / "726_Selects2015_PES_Data_v1.03.dta"
+SELECTS_2015_PATH_CSV = BASE_DIR / "data" / "whodecide" / "processed" / "selects_2015_clean.csv"
 SELECTS_2019_PATH = BASE_DIR / "data" / "whodecide" / "processed" / "selects_2019_clean.csv"
 SELECTS_2023_PATH = BASE_DIR / "data" / "whodecide" / "processed" / "selects_2023_clean.csv"
 
@@ -130,8 +131,18 @@ def _prepare(df: pd.DataFrame) -> pd.DataFrame:
         .map({1: 1, 2: 0})
     )
     lr_col = "f12900rec" if "f12900rec" in df.columns else "f12900"
-    df["lr_scale"] = pd.to_numeric(df[lr_col], errors="coerce").replace([-99, -98], np.nan)
-    df["lr_scale"] = df["lr_scale"].where(df["lr_scale"].between(1, 11))
+    if "f12900rec" in df.columns:
+    # 2019/2023: Werte 10,20,30,40,50 → 1–5
+        raw = pd.to_numeric(df["f12900rec"], errors="coerce").replace([-99, -98], np.nan)
+        df["lr_scale"] = raw.where(raw.isin([10, 20, 30, 40, 50])).div(10)
+    elif "f12900main7" in df.columns:
+    # 2015: Werte 1–7 → auf 1–5 mappen
+        raw = pd.to_numeric(df["f12900main7"], errors="coerce").replace([-99, -98, 8, 9], np.nan)
+        df["lr_scale"] = raw.where(raw.between(1, 7)).map(
+        {1: 1.0, 2: 1.5, 3: 2.5, 4: 3.0, 5: 3.5, 6: 4.5, 7: 5.0}
+    )
+    else:
+        df["lr_scale"] = np.nan
     return df
 
 
@@ -140,9 +151,10 @@ def _load_frames() -> dict[int, pd.DataFrame]:
     frames = {}
 
     # 2015 — Stata
-    df15 = pd.read_stata(SELECTS_2015_PATH, convert_categoricals=False)
+    # 2015 — processed CSV
+    df15 = pd.read_csv(SELECTS_2015_PATH_CSV, sep=None, engine="python")
     df15.columns = df15.columns.str.lower().str.strip()
-    df15["f11100rec"] = df15["f11100r"].map({1.0: 1, 0.0: 0})
+    df15["f11100rec"] = pd.to_numeric(df15["f11100r"], errors="coerce").map({1.0: 1, 0.0: 0})
     frames[2015] = _prepare(df15)
 
     # 2019 — processed CSV
@@ -451,10 +463,6 @@ def _chart_slope(frames: dict, selected_gens: list[str]) -> list:
 # ─────────────────────────────────────────────
 # Chart 4 — Grouped Bar (L-R orientation)
 # ─────────────────────────────────────────────
-
-def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
-    import math
-    fig = go.Figure()
 def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
     import math
     fig = go.Figure()
