@@ -90,8 +90,8 @@ def main() -> None:
         Switzerland's population is divided into five distinct generations — each with different political weight,
         financial power, and access to housing. While older generations accumulated wealth during decades of low
         interest rates and affordable property, younger cohorts face record rents, rising costs of living, and
-        shrinking prospects of ownership. This story follows the numbers: who decides the rules, who bears the
-        costs, and who holds the assets.
+        shrinking prospects of ownership. Three questions run through this story: Who decides the rules?
+        Who bears the costs? Who holds the assets?
         </div>
         """,
         unsafe_allow_html=True,
@@ -150,8 +150,21 @@ def main() -> None:
         use_container_width=True,
     )
 
+    st.markdown(
+        """
+        <p style="font-size:1.05rem;line-height:1.7;color:#555555;
+        text-align:center;margin-top:2rem;margin-bottom:0;">
+        Numbers alone don't decide outcomes. Votes do.<br>
+        And not every generation uses them equally.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
     st.markdown("<br><br>", unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
     main()
+
+   
