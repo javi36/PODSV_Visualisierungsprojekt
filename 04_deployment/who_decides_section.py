@@ -4,8 +4,6 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
-from scipy.stats import chi2_contingency, f_oneway
-
 from app_config import GENERATION_COLORS as GEN_COLORS, GENERATION_ORDER, GENERATION_YEAR_LABELS, GENERATION_SHORT_YEAR_LABELS
 
 # ─────────────────────────────────────────────
@@ -48,14 +46,8 @@ CHART_NARRATIVE = {
     "turnout": {
         "title": "Who Shows Up at the Ballot Box?",
         "intro": (
-            "Voter turnout reveals which generations actively shape political outcomes. "
-            "While older generations vote consistently, younger cohorts have shown a worrying decline — "
-            "especially after 2019."
-        ),
-        "insight": (
-            "Babyboomers & Generation X remain stable across all three election years. "
-            "Millennials / Gen Y and Generation Z show a significant drop from 2019 to 2023. "
-            "The Silent Generation also declined — likely due to demographic factors."
+            "The chart shows average political interest scores per generation "
+            "across three election years — 2015, 2019, and 2023."
         ),
     },
     "interest": {
@@ -63,11 +55,6 @@ CHART_NARRATIVE = {
         "intro": (
             "Political interest has been rising across almost all generations since 2019. "
             "Yet this increased interest has not translated into higher voter turnout — a striking paradox."
-        ),
-        "insight": (
-            "Interest surged strongly for Silent Generation through Millennials between 2019 and 2023. "
-            "Generation Z shows no clear trend. "
-            "This disconnect between rising interest and falling turnout points to deeper structural factors."
         ),
     },
     "trust": {
@@ -77,22 +64,12 @@ CHART_NARRATIVE = {
             "a line going up means more satisfied, down means less. "
             "The badge shows the net change from 2015 to 2023."
         ),
-        "insight": (
-            "No consistent trend across generations — most dip in 2019 before diverging by 2023. "
-            "Millennials are the only generation with rising satisfaction over the full period. "
-            "Gen Z and Silent Generation lost the most ground."
-        ),
     },
     "lr": {
         "title": "Same Views, Different Turnout?",
         "intro": (
-            "If generations vote differently, is it because they think differently? "
-            "We compare political orientation across generations — from left (1) to right (5)."
-        ),
-        "insight": (
-            "All generations cluster between 2.3 and 2.6 — barely distinguishable on the spectrum. "
-            "Political orientation does not explain the turnout gap. "
-            "Young and old share similar views, yet older generations show up to vote far more consistently."
+            "Each bar shows the average left–right self-placement per generation, "
+            "on a scale from 1 (left) to 5 (right), across the three election years."
         ),
     },
 }
@@ -130,7 +107,6 @@ def _prepare(df: pd.DataFrame) -> pd.DataFrame:
         .replace([-99, -98, 8, 9], np.nan)
         .map({1: 1, 2: 0})
     )
-    lr_col = "f12900rec" if "f12900rec" in df.columns else "f12900"
     if "f12900rec" in df.columns:
     # 2019/2023: Werte 10,20,30,40,50 → 1–5
         raw = pd.to_numeric(df["f12900rec"], errors="coerce").replace([-99, -98], np.nan)
@@ -150,7 +126,6 @@ def _prepare(df: pd.DataFrame) -> pd.DataFrame:
 def _load_frames() -> dict[int, pd.DataFrame]:
     frames = {}
 
-    # 2015 — Stata
     # 2015 — processed CSV
     df15 = pd.read_csv(SELECTS_2015_PATH_CSV, sep=None, engine="python")
     df15.columns = df15.columns.str.lower().str.strip()
@@ -178,37 +153,6 @@ def _agg(frames: dict, metric: str, gen: str) -> dict:
             result[year] = subset.mean()
     return result
 
-
-# ─────────────────────────────────────────────
-# Chart 1 — Dot + Range
-# ─────────────────────────────────────────────
-
-def _chart_dot_range(frames: dict, selected_gens: list[str]) -> go.Figure:
-    fig = go.Figure()
-    for gen in selected_gens:
-        color = GEN_COLORS[gen]
-        vals = _agg(frames, "voted", gen)
-        years = sorted(vals.keys())
-        y_vals = [vals[y] * 100 for y in years]
-
-        fig.add_trace(go.Scatter(
-            x=years, y=y_vals, mode="lines",
-            line=dict(color=color, width=1.5), opacity=0.35,
-            showlegend=False, hoverinfo="skip",
-        ))
-        fig.add_trace(go.Scatter(
-            x=years, y=y_vals, mode="markers+text",
-            name=GENERATION_YEAR_LABELS.get(gen, gen), marker=dict(color=color, size=10),
-            text=[f"{v:.1f}%" for v in y_vals],
-            textposition="top center",
-            textfont=dict(size=10, color=color),
-        ))
-
-    fig.update_layout(**_base_layout(
-        yaxis=dict(range=[30, 105], title="Share voted (%)", **_AXIS),
-        xaxis=dict(tickvals=[2015, 2019, 2023], **_AXIS),
-    ))
-    return fig
 
 
 # ─────────────────────────────────────────────
@@ -357,7 +301,6 @@ def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
         smooth_x, smooth_y = [], []
         for i in range(len(x_vals) - 1):
             for t in [k / 30 for k in range(31)]:
-                mx = (x_vals[i] + x_vals[i+1]) / 2
                 bx = x_vals[i] + t * (x_vals[i+1] - x_vals[i])
                 by = y_vals[i] + (3*t**2 - 2*t**3) * (y_vals[i+1] - y_vals[i])
                 smooth_x.append(bx)
@@ -517,9 +460,9 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
             x=[v23], y=[lgen],
             mode="markers+text",
             marker=dict(color=color, size=14,
-                        line=dict(color="white", width=2)),
+                    line=dict(color="white", width=2)),
             text=[f"{v23:.1f}"],
-            textposition="middle right",
+            textposition="top center",
             textfont=dict(size=10, color=color),
             showlegend=False,
             hovertemplate=f"<b>{lgen}</b><br>2023: {v23:.2f}<br>Δ {diff:+.2f}<extra></extra>",
@@ -535,13 +478,30 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
             borderpad=3,
             xanchor="left",
         )
-
+    # ── Legend annotations top right ──
+    legend_items = [
+        ("○", "2015"),
+        ("●", "2019"),
+        ("⬤", "2023"),
+    ]
+    fig.add_annotation(
+        x=4.95, y=0.98, xref="x", yref="paper",
+        text="○ 2015 &nbsp;&nbsp; <span style='opacity:0.5'>●</span> 2019 &nbsp;&nbsp; ● 2023",
+        showarrow=False,
+        font=dict(size=11, color="#555555", family="Inter, Arial, sans-serif"),
+        xanchor="right",
+        align="right",
+        bgcolor="rgba(255,255,255,0.85)",
+        bordercolor="#dddddd",
+        borderwidth=1,
+        borderpad=5,
+    )
     # Centre line
     fig.add_vline(x=3, line_dash="dot", line_color="#cccccc",
-        annotation_text="Mitte (3)", annotation_position="top")
+        annotation_text="Center (3)", annotation_position="top")
 
     fig.update_layout(**_base_layout(
-        xaxis=dict(range=[1, 5], title="Ø L–R Skala (1=links, 5=rechts)", **_AXIS),
+        xaxis=dict(range=[1, 5],  **_AXIS),
         yaxis=dict(
             categoryorder="array",
             categoryarray=[GENERATION_YEAR_LABELS.get(g, g) for g in reversed(selected_gens)],
@@ -553,49 +513,7 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
 
 
 # ─────────────────────────────────────────────
-# Statistical helpers
-# ─────────────────────────────────────────────
-
-def _significance_badge(p: float) -> str:
-    if p < 0.001:
-        return "🔴 p < 0.001"
-    if p < 0.01:
-        return "🟠 p < 0.01"
-    if p < 0.05:
-        return "🟡 p < 0.05"
-    return "⚪ not significant"
-
-
-def _stat_turnout(frames: dict, selected_gens: list[str]) -> str:
-    rows = []
-    years = [2015, 2019, 2023]
-    for gen in selected_gens:
-        groups = [frames[y][frames[y]["generation"] == gen]["voted"].dropna() for y in years]
-        if any(len(g) < 5 for g in groups):
-            continue
-        combined = pd.concat([pd.Series(g.values) for g in groups])
-        labels = pd.concat([pd.Series([str(y)] * len(g)) for y, g in zip(years, groups)])
-        ct = pd.crosstab(combined.reset_index(drop=True), labels.reset_index(drop=True))
-        if ct.shape[1] < 2:
-            continue
-        _, p, _, _ = chi2_contingency(ct)
-        rows.append(f"**{gen}** {_significance_badge(p)}")
-    return "   |   ".join(rows)
-
-
-def _stat_continuous(frames: dict, metric: str, selected_gens: list[str], years: list[int]) -> str:
-    rows = []
-    for gen in selected_gens:
-        groups = [frames[y][frames[y]["generation"] == gen][metric].dropna() for y in years]
-        if any(len(g) < 5 for g in groups):
-            continue
-        _, p = f_oneway(*groups)
-        rows.append(f"**{gen}** {_significance_badge(p)}")
-    return "   |   ".join(rows)
-
-
-# ─────────────────────────────────────────────
-# Section renderer — gleiche Signatur wie vorher!
+# Section renderer
 # ─────────────────────────────────────────────
 
 def render_who_decides_section() -> None:
@@ -635,7 +553,6 @@ def render_who_decides_section() -> None:
         "margin-top:0.8rem;font-size:1.05rem;line-height:1.75;color:#333333;"
     )
 
-
     # ── Chart 1: Parliament — Voter Turnout ─────────────────────────
     st.markdown("---")
     st.markdown(f"### {CHART_NARRATIVE['turnout']['title']}")
@@ -644,11 +561,6 @@ def render_who_decides_section() -> None:
     unsafe_allow_html=True,
     )
     selected_parl_year = st.session_state.get("wd_parl_year", 2023)
-    st.markdown(
-        f"<div style='font-size:0.85rem;color:#666666;margin-bottom:0.3rem;'>"
-        f"Simulated parliament seats by generation · Federal elections {selected_parl_year}</div>",
-        unsafe_allow_html=True,
-    )
     st.plotly_chart(
         _chart_parliament(frames, selected_gens, selected_parl_year),
         use_container_width=True,
@@ -667,7 +579,8 @@ def render_who_decides_section() -> None:
         "majority of active votes — not because they are the largest population group, but because "
         "they turn out. Gen Z and Millennials, though growing in numbers, remain structurally "
         "underrepresented at the ballot. Democracy counts votes, not people — and right now, "
-        "age decides who gets counted."
+        "age decides who gets counted. As Lijphart (1997) argued, unequal participation "
+        "systematically distorts democratic representation — not through manipulation, but through silence."
         "</div>",
         unsafe_allow_html=True,
     )
@@ -679,20 +592,15 @@ def render_who_decides_section() -> None:
         f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['interest']['intro']}</p>",
         unsafe_allow_html=True,
     )
-    st.markdown(
-    "<div style='font-size:0.85rem;color:#666666;margin-bottom:0.3rem;'>"
-    "Ranking by average political interest · Elections 2015, 2019, 2023</div>",
-    unsafe_allow_html=True,
-    )
 
     st.plotly_chart(_chart_line(frames, selected_gens), use_container_width=True)
     st.markdown(
         f"<div style='{_CONCLUSION_STYLE}'>"
         "<strong>Interested — but absent.</strong> Political interest has risen across nearly every "
-        "generation since 2019. Yet at the same ballot, turnout fell. This paradox points to something "
-        "deeper than apathy: younger generations care about politics, but something stops them from "
-        "converting that interest into a vote. Structural barriers, distrust in the process, or simply "
-        "the feeling that it won't make a difference — the data can't tell us which. But the gap between "
+        "generation since 2019. Yet at the same ballot, turnout fell. This disconnect points to something "
+        "deeper than apathy. Possible explanations lie in the domain of political efficacy: the feeling "
+        "that one's vote makes little difference in national elections, or a growing disillusionment with "
+        "political parties as representative institutions (Bühlmann & Freitag, 2006). The distance between "
         "caring and acting is real, and it widens with every election."
         "</div>",
         unsafe_allow_html=True,
@@ -711,11 +619,7 @@ def render_who_decides_section() -> None:
         "Generation Z": "Gen Z",
     }
     slope_data = _chart_slope(frames, selected_gens)
-    st.markdown(
-        "<div style='font-size:0.85rem;color:#666666;margin-bottom:0.3rem;'>"
-        "Share satisfied with democracy (%), by generation · Elections 2015, 2019, 2023</div>",
-        unsafe_allow_html=True,
-    )
+    
     cols = st.columns(len(slope_data))
     for i, (gen, fig, v23, diff) in enumerate(slope_data):
         color = GEN_COLORS[gen]
@@ -739,7 +643,9 @@ def render_who_decides_section() -> None:
         "different directions across generations — with no clear generational pattern. Millennials "
         "are the only group whose satisfaction consistently grew over the full period. Gen Z and the "
         "Silent Generation lost the most ground. But crucially: satisfaction levels don't align with "
-        "turnout. Generations that trust less don't necessarily vote less. The missing piece lies elsewhere."
+        "turnout. Generations that trust less don't necessarily vote less. The missing piece lies "
+        "elsewhere — possibly in political efficacy: the belief that one's vote actually changes "
+        "anything (→ see Chart 4)."
         "</div>",
         unsafe_allow_html=True,
     )
@@ -754,7 +660,8 @@ def render_who_decides_section() -> None:
     st.plotly_chart(_chart_bar_lr(frames, selected_gens), use_container_width=True)
     st.markdown(
         f"<div style='{_CONCLUSION_STYLE}'>"
-        "<strong>Same views, unequal voice.</strong> Across all generations, political orientation "
+        "<strong>Same views, unequal voice.</strong> You'd expect a generation gap in values — "
+        "but the data says otherwise. Across all generations, political orientation "
         "clusters in a surprisingly narrow band — no generation sits firmly left or right. Young and "
         "old think more alike than the political debate suggests. And yet older generations dominate "
         "the ballot box. The turnout gap is not a values gap. It is a participation gap — and in a "
