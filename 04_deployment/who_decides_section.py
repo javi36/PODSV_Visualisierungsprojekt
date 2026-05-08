@@ -417,7 +417,7 @@ def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
             range=[n + 0.6, 0.4],
             tickvals=list(range(1, n + 1)),
             ticktext=[f"#{i}" for i in range(1, n + 1)],
-            title="Rang (1 = höchstes Interesse)",
+            title="1 = highest Interest",
             **_AXIS,
         ),
         xaxis=dict(tickvals=[2015, 2019, 2023], **_AXIS),
@@ -457,12 +457,12 @@ def _chart_slope(frames: dict, selected_gens: list[str]) -> list:
         ))
         fig.update_layout(
             height=130,
-            margin=dict(t=8, b=24, l=8, r=8),
+            margin=dict(t=8, b=24, l=8, r=16),
             plot_bgcolor="white",
             paper_bgcolor="white",
             xaxis=dict(tickvals=years, ticktext=[str(y) for y in years],
                 tickfont=dict(size=9, color="#aaa"), gridcolor="#f0f0f0",
-                linecolor="#eeeeee", showgrid=False, range=[2014, 2024],),
+                linecolor="#eeeeee", showgrid=False, range=[2014, 2024.5],),
             yaxis=dict(range=[35, 65], showticklabels=False,
                        gridcolor="#f5f5f5", linecolor="#eeeeee"),
         )
@@ -651,24 +651,31 @@ def render_who_decides_section() -> None:
         "margin-top:0.8rem;font-size:1.05rem;line-height:1.75;color:#333333;"
     )
 
+
     # ── Chart 1: Parliament — Voter Turnout ─────────────────────────
     st.markdown("---")
     st.markdown(f"### {CHART_NARRATIVE['turnout']['title']}")
     st.markdown(
         f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['turnout']['intro']}</p>",
-        unsafe_allow_html=True,
+    unsafe_allow_html=True,
     )
-    selected_parl_year = st.radio(
-        "Election year",
-        options=[2015, 2019, 2023],
-        index=2,
-        horizontal=True,
-        key="wd_parl_year",
+    selected_parl_year = st.session_state.get("wd_parl_year", 2023)
+    st.markdown(
+        f"<div style='font-size:0.85rem;color:#666666;margin-bottom:0.3rem;'>"
+        f"Simulated parliament seats by generation · Federal elections {selected_parl_year}</div>",
+        unsafe_allow_html=True,
     )
     st.plotly_chart(
         _chart_parliament(frames, selected_gens, selected_parl_year),
         use_container_width=True,
     )
+    st.radio(
+    "Election year",
+    options=[2015, 2019, 2023],
+    index=[2015, 2019, 2023].index(selected_parl_year),
+    horizontal=True,
+    key="wd_parl_year",
+)
     st.markdown(
         f"<div style='{_CONCLUSION_STYLE}'>"
         "<strong>Who shows up — and who doesn't.</strong> In the 2023 elections, older generations "
@@ -688,6 +695,12 @@ def render_who_decides_section() -> None:
         f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['interest']['intro']}</p>",
         unsafe_allow_html=True,
     )
+    st.markdown(
+    "<div style='font-size:0.85rem;color:#666666;margin-bottom:0.3rem;'>"
+    "Ranking by average political interest · Elections 2015, 2019, 2023</div>",
+    unsafe_allow_html=True,
+    )
+
     st.plotly_chart(_chart_line(frames, selected_gens), use_container_width=True)
     st.markdown(
         f"<div style='{_CONCLUSION_STYLE}'>"
@@ -701,7 +714,7 @@ def render_who_decides_section() -> None:
         unsafe_allow_html=True,
     )
 
-    # ── Chart 3: Slope — Democratic Satisfaction ────────────────────
+# ── Chart 3: Slope — Democratic Satisfaction ────────────────────
     st.markdown("---")
     st.markdown(f"### {CHART_NARRATIVE['trust']['title']}")
     st.markdown(
@@ -714,19 +727,25 @@ def render_who_decides_section() -> None:
         "Generation Z": "Gen Z",
     }
     slope_data = _chart_slope(frames, selected_gens)
+    st.markdown(
+        "<div style='font-size:0.85rem;color:#666666;margin-bottom:0.3rem;'>"
+        "Share satisfied with democracy (%), by generation · Elections 2015, 2019, 2023</div>",
+        unsafe_allow_html=True,
+    )
     cols = st.columns(len(slope_data))
     for i, (gen, fig, v23, diff) in enumerate(slope_data):
         color = GEN_COLORS[gen]
-        diff_color = "#1d7874" if diff > 0 else "#f25c54"
         arrow = "↑" if diff > 0 else "↓"
         with cols[i]:
             st.markdown(
-                f"<div style='font-size:12px;font-weight:500;color:{color};'>"
+                f"<div style='text-align:center;'>"
+                f"<div style='font-size:13px;font-weight:500;color:{color};'>"
                 f"{short_names.get(gen, gen)}</div>"
                 f"<div style='font-size:22px;font-weight:500;color:#111;'>"
                 f"{v23:.1f}%</div>"
-                f"<div style='font-size:11px;color:{diff_color};margin-bottom:4px;'>"
-                f"{arrow} {abs(diff):.1f}% seit 2015</div>",
+                f"<div style='font-size:13px;color:#111111;margin-bottom:4px;'>"
+                f"{arrow} {abs(diff):.1f}% since 2015</div>"
+                f"</div>",
                 unsafe_allow_html=True,
             )
             st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
