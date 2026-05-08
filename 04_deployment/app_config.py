@@ -24,6 +24,24 @@ GENERATION_COLORS: dict[str, str] = {
     "Millennials / Gen Y": "#f4a259",
     "Generation Z": "#f25c54",
 }
+
+# Full labels for axis tick text and hover tooltips
+GENERATION_YEAR_LABELS: dict[str, str] = {
+    "Silent Generation": "Silent Generation, ≤1945",
+    "Babyboomers": "Babyboomers, 1946–1964",
+    "Generation X": "Generation X, 1965–1980",
+    "Millennials / Gen Y": "Millennials / Gen Y, 1981–1996",
+    "Generation Z": "Generation Z, 1997+",
+}
+
+# Compact labels for in-chart annotations where space is limited
+GENERATION_SHORT_YEAR_LABELS: dict[str, str] = {
+    "Silent Generation": "Silent ≤1945",
+    "Babyboomers": "Boomers 1946–64",
+    "Generation X": "Gen X 1965–80",
+    "Millennials / Gen Y": "Millennials 1981–96",
+    "Generation Z": "Gen Z 1997+",
+}
  
 SIDEBAR_YEARS: list[int] = list(range(2019, 2025))
 DEMOGRAPHIC_YEARS: list[int] = list(range(1981, 2025))
@@ -44,8 +62,20 @@ GLOBAL_STYLES = """
 		max-width: 1200px;
 		margin: 0 auto;
 	}
+	[data-testid="stSidebar"][aria-expanded="false"] ~ [data-testid="stAppViewContainer"] {
+		margin-left: 0 !important;
+		width: 100% !important;
+	}
+	[data-testid="stSidebar"][aria-expanded="false"] ~ [data-testid="stAppViewContainer"] section.main,
+	[data-testid="stSidebar"][aria-expanded="false"] ~ [data-testid="stAppViewContainer"] .block-container {
+		max-width: 100% !important;
+		padding-left: 2rem !important;
+		padding-right: 2rem !important;
+	}
 	[data-testid="stSidebar"] {
 		background: #ffffff;
+	}
+	[data-testid="stSidebar"][aria-expanded="true"] {
 		min-width: 290px !important;
 		width: 290px !important;
 	}
@@ -187,7 +217,7 @@ GLOBAL_STYLES = """
 		line-height: 1.3;
 	}
 	.gen-card-years {
-		font-size: 0.75rem;
+		font-size: 1rem;
 		color: #888888;
 		margin-bottom: 0.3rem;
 	}

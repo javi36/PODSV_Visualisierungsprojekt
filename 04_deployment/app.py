@@ -2,6 +2,7 @@ import sys
 from pathlib import Path
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -27,6 +28,32 @@ st.set_page_config(
 )
 
 inject_global_styles()
+
+# ── Sidebar collapse → full-width layout (JS MutationObserver) ───────────────
+components.html(
+    """
+    <script>
+    (function () {
+        var doc = window.parent.document;
+        function applyLayout() {
+            var sidebar = doc.querySelector('[data-testid="stSidebar"]');
+            var view    = doc.querySelector('[data-testid="stAppViewContainer"]');
+            if (!sidebar || !view) return;
+            var collapsed = sidebar.getAttribute('aria-expanded') === 'false';
+            view.style.setProperty('margin-left', collapsed ? '0'   : '', collapsed ? 'important' : '');
+            view.style.setProperty('width',       collapsed ? '100%': '', collapsed ? 'important' : '');
+            var bc = view.querySelector('.block-container');
+            if (bc) bc.style.setProperty('max-width', collapsed ? '100%' : '', collapsed ? 'important' : '');
+        }
+        new MutationObserver(applyLayout).observe(doc.body, {
+            attributes: true, subtree: true, attributeFilter: ['aria-expanded']
+        });
+        applyLayout();
+    })();
+    </script>
+    """,
+    height=0,
+)
 
 # ── Sidebar anchor-link styling ───────────────────────────────────────────────
 st.markdown(
