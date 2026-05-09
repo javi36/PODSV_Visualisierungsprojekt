@@ -27,20 +27,20 @@ GENERATION_COLORS: dict[str, str] = {
 
 # Full labels for axis tick text and hover tooltips
 GENERATION_YEAR_LABELS: dict[str, str] = {
-    "Silent Generation": "Silent Generation, ≤1945",
-    "Babyboomers": "Babyboomers, 1946–1964",
-    "Generation X": "Generation X, 1965–1980",
-    "Millennials / Gen Y": "Millennials / Gen Y, 1981–1996",
-    "Generation Z": "Generation Z, 1997+",
+    "Silent Generation": "Silent Generation, 79+",
+    "Babyboomers": "Babyboomers, 60–78",
+    "Generation X": "Generation X, 44–59",
+    "Millennials / Gen Y": "Millennials / Gen Y, 28–43",
+    "Generation Z": "Generation Z, 12–27",
 }
 
 # Compact labels for in-chart annotations where space is limited
 GENERATION_SHORT_YEAR_LABELS: dict[str, str] = {
-    "Silent Generation": "Silent ≤1945",
-    "Babyboomers": "Boomers 1946–64",
-    "Generation X": "Gen X 1965–80",
-    "Millennials / Gen Y": "Millennials 1981–96",
-    "Generation Z": "Gen Z 1997+",
+    "Silent Generation": "Silent 79+",
+    "Babyboomers": "Boomers 60–78",
+    "Generation X": "Gen X 44–59",
+    "Millennials / Gen Y": "Millennials 28–43",
+    "Generation Z": "Gen Z 12–27",
 }
  
 SIDEBAR_YEARS: list[int] = list(range(2019, 2025))

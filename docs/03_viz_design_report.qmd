@@ -1,5 +1,5 @@
 # Visualization Design Report
-This report documents the visual encoding and design decisions made during the development of the visualization product. It translates the visualization concept outlined in the [Project Charta](project_charta.qmd) into concrete design specifications and documents the resulting prototype(s).
+This report documents the visual encoding and design decisions made during the development of the visualization product. It translates the visualization concept outlined in the [Project Charta](00_project_charta.qmd) into concrete design specifications and documents the resulting prototype(s).
 
 When it comes to visualising data, creativity can be an important asset. However, if creativity becomes the only basis for design decisions, the result can quickly turn into visual chaos. At the other end of the spectrum, purely structured data may feel flat, abstract and unapproachable to the reader. Our aim, therefore, is to create simple and understandable graphics that explain complex patterns in an engaging way. An excellent visualisation is precisely this: finding the balance between creativity and clarity. Yet this is much easier said than done. Behind every striking visualisation lies a whole layer of design choices, data exploration and conceptual structuring.
 
@@ -21,7 +21,7 @@ Briefly summarise the visualization concept from the Project Charta and describe
 ## Data-to-Visual Mapping
 Document the mapping of data variables to visual channels. For each view or chart in the visualization product, describe:
 
-* **Data variables**: Which variables from the processed datasets (see [Data Report](data_report.qmd)) are represented?
+* **Data variables**: Which variables from the processed datasets (see [Data Report](01_data_report.qmd)) are represented?
 * **Marks**: What geometric primitives are used to represent data items – points, lines, areas, volumes?
 * **Visual channels**: How are data attributes encoded – position, length, angle, area, colour hue, colour saturation, brightness, shape, orientation, texture?
 * **Scale and axis design**: What scales are used (linear, logarithmic, categorical, temporal)? How are axes labelled and annotated?
@@ -81,4 +81,4 @@ Document key design decisions, alternatives considered and the rationale for the
 * **Iteration history**: If the design evolved through multiple iterations (e.g. based on informal feedback or internal reviews), briefly describe the key changes and their motivation.
 
 ## Conclusions and Next Steps
-Summarise the key design decisions and their expected impact on the project objectives. Identify open questions, known limitations of the current prototype and topics to be addressed in the [Evaluation](evaluation.qmd) phase.
+Summarise the key design decisions and their expected impact on the project objectives. Identify open questions, known limitations of the current prototype and topics to be addressed in the [Evaluation](05_evaluation.qmd) phase.

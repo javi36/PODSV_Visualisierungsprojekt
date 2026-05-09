@@ -14,10 +14,11 @@ website:
     search: true
     contents:
       - index.qmd
-      - project_charta.qmd
-      - data_report.qmd
-      - viz_design_report.qmd
-      - evaluation.qmd
+      - 00_project_charta.qmd
+      - 01_data_report.qmd
+      - 03_viz_design_report.qmd
+      - 04_deployment.qmd
+      - 05_evaluation.qmd
       - meeting_notes.qmd
 
 format:

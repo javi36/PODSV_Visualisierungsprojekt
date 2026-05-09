@@ -1,5 +1,5 @@
 # Evaluation Report
-This report documents the systematic evaluation of the visualization prototype developed in the [Visual Encoding and Design](viz_design_report.qmd) phase against the project objectives and success criteria defined in the [Project Charta](project_charta.qmd).
+This report documents the systematic evaluation of the visualization prototype developed in the [Visual Encoding and Design](03_viz_design_report.qmd) phase against the project objectives and success criteria defined in the [Project Charta](00_project_charta.qmd).
 
 ## Evaluation Setup
 
@@ -57,6 +57,6 @@ Document the decision taken by the project team and stakeholders based on the ev
 Record who participated in the decision and when it was taken.
 
 ## Additional Requirements and Deployment Planning
-If the decision is to proceed to deployment, document any additional requirements that emerged from the evaluation (e.g. features requested by users, data refresh needs, access control) and outline the plan for the [Deployment](deployment.qmd) phase.
+If the decision is to proceed to deployment, document any additional requirements that emerged from the evaluation (e.g. features requested by users, data refresh needs, access control) and outline the plan for the [Deployment](04_deployment.qmd) phase.
 
 Any presentation material created for evaluation workshops should be stored in the `docs` folder.

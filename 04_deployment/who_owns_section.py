@@ -396,6 +396,7 @@ def create_space_ownership_scatter(
             text=[GENERATION_YEAR_LABELS.get(gen, gen)],
             textposition="top center",
             textfont=dict(size=14, color="#111111", family="sans-serif"),
+            cliponaxis=False,
             hovertemplate=(
                 f"<b>{GENERATION_YEAR_LABELS.get(gen, gen)}</b><br>"
                 f"Eigentümer: <b>{row['pct']:.1f}%</b><br>"
@@ -414,8 +415,8 @@ def create_space_ownership_scatter(
     )
 
     fig.update_layout(
-        height=300,
-        margin=dict(t=15, l=10, r=20, b=40),
+        height=320,
+        margin=dict(t=40, l=10, r=20, b=40),
         plot_bgcolor="#ffffff",
         paper_bgcolor="#ffffff",
         xaxis=dict(
@@ -431,6 +432,7 @@ def create_space_ownership_scatter(
             tickfont=dict(size=13, color="#111111"),
             gridcolor="#e8e8e8",
             zeroline=False,
+            range=[20, 90],
         ),
         showlegend=False,
     )
