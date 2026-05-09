@@ -238,7 +238,7 @@ def _chart_ahv_ratio(
     _apply_base_layout(
         fig, height=380,
         yaxis=dict(
-            range=[0, df["ratio"].max() * 1.35],
+            range=[1.5, 4.5],
             title="Contributors per retiree",
             gridcolor="#f0f0f0",
             tickfont=dict(size=11),
@@ -324,8 +324,32 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
             row=1, col=col_i,
         )
 
+        # Invisible delta traces for unified hover (positive=green, negative=red)
+        delta_vals = [b - nv for b, nv in zip(brutto_vals, netto_vals)]
+        pos_delta = [v if v >= 0 else None for v in delta_vals]
+        neg_delta = [abs(v) if v < 0 else None for v in delta_vals]
+
+        fig.add_trace(go.Scatter(
+            x=okp_jahre, y=pos_delta,
+            mode="markers",
+            marker=dict(opacity=0, size=12, color="#1d7874"),
+            showlegend=False,
+            name="",
+            hovertemplate="+CHF %{y:.0f}/mt<extra>Net delta</extra>",
+        ), row=1, col=col_i)
+
+        fig.add_trace(go.Scatter(
+            x=okp_jahre, y=neg_delta,
+            mode="markers",
+            marker=dict(opacity=0, size=12, color="#f25c54"),
+            showlegend=False,
+            name="",
+            hovertemplate="−CHF %{y:.0f}/mt<extra>Net delta</extra>",
+        ), row=1, col=col_i)
+
     _apply_base_layout(
         fig, height=350,
+        hovermode="x unified",
         legend=dict(
             orientation="h",
             yanchor="bottom", y=-0.3,
@@ -333,8 +357,14 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
             font=dict(size=11),
         ),
     )
-    # Rotate x-tick labels on all subplots; hide inner y-axis labels
-    fig.update_xaxes(tickangle=45, tickfont=dict(size=9))
+    # Show first and last year on every facet; hide inner y-axis labels
+    fig.update_xaxes(
+        tickmode="array",
+        tickvals=[okp_jahre[0], okp_jahre[-1]],
+        ticktext=[str(int(okp_jahre[0])), str(int(okp_jahre[-1]))],
+        tickangle=0,
+        tickfont=dict(size=9),
+    )
     for col_i in range(2, n_gens + 1):
         fig.update_yaxes(showticklabels=False, row=1, col=col_i)
 
@@ -354,6 +384,7 @@ def _chart_okp_bar(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
         shared_yaxes=True,
         subplot_titles=[_GEN_SHORT[g] for g in GENS_ORDERED],
         horizontal_spacing=0.02,
+        specs=[[{"secondary_y": True}] * n_gens],
     )
 
     first = True
@@ -380,7 +411,7 @@ def _chart_okp_bar(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
             textposition="outside",
             textfont=dict(size=8),
             hovertemplate="%{x}: CHF %{y:.0f}/mt<extra>Net premium</extra>",
-        ), row=1, col=col_i)
+        ), row=1, col=col_i, secondary_y=False)
 
         fig.add_trace(go.Bar(
             x=x_labels, y=brutto_vals,
@@ -393,7 +424,52 @@ def _chart_okp_bar(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
             textposition="outside",
             textfont=dict(size=8),
             hovertemplate="%{x}: CHF %{y:.0f}/mt<extra>Benefits</extra>",
-        ), row=1, col=col_i)
+        ), row=1, col=col_i, secondary_y=False)
+
+        # Net balance trend line on secondary y-axis
+        net_balance = [b - nv for b, nv in zip(brutto_vals, netto_vals)]
+        last_nb = net_balance[-1]
+        sign_str = "+" if last_nb >= 0 else "−"
+
+        pos_nb = [v if v >= 0 else None for v in net_balance]
+        neg_nb = [v if v < 0 else None for v in net_balance]
+
+        pos_text = [None] * len(sel_jahre)
+        neg_text = [None] * len(sel_jahre)
+        if last_nb >= 0:
+            pos_text[-1] = f"{sign_str}{abs(last_nb):.0f}"
+        else:
+            neg_text[-1] = f"{sign_str}{abs(last_nb):.0f}"
+
+        if any(v is not None for v in pos_nb):
+            fig.add_trace(go.Scatter(
+                x=x_labels, y=pos_nb,
+                mode="lines+markers+text",
+                line=dict(color="#1d7874", width=2),
+                marker=dict(color="#1d7874", size=6),
+                text=pos_text,
+                textposition="top right",
+                textfont=dict(size=9, color="#1d7874"),
+                name="Net balance (+)",
+                legendgroup="net_balance",
+                showlegend=first,
+                hovertemplate="%{x}: CHF %{y:+.0f}/mt<extra>Net balance</extra>",
+            ), row=1, col=col_i, secondary_y=True)
+
+        if any(v is not None for v in neg_nb):
+            fig.add_trace(go.Scatter(
+                x=x_labels, y=neg_nb,
+                mode="lines+markers+text",
+                line=dict(color="#f25c54", width=2),
+                marker=dict(color="#f25c54", size=6),
+                text=neg_text,
+                textposition="top right",
+                textfont=dict(size=9, color="#f25c54"),
+                name="Net balance (−)",
+                legendgroup="net_balance_neg",
+                showlegend=first,
+                hovertemplate="%{x}: CHF %{y:+.0f}/mt<extra>Net balance</extra>",
+            ), row=1, col=col_i, secondary_y=True)
 
         first = False
 
@@ -409,7 +485,19 @@ def _chart_okp_bar(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
     )
     fig.update_xaxes(tickfont=dict(size=10))
     for col_i in range(2, n_gens + 1):
-        fig.update_yaxes(showticklabels=False, row=1, col=col_i)
+        fig.update_yaxes(showticklabels=False, row=1, col=col_i, secondary_y=False)
+    for col_i in range(1, n_gens + 1):
+        fig.update_yaxes(
+            zeroline=True, zerolinecolor="#111111", zerolinewidth=2,
+            showgrid=False,
+            secondary_y=True,
+            row=1, col=col_i,
+        )
+    fig.update_yaxes(
+        title_text="Net balance (CHF/month)",
+        secondary_y=True,
+        row=1, col=n_gens,
+    )
 
     return fig
 
@@ -531,11 +619,24 @@ def render_who_pays_section() -> None:
         use_container_width=True,
     )
     st.markdown(
-        "<div class='pyramid-subtitle'>"
-        "The ratio of active AHV contributors to retirees has fallen steadily since 2012. "
-        "As Babyboomers retire and the workforce grows more slowly, fewer workers carry the cost "
-        "of each pension — and the 13th AHV pension accelerates that pressure."
-        "</div>",
+        """<div class='narrative-text'>
+        The ratio of active AHV contributors to retirees has been declining steadily
+        since 2012. As Baby Boomers retire and the workforce grows more slowly, fewer
+        workers are left to finance each pension — and the 13th AHV pension will further
+        intensify this pressure. What is even more concerning is that Parliament has yet
+        to agree on how to finance it. With the financial consequences representing a
+        classic grey rhino scenario, raising VAT appears increasingly unavoidable, despite
+        the measure's unpopularity across the political spectrum. Switzerland is on track
+        to reach a 2:1 ratio by 2030, meaning that only two workers would finance each
+        retiree.
+        </div>""",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        """<div style="font-size:0.8rem; color:#888888; margin-top:0.3rem;">
+        Source: Eling (2013), "Der Generationenvertrag in Gefahr",
+        Universität St. Gallen, I.VW-HSG; based on BFS population projections (2012).
+        </div>""",
         unsafe_allow_html=True,
     )
 

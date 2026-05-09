@@ -120,7 +120,8 @@ st.markdown(
     """
     <div class="hero">
         <h1>Who Pays</h1>
-        <p>Housing cost burden and rent pressure across generations in Switzerland</p>
+        <p>"Aware of our common achievements and our responsibility towards future generations."<br>
+        <span style="font-size:0.85rem; color:#888888;">— Preamble, Swiss Federal Constitution</span></p>
     </div>
     """,
     unsafe_allow_html=True,

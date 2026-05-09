@@ -1,6 +1,20 @@
 # Visualization Design Report
 This report documents the visual encoding and design decisions made during the development of the visualization product. It translates the visualization concept outlined in the [Project Charta](project_charta.qmd) into concrete design specifications and documents the resulting prototype(s).
 
+When it comes to visualising data, creativity can be an important asset. However, if creativity becomes the only basis for design decisions, the result can quickly turn into visual chaos. At the other end of the spectrum, purely structured data may feel flat, abstract and unapproachable to the reader. Our aim, therefore, is to create simple and understandable graphics that explain complex patterns in an engaging way. An excellent visualisation is precisely this: finding the balance between creativity and clarity. Yet this is much easier said than done. Behind every striking visualisation lies a whole layer of design choices, data exploration and conceptual structuring.
+
+With respect to the core of our work — visualising the generational conflict in Switzerland — we began with broad research on the topic. Each team member initially explored the subject independently in order to gain a more diverse and less biased understanding of the issue. During our joint evaluation, we arrived at the first consequential decision in our process: the topic was too complex to be addressed through one single perspective. Instead, it required different thematic compartments that would allow deeper insight into specific aspects of the question without losing sight of the overall focus.
+
+For this reason, we decided to present the data in three thematic sections, each introduced by a rhetorical question related to the central issue: what creates differences between generations?
+
+- Who decides?
+- Who pays?
+- Who owns?
+
+These three guiding questions became the conceptual backbone of our project. They helped us transform a broad and politically charged topic into a clearer analytical structure. “Who decides?” focuses on political participation, voting power and demographic influence. “Who pays?” addresses the financial burden carried by different age groups, for example through social security contributions, taxes or health insurance premiums. “Who owns?” shifts the focus to wealth, housing and asset distribution across generations.
+
+This structure allowed us to move from a general debate about intergenerational conflict toward a more data-driven narrative. Instead of presenting generations as fixed or opposing groups, we aimed to show how different dimensions of society create different forms of advantage, pressure or responsibility. In this sense, the three sections do not stand independently from one another, but together form a broader picture of how demographic change affects Switzerland’s social, political and economic balance.
+
 ## Design Overview
 Briefly summarise the visualization concept from the Project Charta and describe any refinements or changes that emerged during the design process. Reference the project objectives and user needs that drive the design.
 
