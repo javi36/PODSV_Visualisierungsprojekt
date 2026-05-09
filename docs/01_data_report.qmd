@@ -1,27 +1,63 @@
 # Data Report
-All information on the data used in the project is compiled in the data report in order to ensure the traceability and reproducibility of the results and to enable a systematic expansion of the database.
 
-Typically, in the exploratory analysis of the acquired raw data, quality and other issues are identified, which require pre-processing, merging of individual datasets and feature engineering into processed datasets. Therefore, this template provides a separate section for the processed data, which then serves as a starting point for the modelling activities. This needs to be adapted to the specific project requirements.
+This data report documents all datasets used in the project in order to ensure transparency, traceability and reproducibility. Since the project combines multiple statistical sources to visualise different dimensions of the generational conflict in Switzerland, particular attention is paid to the origin, structure, quality and transformation of the data.
 
-## Raw data
+The report distinguishes between raw data and processed data. Raw data refers to the original files as obtained from public statistical sources. Processed data refers to cleaned, harmonised and transformed datasets that are used directly in the Streamlit application. This distinction is important because the original data sources often differ in structure, naming conventions, temporal coverage and level of aggregation.
+
+The purpose of this documentation is not only to describe the data technically, but also to make methodological decisions explicit. This includes the harmonisation of age groups, the selection of relevant indicators, the treatment of missing values and the limitations resulting from aggregated public data.
+
+## Raw Data
+
+The raw datasets are documented according to the three main dimensions of the project: **Who decides?**, **Who pays?**, and **Who owns?**. This thematic structure follows the logic of the final visualisation and makes it transparent which data sources are used for each analytical perspective.
+
 ### Overview Raw Datasets
 
 : Overview of raw datasets used in the project. {#tbl-raw-overview}
 
-| Name | Quelle | Storage location |
-|----------------|-----------------------------------------|--------------------------------------------------------------------------|
-| Dataset 1      | Name/short description of the data source | Link and/or short description of the location where the data is stored, e.g. accessible to the team |
-| Dataset 2      | …                                       | …                                                                        |
+| Analytical dimension | Dataset name | Source | Storage location |
+|---|---|---|---|
+| Who pays? | Mandatory health insurance statistics (OKP/KVSTAT) | Swiss health insurance statistics, annual Excel files and ZIP archives | `data/whopays/raw_whopays/` |
+| Who pays? | AHV income data | Project-specific AHV income data file | `data/whopays/raw_whopays/ahv_einnahmen_zhaw.xlsx` |
+| Who pays? | AHV expenditure data | Swiss official statistics export | `data/whopays/raw_whopays/px-x-1305000000_103_20260416-235225.xlsx` |
+| Who pays? | Population by age and year | Swiss official population statistics export | `data/raw/px-x-0102020000_103_20260424-164251.xlsx` |
 
-### Details Dataset 1
+### Details Raw Dataset: Who Decides
+
+This dataset is used to represent the first analytical dimension of the project: **Who decides?**. It contains information related to political participation, demographic influence or voting behaviour across different age groups. The dataset helps to analyse whether different generations participate equally in democratic decision-making processes.
 
 - Description of what information the dataset contains
 - Details of the data source/provider
-- Information on data procurement: description and possibly references to resources (download scripts, tools, online services, ...). Any new team member should be able to acquire the data indepentendently following these instructions.
+- Information on data procurement
 - Legal aspects of data use, licences, etc.
-- Data governance aspects: Categorisation of the data based on internal business requirements, e.g. public, business-relevant, personal
-- If applicable: categorisation into dependent (target variable, regressor) and independent (regressor) variables
-- ...
+- Data governance aspects
+- Relevance for the visualisation dimension "Who decides?"
+
+### Details Raw Data: Who Pays (Financial Contributions and Public Transfers)
+
+The raw data for the analytical dimension **“Who pays?”** consists of multiple datasets that are combined in a dedicated data acquisition pipeline. This dimension focuses on financial contributions, mandatory payments and age-related public transfers in Switzerland. The aim is to analyse how financial burdens and benefits differ between generations and how these patterns change over time.
+
+The data acquisition script `01_data_acquisition/load_whopays_final.py` combines three separate source areas: mandatory health insurance data (OKP), AHV income data and AHV expenditure data. In addition, population data from the Swiss Federal Statistical Office is used as an auxiliary dataset to derive age- and cohort-related indicators. The script explicitly keeps the original raw files unchanged and writes the cleaned and harmonised outputs to `data/whopays/processed_whopays/`.
+
+The mandatory health insurance data is stored in `data/whopays/raw_whopays/`. The raw files consist of annual Excel files and ZIP archives from the Swiss health insurance statistics. The extraction logic uses different file groups because the structure of the original files changes over time. For the configured OKP extraction, the script distinguishes between files for 2006–2010, 2011–2021 and 2022–2024. Relevant statistical tables are extracted from the original Excel workbooks, including indicators such as premiums, premium reductions, cost sharing, net benefits and gross benefits.
+
+The AHV-related raw data is stored in the same raw data directory. The file `ahv_einnahmen_zhaw.xlsx` is used for AHV income-related information, while `px-x-1305000000_103_20260416-235225.xlsx` is used for AHV expenditure-related information. These datasets are processed together with population data in order to derive indicators by age, birth year and generation.
+
+The population data is loaded from `data/raw/px-x-0102020000_103_20260424-164251.xlsx`. It is used as an auxiliary dataset rather than as a main thematic dataset. The pipeline reads age-specific population data by year and calculates an average population value based on the population at the beginning and end of the year. This average population is then used as a weighting basis for age-related transformations.
+
+The raw files are not directly suitable for visualisation because they differ in file format, internal sheet structure, naming conventions and temporal coverage. Some files are provided as Excel workbooks, while others are compressed ZIP archives containing multiple statistical tables. Therefore, the raw data requires substantial preprocessing before it can be used in the Streamlit application. The main preprocessing steps include selecting relevant sheets, extracting age-group rows, parsing age labels, cleaning numeric values, harmonising variable names and mapping birth years to generations.
+
+From a data governance perspective, the datasets used in this dimension are aggregated statistical datasets. They do not contain individual-level personal data and can therefore be treated as public or project-relevant aggregated data. However, the resulting indicators should be interpreted carefully because the underlying sources differ in structure, aggregation level and statistical definition. The processed outputs are therefore best understood as analytical approximations of generational financial burden rather than exact individual-level accounting.
+
+### Details Raw Dataset: Who Owns
+
+This dataset is used to represent the third analytical dimension of the project: **Who owns?**. It contains information related to wealth, assets, property ownership or household resources. The dataset is used to examine how ownership and accumulated resources are distributed across age groups or generations.
+
+- Description of what information the dataset contains
+- Details of the data source/provider
+- Information on data procurement
+- Legal aspects of data use, licences, etc.
+- Data governance aspects
+- Relevance for the visualisation dimension "Who owns?"
 
 #### Data Catalogue
 The data catalogue basically represents an extended schema of a relational database.
