@@ -93,24 +93,182 @@ The **“Who pays?”** dimension is not based on a single relational database t
 
 ```{mermaid}
 flowchart LR
-    A[OKP / KVSTAT raw files<br>Excel files and ZIP archives] --> B[okp_cohort.csv<br>original age-cohort level]
-    B --> C[okp_by_birth_year.csv<br>single ages, birth years, generations]
 
-    D[AHV income raw file<br>ahv_einnahmen_zhaw.xlsx] --> E[ahv_einnahmen_cohort.csv<br>original age-cohort level]
-    E --> F[ahv_einnahmen_by_birth_year.csv<br>single ages, birth years, generations]
+    %% =========================
+    %% Subgraphs / main stages
+    %% =========================
 
-    G[AHV expenditure raw file<br>px-x-1305000000...] --> H[ahv_ausgaben_by_age.csv<br>age-specific pension data]
+    subgraph RAW["Raw files from sources"]
+        A["OKP / KVSTAT raw files<br>Excel files and ZIP archives"]
+        B["Population by age and year<br>px-x-0102020000..."]
+        C["AHV income raw file<br>ahv_einnahmen_zhaw.xlsx"]
+        D["AHV expenditure raw file<br>px-x-1305000000..."]
+    end
 
-    I[Population by age and year<br>px-x-0102020000...] --> C
-    I --> F
+    subgraph INT["Intermediate files<br>building cohorts for dis- and aggregation of data"]
+        E["okp_cohort.csv<br>original age-cohort level"]
+        F["ahv_einnahmen_cohort.csv<br>original age-cohort level"]
+        G["ahv_makro.csv<br>macro-level control values"]
+    end
 
-    D --> J[ahv_makro.csv<br>macro-level control values]
+    subgraph PROC["Processed files<br>constructing variables usable for visualisation"]
+        H["okp_by_birth_year.csv<br>single ages, birth years,<br>generations"]
+        I["ahv_einnahmen_by_birth_year.csv<br>single ages, birth years,<br>generations"]
+        J["ahv_ausgaben_by_age.csv<br>age-specific pension data"]
+    end
 
-    C --> K[Streamlit: Who pays?]
-    F --> K
+    K["Streamlit: Who pays?"]
+
+    %% =========================
+    %% Main data flow
+    %% =========================
+
+    A --> E
+    E --> H
+    B --> H
+
+    C --> F
+    F --> I
+    B --> I
+
+    C --> G
+
+    D --> J
+
     H --> K
-    J -. plausibility check .-> K
+    I --> K
+    J --> K
+
+    %% =========================
+    %% Plausibility check
+    %% =========================
+
+    G -.->|"plausibility check"| I
+
+    %% =========================
+    %% Styling
+    %% =========================
+
+    classDef raw fill:#ede9fe,stroke:#4c1d95,stroke-width:2px,color:#111827;
+    classDef intermediate fill:#dbeafe,stroke:#0369a1,stroke-width:2px,color:#111827;
+    classDef processed fill:#ccfbf1,stroke:#0f766e,stroke-width:2px,color:#111827;
+    classDef app fill:#f8fafc,stroke:#334155,stroke-width:2px,color:#111827;
+
+    class A,B,C,D raw;
+    class E,F,G intermediate;
+    class H,I,J processed;
+    class K app;
+
+    style RAW fill:#f5f3ff,stroke:#4c1d95,stroke-width:2px;
+    style INT fill:#eff6ff,stroke:#0369a1,stroke-width:2px;
+    style PROC fill:#ecfdf5,stroke:#0f766e,stroke-width:2px;
 ```
+
+```{mermaid}
+flowchart LR
+
+    %% =========================
+    %% RAW
+    %% =========================
+    subgraph RAW[" "]
+        direction TB
+        RH["<b>Raw files from sources</b>"]
+
+        A["OKP / KVSTAT raw files<br/>Excel files and ZIP archives"]
+        B["Population by age and year<br/>px-x-0102020000..."]
+        C["AHV income raw file<br/>ahv_einnahmen_zhaw.xlsx"]
+        D["AHV expenditure raw file<br/>px-x-1305000000..."]
+
+        RH ~~~ A
+    end
+
+    %% =========================
+    %% INTERMEDIATE
+    %% =========================
+    subgraph INT[" "]
+        direction TB
+        IH["<b>Intermediate files</b><br/>building cohorts for dis- and aggregation of data"]
+
+        X[" "]
+
+        E["okp_cohort.csv<br/>original age-cohort level"]
+        F["ahv_einnahmen_cohort.csv<br/>original age-cohort level"]
+        G["ahv_makro.csv<br/>macro-level control values"]
+
+        IH ~~~ X
+        X ~~~ E
+    end
+
+    %% =========================
+    %% PROCESSED
+    %% =========================
+    subgraph PROC[" "]
+        direction TB
+        PH["<b>Processed files</b><br/>constructing variables usable for visualization"]
+
+        H["okp_by_birth_year.csv<br/>single ages, birth years,<br/>generations"]
+        I["ahv_einnahmen_by_birth_year.csv<br/>single ages, birth years,<br/>generations"]
+        J["ahv_ausgaben_by_age.csv<br/>age-specific pension data"]
+
+        PH ~~~ H
+    end
+
+    %% =========================
+    %% APP
+    %% =========================
+    K["Streamlit: Who pays?"]
+
+    %% =========================
+    %% MAIN FLOWS
+    %% =========================
+    A --> E
+    E --> H
+
+    C --> F
+    F --> I
+
+    C --> G
+
+    D --> J
+
+    %% Population routing under the intermediate heading
+    B --> X
+    X --> H
+    X --> I
+
+    H --> K
+    I --> K
+    J --> K
+
+    %% Plausibility check
+    G -.->|"plausibility check"| I
+
+    %% =========================
+    %% CLASSES
+    %% =========================
+    classDef heading fill:transparent,stroke:transparent,color:#000;
+    classDef helper fill:transparent,stroke:transparent,color:transparent;
+    classDef rawNode fill:#ece8f7,stroke:#5b2ca0,stroke-width:2px,color:#111827;
+    classDef intNode fill:#dfe8f5,stroke:#2b6cb0,stroke-width:2px,color:#111827;
+    classDef procNode fill:#d9efe9,stroke:#2f7f7b,stroke-width:2px,color:#111827;
+    classDef appNode fill:#f8fafc,stroke:#475569,stroke-width:2px,color:#111827;
+
+    class RH,IH,PH heading;
+    class X helper;
+
+    class A,B,C,D rawNode;
+    class E,F,G intNode;
+    class H,I,J procNode;
+    class K appNode;
+
+    %% =========================
+    %% SUBGRAPH STYLING
+    %% =========================
+    style RAW fill:#f4f1fb,stroke:#5b2ca0,stroke-width:2px;
+    style INT fill:#edf4fb,stroke:#2b6cb0,stroke-width:2px;
+    style PROC fill:#edf8f5,stroke:#2f7f7b,stroke-width:2px;
+```
+
 No single master table was created before the exploratory analysis because the OKP, AHV income and AHV expenditure datasets differ in structure, units, age coverage and interpretation. Keeping the analytical files separate reduces unnecessary complexity and makes methodological limitations more transparent.
 
 #### Data Characteristics and Quality
