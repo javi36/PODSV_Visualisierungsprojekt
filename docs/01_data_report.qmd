@@ -269,6 +269,95 @@ flowchart LR
     style PROC fill:#edf8f5,stroke:#2f7f7b,stroke-width:2px;
 ```
 
+```{mermaid}
+%%{init: {
+  "flowchart": {
+    "curve": "basis",
+    "nodeSpacing": 40,
+    "rankSpacing": 70
+  },
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Arial",
+    "primaryTextColor": "#111827",
+    "lineColor": "#111827"
+  }
+}}%%
+
+flowchart LR
+
+    %% =========================
+    %% RAW FILES
+    %% =========================
+    subgraph RAW["<b>Raw files from sources</b>"]
+        direction TB
+        A["OKP / KVSTAT raw files<br/>Excel files and ZIP archives"]
+        B["Population by age and year<br/>px-x-0102020000..."]
+        C["AHV income raw file<br/>ahv_einnahmen_zhaw.xlsx"]
+        D["AHV expenditure raw file<br/>px-x-1305000000..."]
+    end
+
+    %% =========================
+    %% INTERMEDIATE FILES
+    %% =========================
+    subgraph INT["<b>Intermediate files</b><br/>building cohorts for dis- and aggregation of data"]
+        direction TB
+        E["okp_cohort.csv<br/>original age-cohort level"]
+        P["population weights<br/>age-year weighting basis"]
+        F["ahv_einnahmen_cohort.csv<br/>original age-cohort level"]
+        G["ahv_makro.csv<br/>macro-level control values"]
+    end
+
+    %% =========================
+    %% PROCESSED FILES
+    %% =========================
+    subgraph PROC["<b>Processed files</b><br/>constructing variables usable for visualization"]
+        direction TB
+        H["okp_by_birth_year.csv<br/>single ages, birth years,<br/>generations"]
+        I["ahv_einnahmen_by_birth_year.csv<br/>single ages, birth years,<br/>generations"]
+        J["ahv_ausgaben_by_age.csv<br/>age-specific pension data"]
+    end
+
+    K["Streamlit: Who pays?"]
+
+    %% =========================
+    %% DATA FLOW
+    %% =========================
+    A --> E
+    B --> P
+    C --> F
+    C --> G
+    D --> J
+
+    E --> H
+    P --> H
+    P --> I
+    F --> I
+
+    H --> K
+    I --> K
+    J --> K
+
+    G -.->|"plausibility check"| I
+
+    %% =========================
+    %% STYLING
+    %% =========================
+    classDef rawNode fill:#f4f1fb,stroke:#5b2ca0,stroke-width:2px,color:#111827;
+    classDef intNode fill:#edf4fb,stroke:#2b6cb0,stroke-width:2px,color:#111827;
+    classDef procNode fill:#edf8f5,stroke:#2f7f7b,stroke-width:2px,color:#111827;
+    classDef appNode fill:#f8fafc,stroke:#475569,stroke-width:2px,color:#111827;
+
+    class A,B,C,D rawNode;
+    class E,F,G,P intNode;
+    class H,I,J procNode;
+    class K appNode;
+
+    style RAW fill:#f7f4ff,stroke:#5b2ca0,stroke-width:2px,color:#111827;
+    style INT fill:#f0f7ff,stroke:#2b6cb0,stroke-width:2px,color:#111827;
+    style PROC fill:#f0fdfa,stroke:#2f7f7b,stroke-width:2px,color:#111827;
+```
+
 No single master table was created before the exploratory analysis because the OKP, AHV income and AHV expenditure datasets differ in structure, units, age coverage and interpretation. Keeping the analytical files separate reduces unnecessary complexity and makes methodological limitations more transparent.
 
 #### Data Characteristics and Quality
