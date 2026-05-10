@@ -48,6 +48,69 @@ The raw files are not directly suitable for visualisation because they differ in
 
 From a data governance perspective, the datasets used in this dimension are aggregated statistical datasets. They do not contain individual-level personal data and can therefore be treated as public or project-relevant aggregated data. However, the resulting indicators should be interpreted carefully because the underlying sources differ in structure, aggregation level and statistical definition. The processed outputs are therefore best understood as analytical approximations of generational financial burden rather than exact individual-level accounting.
 
+#### Data Catalogue
+
+The raw data for the **“Who pays?”** dimension originates from heterogeneous Excel files, ZIP archives and official statistical exports. Since the original files differ in structure, sheet names, age-group definitions and temporal coverage, the data catalogue below describes the harmonised schema produced by the data acquisition pipeline. This schema is used as the basis for the exploratory analysis and the Streamlit visualisation.
+
+The processed datasets for this dimension are stored in `data/whopays/processed_whopays/`.
+
+: Role of processed datasets for the “Who pays?” dimension. {#tbl-whopays-dataset-role}
+
+| Dataset | Role in the project | Directly used for visualisation |
+|---|---|---|
+| `okp_cohort.csv` | Intermediate OKP dataset on original age-cohort level before population-weighted disaggregation. | No |
+| `okp_by_birth_year.csv` | Primary OKP analysis dataset. Contains disaggregated single-age and birth-year values with generation labels. | Yes |
+| `ahv_einnahmen_cohort.csv` | Intermediate AHV income dataset on original age-cohort level before population-weighted disaggregation. | No |
+| `ahv_einnahmen_by_birth_year.csv` | Primary AHV income dataset. Contains disaggregated single-age and birth-year values with generation labels. | Yes |
+| `ahv_ausgaben_by_age.csv` | Primary AHV expenditure dataset. Contains age-specific pension recipient data; no additional disaggregation to single ages was required. | Yes |
+| `ahv_makro.csv` | Macro-level AHV contribution totals used as a plausibility and control dataset. | No |
+
+The cohort-level files are retained for reproducibility because they document the state of the data before disaggregation. The by-birth-year files are the main analytical datasets because they allow the project to compare financial indicators by birth year and generation.
+
+: Data catalogue for the harmonised “Who pays?” datasets. {#tbl-whopays-data-catalogue}
+
+| Column index | Column name | Datatype | Values / validation rules | Short description |
+|---|---|---|---|---|
+| 1 | `year` | integer | Depends on source; e.g. OKP from 2006 onward, AHV income from 2010 onward, AHV expenditure from 2012 onward | Reference year of the observation. |
+| 2 | `variable_name` | string / categorical | Examples: `okp_premium`, `praemienverbilligung`, `okp_kostenbeteiligung`, `okp_nettoleistungen`, `okp_bruttoleistungen`, `ahv_einnahmen`, `ahv_ausgaben`, `ahv_makro` | Identifies the thematic variable represented by the observation. |
+| 3 | `age_group_label` | string / categorical | Examples: `<20`, `20-24`, `0 – 5`, `75+` | Original age-group label from the raw source. Not available in all processed files. |
+| 4 | `age_min` | integer | Non-negative age value | Lower bound of the original age group. |
+| 5 | `age_max` | integer | Non-negative age value; open-ended groups are capped for processing | Upper bound of the original age group. |
+| 6 | `age` | integer | Single age year | Age after disaggregation to single-year ages. |
+| 7 | `birth_year` | integer | Calculated as `year - age` | Derived birth year used for cohort and generation assignment. |
+| 8 | `project_age_group` | string / categorical | `Silent Generation`, `Babyboomers`, `Generation X`, `Millennials`, `Generation Z`, `Generation Alpha` | Generation label used consistently across the project. |
+| 9 | `project_age_order` | integer | 1–6 | Numeric order used for sorting generations in analysis and visualisation. |
+| 10 | `metric` | string / categorical | Examples: `total_mio_chf`, `per_capita_chf`, `beneficiaries_count`, `beneficiary_rate`, `n_personen`, `sum_einkommen`, `sum_beitrag_ahv`, `anzahl_renten`, `renten_mittelwert_chf` | Specific measured indicator within a variable. |
+| 11 | `value` | float | Numeric value; interpretation depends on `metric`, `unit` and `scale` | Main numeric measurement used for analysis. |
+| 12 | `unit` | string / categorical | Examples: `CHF`, `Anzahl`, `Anteil` | Unit of measurement. |
+| 13 | `scale` | string / categorical | Examples: `chf`, `mio_chf`, `count`, `rate`, `chf_per_capita_year` | Scale or interpretation of the numeric value. |
+| 14 | `method` | string / categorical | Example: `pop_weighted` | Processing method used to derive the observation. Mainly relevant for disaggregated datasets. |
+| 15 | `notes` | string | Examples: `nur_arbeitnehmende`, `altersrenten_ab_65`, `403d_coarse_0_18` | Methodological notes and limitations attached to specific observations. |
+
+#### Conceptual Data Relationship Diagram
+
+The **“Who pays?”** dimension is not based on a single relational database table. Instead, several raw datasets are transformed into harmonised analysis files. The following diagram shows the conceptual relationship between the raw sources, intermediate datasets, final analysis datasets and the Streamlit visualisation.
+
+```{mermaid}
+flowchart LR
+    A[OKP / KVSTAT raw files<br>Excel files and ZIP archives] --> B[okp_cohort.csv<br>original age-cohort level]
+    B --> C[okp_by_birth_year.csv<br>single ages, birth years, generations]
+
+    D[AHV income raw file<br>ahv_einnahmen_zhaw.xlsx] --> E[ahv_einnahmen_cohort.csv<br>original age-cohort level]
+    E --> F[ahv_einnahmen_by_birth_year.csv<br>single ages, birth years, generations]
+
+    G[AHV expenditure raw file<br>px-x-1305000000...] --> H[ahv_ausgaben_by_age.csv<br>age-specific pension data]
+
+    I[Population by age and year<br>px-x-0102020000...] --> C
+    I --> F
+
+    D --> J[ahv_makro.csv<br>macro-level control values]
+
+    C --> K[Streamlit: Who pays?]
+    F --> K
+    H --> K
+    J -. plausibility check .-> K
+
 ### Details Raw Dataset: Who Owns
 
 This dataset is used to represent the third analytical dimension of the project: **Who owns?**. It contains information related to wealth, assets, property ownership or household resources. The dataset is used to examine how ownership and accumulated resources are distributed across age groups or generations.
