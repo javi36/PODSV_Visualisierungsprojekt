@@ -160,7 +160,8 @@ flowchart LR
     I --> K
     J --> K
 
-    G -.->|"plausibility check"| I
+    G -.-> L["plausibility check"]
+    L -.-> I
 
     %% =========================
     %% STYLING
@@ -169,15 +170,18 @@ flowchart LR
     classDef intNode fill:#edf4fb,stroke:#2b6cb0,stroke-width:2px,color:#111827;
     classDef procNode fill:#edf8f5,stroke:#2f7f7b,stroke-width:2px,color:#111827;
     classDef appNode fill:#f8fafc,stroke:#475569,stroke-width:2px,color:#111827;
+    classDef labelNode fill:transparent,stroke:transparent,color:#111827;
 
     class A,B,C,D rawNode;
     class E,F,G,P intNode;
     class H,I,J procNode;
     class K appNode;
+    class L labelNode;
 
     style RAW fill:#f7f4ff,stroke:#5b2ca0,stroke-width:2px,color:#111827;
     style INT fill:#f0f7ff,stroke:#2b6cb0,stroke-width:2px,color:#111827;
     style PROC fill:#f0fdfa,stroke:#2f7f7b,stroke-width:2px,color:#111827;
+    
 ```
 
 No single master table was created before the exploratory analysis because the OKP, AHV income and AHV expenditure datasets differ in structure, units, age coverage and interpretation. Keeping the analytical files separate reduces unnecessary complexity and makes methodological limitations more transparent.
