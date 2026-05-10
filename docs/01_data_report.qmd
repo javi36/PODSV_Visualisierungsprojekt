@@ -110,6 +110,8 @@ flowchart LR
     F --> K
     H --> K
     J -. plausibility check .-> K
+```
+No single master table was created before the exploratory analysis because the OKP, AHV income and AHV expenditure datasets differ in structure, units, age coverage and interpretation. Keeping the analytical files separate reduces unnecessary complexity and makes methodological limitations more transparent.
 
 ### Details Raw Dataset: Who Owns
 
