@@ -32,7 +32,7 @@ This dataset is used to represent the first analytical dimension of the project:
 - Data governance aspects
 - Relevance for the visualisation dimension "Who decides?"
 
-### Details Raw Data: Who Pays (Financial Contributions and Public Transfers)
+### Details Raw Data: Who Pays - Financial Contributions and Public Transfers
 
 The raw data for the analytical dimension **“Who pays?”** consists of multiple datasets that are combined in a dedicated data acquisition pipeline. This dimension focuses on financial contributions, mandatory payments and age-related public transfers in Switzerland. The aim is to analyse how financial burdens and benefits differ between generations and how these patterns change over time.
 
