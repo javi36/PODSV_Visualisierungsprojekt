@@ -46,8 +46,10 @@ CHART_NARRATIVE = {
     "turnout": {
         "title": "Who Shows Up at the Ballot Box?",
         "intro": (
-            "The chart shows average political interest scores per generation "
-            "across three election years — 2015, 2019, and 2023."
+        "Each seat represents a share of survey respondents who reported voting — "
+        "distributed by generation. The chart does not show each generation's individual "
+        "turnout rate, but rather <b>who makes up the voting public</b>: which generations "
+        "dominate the pool of active voters in each election year."
         ),
     },
     "interest": {
