@@ -100,6 +100,20 @@ REFERENCES: list[dict] = [
         ),
     },
     {
+        "key": "Obsan2023",
+        "citation": (
+            "Peter, C., Tuch, A., &amp; Schuler, D. (2023). "
+            "<em>Psychische Gesundheit in der Schweiz: Obsan Bericht 03/2023</em>. "
+            "Schweizerisches Gesundheitsobservatorium (Obsan). "
+            "Retrieved from https://www.obsan.admin.ch/sites/default/files/2023-05/Obsan_03_2023_BERICHT.pdf"
+        ),
+        "note": (
+            "National health survey documenting a significant deterioration in mental health "
+            "since 2017, with 15–24 year-olds among the hardest hit — used to contextualise "
+            "the rise in political disengagement among younger generations."
+        ),
+    },
+    {
         "key": "SELECTS2015",
         "citation": (
             "Lutz, G., &amp; Selects Team. (2016). "
@@ -150,6 +164,20 @@ REFERENCES: list[dict] = [
         "note": (
             "Introduces the Martini-Glass narrative structure applied in the "
             "layout of each dashboard section."
+        ),
+    },
+    {
+        "key": "UNICEF2021",
+        "citation": (
+            "UNICEF Schweiz und Liechtenstein. (2021). "
+            "<em>Psychische Gesundheit von Jugendlichen in der Schweiz und Liechtenstein</em>. "
+            "Conducted by Unisanté. "
+            "Retrieved from https://www.unicef.ch/de/was-wir-tun/national/wohlergehen-von-kindern/psychische-gesundheit"
+        ),
+        "note": (
+            "Study of 1 097 adolescents aged 14–19 finding that 37% reported mental health "
+            "problems and nearly half rated their psychological wellbeing as worse since the "
+            "pandemic — cited in the Who Decides section to contextualise youth disengagement."
         ),
     },
     {

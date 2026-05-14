@@ -62,9 +62,9 @@ CHART_NARRATIVE = {
     "trust": {
         "title": "Does Institutional Trust Explain the Gap?",
         "intro": (
-            "Democratic satisfaction across three elections (2015, 2019, 2023) — "
-            "a line going up means more satisfied, down means less. "
-            "The badge shows the net change from 2015 to 2023."
+            "Share of respondents satisfied with democracy, by generation across three elections. "
+            "2019 was the peak year for almost every generation — "
+            "the annotations show the net change from 2015 to 2023."
         ),
     },
     "lr": {
@@ -246,7 +246,7 @@ def _chart_parliament(frames: dict, selected_gens: list[str], year: int) -> go.F
             x=lx, y=ly,
             text=f"<b>{short}</b><br>{pct:.1f}%",
             showarrow=False,
-            font=dict(size=10, color=GEN_COLORS.get(g, "#333333"), family="Inter, Arial, sans-serif"),
+            font=dict(size=13, color=GEN_COLORS.get(g, "#333333"), family="Inter, Arial, sans-serif"),
             xanchor="center",
         )
 
@@ -365,44 +365,78 @@ def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
 # Chart 3 — Slope Chart (2015 vs 2023)
 # ─────────────────────────────────────────────
 
-def _chart_slope(frames: dict, selected_gens: list[str]) -> list:
-    """Returns list of (gen, fig, v2023, diff) for small multiples."""
-    results = []
-    for gen in selected_gens:
-        color = GEN_COLORS[gen]
-        vals = _agg(frames, "demo_satisfaction", gen)
-        if 2015 not in vals or 2023 not in vals:
-            continue
-        years = [y for y in [2015, 2019, 2023] if y in vals]
-        y_vals = [vals[y] * 100 for y in years]
-        v15 = vals[2015] * 100
-        v23 = vals[2023] * 100
-        diff = v23 - v15
+def _chart_trust(frames: dict, selected_gens: list[str]) -> go.Figure:
+    COLORS = {
+    "2015": "rgba(180,195,200,0.85)",
+    "2019": "rgba(90,130,145,0.85)",
+    "2023": "rgba(15,76,92,0.85)",
+    }
+    BORDER = {
+    "2015": "#b4c3c8",
+    "2019": "#5a8291",
+    "2023": "#0f4c5c",
+    }
 
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(
-            x=years, y=y_vals,
-            mode="lines+markers",
-            line=dict(color=color, width=2.5),
-            marker=dict(color=color, size=6),
-            fill="tozeroy",
-            fillcolor=f"rgba({int(color[1:3],16)},{int(color[3:5],16)},{int(color[5:7],16)},0.1)",
-            hovertemplate=f"%{{x}}: %{{y:.1f}}%<extra></extra>",
-            showlegend=False,
+    gen_labels = [GENERATION_YEAR_LABELS.get(g, g) for g in reversed(selected_gens)]
+    vals = {yr: [] for yr in [2015, 2019, 2023]}
+
+    for g in reversed(selected_gens):
+        for yr in [2015, 2019, 2023]:
+            v = _agg(frames, "demo_satisfaction", g).get(yr)
+            vals[yr].append(round(v * 100, 1) if v is not None else None)
+
+    fig = go.Figure()
+    for yr in [2015, 2019, 2023]:
+        fig.add_trace(go.Bar(
+            y=gen_labels,
+            x=vals[yr],
+            name=str(yr),
+            orientation="h",
+            marker=dict(
+                color=COLORS[str(yr)],
+                line=dict(color=BORDER[str(yr)], width=1.5),
+            ),
+            hovertemplate=f"<b>%{{y}}</b><br>{yr}: %{{x:.1f}}% satisfied<extra></extra>",
         ))
-        fig.update_layout(
-            height=130,
-            margin=dict(t=8, b=24, l=8, r=16),
-            plot_bgcolor="white",
-            paper_bgcolor="white",
-            xaxis=dict(tickvals=years, ticktext=[str(y) for y in years],
-                tickfont=dict(size=9, color="#aaa"), gridcolor="#f0f0f0",
-                linecolor="#eeeeee", showgrid=False, range=[2014, 2024.5],),
-            yaxis=dict(range=[35, 65], showticklabels=False,
-                       gridcolor="#f5f5f5", linecolor="#eeeeee"),
+
+    # Annotations rechts: Δ 2015 → 2023
+    for i, g in enumerate(reversed(selected_gens)):
+        v15 = _agg(frames, "demo_satisfaction", g).get(2015)
+        v23 = _agg(frames, "demo_satisfaction", g).get(2023)
+        if v15 is None or v23 is None:
+            continue
+        diff = round((v23 - v15) * 100, 1)
+        arrow = "↑" if diff >= 0 else "↓"
+        color = "#4e9a8a" if diff >= 0 else "#e05c4b"
+        sign = "+" if diff >= 0 else ""
+        fig.add_annotation(
+            x=65,
+            y=GENERATION_YEAR_LABELS.get(g, g),
+            text=f"<span style='color:{color}'><b>{arrow} {sign}{diff}%</b><br><span style='font-size:10px;color:#999'>since 2015</span></span>",
+            showarrow=False,
+            xanchor="left",
+            font=dict(size=12),
+            xref="x",
+            yref="y",
         )
-        results.append((gen, fig, v23, diff))
-    return results
+
+    layout = _base_layout(
+        barmode="group",
+        xaxis=dict(
+            range=[35, 72],
+            ticksuffix="%",
+            title="% satisfied with democracy",
+            **_AXIS,
+        ),
+        yaxis=dict(
+            categoryorder="array",
+            categoryarray=gen_labels,
+            **_AXIS,
+        ),
+    )
+    layout["height"] = 360
+    fig.update_layout(**layout)
+    return fig
 
 
 # ─────────────────────────────────────────────
@@ -522,18 +556,27 @@ def render_who_decides_section() -> None:
     st.markdown('<div id="who-decides"></div>', unsafe_allow_html=True)
 
     st.markdown(
-    """
-    <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:1.4rem;">
-    Democracy assumes every voice counts equally. 
-    But in Switzerland, age tilts the scales. 
-    Older generations show up — younger ones stay home. 
-    And as the population ages, that gap only widens. 
-    From voter turnout to ideological drift,
-    the numbers tell a story of who really decides — and who gets left out.
-    </p>
-    """,
-    unsafe_allow_html=True,
-)
+        """
+        <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:0.8rem;">
+        Democracy assumes every voice counts equally.
+        But in Switzerland, age tilts the scales.
+        Older generations show up — younger ones stay home.
+        And as the population ages, that gap only widens.
+        </p>
+        <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:0.8rem;">
+        The stakes became impossible to ignore on <strong>3 March 2024</strong>:
+        Swiss voters approved a 13th monthly AHV pension — and on the very same day,
+        rejected raising the retirement age by a wide margin.
+        Two votes, one message: more benefits for today's retirees, no extra burden for tomorrow's workers.
+        </p>
+        <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:1.4rem;">
+        That outcome didn't happen by chance. It reflects who shows up.
+        From voter turnout to ideological drift,
+        the numbers tell a story of who really decides — and who gets left out.
+        </p>
+        """,
+        unsafe_allow_html=True,
+        )
 
     # ── Load data ───────────────────────────────────────────────────
     try:
@@ -599,55 +642,37 @@ def render_who_decides_section() -> None:
     st.markdown(
         f"<div style='{_CONCLUSION_STYLE}'>"
         "<strong>Interested — but absent.</strong> Political interest has risen across nearly every "
-        "generation since 2019. Yet at the same ballot, turnout fell. This disconnect points to something "
-        "deeper than apathy. Possible explanations lie in the domain of political efficacy: the feeling "
-        "that one's vote makes little difference in national elections, or a growing disillusionment with "
-        "political parties as representative institutions (Bühlmann & Freitag, 2006). The distance between "
-        "caring and acting is real, and it widens with every election."
+        "generation since 2019. Yet turnout fell. This is not apathy — it is disillusionment with a trajectory. "
+        "Around 2019, climate activism peaked: Fridays for Future brought hundreds of thousands of young people "
+        "into the streets across Switzerland. Then came COVID-19 — a hard interruption that left lasting marks. "
+        "Mental health among Swiss youth deteriorated sharply in the years that followed — with anxiety, "
+        "loneliness and depression rising steeply among 15–24 year-olds and not recovering since. "
+        "A generation that grew up with a climate crisis, a pandemic, and a political system perceived as slow "
+        "and unresponsive began to disengage — not out of indifference, but out of exhaustion. "
+        "The distance between caring and acting is real — and it widens with every election."
         "</div>",
         unsafe_allow_html=True,
     )
 
-# ── Chart 3: Slope — Democratic Satisfaction ────────────────────
+# ── Chart 3: Horizontal Grouped Bar — Democratic Satisfaction ───
     st.markdown("---")
     st.markdown(f"### {CHART_NARRATIVE['trust']['title']}")
     st.markdown(
         f"<p style='font-size:1rem;line-height:1.7;color:#444;'>{CHART_NARRATIVE['trust']['intro']}</p>",
         unsafe_allow_html=True,
     )
-    short_names = {
-        "Silent Generation": "Silent", "Babyboomers": "Boomers",
-        "Generation X": "Gen X", "Millennials / Gen Y": "Millennials",
-        "Generation Z": "Gen Z",
-    }
-    slope_data = _chart_slope(frames, selected_gens)
-    
-    cols = st.columns(len(slope_data))
-    for i, (gen, fig, v23, diff) in enumerate(slope_data):
-        color = GEN_COLORS[gen]
-        arrow = "↑" if diff > 0 else "↓"
-        with cols[i]:
-            st.markdown(
-                f"<div style='text-align:center;'>"
-                f"<div style='font-size:13px;font-weight:500;color:{color};'>"
-                f"{short_names.get(gen, gen)}</div>"
-                f"<div style='font-size:22px;font-weight:500;color:#111;'>"
-                f"{v23:.1f}%</div>"
-                f"<div style='font-size:13px;color:#111111;margin-bottom:4px;'>"
-                f"{arrow} {abs(diff):.1f}% since 2015</div>"
-                f"</div>",
-                unsafe_allow_html=True,
-            )
-            st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(_chart_trust(frames, selected_gens), use_container_width=True)
     st.markdown(
         f"<div style='{_CONCLUSION_STYLE}'>"
-        "<strong>Trust doesn't explain the gap either.</strong> Democratic satisfaction has moved in "
-        "different directions across generations — with no clear generational pattern. Millennials "
-        "are the only group whose satisfaction consistently grew over the full period. Gen Z and the "
-        "Silent Generation lost the most ground. But crucially: satisfaction levels don't align with "
-        "turnout. Generations that trust less don't necessarily vote less. The missing piece lies "
-        "elsewhere — possibly in political efficacy: the belief that one's vote actually changes "
-        "anything (→ see Chart 4)."
+        "<strong>Trust doesn't explain the gap either.</strong> Across all generations, "
+        "democratic satisfaction peaked in 2019 — then fell back. "
+        "Yet the differences between generations remain surprisingly small: no generation "
+        "stands out as dramatically more or less satisfied than the others. "
+        "Millennials are the only group whose satisfaction kept rising through 2023. "
+        "But crucially: satisfaction levels don't align with turnout. "
+        "Generations that trust less don't necessarily vote less. "
+        "The missing piece lies elsewhere — possibly in political efficacy: "
+        "the belief that one's vote actually changes anything (→ see Chart 4)."
         "</div>",
         unsafe_allow_html=True,
     )
