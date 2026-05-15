@@ -12,6 +12,7 @@ from app_config import (
     inject_global_styles,
 )
 from generationalConflict_app import main as render_home
+from references import render_references_section
 from who_decides_section import render_who_decides_section
 from who_owns_section import (
     load_bewohnertyp_data,
@@ -28,6 +29,9 @@ st.set_page_config(
 )
 
 inject_global_styles()
+
+# ── Page routing via query param (?page=references opens the References page) ─
+_current_page = st.query_params.get("page", "main")
 
 # ── Sidebar collapse → full-width layout (JS MutationObserver) ───────────────
 components.html(
@@ -85,79 +89,87 @@ with st.sidebar:
         "color:#888888;font-weight:700;padding:0.6rem 0 0.5rem;'>🧭 Navigation Panel</div>",
         unsafe_allow_html=True,
     )
+    if _current_page == "references":
+        st.markdown(
+            """
+            <div class="sidebar-nav-links">
+                <a href="?page=main">← Back to Dashboard</a>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    else:
+        st.markdown(
+            """
+            <div class="sidebar-nav-links">
+                <a href="#home">Home</a>
+                <a href="#who-decides">🗳️ Who Decides</a>
+                <a href="#who-pays">💸 Who Pays</a>
+                <a href="#who-owns">🏡 Who Owns</a>
+                <a href="?page=references" style="margin-top:0.5rem;border-top:1px solid #eeeeee;padding-top:0.5rem;">📚 References</a>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+# ── Main content — routed by query param ─────────────────────────────────────
+
+if _current_page == "references":
     st.markdown(
         """
-        <div class="sidebar-nav-links">
-            <a href="#home">Home</a>
-            <a href="#who-decides">🗳️ Who Decides</a>
-            <a href="#who-pays">💸 Who Pays</a>
-            <a href="#who-owns">🏡 Who Owns</a>
-            <a href="#references" style="margin-top:0.5rem;border-top:1px solid #eeeeee;padding-top:0.5rem;">📚 References</a>
+        <div class="hero">
+            <h1>📚 References</h1>
+            <p>Data sources and academic literature cited in this dashboard</p>
         </div>
         """,
         unsafe_allow_html=True,
     )
+    render_references_section()
+else:
+    # 1. Home
+    render_home()
 
-# ── Main content — single scrollable page ────────────────────────────────────
+    # 2. Who Decides
+    st.markdown(
+        """
+        <div class="hero">
+            <h1>Who Decides</h1>
+            <p>Political power and voting influence across generations in Switzerland</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    render_who_decides_section()
 
-# 1. Home
-render_home()
+    # 3. Who Pays
+    st.markdown(
+        """
+        <div class="hero">
+            <h1>Who Pays</h1>
+            <p>"Aware of our common achievements and our responsibility towards future generations."<br>
+            <span style="font-size:0.85rem; color:#888888;">— Preamble, Swiss Federal Constitution</span></p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    render_who_pays_section()
 
-# 2. Who Decides
-st.markdown(
-    """
-    <div class="hero">
-        <h1>Who Decides</h1>
-        <p>Political power and voting influence across generations in Switzerland</p>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-render_who_decides_section()
+    # 4. Who Owns
+    st.markdown(
+        """
+        <div class="hero">
+            <h1>Who Owns</h1>
+            <p>Homeownership rates and living space by generation in Switzerland</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    try:
+        bewohnertyp_df = load_bewohnertyp_data(BEWOHNERTYP_DATA_PATH)
+        wohnflaeche_df = load_wohnflaeche_data(WOHNFLAECHE_DATA_PATH)
+    except Exception as exc:
+        st.error("Could not load ownership data.")
+        st.exception(exc)
+        st.stop()
 
-# 3. Who Pays
-st.markdown(
-    """
-    <div class="hero">
-        <h1>Who Pays</h1>
-        <p>"Aware of our common achievements and our responsibility towards future generations."<br>
-        <span style="font-size:0.85rem; color:#888888;">— Preamble, Swiss Federal Constitution</span></p>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-render_who_pays_section()
-
-# 4. Who Owns
-st.markdown(
-    """
-    <div class="hero">
-        <h1>Who Owns</h1>
-        <p>Homeownership rates and living space by generation in Switzerland</p>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-try:
-    bewohnertyp_df = load_bewohnertyp_data(BEWOHNERTYP_DATA_PATH)
-    wohnflaeche_df = load_wohnflaeche_data(WOHNFLAECHE_DATA_PATH)
-except Exception as exc:
-    st.error("Could not load ownership data.")
-    st.exception(exc)
-    st.stop()
-
-render_who_owns_section(bewohnertyp_df, wohnflaeche_df)
-
-# 5. References
-from references import render_references_section
-
-st.markdown(
-    """
-    <div class="hero">
-        <h1>📚 References</h1>
-        <p>Data sources and academic literature cited in this dashboard</p>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-render_references_section()
+    render_who_owns_section(bewohnertyp_df, wohnflaeche_df)

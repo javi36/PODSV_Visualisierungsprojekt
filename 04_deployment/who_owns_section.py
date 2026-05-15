@@ -136,7 +136,8 @@ def create_occupancy_stacked_bar(df: pd.DataFrame, sorted_gens: list[str]) -> go
         paper_bgcolor="#ffffff",
         bargap=0.28,
         xaxis=dict(
-            range=[0, 100],
+            range=[-14, 100],
+            tickvals=[0, 20, 40, 60, 80, 100],
             ticksuffix="%",
             gridcolor="#f0f0f0",
             title="",
@@ -160,6 +161,31 @@ def create_occupancy_stacked_bar(df: pd.DataFrame, sorted_gens: list[str]) -> go
         ),
         hoverlabel=dict(bgcolor="#ffffff", bordercolor="#dddddd", font_size=14, font_family="Arial"),
     )
+
+    # Subtle bracket on the LEFT, flush with the y-axis labels — connects Gen X and Gen Z rows
+    if "Generation X" in y_order and "Generation Z" in y_order:
+        gx_y = y_order.index("Generation X")
+        gz_y = y_order.index("Generation Z")
+        bracket_x = -1.5      # vertical line position (just left of the bars)
+        tick_end = -0.3       # tick ends extend right toward the bars
+        bracket_color = "#888888"
+        for shape in [
+            dict(type="line", x0=bracket_x, x1=bracket_x, y0=gx_y, y1=gz_y),
+            dict(type="line", x0=bracket_x, x1=tick_end, y0=gx_y, y1=gx_y),
+            dict(type="line", x0=bracket_x, x1=tick_end, y0=gz_y, y1=gz_y),
+        ]:
+            fig.add_shape(**shape, line=dict(color=bracket_color, width=1.4), layer="above")
+        fig.add_annotation(
+            x=-2.5,
+            y=(gx_y + gz_y) / 2,
+            text="often share<br>a household",
+            showarrow=False,
+            font=dict(size=13, color="#555555"),
+            xanchor="right",
+            yanchor="middle",
+            align="right",
+        )
+
     return fig
 
 
@@ -399,8 +425,8 @@ def create_space_ownership_scatter(
             cliponaxis=False,
             hovertemplate=(
                 f"<b>{GENERATION_YEAR_LABELS.get(gen, gen)}</b><br>"
-                f"Eigentümer: <b>{row['pct']:.1f}%</b><br>"
-                f"Wohnfläche: <b>{row['sqm_per_person']:.1f} m²/Person</b>"
+                f"Ownership: <b>{row['pct']:.1f}%</b><br>"
+                f"Living space: <b>{row['sqm_per_person']:.1f} m² per person</b>"
                 "<extra></extra>"
             ),
             showlegend=False,
@@ -420,14 +446,14 @@ def create_space_ownership_scatter(
         plot_bgcolor="#ffffff",
         paper_bgcolor="#ffffff",
         xaxis=dict(
-            title=dict(text="Eigentümerquote (%)", font=dict(size=14, color="#111111")),
+            title=dict(text="Ownership Rate (%)", font=dict(size=14, color="#111111")),
             ticksuffix="%",
             tickfont=dict(size=13, color="#111111"),
             gridcolor="#e8e8e8",
             zeroline=False,
         ),
         yaxis=dict(
-            title=dict(text="m² pro Person", font=dict(size=14, color="#111111")),
+            title=dict(text="m² per Person", font=dict(size=14, color="#111111")),
             ticksuffix=" m²",
             tickfont=dict(size=13, color="#111111"),
             gridcolor="#e8e8e8",
@@ -475,11 +501,12 @@ def render_who_owns_section(
     eig = stacked_data[stacked_data["bewohnertyp"] == "Eigentümer"]
     max_row = eig.loc[eig["pct"].idxmax()] if not eig.empty else None
     min_row = eig.loc[eig["pct"].idxmin()] if not eig.empty else None
-    gap = round(max_row["pct"] - min_row["pct"]) if (max_row is not None and min_row is not None) else 0
     max_gen = max_row["generation"] if max_row is not None else "—"
     min_gen = min_row["generation"] if min_row is not None else "—"
     max_pct = round(max_row["pct"]) if max_row is not None else 0
     min_pct = round(min_row["pct"]) if min_row is not None else 0
+    # Compute gap from the rounded values so it stays consistent with the displayed percentages
+    gap = max_pct - min_pct
 
     # ── Section header ────────────────────────────────────────────────────────
     st.markdown(
@@ -536,17 +563,71 @@ def render_who_owns_section(
         f"color:#aaaaaa;margin:0.8rem 0 0.5rem;'>What the {year_range} trend tells us</div>",
         unsafe_allow_html=True,
     )
+
+    # Per-generation ownership % for the explanatory narrative (fallback to typical 2024 values)
+    _silent_row = eig[eig["generation"] == "Silent Generation"]
+    _genz_row   = eig[eig["generation"] == "Generation Z"]
+    _silent_pct = round(float(_silent_row["pct"].iloc[0])) if not _silent_row.empty else 55
+    _genz_pct   = round(float(_genz_row["pct"].iloc[0]))   if not _genz_row.empty   else 39
+
+    # Generation colors for inline highlights (consistent with intro paragraph)
+    _sc  = GENERATION_COLORS.get("Silent Generation",   "#0f4c5c")
+    _gxc = GENERATION_COLORS.get("Generation X",        "#679289")
+    _gzc = GENERATION_COLORS.get("Generation Z",        "#f25c54")
+
     st.markdown(
         f"""
         <div class="narrative-text">
-        <strong>The pattern is consistent.</strong> Ownership declines steadily.
-        The trend is not random — it reflects structural barriers: rising property prices,
-        stagnant wages, and increasing competition for ownership in Swiss cities.
-        For younger generations, renting is not a lifestyle choice — it is increasingly the only option.
-        As housing costs continue to rise relative to income, the generational wealth gap in Switzerland
-        is likely to widen. This connects directly to the "Who pays?" dimension of this project:
-        those who rent pay more of their income for housing, while those who own accumulate
-        financial security — and arguably more political stake in protecting it.
+        <p style="margin:0 0 0.9rem;">
+        Ownership in Switzerland declines steadily across younger generations — but the ranking
+        holds two surprises worth flagging.
+        <span style="color:{_bc};font-weight:700;">Babyboomers</span>
+        (<span style="color:{_bc};font-weight:700;">{_boomer_pct}%</span>) actually edge out the
+        <span style="color:{_sc};font-weight:700;">Silent Generation</span>
+        (<span style="color:{_sc};font-weight:700;">{_silent_pct}%</span>), partly because many
+        over-79s have already transferred property to their children, and partly because a
+        significant share live in care homes or other collective households — which the Structural
+        Survey excludes by design — leaving the
+        <span style="color:{_sc};font-weight:700;">Silent Generation's</span> true ownership rate
+        likely understated. At the other end,
+        <span style="color:{_mc};font-weight:700;">Millennials</span>
+        (<span style="color:{_mc};font-weight:700;">{_milli_pct}%</span>) sit lowest of all, caught
+        in a structural sandwich: too old to still benefit from parental housing, too young to have
+        accumulated capital, and entering the market precisely when prices peaked. Rising property
+        prices, stagnating entry-level wages, and intensifying competition in Swiss city housing
+        markets have made renting not a lifestyle choice, but increasingly the only option for
+        younger people. As housing costs continue to grow faster than incomes, the generational
+        wealth gap is set to widen further.
+        </p>
+        <p style="margin:0 0 0.9rem;">
+        This dynamic plays out at the household level too.
+        <span style="color:{_gzc};font-weight:700;">Generation Z</span> adults are staying in their
+        parents' homes — typically
+        <span style="color:{_gxc};font-weight:700;">Generation X</span> households — far longer
+        than previous generations did. That also explains the chart's other puzzle:
+        <span style="color:{_gzc};font-weight:700;">Gen Z</span>
+        (<span style="color:{_gzc};font-weight:700;">{_genz_pct}%</span>) appears to "own" more
+        than <span style="color:{_mc};font-weight:700;">Millennials</span>
+        (<span style="color:{_mc};font-weight:700;">{_milli_pct}%</span>), but only because the
+        survey records household-level tenure, not individual ownership — a young adult still
+        living in an owner-occupied parental home is counted within an owner household, inflating
+        <span style="color:{_gzc};font-weight:700;">Gen Z's</span> apparent rate. According to the
+        Federal Housing Office (BWO) and Wüest Partner, advertised rents rose by over 15% between
+        2019 and 2024 while real wages for new entrants stagnated.
+        </p>
+        <p style="margin:0 0 0.9rem;">
+        FSO Structural Survey data confirms that the share of 18–30-year-olds in parental households
+        rose continuously between 2010 and 2022 — and those who do leave often end up in shared
+        apartments well into their thirties. This reflects structural exclusion from the housing
+        market, not personal preference — and it connects directly to the "Who pays?" question at
+        the heart of this project: those who rent pay a growing share of their income for housing,
+        while those who own accumulate wealth and, arguably, political leverage.
+        </p>
+        <p style="margin:0;font-size:0.9rem;color:#777777;font-style:italic;
+        border-left:3px solid #d9e3e0;padding:0.4rem 0.8rem;">
+        Note: These figures reflect household-level tenure status, not individual ownership —
+        results for the youngest and oldest generations should be interpreted with this in mind.
+        </p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -574,29 +655,28 @@ def render_who_owns_section(
     wf_min_val = wf_min_row["sqm_per_person"] if wf_min_row is not None else 0.0
     wf_gap = wf_max_val - wf_min_val
 
-    first_year_wf = wf_data[wf_data["year"] == min(all_years)]
-    gap_persisted = False
-    if not first_year_wf.empty and wf_max_gen != "—" and wf_min_gen != "—":
-        first_max = first_year_wf[first_year_wf["generation"] == wf_max_gen]["sqm_per_person"]
-        first_min = first_year_wf[first_year_wf["generation"] == wf_min_gen]["sqm_per_person"]
-        gap_persisted = not first_max.empty and not first_min.empty
+    # Per-generation m²/person for the explanatory narrative (fallback to typical 2024 values)
+    def _wf_lookup(gen: str, fallback: float) -> float:
+        row = year_wf[year_wf["generation"] == gen]
+        return float(row["sqm_per_person"].iloc[0]) if not row.empty else fallback
 
-    _max_color = GENERATION_COLORS.get(wf_max_gen, "#1d7874")
-    _min_color = GENERATION_COLORS.get(wf_min_gen, "#f25c54")
-    _persisted_note = (
-        f"a gap that has persisted across all {len(all_years)} years without narrowing"
-        if gap_persisted else f"a gap measured in {year_wf_sel}"
-    )
+    _silent_m2 = _wf_lookup("Silent Generation",   65.8)
+    _boomer_m2 = _wf_lookup("Babyboomers",         56.8)
+    _genx_m2   = _wf_lookup("Generation X",        47.0)
+    _milli_m2  = _wf_lookup("Millennials / Gen Y", 34.8)
+    _genz_m2   = _wf_lookup("Generation Z",        32.6)
+
     st.markdown(
         f"""
         <p style="font-size:1.05rem;line-height:1.8;color:#333333;margin-bottom:1.4rem;">
-        In Switzerland, the average living space per person differs sharply by generation.
-        The <span style="color:{_max_color};font-weight:700;">{wf_max_gen}</span> enjoys
-        <span style="color:{_max_color};font-weight:700;">{wf_max_val:.1f}&nbsp;m²</span> per person,
-        while <span style="color:{_min_color};font-weight:700;">{wf_min_gen}</span> has just
-        <span style="color:{_min_color};font-weight:700;">{wf_min_val:.1f}&nbsp;m²</span>&nbsp;—
-        a difference of <span style="font-weight:700;color:#111111;">+{wf_gap:.0f}&nbsp;m²</span>,
-        {_persisted_note}.
+        Space, like ownership, is not distributed equally across generations in Switzerland. The
+        same structural forces that push younger generations into renting also compress the amount
+        of living space they can afford. The
+        <span style="color:{_sc};font-weight:700;">Silent Generation</span> enjoys an average of
+        <span style="color:{_sc};font-weight:700;">{_silent_m2:.1f}&nbsp;m²</span> per person,
+        while <span style="color:{_gzc};font-weight:700;">Generation Z</span> has just
+        <span style="color:{_gzc};font-weight:700;">{_genz_m2:.1f}&nbsp;m²</span>&nbsp;— barely
+        half. And unlike many inequalities, this gap has not narrowed at all over the past six years.
         </p>
         """,
         unsafe_allow_html=True,
@@ -620,19 +700,56 @@ def render_who_owns_section(
         f"color:#aaaaaa;margin:0.8rem 0 0.5rem;'>What the {year_range} trend tells us</div>",
         unsafe_allow_html=True,
     )
-    sorted_wf = year_wf.sort_values("sqm_per_person", ascending=False)
-    gen_trend_summary = (
-        " No generation overtook another. " + wf_max_gen + " and " +
-        (sorted_wf.iloc[1]["generation"] if len(sorted_wf) > 1 else "") +
-        " maintained their lead, while " + wf_min_gen +
-        (" and " + sorted_wf.iloc[-2]["generation"] if len(sorted_wf) > 2 else "") +
-        " stayed at the bottom — with both groups seeing only marginal changes in absolute m²."
-    )
     st.markdown(
         f"""
         <div class="narrative-text">
-        Over {len(all_years)} years, the ranking between generations remained <strong>completely stable</strong>.{gen_trend_summary}
-        The gap of <strong>+{wf_gap:.0f} m²</strong> shown in the chart was already present in {min(all_years)} and has not narrowed since.
+        <p style="margin:0 0 0.9rem;">
+        The ranking has held completely stable across all {len(all_years)} years — no generation
+        overtook another, and the gap between top and bottom remained fixed at roughly
+        <strong>+{wf_gap:.0f}&nbsp;m²</strong>. But the chart contains two patterns that deserve
+        explanation.
+        </p>
+        <p style="margin:0 0 0.9rem;">
+        Why does the <span style="color:{_sc};font-weight:700;">Silent Generation</span>
+        (<span style="color:{_sc};font-weight:700;">{_silent_m2:.1f}&nbsp;m²</span>) rank above
+        <span style="color:{_bc};font-weight:700;">Babyboomers</span>
+        (<span style="color:{_bc};font-weight:700;">{_boomer_m2:.1f}&nbsp;m²</span>), despite being
+        older? Many people aged 79+ continue living in the same owner-occupied home they bought
+        decades ago — a home that may have housed a full family, but now shelters one or two
+        people. As children leave and floor space stays constant, m² per person rises. This is the
+        "empty nest" effect at its most visible. There is also a methodological dimension: those
+        who move into care homes or assisted living are excluded from the Structural Survey
+        entirely, leaving only those still in large private dwellings — which systematically skews
+        the <span style="color:{_sc};font-weight:700;">Silent Generation's</span> average upward.
+        </p>
+        <p style="margin:0 0 0.9rem;">
+        Why does <span style="color:{_gzc};font-weight:700;">Generation Z</span>
+        (<span style="color:{_gzc};font-weight:700;">{_genz_m2:.1f}&nbsp;m²</span>) rank below
+        <span style="color:{_mc};font-weight:700;">Millennials</span>
+        (<span style="color:{_mc};font-weight:700;">{_milli_m2:.1f}&nbsp;m²</span>), despite often
+        living in parental homes? Large parental homes are shared among more people — two parents
+        plus one or more adult children. The m² per person figure therefore shrinks even in
+        spacious owner-occupied properties. This mirrors the ownership distortion seen in the
+        previous chart: <span style="color:{_gzc};font-weight:700;">Gen Z's</span> housing
+        situation looks better than it is in ownership terms, and worse than it is in space
+        terms — both as artefacts of the same household-level measurement.
+        </p>
+        <p style="margin:0 0 0.9rem;">
+        The connection to the ownership section is direct: renters — disproportionately
+        <span style="color:{_mc};font-weight:700;">Millennials</span> and
+        <span style="color:{_gzc};font-weight:700;">Gen Z</span> — occupy smaller dwellings by
+        necessity, not choice. Rental apartments in Swiss cities average significantly less floor
+        space than owner-occupied homes, and competition for larger units is intense. As long as
+        the ownership gap persists, so will the space gap.
+        </p>
+        <p style="margin:0;font-size:0.9rem;color:#777777;font-style:italic;
+        border-left:3px solid #d9e3e0;padding:0.4rem 0.8rem;">
+        Note: These figures reflect household-level averages from the FSO Structural Survey, which
+        covers only persons in private households aged 15+. Persons in collective households
+        (e.g. care homes) are excluded — results for the
+        <span style="font-style:normal;color:{_sc};font-weight:700;">Silent Generation</span> in
+        particular should be interpreted with this in mind.
+        </p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -645,55 +762,126 @@ def render_who_owns_section(
 
     st.markdown(
         "<h2 style='font-size:1.7rem;font-weight:800;color:#111111;margin:0 0 1rem;'>"
-        "Korrelation: Eigentümerquote vs. Wohnfläche</h2>",
+        "Correlation: Ownership Rate vs. Living Space</h2>",
         unsafe_allow_html=True,
     )
 
     year_scatter = int(st.session_state.get("whoowns_year_scatter", str(_avail_years[-1])))
 
+    # Pre-load scatter data once + compute live Pearson r for the narrative text
+    scatter_occ, _ = build_occupancy_stacked_data(bewohnertyp_df, year_scatter, GENERATION_ORDER)
+    scatter_wf = build_wohnflaeche_data(wohnflaeche_df, GENERATION_ORDER)
+    _yr_wf  = scatter_wf[scatter_wf["year"] == year_scatter][["generation", "sqm_per_person"]]
+    _yr_occ = scatter_occ[scatter_occ["bewohnertyp"] == "Eigentümer"][["generation", "pct"]]
+    _scatter_merged = _yr_wf.merge(_yr_occ, on="generation")
+    if len(_scatter_merged) >= 2:
+        _r_val = float(np.corrcoef(
+            _scatter_merged["pct"].values, _scatter_merged["sqm_per_person"].values
+        )[0, 1])
+    else:
+        _r_val = 0.82
+    _r2_val = _r_val ** 2
+    _r2_pct = round(_r2_val * 100)
+
     st.markdown(
         f"""
-        <div padding:1.2rem 1.4rem;margin-bottom:1rem;">
-        <strong>Why does space correlate with ownership?</strong> Living space and property ownership
-        are closely linked. Owners typically live in larger homes — houses and larger flats — while
-        renters occupy smaller apartments. The same generational divide seen in the ownership chart
-        (<span style="color:{GENERATION_COLORS.get(max_gen, '#1d7874')};font-weight:700;">{max_pct}%</span> vs. <span style="color:{GENERATION_COLORS.get(min_gen, '#f25c54')};font-weight:700;">{min_pct}%</span>) is mirrored here: those who own more tend to live in more.
-        Living space is not just comfort — it is a proxy for wealth accumulation and housing security.
-        </div>
+        <p style="font-size:1.05rem;line-height:1.8;color:#333333;margin-bottom:1.4rem;">
+        This chart brings together the two patterns explored above: ownership rate and living space
+        per person, plotted for each generation. The correlation is striking —
+        <strong>r&nbsp;=&nbsp;{_r_val:.2f} (r²&nbsp;=&nbsp;{_r2_val:.2f})</strong> — meaning that
+        roughly <strong>{_r2_pct}%</strong> of the variation in living space across generations can
+        be statistically explained by differences in ownership rate alone
+        (r² = coefficient of determination).
+        <span style="color:{_bc};font-weight:700;">Generations that own more, live in more space.</span>
+        This is not coincidental: owner-occupied homes in Switzerland are on average significantly
+        larger than rental apartments, and access to ownership is itself shaped by income, wealth,
+        and the era in which a generation entered the housing market.
+        </p>
         """,
         unsafe_allow_html=True,
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    scatter_occ, _ = build_occupancy_stacked_data(bewohnertyp_df, year_scatter, GENERATION_ORDER)
-    scatter_wf = build_wohnflaeche_data(wohnflaeche_df, GENERATION_ORDER)
     st.plotly_chart(
         create_space_ownership_scatter(scatter_wf, scatter_occ, year_scatter, GENERATION_ORDER),
         use_container_width=True,
     )
     _year_radio("Filter by Year", "whoowns_year_scatter")
 
-
-
-    # ── Closing paragraph ─────────────────────────────────────────────────────
+    # ── Closing block: Conclusion (styled like the trend-text boxes) ─────────
+    st.markdown(
+        "<div style='font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;"
+        "color:#aaaaaa;margin:0.8rem 0 0.5rem;'>Conclusion: A self-reinforcing divide</div>",
+        unsafe_allow_html=True,
+    )
     st.markdown(
         f"""
-        <div style="background:#f4f8f6;border:1px solid #c8ddd6;
-        border-radius:8px;padding:1.3rem 1.5rem;margin-top:1rem;">
-        <h5> Conclusion: A reinforcing gap in space and ownership</h6>
-        <p style="font-size:1.08rem;line-height:1.75;color:#222222;margin:0 0 0.9rem;">
-        The living space gap reinforces the ownership gap. Together, they suggest that younger generations
-        in Switzerland are not only less likely to own property — they also live in significantly more
-        constrained conditions. As housing prices continue to rise, the prospect of younger cohorts
-        closing this gap through future ownership becomes increasingly uncertain. This connects directly
-        to the "Who pays?" dimension: smaller rented spaces often come at a disproportionately high
-        cost relative to income.
+        <div class="narrative-text">
+        <p style="margin:0 0 0.9rem;">
+        Taken together, the three charts in this section tell a coherent story. Older generations —
+        <span style="color:{_bc};font-weight:700;">Babyboomers</span> and the
+        <span style="color:{_sc};font-weight:700;">Silent Generation</span> — entered the housing
+        market during an era of accessible prices and have since accumulated both property and
+        space. Younger generations —
+        <span style="color:{_mc};font-weight:700;">Millennials</span> and
+        <span style="color:{_gzc};font-weight:700;">Generation Z</span> — face structural barriers
+        that make ownership increasingly out of reach, and they live in correspondingly smaller,
+        more expensive conditions relative to their income.
         </p>
-        <span style="font-size:0.8rem;color:#999999;">
-        Source: Visualization based on FSO data from {year_scatter}
-        </span>
+        <p style="margin:0 0 0.9rem;">
+        <span style="color:{_gzc};font-weight:700;">Gen&nbsp;Z's</span> ownership rate appears
+        relatively high (<span style="color:{_gzc};font-weight:700;">{_genz_pct}%</span>) because
+        many still live in owner-occupied parental homes — but with more people sharing the same
+        space, their m² per person remains the lowest after
+        <span style="color:{_mc};font-weight:700;">Millennials</span>. This is the same
+        household-level measurement artefact visible across all three charts in this section.
+        </p>
+        <p style="margin:0 0 0.9rem;">
+        The correlation between ownership and living space
+        (<strong>r&nbsp;=&nbsp;{_r_val:.2f}</strong>) shows these are not independent inequalities —
+        they reinforce each other. Those who own accumulate wealth through rising property values;
+        those who rent pay a growing share of their income for less space and build no equity. The
+        gap is not narrowing. And as Swiss housing prices continue to rise faster than wages, the
+        prospect of younger cohorts closing it through future ownership becomes increasingly
+        uncertain.
+        </p>
+        <p style="margin:0;font-size:0.9rem;color:#777777;font-style:italic;
+        border-left:3px solid #d9e3e0;padding:0.4rem 0.8rem;">
+        Note: All figures are based on FSO Structural Survey data (2019–2024), which covers
+        persons aged 15+ in private households only. Persons in collective households — including
+        care homes — are excluded. Ownership figures reflect household-level tenure status, not
+        individual ownership.
+        </p>
         </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # ── Data & Methodological Limitations (collapsible) ──────────────────────
+    st.markdown(
+        """
+        <style>
+            details.limitations > summary { list-style: none; cursor: pointer; }
+            details.limitations > summary::-webkit-details-marker { display: none; }
+            details.limitations > summary::marker { display: none; }
+        </style>
+        <details class="limitations" style="border-bottom:1px solid #eeeeee;margin-bottom:1.6rem;
+        padding-top:0.9rem;">
+            <summary style="font-size:0.85rem;font-weight:600;color:#666666;
+            letter-spacing:0.02em;outline:none;">
+                Data Limitations ▾
+            </summary>
+            <div style="font-size:0.78rem;line-height:1.6;color:#888888;
+            margin-top:0.7rem;">
+                The structural survey covers persons aged 15 and older living in private households
+                within the permanent resident population. Not included are persons living in
+                collective households, diplomats, international officials, and their dependants.
+                The resident type refers to the household occupying the dwelling. "Other situation"
+                includes dwellings provided free of charge by a relative or employer
+                (e.g. caretaker apartments) and tenants of agricultural land.             
+            </div>
+        </details>
         """,
         unsafe_allow_html=True,
     )

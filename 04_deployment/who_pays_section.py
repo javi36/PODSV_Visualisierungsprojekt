@@ -634,8 +634,8 @@ def render_who_pays_section() -> None:
     )
     st.markdown(
         """<div style="font-size:0.8rem; color:#888888; margin-top:0.3rem;">
-        Source: Eling (2013), "Der Generationenvertrag in Gefahr",
-        Universität St. Gallen, I.VW-HSG; based on BFS population projections (2012).
+        Source details → <a href="?page=references" style="color:#888888;
+        text-decoration:underline;">References</a>
         </div>""",
         unsafe_allow_html=True,
     )
