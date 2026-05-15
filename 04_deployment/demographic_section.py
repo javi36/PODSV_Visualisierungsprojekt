@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-from app_config import GENERATION_COLORS, GENERATION_ORDER, GENERATION_YEAR_LABELS, find_column, generation_from_birth_year
+from app_config import GENERATION_COLORS, GENERATION_ORDER, GENERATION_YEAR_LABELS, find_column, format_ch_number, generation_from_birth_year
 
 
 def build_generation_pie_data(df: pd.DataFrame) -> pd.DataFrame:
@@ -186,7 +186,7 @@ def create_generation_pyramid(df: pd.DataFrame, selected_year: int):
     return fig
 
 
-def create_generation_area_chart(df: pd.DataFrame, from_year: int, to_year: int, relative: bool):
+def create_generation_area_chart(df: pd.DataFrame, from_year: int, to_year: int):
     """Stacked area chart: x = year, areas = generations, colored by GENERATION_COLORS."""
     gen_year = (
         df.groupby(["year", "generation"], observed=True)["population"]
@@ -195,18 +195,19 @@ def create_generation_area_chart(df: pd.DataFrame, from_year: int, to_year: int,
     )
     gen_year = gen_year[(gen_year["year"] >= from_year) & (gen_year["year"] <= to_year)].copy()
 
-    if relative:
-        total_per_year = gen_year.groupby("year")["population"].transform("sum")
-        gen_year["value"] = gen_year["population"] / total_per_year * 100
-    else:
-        gen_year["value"] = gen_year["population"]
+    total_per_year = gen_year.groupby("year")["population"].transform("sum")
+    gen_year["value"] = gen_year["population"]
+    gen_year["share"] = gen_year["population"] / total_per_year * 100
 
     fig = go.Figure()
     for gen in GENERATION_ORDER:
         sub = gen_year[gen_year["generation"] == gen].sort_values("year")
         color = GENERATION_COLORS.get(gen, "#888888")
         lgen = GENERATION_YEAR_LABELS.get(gen, gen)
-        hover = f"<b>{lgen}</b><br>Year: %{{x}}<br>{'Share: %{y:.1f}%' if relative else 'Population: %{y:,.0f}'}<extra></extra>"
+        custom = list(zip(
+            [format_ch_number(v) for v in sub["population"]],
+            sub["share"].round(0).astype(int),
+        ))
         fig.add_trace(go.Scatter(
             name=lgen,
             x=sub["year"],
@@ -215,12 +216,13 @@ def create_generation_area_chart(df: pd.DataFrame, from_year: int, to_year: int,
             stackgroup="one",
             line=dict(width=0.5, color=color),
             fillcolor=color,
-            hovertemplate=hover,
+            customdata=custom,
+            hovertemplate="%{customdata[0]}  |  %{customdata[1]}%<extra></extra>",
         ))
 
     fig.update_layout(
         height=400,
-        margin=dict(t=10, l=10, r=30, b=50),
+        margin=dict(t=10, l=10, r=30, b=110),
         plot_bgcolor="#ffffff",
         paper_bgcolor="#ffffff",
         xaxis=dict(
@@ -232,16 +234,15 @@ def create_generation_area_chart(df: pd.DataFrame, from_year: int, to_year: int,
         ),
         yaxis=dict(
             gridcolor="#f0f0f0",
-            ticksuffix="%" if relative else "",
-            tickformat=".0f" if relative else ",.0f",
+            tickformat=",.0f",
             tickfont=dict(size=13, color="#555555"),
         ),
         legend=dict(
-            orientation="v",
+            orientation="h",
             yanchor="top",
-            y=1,
-            xanchor="right",
-            x=1,
+            y=-0.25,
+            xanchor="center",
+            x=0.5,
             title_text="",
             font=dict(size=13),
             bgcolor="rgba(255,255,255,0.8)",

@@ -120,15 +120,6 @@ def main() -> None:
     st.markdown("<br><br>", unsafe_allow_html=True)
     st.markdown("<div class='pyramid-title'>Demographic Balance of Switzerland</div>", unsafe_allow_html=True)
 
-    # Toggle absolute/relative
-    view_mode = st.radio(
-        "View",
-        options=["Absolute", "Relative (%)"],
-        horizontal=True,
-        key="area_view_mode",
-        label_visibility="collapsed",
-    )
-
     try:
         demographic_df = load_demographic_data(DEMOGRAPHIC_DATA_PATH)
         pyramid_data = build_generation_pyramid_data(demographic_df)
@@ -137,7 +128,6 @@ def main() -> None:
         st.exception(exc)
         st.stop()
 
-    relative = st.session_state.get("area_view_mode", "Absolute") == "Relative (%)"
     area_from, area_to = DEMOGRAPHIC_YEARS[0], DEMOGRAPHIC_YEARS[-1]
 
     st.markdown(
@@ -146,7 +136,7 @@ def main() -> None:
     )
 
     st.plotly_chart(
-        create_generation_area_chart(pyramid_data, area_from, area_to, relative),
+        create_generation_area_chart(pyramid_data, area_from, area_to),
         use_container_width=True,
     )
 
