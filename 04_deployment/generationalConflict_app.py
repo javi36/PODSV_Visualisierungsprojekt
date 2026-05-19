@@ -82,16 +82,38 @@ def main() -> None:
         """,
         unsafe_allow_html=True,
     )
+    
+    st.markdown(
+        """
+        <div style='text-align:center; margin: 2rem 0 1.5rem;'>
+            <p style='font-size:1.1rem; font-style:italic; color:#333333;'>
+            «Im Bewusstsein der gemeinsamen Errungenschaften und der Verantwortung
+            gegenüber den künftigen Generationen»
+            </p>
+            <p style='font-size:0.85rem; font-style:italic; color:#aaaaaa; margin-top:0.2rem;'>
+            "Aware of our common achievements and of our responsibility
+            towards future generations."
+            </p>
+            <p style='font-size:0.8rem; color:#aaaaaa; margin-top:0.3rem;'>
+            — Präambel, Bundesverfassung der Schweizerischen Eidgenossenschaft (SR 101, 1999)
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     # ── Intro text ────────────────────────────────────────────────────────────
     st.markdown(
         """
         <div class="narrative-text">
-        Switzerland's population is divided into five distinct generations — each with different political weight,
-        financial power, and access to housing. While older generations accumulated wealth during decades of low
-        interest rates and affordable property, younger cohorts face record rents, rising costs of living, and
-        shrinking prospects of ownership. Three questions run through this story: Who decides the rules?
-        Who bears the costs? Who holds the assets?
+        The Preamble of the Swiss Federal Constitution is unusually honest about what a society owes its future. 
+        It commits the Swiss people to act in awareness of their responsibility towards future generations — not as an aspiration, 
+        but as a founding principle alongside freedom, democracy, and solidarity. 
+        Yet the same Preamble reminds us that the strength of a people is measured by the wellbeing of its weakest members. 
+        This dashboard asks a harder version of that question: is Switzerland honouring that commitment — or quietly shifting 
+        the burden onto those who had no voice when the rules were written? <b>Who decides the rules? Who bears the costs? Who holds the assets?</b><br><br>
+        To understand the conflict, you first need to know the players — five generations that share the same country but inherit very different 
+        versions of it, shaped by the decade they were born into, the economy they entered, and the social system they found waiting for them.
         </div>
         """,
         unsafe_allow_html=True,

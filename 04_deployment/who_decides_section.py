@@ -569,10 +569,12 @@ def render_who_decides_section() -> None:
         rejected raising the retirement age by a wide margin.
         Two votes, one message: more benefits for today's retirees, no extra burden for tomorrow's workers.
         </p>
-        <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:1.4rem;">
+        <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:0.8rem;">
         That outcome didn't happen by chance. It reflects who shows up.
         From voter turnout to ideological drift,
         the numbers tell a story of who really decides — and who gets left out.
+        <strong>Numbers alone don't decide outcomes. Votes do.
+        And not every generation uses them equally.</strong>
         </p>
         """,
         unsafe_allow_html=True,
@@ -672,7 +674,7 @@ def render_who_decides_section() -> None:
         "But crucially: satisfaction levels don't align with turnout. "
         "Generations that trust less don't necessarily vote less. "
         "The missing piece lies elsewhere — possibly in political efficacy: "
-        "the belief that one's vote actually changes anything (→ see Chart 4)."
+        "the belief that one's vote actually changes anything."
         "</div>",
         unsafe_allow_html=True,
     )

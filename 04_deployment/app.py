@@ -131,38 +131,38 @@ else:
 
     # 2. Who Decides
     st.markdown(
-        """
-        <div class="hero">
-            <h1>Who Decides</h1>
-            <p>Political power and voting influence across generations in Switzerland</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    """
+    <div class="hero">
+        <h1>Who Decides the Rules</h1>
+        <p>Political power and voting influence across generations in Switzerland</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
     )
     render_who_decides_section()
 
     # 3. Who Pays
     st.markdown(
-        """
-        <div class="hero">
-            <h1>Who Pays</h1>
-            <p>"Aware of our common achievements and our responsibility towards future generations."<br>
-            <span style="font-size:0.85rem; color:#888888;">— Preamble, Swiss Federal Constitution</span></p>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    """
+    <div class="hero">
+        <h1>Who Bears the Costs</h1>
+        <p>"Aware of our common achievements and our responsibility towards future generations."<br>
+        <span style="font-size:0.85rem; color:#888888;">— Preamble, Swiss Federal Constitution</span></p>
+    </div>
+    """,
+    unsafe_allow_html=True,
     )
     render_who_pays_section()
 
     # 4. Who Owns
     st.markdown(
-        """
-        <div class="hero">
-            <h1>Who Owns</h1>
-            <p>Homeownership rates and living space by generation in Switzerland</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    """
+    <div class="hero">
+        <h1>Who Holds the Assets</h1>
+        <p>Homeownership rates and living space by generation in Switzerland</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
     )
     try:
         bewohnertyp_df = load_bewohnertyp_data(BEWOHNERTYP_DATA_PATH)
