@@ -253,7 +253,7 @@ def _chart_ahv_ratio(
 
     fig.add_annotation(
         xref="paper", yref="paper",
-        x=1.02, y=0.98,
+        x=1.01, y=0.98,
         xanchor="left", yanchor="top",
         text=(
             f"<b>{fmt_half(ratio_start_rounded)}</b> workers<br>"
@@ -305,7 +305,7 @@ def _chart_ahv_ratio(
         ),
         showlegend=False,
     )
-    fig.update_layout(margin=dict(t=60, l=60, r=130, b=70))
+    fig.update_layout(margin=dict(t=60, l=60, r=220, b=70))
 
     return fig
 
@@ -509,9 +509,9 @@ def render_who_pays_section() -> None:
     st.markdown(
         """
         <div class='narrative-text'>
-        In March 2024, Switzerland voted to introduce a 13th AHV pension — approved by 58.2% of voters.
-        The message was unambiguous: retirement security matters. But the question the ballot left
-        unanswered is who actually pays for it. Switzerland's social contract rests on two pillars:
+        In March 2024, <strong>Switzerland voted to introduce a 13th AHV pension</strong> — approved by 58.2% of voters.
+        The message was unambiguous: retirement security matters. <strong>But the question the ballot left
+        unanswered is who actually pays for it.</strong> Switzerland's social contract rests on two pillars:
         the AHV (old-age insurance), funded by today's workers for today's retirees, and the OKP
         (mandatory health insurance), where every resident pays premiums regardless of age or income.
         Together, these two systems define the generational transfer of money — and they tell a striking
@@ -546,14 +546,14 @@ def render_who_pays_section() -> None:
     st.markdown(
         """<div class='narrative-text'>
         The ratio of active AHV contributors to retirees has been declining steadily
-        since 2012. As Baby Boomers retire and the workforce grows more slowly, fewer
+        since 2012. As Baby Boomers retire and the workforce grows more slowly, <strong>fewer
         workers are left to finance each pension — and the 13th AHV pension will further
-        intensify this pressure. What is even more concerning is that Parliament has yet
+        intensify this pressure.</strong> What is even more concerning is that Parliament has yet
         to agree on how to finance it. With the financial consequences representing a
         classic grey rhino scenario, raising VAT appears increasingly unavoidable, despite
-        the measure's unpopularity across the political spectrum. Switzerland is on track
+        the measure's unpopularity across the political spectrum. <strong>Switzerland is on track
         to reach a 2:1 ratio by 2030, meaning that only two workers would finance each
-        retiree.
+        retiree.</strong>
         </div>""",
         unsafe_allow_html=True,
     )
