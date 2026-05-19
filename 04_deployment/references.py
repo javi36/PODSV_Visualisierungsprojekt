@@ -196,6 +196,33 @@ REFERENCES: list[dict] = [
             "storytelling structure."
         ),
     },
+    {
+        "key": "LerchColombierBraendle2025",
+        "citation": (
+            "Lerch, B., Colombier, C., &amp; Brändle, T. (2025). "
+            "<em>Determinants of Healthcare Expenditure: Evidence from Switzerland between 1960–2022</em>. "
+            "Federal Finance Administration Working Paper No. 27. Berne: FFA."
+        ),
+        "note": (
+            "Time-series analysis identifying income growth (~50%), population ageing (~15%), "
+            "and Baumol's cost disease as the main drivers of healthcare expenditure growth in Switzerland — "
+            "used to contextualise rising OKP premium burdens in the Who Pays section."
+        ),
+    },
+    {
+        "key": "UBSSorgenbarometer2025",
+        "citation": (
+            "gfs.bern. (2025). "
+            "<em>UBS Sorgenbarometer 2025</em>. "
+            "Im Auftrag der UBS. Bern: gfs.bern. "
+            "Retrieved from https://www.gfsbern.ch/de/news/ubs-sorgenbarometer-2025/"
+        ),
+        "note": (
+            "Representative survey of 2,190 Swiss voters (July–August 2025) showing that healthcare costs "
+            "remain the top concern for 45% of the population — cited to contextualise the premium burden "
+            "across generations in the Who Pays section."
+        ),
+    },
     
 ]
 

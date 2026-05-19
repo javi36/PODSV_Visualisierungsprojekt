@@ -214,17 +214,17 @@ def _chart_ahv_ratio(
         hoverinfo="skip",
     ))
 
-    # 2. Main line with grey fill to baseline
+    # 2. Main line with teal fill to baseline
     fig.add_trace(go.Scatter(
         x=df["year"],
         y=df["ratio"],
         mode="lines+markers",
         fill="tonexty",
-        fillcolor="rgba(0,0,0,0.08)",
-        line=dict(color="black", width=2.5),
+        fillcolor="rgba(29,120,116,0.12)",
+        line=dict(color="#1d7874", width=2.5),
         marker=dict(
             color="white", size=7, symbol="circle",
-            line=dict(color="black", width=2),
+            line=dict(color="#1d7874", width=2),
         ),
         name="Contributors per retiree",
         hovertemplate="%{x}: %{y:.2f}<extra></extra>",
@@ -235,13 +235,13 @@ def _chart_ahv_ratio(
         x=df.iloc[0]["year"], y=df.iloc[0]["ratio"],
         text=f"<b>{df.iloc[0]['ratio']:.2f}</b>",
         showarrow=False, xshift=10, yshift=10,
-        font=dict(size=11, color="black"),
+        font=dict(size=11, color="#1d7874"),
     )
     fig.add_annotation(
         x=last_year, y=last_ratio,
         text=f"<b>{last_ratio:.2f}</b>",
         showarrow=False, xshift=-10, yshift=10,
-        font=dict(size=11, color="black"),
+        font=dict(size=11, color="#1d7874"),
     )
 
     # 4. Delta badge — rechts AUSSERHALB des Charts (paper coordinates)
@@ -264,27 +264,19 @@ def _chart_ahv_ratio(
             f"funded 1 retiree<br>"
             f"in {last_year}<br>"
             f"<br>"
-            f"<span style='color:#f25c54'>▼ {abs(delta_pct):.1f}%<br>"
-            f"fewer shoulders</span>"
+            f"<span style='color:#1d7874'>▼ {abs(delta_pct):.1f}%<br>"
+            f"fewer shoulders to carry<br>"
+            f"the financial burden of retirement</span>"
         ),
         showarrow=False,
         font=dict(size=12, color="#444444"),
         bgcolor="rgba(255,255,255,0.9)",
-        bordercolor="#f25c54",
+        bordercolor="#1d7874",
         borderwidth=1.5,
         borderpad=8,
     )
 
-    # 5. Projection label
-    fig.add_annotation(
-        x=last_year + 6, y=last_ratio * 0.94,
-        text="<i>→ 2:1 projected<br>by ~2030</i>",
-        showarrow=False, xshift=5, yshift=-10,
-        xanchor="left",
-        font=dict(size=10, color="#aaaaaa"),
-    )
-
-    # 6. Source caption
+    # 5. Source caption
     fig.add_annotation(
         x=0, y=0,
         xref="paper", yref="paper",
@@ -304,7 +296,7 @@ def _chart_ahv_ratio(
             tickfont=dict(size=11),
         ),
         xaxis=dict(
-            range=[int(df.iloc[0]["year"]) - 0.5, last_year + 0.5],  # Grid endet bei 2024
+            range=[int(df.iloc[0]["year"]) - 0.5, last_year + 0.5],
             tickvals=[int(j) for j in jahre],
             ticktext=[str(int(j)) for j in jahre],
             showgrid=False,
@@ -313,13 +305,13 @@ def _chart_ahv_ratio(
         ),
         showlegend=False,
     )
-    # Rechter Margin grösser für das Badge ausserhalb des Charts
     fig.update_layout(margin=dict(t=60, l=60, r=130, b=70))
 
     return fig
 
 
-# ─── BAUSTEIN 3a: OKP Area Chart ─────────────────────────────────────────────
+
+# ─── BAUSTEIN 3: OKP Area Chart ─────────────────────────────────────────────
 
 def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
     data: dict[str, dict] = {}
@@ -435,138 +427,6 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
 
     return fig
 
-
-# ─── BAUSTEIN 3b: OKP Bar Chart ──────────────────────────────────────────────
-
-def _chart_okp_bar(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
-    n = len(okp_jahre)
-    sel_idx   = [0, n // 3, 2 * n // 3, -1]
-    sel_jahre = [okp_jahre[i] for i in sel_idx]
-
-    n_gens = len(GENS_ORDERED)
-    fig = make_subplots(
-        rows=1, cols=n_gens,
-        shared_yaxes=True,
-        subplot_titles=[_GEN_SHORT[g] for g in GENS_ORDERED],
-        horizontal_spacing=0.02,
-        specs=[[{"secondary_y": True}] * n_gens],
-    )
-
-    first = True
-    for col_i, gen in enumerate(GENS_ORDERED, start=1):
-        color = GEN_COLORS[gen]
-        netto_vals, brutto_vals = [], []
-        for jahr in sel_jahre:
-            prem = get_okp_val(okp, "okp_premium", "per_capita_chf", gen, jahr)
-            pv   = get_pv_per_versicherter(okp, gen, jahr)
-            brut = get_okp_val(okp, "okp_bruttoleistungen", "per_capita_chf", gen, jahr)
-            netto_vals.append(max(prem - pv, 0))
-            brutto_vals.append(brut)
-
-        x_labels = [str(int(j)) for j in sel_jahre]
-
-        fig.add_trace(go.Bar(
-            x=x_labels, y=netto_vals,
-            name="Net premium",
-            legendgroup="premium",
-            showlegend=first,
-            marker_color=color,
-            opacity=1.0,
-            text=[f"{v:.0f}" for v in netto_vals],
-            textposition="outside",
-            textfont=dict(size=8),
-            hovertemplate="%{x}: CHF %{y:.0f}/mt<extra>Net premium</extra>",
-        ), row=1, col=col_i, secondary_y=False)
-
-        fig.add_trace(go.Bar(
-            x=x_labels, y=brutto_vals,
-            name="Benefits received",
-            legendgroup="benefits",
-            showlegend=first,
-            marker_color=_hex_to_rgba(color, 0.5),
-            opacity=1.0,
-            text=[f"{v:.0f}" for v in brutto_vals],
-            textposition="outside",
-            textfont=dict(size=8),
-            hovertemplate="%{x}: CHF %{y:.0f}/mt<extra>Benefits</extra>",
-        ), row=1, col=col_i, secondary_y=False)
-
-        # Net balance trend line on secondary y-axis
-        net_balance = [b - nv for b, nv in zip(brutto_vals, netto_vals)]
-        last_nb = net_balance[-1]
-        sign_str = "+" if last_nb >= 0 else "−"
-
-        pos_nb = [v if v >= 0 else None for v in net_balance]
-        neg_nb = [v if v < 0 else None for v in net_balance]
-
-        pos_text = [None] * len(sel_jahre)
-        neg_text = [None] * len(sel_jahre)
-        if last_nb >= 0:
-            pos_text[-1] = f"{sign_str}{abs(last_nb):.0f}"
-        else:
-            neg_text[-1] = f"{sign_str}{abs(last_nb):.0f}"
-
-        if any(v is not None for v in pos_nb):
-            fig.add_trace(go.Scatter(
-                x=x_labels, y=pos_nb,
-                mode="lines+markers+text",
-                line=dict(color="#1d7874", width=2),
-                marker=dict(color="#1d7874", size=6),
-                text=pos_text,
-                textposition="top right",
-                textfont=dict(size=9, color="#1d7874"),
-                name="Net balance (+)",
-                legendgroup="net_balance",
-                showlegend=first,
-                hovertemplate="%{x}: CHF %{y:+.0f}/mt<extra>Net balance</extra>",
-            ), row=1, col=col_i, secondary_y=True)
-
-        if any(v is not None for v in neg_nb):
-            fig.add_trace(go.Scatter(
-                x=x_labels, y=neg_nb,
-                mode="lines+markers+text",
-                line=dict(color="#f25c54", width=2),
-                marker=dict(color="#f25c54", size=6),
-                text=neg_text,
-                textposition="top right",
-                textfont=dict(size=9, color="#f25c54"),
-                name="Net balance (−)",
-                legendgroup="net_balance_neg",
-                showlegend=first,
-                hovertemplate="%{x}: CHF %{y:+.0f}/mt<extra>Net balance</extra>",
-            ), row=1, col=col_i, secondary_y=True)
-
-        first = False
-
-    _apply_base_layout(
-        fig, height=380,
-        barmode="group",
-        legend=dict(
-            orientation="h",
-            yanchor="bottom", y=-0.3,
-            xanchor="center", x=0.5,
-            font=dict(size=11),
-        ),
-    )
-    fig.update_xaxes(tickfont=dict(size=10))
-    for col_i in range(2, n_gens + 1):
-        fig.update_yaxes(showticklabels=False, row=1, col=col_i, secondary_y=False)
-    for col_i in range(1, n_gens + 1):
-        fig.update_yaxes(
-            zeroline=True, zerolinecolor="#111111", zerolinewidth=2,
-            showgrid=False,
-            secondary_y=True,
-            row=1, col=col_i,
-        )
-    fig.update_yaxes(
-        title_text="Net balance (CHF/month)",
-        secondary_y=True,
-        row=1, col=n_gens,
-    )
-
-    return fig
-
-
 # ─── BAUSTEIN 4: Cashflow OKP + AHV ─────────────────────────────────────────
 
 def _chart_cashflow(
@@ -677,7 +537,7 @@ def render_who_pays_section() -> None:
 
     # ── BAUSTEIN 2: AHV Dependency Ratio ──────────────────────────────────────
     st.markdown("---")
-    st.markdown("### The Shrinking Support Base: AHV Contributors per Retiree")
+    st.markdown("### Carrying the Weight: AHV Contributors per Retiree")
 
     st.plotly_chart(
         _chart_ahv_ratio(ahv_ein, ahv_aus, jahre),
@@ -705,9 +565,9 @@ def render_who_pays_section() -> None:
         unsafe_allow_html=True,
     )
 
-    # ── BAUSTEIN 3a: OKP Area Chart ───────────────────────────────────────────
+    # ── BAUSTEIN 3: OKP Area Chart ───────────────────────────────────────────
     st.markdown("---")
-    st.markdown("### OKP: What Each Generation Pays vs. Receives (Area Chart)")
+    st.markdown("### The Same Premium, A Very Different Deal")
     st.markdown(
         "<div class='pyramid-subtitle'>"
         "Monthly average per person, CHF. "
@@ -723,19 +583,30 @@ def render_who_pays_section() -> None:
         use_container_width=True,
     )
 
-    # ── BAUSTEIN 3b: OKP Bar Chart ────────────────────────────────────────────
-    st.markdown("### OKP: What Each Generation Pays vs. Receives (Bar Chart)")
     st.markdown(
-        "<div class='pyramid-subtitle'>"
-        "Monthly average per person, CHF. "
-        "Net premium = gross premium minus subsidy (Prämienverbilligung)."
-        "</div>",
-        unsafe_allow_html=True,
-    )
+        """
+        <div class='narrative-text'>
+        The OKP — Switzerland's mandatory health insurance — appears neutral on paper: 
+        every resident pays the same community-rated premium regardless of age or income. 
+        <strong>But the data reveals a striking imbalance.</strong>
+        For older generations, benefits received far exceed premiums paid, with <strong>Silent Generation 
+        members receiving over CHF 1,000 more per month than they contribute.</strong> For younger generations, 
+        the reverse holds: <strong>Gen Z and Millennials consistently pay more than they receive</strong>, effectively 
+        cross-subsidising a system weighted toward older cohorts. This structural gap is widening. 
 
-    st.plotly_chart(
-        _chart_okp_bar(okp, okp_jahre),
-        use_container_width=True,
+        A 2025 study by the Federal Finance Administration found that <strong>healthcare expenditure per capita 
+        has more than quintupled in real terms since 1960</strong> — driven primarily by income growth and rising 
+        demand for services (~50% of the increase), population ageing (~15%), and Baumol's cost disease, 
+        the structural tendency for labour-intensive sectors like healthcare to face rising costs without 
+        equivalent productivity gains. As the Baby Boomer generation enters retirement, the Federal Statistical 
+        Office projects <strong>the ageing effect will intensify significantly through the 2030s.</strong> 
+        It is no coincidence that healthcare costs remain the single largest concern for the Swiss population: 
+        the UBS Worry Barometer 2025 found <strong>that 45% of Swiss voters named rising premiums as their top problem</strong> 
+        — a figure that has held persistently high for years, and one that falls disproportionately on younger, 
+        healthier policyholders who contribute the most while drawing the least.
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
     # ── BAUSTEIN 4: Total Cashflow OKP + AHV ──────────────────────────────────
