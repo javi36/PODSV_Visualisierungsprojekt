@@ -429,12 +429,17 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
 
 # ─── BAUSTEIN 4: Cashflow OKP + AHV ─────────────────────────────────────────
 
-def _chart_cashflow(
+def _chart_cashflow_pct(
     okp: pd.DataFrame, ahv_ein: pd.DataFrame, ahv_aus: pd.DataFrame, jahre: list
 ) -> go.Figure:
-    all_data: dict[str, list] = {}
+
+    # ── Daten berechnen ───────────────────────────────────────────────────────
+    all_pct:  dict[str, list] = {}
+    all_netto: dict[str, list] = {}
+    all_lohn:  dict[str, list] = {}
+
     for gen in GENS_ORDERED:
-        netto_list = []
+        pct_list, netto_list, lohn_list = [], [], []
         for jahr in jahre:
             prem  = get_okp_val(okp, "okp_premium", "per_capita_chf", gen, jahr)
             pv    = get_pv_per_versicherter(okp, gen, jahr)
@@ -442,61 +447,137 @@ def _chart_cashflow(
             leist = get_okp_val(okp, "okp_bruttoleistungen", "per_capita_chf", gen, jahr)
             ahv_b = get_ahv_beitrag(ahv_ein, gen, jahr)
             ahv_r = get_ahv_rente(ahv_aus, gen, jahr)
+            lohn  = get_bruttolohn(ahv_ein, gen, jahr)
 
             einzahlung = max(prem - pv, 0) + kost + ahv_b
             bezug      = leist + ahv_r
-            netto_list.append(bezug - einzahlung)
-        all_data[gen] = netto_list
+            netto      = bezug - einzahlung
 
+            pct = (netto / lohn * 100) if lohn > 0 else 0
+            pct_list.append(pct)
+            netto_list.append(netto)
+            lohn_list.append(lohn)
+
+        all_pct[gen]   = pct_list
+        all_netto[gen] = netto_list
+        all_lohn[gen]  = lohn_list
+
+    # ── Arbeitstage berechnen (letztes Jahr, nur Nettozahler) ─────────────────
+    WORK_DAYS_PER_YEAR = 220
+    working_days: dict[str, float] = {}
+    for gen in GENS_ORDERED:
+        last_pct = all_pct[gen][-1]
+        if last_pct < 0:
+            working_days[gen] = round(abs(last_pct) / 100 * WORK_DAYS_PER_YEAR)
+
+    # ── Chart aufbauen ────────────────────────────────────────────────────────
     n_gens = len(GENS_ORDERED)
     fig = make_subplots(
         rows=1, cols=n_gens,
         shared_yaxes=False,
         subplot_titles=[_GEN_SHORT[g] for g in GENS_ORDERED],
-        horizontal_spacing=0.04,
+        horizontal_spacing=0.03,
     )
 
+    jahre_int = [int(j) for j in jahre]
+
     for col_i, gen in enumerate(GENS_ORDERED, start=1):
-        color      = GEN_COLORS[gen]
-        netto_vals = all_data[gen]
+        color     = GEN_COLORS[gen]
+        pct_vals  = all_pct[gen]
+        netto_vals = all_netto[gen]
+        lohn_vals  = all_lohn[gen]
+        is_receiver = all_pct[gen][-1] >= 0
 
-        bar_colors = [
-            color if v >= 0 else _hex_to_rgba(color, 0.4)
-            for v in netto_vals
-        ]
+        fill_color = _hex_to_rgba(color, 0.15)
 
-        fig.add_trace(go.Bar(
-            x=[int(j) for j in jahre],
-            y=netto_vals,
-            marker_color=bar_colors,
-            name=gen,
+        # 1. Invisible baseline for fill
+        fig.add_trace(go.Scatter(
+            x=jahre_int,
+            y=[0] * len(jahre_int),
+            mode="lines",
+            line=dict(color="rgba(0,0,0,0)", width=0),
             showlegend=False,
-            hovertemplate="%{x}: CHF %{y:+.0f}/mt<extra>" + gen + "</extra>",
+            hoverinfo="skip",
         ), row=1, col=col_i)
 
-        # Prominent zero line
-        fig.add_hline(y=0, line_color="#111111", line_width=1.5, row=1, col=col_i)
+        # 2. Main line with fill to zero
+        fig.add_trace(go.Scatter(
+            x=jahre_int,
+            y=pct_vals,
+            mode="lines+markers",
+            fill="tonexty",
+            fillcolor=fill_color,
+            line=dict(color=color, width=2.5),
+            marker=dict(
+                color="white", size=5, symbol="circle",
+                line=dict(color=color, width=1.8),
+            ),
+            name=gen,
+            showlegend=False,
+            customdata=list(zip(
+                [round(v) for v in netto_vals],
+                [round(v) for v in lohn_vals],
+            )),
+            hovertemplate=(
+                "<b>%{x}</b><br>"
+                "%{y:.1f}% of gross salary<br>"
+                "CHF %{customdata[0]:+.0f}/mt net<br>"
+                "Gross salary: CHF %{customdata[1]:,.0f}/mt"
+                "<extra>" + _GEN_SHORT[gen] + "</extra>"
+            ),
+        ), row=1, col=col_i)
 
-        # Annotate 2024 value + label
-        last_val  = netto_vals[-1]
-        sign      = "+" if last_val >= 0 else "−"
-        ann_color = "#1d7874" if last_val >= 0 else "#f25c54"
-        role      = "Net receiver" if last_val >= 0 else "Net contributor"
-        fig.add_annotation(
-            x=int(jahre[-1]),
-            y=last_val,
-            text=f"<b>{sign}{abs(last_val):.0f}</b><br><i style='font-size:8px'>{role}</i>",
-            showarrow=False,
-            yshift=14 if last_val >= 0 else -14,
-            yanchor="bottom" if last_val >= 0 else "top",
-            font=dict(size=10, color=ann_color),
+        # 3. Zero reference line
+        fig.add_hline(
+            y=0,
+            line_color="#111111", line_width=1.2,
             row=1, col=col_i,
         )
 
-    _apply_base_layout(fig, height=400, showlegend=False)
-    fig.update_xaxes(tickangle=45, tickfont=dict(size=9))
+        # 4. Annotation 2012 (erster Wert)
+        fig.add_annotation(
+            x=jahre_int[0], y=pct_vals[0],
+            text=f"<b>{pct_vals[0]:+.1f}%</b>",
+            showarrow=False,
+            xshift=-2,
+            yshift=10 if pct_vals[0] >= 0 else -10,
+            yanchor="bottom" if pct_vals[0] >= 0 else "top",
+            font=dict(size=9, color=color),
+            row=1, col=col_i,
+        )
 
-    return fig
+        # 5. Annotation 2024 (letzter Wert) + Rolle
+        last_pct  = pct_vals[-1]
+        role      = "Net receiver" if last_pct >= 0 else "Net contributor"
+        ann_color = "#1d7874" if last_pct >= 0 else "#f25c54"
+        fig.add_annotation(
+            x=jahre_int[-1], y=last_pct,
+            text=f"<b>{last_pct:+.1f}%</b><br><i style='font-size:8px'>{role}</i>",
+            showarrow=False,
+            xshift=2,
+            yshift=10 if last_pct >= 0 else -10,
+            yanchor="bottom" if last_pct >= 0 else "top",
+            font=dict(size=9, color=ann_color),
+            row=1, col=col_i,
+        )
+
+    _apply_base_layout(
+        fig, height=420,
+        hovermode="x unified",
+    )
+    fig.update_xaxes(
+        tickvals=[jahre_int[0], jahre_int[len(jahre_int)//2], jahre_int[-1]],
+        ticktext=[str(jahre_int[0]), str(jahre_int[len(jahre_int)//2]), str(jahre_int[-1])],
+        tickangle=0,
+        tickfont=dict(size=10),
+    )
+    fig.update_yaxes(ticksuffix="%", tickfont=dict(size=10))
+    for col_i in range(2, n_gens + 1):
+        fig.update_yaxes(showticklabels=False, row=1, col=col_i)
+
+    fig.update_layout(margin=dict(t=60, l=60, r=30, b=50))
+
+    return fig, working_days
 
 
 # ─── Main render function ─────────────────────────────────────────────────────
@@ -609,23 +690,48 @@ def render_who_pays_section() -> None:
         unsafe_allow_html=True,
     )
 
-    # ── BAUSTEIN 4: Total Cashflow OKP + AHV ──────────────────────────────────
+    # ── BAUSTEIN 4: Total Cashflow als % Bruttolohn ────────────────────────────
     st.markdown("---")
-    st.markdown("### Net Cashflow per Generation: OKP + AHV Combined")
+    st.markdown("### The Generational Bill: What the System Really Costs Each Generation")
     st.markdown(
         "<div class='pyramid-subtitle'>"
-        "Monthly average per person, CHF. "
-        "Positive = net receiver, Negative = net contributor. "
-        "Einzahlung = net OKP premium + cost-sharing + AHV contribution. "
-        "Bezug = OKP benefits + AHV pension (retiree generations only)."
+        "Net cashflow (OKP + AHV) as % of average gross salary per generation. "
+        "Positive = net receiver, Negative = net contributor."
         "</div>",
         unsafe_allow_html=True,
     )
 
-    st.plotly_chart(
-        _chart_cashflow(okp, ahv_ein, ahv_aus, jahre),
-        use_container_width=True,
-    )
+    fig_cf, working_days = _chart_cashflow_pct(okp, ahv_ein, ahv_aus, jahre)
+    st.plotly_chart(fig_cf, use_container_width=True)
+
+    # ── Working Days Text ──────────────────────────────────────────────────────
+    days_parts = []
+    for gen in GENS_ORDERED:
+        if gen in working_days:
+            color = GEN_COLORS[gen]
+            short = _GEN_SHORT[gen]
+            days  = working_days[gen]
+            days_parts.append(
+                f"<span style='color:{color};font-weight:700;'>{short}</span>: "
+                f"<span style='font-weight:700;'>{days} days</span>"
+            )
+
+    if days_parts:
+        st.markdown(
+            "<div class='narrative-text'>"
+            "In 2024, every net-contributing generation worked a portion of their year "
+            "purely to finance transfers to older cohorts — without receiving equivalent benefits."
+            "<br><br>"
+            "<div style='text-align:center; line-height:2.0;'>"
+            + "<br>".join(days_parts) +
+            "</div>"
+            "<br>"
+            "<span style='text-align:left; display:block;'>"
+            "— measured in working days per year funded for others."
+            "</span>"
+            "</div>",
+            unsafe_allow_html=True,
+        )
 
 
 if __name__ == "__main__":
