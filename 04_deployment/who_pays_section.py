@@ -754,10 +754,9 @@ def render_who_pays_section() -> None:
         today's retirees, trusting that future generations will do the same for them.
         But as the Federal Finance Administration has shown, population ageing alone
         accounts for roughly 15% of healthcare expenditure growth since 1960 — and its
-        impact is accelerating as the Baby Boomer generation enters retirement
-        (Lerch, Colombier &amp; Brändle, 2025). Combined with the shrinking contributor
-        base documented earlier in this section, the implicit promise of the
-        social contract is becoming harder to keep.
+        impact is accelerating as the Baby Boomer generation enters retirement. 
+        Combined with the shrinking contributor base documented earlier in this section, 
+        the implicit promise of the social contract is becoming harder to keep.
         <br><br>
         The working days figures below make this tangible: in 2024, a Gen Z employee
         effectively worked over three weeks of their year purely to finance transfers
