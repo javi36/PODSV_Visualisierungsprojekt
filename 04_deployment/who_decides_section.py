@@ -367,14 +367,14 @@ def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
 
 def _chart_trust(frames: dict, selected_gens: list[str]) -> go.Figure:
     COLORS = {
-    "2015": "rgba(180,195,200,0.85)",
-    "2019": "rgba(90,130,145,0.85)",
-    "2023": "rgba(15,76,92,0.85)",
+    "2015": "rgba(200,200,200,0.85)",
+    "2019": "rgba(120,120,120,0.85)",
+    "2023": "rgba(34,34,34,0.85)",
     }
     BORDER = {
-    "2015": "#b4c3c8",
-    "2019": "#5a8291",
-    "2023": "#0f4c5c",
+    "2015": "#cccccc",
+    "2019": "#777777",
+    "2023": "#222222",
     }
 
     gen_labels = [GENERATION_YEAR_LABELS.get(g, g) for g in reversed(selected_gens)]

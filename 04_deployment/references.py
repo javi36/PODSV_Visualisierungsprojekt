@@ -256,6 +256,20 @@ REFERENCES: list[dict] = [
             "across generations in the Who Pays section."
         ),
     },
+    {
+        "key": "AHVBSV2024",
+        "citation": (
+            "Bundesamt für Sozialversicherungen (BSV) / Bundesamt für Statistik (BFS). (2024). "
+            "<em>AHV-Statistik 2024</em>. "
+            "Bern: BSV. "
+            "Retrieved from https://www.bsv.admin.ch"
+        ),
+        "note": (
+            "Primary data source for the AHV dependency ratio chart — active contributors "
+            "with wage contributions versus old-age pension recipients, 2012–2024. "
+            "Used in the Who Bears the Costs section."
+        ),
+    },
 ]
 
 

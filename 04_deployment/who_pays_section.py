@@ -214,17 +214,17 @@ def _chart_ahv_ratio(
         hoverinfo="skip",
     ))
 
-    # 2. Main line with teal fill to baseline
+    # 2. Main line
     fig.add_trace(go.Scatter(
         x=df["year"],
         y=df["ratio"],
         mode="lines+markers",
         fill="tonexty",
-        fillcolor="rgba(29,120,116,0.12)",
-        line=dict(color="#1d7874", width=2.5),
+        fillcolor="rgba(0,0,0,0.08)",
+        line=dict(color="#222222", width=2.5),
         marker=dict(
             color="white", size=7, symbol="circle",
-            line=dict(color="#1d7874", width=2),
+            line=dict(color="#222222", width=2),
         ),
         name="Contributors per retiree",
         hovertemplate="%{x}: %{y:.2f}<extra></extra>",
@@ -235,13 +235,13 @@ def _chart_ahv_ratio(
         x=df.iloc[0]["year"], y=df.iloc[0]["ratio"],
         text=f"<b>{df.iloc[0]['ratio']:.2f}</b>",
         showarrow=False, xshift=10, yshift=10,
-        font=dict(size=11, color="#1d7874"),
+        font=dict(size=11, color="#222222"),
     )
     fig.add_annotation(
         x=last_year, y=last_ratio,
         text=f"<b>{last_ratio:.2f}</b>",
         showarrow=False, xshift=-10, yshift=12,
-        font=dict(size=11, color="#1d7874"),
+        font=dict(size=11, color="#222222"),
     )
 
     # 4. Delta badge — rechts AUSSERHALB des Charts (paper coordinates)
@@ -264,27 +264,16 @@ def _chart_ahv_ratio(
             f"funded 1 retiree<br>"
             f"in {last_year}<br>"
             f"<br>"
-            f"<span style='color:#1d7874'>▼ {abs(delta_pct):.1f}%<br>"
+            f"<span style='color:#f25c54'>▼ {abs(delta_pct):.1f}%<br>"
             f"fewer shoulders to carry<br>"
             f"the financial burden of retirement</span>"
         ),
         showarrow=False,
-        font=dict(size=12, color="#444444"),
+        font=dict(size=12, color="#222222"),
         bgcolor="rgba(255,255,255,0.9)",
         bordercolor="#1d7874",
         borderwidth=1.5,
         borderpad=8,
-    )
-
-    # 5. Source caption
-    fig.add_annotation(
-        x=0, y=0,
-        xref="paper", yref="paper",
-        xanchor="left", yanchor="top",
-        text="Source: AHV-Statistik BSV / BFS. Basis: aktiv Erwerbstätige mit Lohnbeiträgen vs. Altersrentenbezüger:innen.",
-        showarrow=False,
-        font=dict(size=9, color="#888888"),
-        yshift=-42,
     )
 
     _apply_base_layout(
@@ -591,19 +580,16 @@ def _chart_cashflow_pct(
 
 def render_who_pays_section() -> None:
     st.markdown('<div id="who-pays"></div>', unsafe_allow_html=True)
-    st.markdown("<div class='section-title'>2. Who Pays</div>", unsafe_allow_html=True)
 
     # BAUSTEIN 1 — Narrative Bridge
     st.markdown(
         """
         <div class='narrative-text'>
-        In March 2024, <strong>Switzerland voted to introduce a 13th AHV pension</strong> — approved by 58.2% of voters.
-        The message was unambiguous: retirement security matters. <strong>But the question the ballot left
-        unanswered is who actually pays for it.</strong> Switzerland's social contract rests on two pillars:
-        the AHV (old-age insurance), funded by today's workers for today's retirees, and the OKP
-        (mandatory health insurance), where every resident pays premiums regardless of age or income.
-        Together, these two systems define the generational transfer of money — and they tell a striking
-        story about who contributes, who benefits, and which generations carry the tab.
+        Switzerland's social contract rests on two pillars: the AHV (old-age insurance), 
+        funded by today's workers for today's retirees, and the OKP (mandatory health insurance), 
+        where every resident pays the same premium regardless of age or income. Together, these 
+        two systems define the generational transfer of money — and they tell a striking story 
+        about who contributes, who benefits, and which generations carry the tab.
         </div>
         """,
         unsafe_allow_html=True,
@@ -627,6 +613,15 @@ def render_who_pays_section() -> None:
     st.markdown("---")
     st.markdown("### Carrying the Weight: AHV Contributors per Retiree")
 
+    st.markdown(
+        "<p style='font-size:1rem;line-height:1.7;color:#444;'>"
+        "Each point on the line represents how many active wage contributors "
+        "exist for every old-age pension recipient in that year. "
+        "The lower the ratio, the heavier the load on each working person."
+        "</p>",
+        unsafe_allow_html=True,
+    )
+
     st.plotly_chart(
         _chart_ahv_ratio(ahv_ein, ahv_aus, jahre),
         use_container_width=True,
@@ -645,24 +640,16 @@ def render_who_pays_section() -> None:
         </div>""",
         unsafe_allow_html=True,
     )
-    st.markdown(
-        """<div style="font-size:0.8rem; color:#888888; margin-top:0.3rem;">
-        Source details → <a href="?page=references" style="color:#888888;
-        text-decoration:underline;">References</a>
-        </div>""",
-        unsafe_allow_html=True,
-    )
 
     # ── BAUSTEIN 3: OKP Area Chart ───────────────────────────────────────────
     st.markdown("---")
     st.markdown("### The Same Premium, A Very Different Deal")
     st.markdown(
-        "<div class='pyramid-subtitle'>"
-        "Monthly average per person, CHF. "
-        "Net premium = gross premium minus subsidy (Prämienverbilligung). "
-        "Shaded area: net premium paid (dark) vs. benefits received (light). "
-        "Annotation shows 2024 net delta."
-        "</div>",
+        "<p style='font-size:1rem;line-height:1.7;color:#444;'>"
+        "Monthly average per person, CHF. Net premium = gross premium minus subsidy "
+        "(Prämienverbilligung). Shaded area: net premium paid (dark) vs. benefits "
+        "received (light). Annotation shows 2024 net delta."
+        "</p>",
         unsafe_allow_html=True,
     )
 
@@ -752,15 +739,12 @@ def render_who_pays_section() -> None:
         This is not a flaw in the system — it is the system. Switzerland's social
         contract is built on intergenerational solidarity: today's workers finance
         today's retirees, trusting that future generations will do the same for them.
-        But as the Federal Finance Administration has shown, population ageing alone
-        accounts for roughly 15% of healthcare expenditure growth since 1960 — and its
-        impact is accelerating as the Baby Boomer generation enters retirement. 
-        Combined with the shrinking contributor base documented earlier in this section, 
-        the implicit promise of the social contract is becoming harder to keep.
+        But as the Federal Finance Administration has shown, the demographic pressure
+        is accelerating — and as the Baby Boomer generation enters retirement, its
+        impact on the system will only intensify.Combined with the shrinking contributor 
+        base documented earlier in this section, the implicit promise of the social contract 
+        is becoming harder to keep.
         <br><br>
-        The working days figures below make this tangible: in 2024, a Gen Z employee
-        effectively worked over three weeks of their year purely to finance transfers
-        to older cohorts — before paying rent, taxes, or saving for their own retirement.
         </div>""",
         unsafe_allow_html=True,
     )
