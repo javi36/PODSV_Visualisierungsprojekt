@@ -271,7 +271,7 @@ def _chart_ahv_ratio(
         showarrow=False,
         font=dict(size=12, color="#222222"),
         bgcolor="rgba(255,255,255,0.9)",
-        bordercolor="#1d7874",
+        bordercolor="#222222",
         borderwidth=1.5,
         borderpad=8,
     )
