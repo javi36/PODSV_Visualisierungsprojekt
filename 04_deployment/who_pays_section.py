@@ -191,66 +191,131 @@ def _chart_ahv_ratio(
 
     df = pd.DataFrame(records)
 
+    y_min   = df["ratio"].min()
+    y_max   = df["ratio"].max()
+    y_floor = round(y_min - 0.05, 2)
+    y_ceil  = round(y_max + 0.10, 2)
+
+    first_ratio = df.iloc[0]["ratio"]
+    last_ratio  = df.iloc[-1]["ratio"]
+    delta_abs   = last_ratio - first_ratio
+    delta_pct   = (delta_abs / first_ratio) * 100
+    last_year   = int(df.iloc[-1]["year"])
+
     fig = go.Figure()
 
+    # 1. Invisible baseline for fill
+    fig.add_trace(go.Scatter(
+        x=df["year"],
+        y=[y_floor] * len(df),
+        mode="lines",
+        line=dict(color="rgba(0,0,0,0)", width=0),
+        showlegend=False,
+        hoverinfo="skip",
+    ))
+
+    # 2. Main line with grey fill to baseline
     fig.add_trace(go.Scatter(
         x=df["year"],
         y=df["ratio"],
         mode="lines+markers",
-        line=dict(color="#1d7874", width=2.5),
+        fill="tonexty",
+        fillcolor="rgba(0,0,0,0.08)",
+        line=dict(color="black", width=2.5),
         marker=dict(
-            color="#1d7874", size=7, symbol="circle",
-            line=dict(color="white", width=1.5),
+            color="white", size=7, symbol="circle",
+            line=dict(color="black", width=2),
         ),
         name="Contributors per retiree",
         hovertemplate="%{x}: %{y:.2f}<extra></extra>",
     ))
 
-    # Reference line 3:1 (historical)
-    fig.add_hline(
-        y=3.0,
-        line_dash="solid", line_color="#aaaaaa", line_width=1,
-        annotation_text="Historical ratio (3:1)",
-        annotation_position="right",
-        annotation_font=dict(size=11, color="#888888"),
-    )
-
-    # Reference line 2:1 (projected 2030), dashed red
-    fig.add_hline(
-        y=2.0,
-        line_dash="dash", line_color="#f25c54", line_width=1.5,
-        annotation_text="Projected 2030 (2:1)",
-        annotation_position="right",
-        annotation_font=dict(size=11, color="#f25c54"),
-    )
-
-    # Annotate last data point
-    last = df.iloc[-1]
+    # 3. First & last value annotations
     fig.add_annotation(
-        x=last["year"], y=last["ratio"],
-        text=f"<b>{last['ratio']:.2f}</b>",
-        showarrow=True, arrowhead=2, arrowcolor="#1d7874",
-        ax=30, ay=-30,
-        font=dict(size=12, color="#1d7874"),
-        bgcolor="rgba(255,255,255,0.8)",
+        x=df.iloc[0]["year"], y=df.iloc[0]["ratio"],
+        text=f"<b>{df.iloc[0]['ratio']:.2f}</b>",
+        showarrow=False, xshift=10, yshift=10,
+        font=dict(size=11, color="black"),
+    )
+    fig.add_annotation(
+        x=last_year, y=last_ratio,
+        text=f"<b>{last_ratio:.2f}</b>",
+        showarrow=False, xshift=-10, yshift=10,
+        font=dict(size=11, color="black"),
+    )
+
+    # 4. Delta badge — rechts AUSSERHALB des Charts (paper coordinates)
+    ratio_start_rounded = round(first_ratio * 2) / 2
+    ratio_end_rounded   = round(last_ratio * 2) / 2
+
+    def fmt_half(v):
+        return f"{int(v)}½" if v % 1 == 0.5 else f"{int(v)}"
+
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=1.02, y=0.98,
+        xanchor="left", yanchor="top",
+        text=(
+            f"<b>{fmt_half(ratio_start_rounded)}</b> workers<br>"
+            f"funded 1 retiree<br>"
+            f"in {int(df.iloc[0]['year'])}<br>"
+            f"<br>"
+            f"<b>{fmt_half(ratio_end_rounded)}</b> workers<br>"
+            f"funded 1 retiree<br>"
+            f"in {last_year}<br>"
+            f"<br>"
+            f"<span style='color:#f25c54'>▼ {abs(delta_pct):.1f}%<br>"
+            f"fewer shoulders</span>"
+        ),
+        showarrow=False,
+        font=dict(size=12, color="#444444"),
+        bgcolor="rgba(255,255,255,0.9)",
+        bordercolor="#f25c54",
+        borderwidth=1.5,
+        borderpad=8,
+    )
+
+    # 5. Projection label
+    fig.add_annotation(
+        x=last_year + 6, y=last_ratio * 0.94,
+        text="<i>→ 2:1 projected<br>by ~2030</i>",
+        showarrow=False, xshift=5, yshift=-10,
+        xanchor="left",
+        font=dict(size=10, color="#aaaaaa"),
+    )
+
+    # 6. Source caption
+    fig.add_annotation(
+        x=0, y=0,
+        xref="paper", yref="paper",
+        xanchor="left", yanchor="top",
+        text="Source: AHV-Statistik BSV / BFS. Basis: aktiv Erwerbstätige mit Lohnbeiträgen vs. Altersrentenbezüger:innen.",
+        showarrow=False,
+        font=dict(size=9, color="#888888"),
+        yshift=-42,
     )
 
     _apply_base_layout(
-        fig, height=380,
+        fig, height=420,
         yaxis=dict(
-            range=[1.5, 4.5],
+            range=[y_floor - 0.02, y_ceil],
             title="Contributors per retiree",
             gridcolor="#f0f0f0",
             tickfont=dict(size=11),
         ),
         xaxis=dict(
+            range=[int(df.iloc[0]["year"]) - 0.5, last_year + 0.5],  # Grid endet bei 2024
             tickvals=[int(j) for j in jahre],
             ticktext=[str(int(j)) for j in jahre],
             showgrid=False,
             tickfont=dict(size=11),
+            title="Jahr",
         ),
         showlegend=False,
     )
+    # Rechter Margin grösser für das Badge ausserhalb des Charts
+    fig.update_layout(margin=dict(t=60, l=60, r=130, b=70))
+
     return fig
 
 
