@@ -164,7 +164,7 @@ def _apply_base_layout(fig: go.Figure, height: int = 400, **kwargs) -> go.Figure
         paper_bgcolor="#ffffff",
         font=dict(family="sans-serif", size=12, color="#111111"),
         margin=dict(t=60, l=50, r=30, b=50),
-        hoverlabel=dict(font_size=13),
+        hoverlabel=dict(font_size=10),
         height=height,
         **kwargs,
     )
@@ -336,21 +336,8 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
     first = True
     for col_i, gen in enumerate(GENS_ORDERED, start=1):
         color = GEN_COLORS[gen]
-        netto_vals  = data[gen]["netto"]
-        brutto_vals = data[gen]["brutto"]
-
-        # Benefits received — lighter, drawn first (background)
-        fig.add_trace(go.Scatter(
-            x=okp_jahre, y=brutto_vals,
-            mode="lines",
-            fill="tozeroy",
-            line=dict(color=color, width=1),
-            fillcolor=_hex_to_rgba(color, 0.25),
-            name="Benefits received",
-            legendgroup="benefits",
-            showlegend=first,
-            hovertemplate=f"%{{x}}: CHF %{{y:.0f}}/mt<extra>{gen} – Benefits</extra>",
-        ), row=1, col=col_i)
+        netto_vals  = [round(v) for v in data[gen]["netto"]]
+        brutto_vals = [round(v) for v in data[gen]["brutto"]]
 
         # Net premium paid — darker, drawn on top
         fig.add_trace(go.Scatter(
@@ -362,7 +349,20 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
             name="Net premium paid",
             legendgroup="premium",
             showlegend=first,
-            hovertemplate=f"%{{x}}: CHF %{{y:.0f}}/mt<extra>{gen} – Net premium</extra>",
+            hovertemplate="Premium paid: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%{y:+.0f}.-/mt<extra></extra>",
+        ), row=1, col=col_i)
+
+        # Benefits received — lighter, drawn first (background)
+        fig.add_trace(go.Scatter(
+            x=okp_jahre, y=brutto_vals,
+            mode="lines",
+            fill="tozeroy",
+            line=dict(color=color, width=1),
+            fillcolor=_hex_to_rgba(color, 0.25),
+            name="Benefits received",
+            legendgroup="benefits",
+            showlegend=first,
+            hovertemplate="Benefits received: %{y:+.0f}.-/mt<extra></extra>",
         ), row=1, col=col_i)
 
         first = False
@@ -382,17 +382,18 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
         )
 
         # Invisible delta traces for unified hover (positive=green, negative=red)
-        delta_vals = [b - nv for b, nv in zip(brutto_vals, netto_vals)]
-        pos_delta = [v if v >= 0 else None for v in delta_vals]
-        neg_delta = [abs(v) if v < 0 else None for v in delta_vals]
+        delta_vals = [round(b - nv) for b, nv in zip(brutto_vals, netto_vals)]
+        pos_delta = [(v) if v > 0.5 else None for v in delta_vals]
+        neg_delta = [(abs(v)) if v < -0.5 else None for v in delta_vals]
 
         fig.add_trace(go.Scatter(
             x=okp_jahre, y=pos_delta,
             mode="markers",
             marker=dict(opacity=0, size=12, color="#1d7874"),
             showlegend=False,
+            hoverinfo="skip",
             name="",
-            hovertemplate="+CHF %{y:.0f}/mt<extra>Net delta</extra>",
+            hovertemplate="<b>Netto: +%{y:.0f}.-/mt</b><extra></extra>",
         ), row=1, col=col_i)
 
         fig.add_trace(go.Scatter(
@@ -400,8 +401,9 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
             mode="markers",
             marker=dict(opacity=0, size=12, color="#f25c54"),
             showlegend=False,
+            hoverinfo="skip",
             name="",
-            hovertemplate="−CHF %{y:.0f}/mt<extra>Net delta</extra>",
+            hovertemplate="<b>Netto: -%{y:.0f}.-/mt</b><extra></extra>",
         ), row=1, col=col_i)
 
     _apply_base_layout(
@@ -482,12 +484,10 @@ def _chart_cashflow_pct(
     jahre_int = [int(j) for j in jahre]
 
     for col_i, gen in enumerate(GENS_ORDERED, start=1):
-        color     = GEN_COLORS[gen]
-        pct_vals  = all_pct[gen]
+        color      = GEN_COLORS[gen]
+        pct_vals   = all_pct[gen]
         netto_vals = all_netto[gen]
         lohn_vals  = all_lohn[gen]
-        is_receiver = all_pct[gen][-1] >= 0
-
         fill_color = _hex_to_rgba(color, 0.15)
 
         # 1. Invisible baseline for fill
@@ -512,18 +512,17 @@ def _chart_cashflow_pct(
                 color="white", size=5, symbol="circle",
                 line=dict(color=color, width=1.8),
             ),
-            name=gen,
+            name=" ",
             showlegend=False,
             customdata=list(zip(
-            [f"{round(v):,}".replace(",", "'") for v in netto_vals],
-            [f"{round(v):,}".replace(",", "'") for v in lohn_vals],
+                [f"{round(v):,}".replace(",", "'") for v in netto_vals],
+                [f"{round(v):,}".replace(",", "'") for v in lohn_vals],
             )),
             hovertemplate=(
-                "<b>%{x}</b><br>"
-                "%{y:.1f}% of gross salary<br>"
-                "CHF %{customdata[0]}/mt net<br>"
-                "Gross salary: CHF %{customdata[1]}/mt"
-                "<extra>" + _GEN_SHORT[gen] + "</extra>"
+                "<b>% of gross salary: &nbsp;%{y:.1f}%<br></b>"
+                "Net cashflow: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHF %{customdata[0]}/mt<br>"
+                "Gross salary: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHF %{customdata[1]}/mt"
+                "<extra></extra>"
             ),
         ), row=1, col=col_i)
 
@@ -575,7 +574,15 @@ def _chart_cashflow_pct(
     for col_i in range(2, n_gens + 1):
         fig.update_yaxes(showticklabels=False, row=1, col=col_i)
 
-    fig.update_layout(margin=dict(t=60, l=60, r=30, b=50))
+    fig.update_layout(
+        margin=dict(t=60, l=60, r=30, b=50),
+        hoverlabel=dict(
+            font_size=10,
+            bgcolor="white",
+            bordercolor="#dddddd",
+            namelength=0,
+        ),
+    )
 
     return fig, working_days
 
@@ -671,7 +678,7 @@ def render_who_pays_section() -> None:
         every resident pays the same community-rated premium regardless of age or income. 
         <strong>But the data reveals a striking imbalance.</strong>
         For older generations, benefits received far exceed premiums paid, with <strong>Silent Generation 
-        members receiving over CHF 1,000 more per month than they contribute.</strong> For younger generations, 
+        members receiving over CHF 1'000 more per month than they contribute.</strong> For younger generations, 
         the reverse holds: <strong>Gen Z and Millennials consistently pay more than they receive</strong>, effectively 
         cross-subsidising a system weighted toward older cohorts. This structural gap is widening. 
 
@@ -729,7 +736,35 @@ def render_who_pays_section() -> None:
             "</div>",
             unsafe_allow_html=True,
         )
-
+    st.markdown(
+        """<div class='narrative-text'>
+        The chart above translates the abstract mechanics of AHV and OKP into a single,
+        comparable metric: what does the system actually cost each generation, measured
+        against their own income? For older generations, the answer is clear —
+        <b>Silent Generation and Baby Boomers
+        are net receivers, collecting between 23% and 67% of their former gross salary
+        back from the system each month.</b> For working-age generations, the picture
+        is inverted:
+        <b>Gen X, Millennials, and Gen Z each
+        contribute between 10% and 12% of their gross salary into a system from which
+        they currently draw little to no benefit.</b>
+        <br><br>
+        This is not a flaw in the system — it is the system. Switzerland's social
+        contract is built on intergenerational solidarity: today's workers finance
+        today's retirees, trusting that future generations will do the same for them.
+        But as the Federal Finance Administration has shown, population ageing alone
+        accounts for roughly 15% of healthcare expenditure growth since 1960 — and its
+        impact is accelerating as the Baby Boomer generation enters retirement
+        (Lerch, Colombier &amp; Brändle, 2025). Combined with the shrinking contributor
+        base documented earlier in this section, the implicit promise of the
+        social contract is becoming harder to keep.
+        <br><br>
+        The working days figures below make this tangible: in 2024, a Gen Z employee
+        effectively worked over three weeks of their year purely to finance transfers
+        to older cohorts — before paying rent, taxes, or saving for their own retirement.
+        </div>""",
+        unsafe_allow_html=True,
+    )
 
 if __name__ == "__main__":
     render_who_pays_section()
