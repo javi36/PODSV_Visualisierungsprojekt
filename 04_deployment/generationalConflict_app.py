@@ -162,17 +162,6 @@ def main() -> None:
         use_container_width=True,
     )
 
-    st.markdown(
-        """
-        <p style="font-size:1.05rem;line-height:1.7;color:#555555;
-        text-align:center;margin-top:2rem;margin-bottom:0;">
-        Numbers alone don't decide outcomes. Votes do.<br>
-        And not every generation uses them equally.
-        </p>
-        """,
-        unsafe_allow_html=True,
-    )
-
     st.markdown("<br><br>", unsafe_allow_html=True)
 
 

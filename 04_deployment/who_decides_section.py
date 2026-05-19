@@ -46,8 +46,8 @@ CHART_NARRATIVE = {
     "turnout": {
         "title": "Who Shows Up at the Ballot Box?",
         "intro": (
-        "Each seat represents a share of survey respondents who reported voting — "
-        "distributed by generation. The chart does not show each generation's individual "
+        "Each seat represents a share of survey respondents who reported voting — distributed by generation. "
+        "<br>The chart does not show each generation's individual "
         "turnout rate, but rather <b>who makes up the voting public</b>: which generations "
         "dominate the pool of active voters in each election year."
         ),
@@ -557,25 +557,27 @@ def render_who_decides_section() -> None:
 
     st.markdown(
         """
-        <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:0.8rem;">
+        <div class="narrative-text">
+        <p style="margin-bottom:0.8rem;">
         Democracy assumes every voice counts equally.
         But in Switzerland, age tilts the scales.
         Older generations show up — younger ones stay home.
         And as the population ages, that gap only widens.
         </p>
-        <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:0.8rem;">
+        <p style="margin-bottom:0.8rem;">
         The stakes became impossible to ignore on <strong>3 March 2024</strong>:
         Swiss voters approved a 13th monthly AHV pension — and on the very same day,
         rejected raising the retirement age by a wide margin.
         Two votes, one message: more benefits for today's retirees, no extra burden for tomorrow's workers.
         </p>
-        <p style="font-size:1.05rem;line-height:1.7;color:#333333;margin-bottom:0.8rem;">
+        <p style="margin-bottom:0.8rem;">
         That outcome didn't happen by chance. It reflects who shows up.
         From voter turnout to ideological drift,
         the numbers tell a story of who really decides — and who gets left out.
         <strong>Numbers alone don't decide outcomes. Votes do.
         And not every generation uses them equally.</strong>
         </p>
+        </div>
         """,
         unsafe_allow_html=True,
         )
