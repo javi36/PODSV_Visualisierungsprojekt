@@ -240,7 +240,7 @@ def _chart_ahv_ratio(
     fig.add_annotation(
         x=last_year, y=last_ratio,
         text=f"<b>{last_ratio:.2f}</b>",
-        showarrow=False, xshift=-10, yshift=10,
+        showarrow=False, xshift=-10, yshift=12,
         font=dict(size=11, color="#1d7874"),
     )
 
