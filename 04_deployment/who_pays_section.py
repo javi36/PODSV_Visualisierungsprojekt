@@ -515,14 +515,14 @@ def _chart_cashflow_pct(
             name=gen,
             showlegend=False,
             customdata=list(zip(
-                [round(v) for v in netto_vals],
-                [round(v) for v in lohn_vals],
+            [f"{round(v):,}".replace(",", "'") for v in netto_vals],
+            [f"{round(v):,}".replace(",", "'") for v in lohn_vals],
             )),
             hovertemplate=(
                 "<b>%{x}</b><br>"
                 "%{y:.1f}% of gross salary<br>"
-                "CHF %{customdata[0]:+.0f}/mt net<br>"
-                "Gross salary: CHF %{customdata[1]:,.0f}/mt"
+                "CHF %{customdata[0]}/mt net<br>"
+                "Gross salary: CHF %{customdata[1]}/mt"
                 "<extra>" + _GEN_SHORT[gen] + "</extra>"
             ),
         ), row=1, col=col_i)
@@ -719,16 +719,13 @@ def render_who_pays_section() -> None:
     if days_parts:
         st.markdown(
             "<div class='narrative-text'>"
-            "In 2024, every net-contributing generation worked a portion of their year "
-            "purely to finance transfers to older cohorts — without receiving equivalent benefits."
+            "In 2024, every net-contributing generation effectively worked part of their year "
+            "purely to finance transfers to older cohorts. "
+            "The table below shows how many working days that represents per generation."
             "<br><br>"
             "<div style='text-align:center; line-height:2.0;'>"
             + "<br>".join(days_parts) +
             "</div>"
-            "<br>"
-            "<span style='text-align:left; display:block;'>"
-            "— measured in working days per year funded for others."
-            "</span>"
             "</div>",
             unsafe_allow_html=True,
         )
