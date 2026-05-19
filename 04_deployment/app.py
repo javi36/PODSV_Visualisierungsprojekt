@@ -103,9 +103,9 @@ with st.sidebar:
             """
             <div class="sidebar-nav-links">
                 <a href="#home">Home</a>
-                <a href="#who-decides">🗳️ Who Decides</a>
-                <a href="#who-pays">💸 Who Pays</a>
-                <a href="#who-owns">🏡 Who Owns</a>
+                <a href="#who-decides">🗳️ Who Decides the Rules</a>
+                <a href="#who-pays">💸 Who Bears the Costs</a>
+                <a href="#who-owns">🏡 Who Holds the Assets</a>
                 <a href="?page=references" style="margin-top:0.5rem;border-top:1px solid #eeeeee;padding-top:0.5rem;">📚 References</a>
             </div>
             """,
