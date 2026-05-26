@@ -11,74 +11,387 @@ For this reason, we decided to present the data in three thematic sections, each
 - Who pays?
 - Who owns?
 
-These three guiding questions became the conceptual backbone of our project. They helped us transform a broad and politically charged topic into a clearer analytical structure. “Who decides?” focuses on political participation, voting power and demographic influence. “Who pays?” addresses the financial burden carried by different age groups, for example through social security contributions, taxes or health insurance premiums. “Who owns?” shifts the focus to wealth, housing and asset distribution across generations.
+These three guiding questions became the conceptual backbone of our project. They helped us transform a broad and politically charged topic into a clearer analytical structure. "Who decides?" focuses on political participation, voting power and demographic influence. "Who pays?" addresses the financial burden carried by different age groups, for example through social security contributions, taxes or health insurance premiums. "Who owns?" shifts the focus to wealth, housing and asset distribution across generations.
 
-This structure allowed us to move from a general debate about intergenerational conflict toward a more data-driven narrative. Instead of presenting generations as fixed or opposing groups, we aimed to show how different dimensions of society create different forms of advantage, pressure or responsibility. In this sense, the three sections do not stand independently from one another, but together form a broader picture of how demographic change affects Switzerland’s social, political and economic balance.
+This structure allowed us to move from a general debate about intergenerational conflict toward a more data-driven narrative. Instead of presenting generations as fixed or opposing groups, we aimed to show how different dimensions of society create different forms of advantage, pressure or responsibility. In this sense, the three sections do not stand independently from one another, but together form a broader picture of how demographic change affects Switzerland's social, political and economic balance.
 
 ## Design Overview
-Briefly summarise the visualization concept from the Project Charta and describe any refinements or changes that emerged during the design process. Reference the project objectives and user needs that drive the design.
+
+The final visualisation product is a scrollable, single-page dashboard implemented in Streamlit, styled around a **data journalism** aesthetic: narrative text and data charts are tightly interwoven rather than separated into a table of figures. Each of the three thematic sections opens with a provocative framing text, moves through a sequence of charts, and closes with interpretive conclusions. This structure reflects a deliberate choice to guide the reader through the data rather than leaving them to explore without context — appropriate for an audience that includes politically engaged non-specialists as well as researchers.
+
+The original project charta envisioned a "dashboard-based visualisation" enabling comparison of generational patterns. During the design process, this concept evolved away from a traditional side-by-side dashboard panel layout toward a **narrative scroll** format. The reason was analytical: the three dimensions tell a sequential story — political power shapes what gets decided, financial flows reveal who pays for those decisions, and housing data shows who accumulates the wealth those decisions protect. A scrollable narrative respects that logical order and makes the causal chain between sections legible.
+
+One key refinement from the charta concerned interactivity. Rather than extensive filtering controls, the design centres on a single **sidebar generation filter** that coordinates all charts in all sections simultaneously. This keeps the interface simple while still allowing users to focus on specific generational comparisons. Year selectors are available within individual charts in the "Who Owns" section, where the temporal dimension is directly relevant for comparing occupancy and living space across years.
+
+The colour system was designed to carry meaning at a glance: older generations are encoded in cool dark teals, younger generations in warm oranges and corals. This mapping aligns intuitively with the narrative — established, asset-rich older cohorts versus economically pressured younger cohorts — and helps the reader track generations consistently across all charts and sections without needing to consult a legend on every figure.
 
 ## Data-to-Visual Mapping
-Document the mapping of data variables to visual channels. For each view or chart in the visualization product, describe:
 
-* **Data variables**: Which variables from the processed datasets (see [Data Report](01_data_report.qmd)) are represented?
-* **Marks**: What geometric primitives are used to represent data items – points, lines, areas, volumes?
-* **Visual channels**: How are data attributes encoded – position, length, angle, area, colour hue, colour saturation, brightness, shape, orientation, texture?
-* **Scale and axis design**: What scales are used (linear, logarithmic, categorical, temporal)? How are axes labelled and annotated?
-* **Colour design**: What colour palette is used and why? Consider colour-blindness accessibility (e.g. using `viridis`, `ColorBrewer` palettes) and semantic colour mappings (e.g. red for negative, green for positive).
+### Who Decides
 
-A tabular overview can help provide a quick summary:
+This section draws on post-election survey data from SELECTS 2015, 2019 and 2023. Four charts are presented in sequence, each addressing a different dimension of political participation.
 
-: Data-to-visual mapping overview. {#tbl-encoding-overview}
+**Chart 1 — Parliament Chart: Voter Composition**
 
-| View / Chart | Data variables | Mark type | Visual channels | Scale |
+The parliament chart translates voter turnout data into a semicircular seat diagram, a well-established representation of parliamentary composition. Instead of showing individual voter turnout rates by generation, it shows **who makes up the active electorate**: which generations dominate the pool of people who actually voted in a given election year.
+
+- **Data variables**: `voted` (binary), `generation` (categorical), survey `year`
+- **Marks**: Square point markers arranged in a semicircular arc across six concentric rows
+- **Visual channels**: Position (arc and row encode seat index), colour hue (generation), spatial grouping (seats assigned proportionally to generation's share of voters)
+- **Scale**: 200 normalised seats allocated proportionally; generation labels and percentage shares annotated along the outer arc
+- **Interaction**: Year radio button (2015 / 2019 / 2023) updates the diagram dynamically
+
+**Chart 2 — Bump / Rank Chart: Political Interest**
+
+Political interest (a 1–4 scale from "not at all" to "very interested") is difficult to compare across generations in an area or bar chart because all generations score similarly in absolute terms. A **rank chart** solves this by converting absolute scores to relative ranks per year, making it immediately visible which generation leads or lags in political interest — and how those ranks shift across elections.
+
+- **Data variables**: `political_interest` (continuous, 1–4 scale), `generation`, `year`
+- **Marks**: Smoothed bezier lines between election years; filled circle markers at each year
+- **Visual channels**: x-position (election year: 2015, 2019, 2023), y-position (rank, inverted so rank 1 is at the top), colour hue (generation); rank number rendered as white text inside each marker
+- **Scale**: Categorical x (3 election years), ordinal y (rank 1 to n generations); y-axis inverted (1 = best)
+- **Annotations**: Direct generation labels at left and right ends of each line eliminate the need for a legend
+
+**Chart 3 — Horizontal Grouped Bar: Democratic Satisfaction**
+
+Democratic satisfaction (share of respondents satisfied with democracy) is shown as a grouped horizontal bar chart with one bar per election year per generation. Using greyscale intensity to encode the year (light = 2015, medium = 2019, dark = 2023) rather than a separate colour per year avoids conflict with the generation colour palette and makes the temporal trend readable without a complex legend.
+
+- **Data variables**: `demo_satisfaction` (binary, aggregated to % satisfied), `generation`, `year`
+- **Marks**: Horizontal bars
+- **Visual channels**: x-position / bar length (% satisfied, 0–100%), y-position (generation), colour lightness (year: light grey for 2015, medium grey for 2019, near-black for 2023)
+- **Scale**: Linear x (35–72%), categorical y; x-axis truncated at 35% to emphasise relative differences
+- **Annotations**: Net change annotation (Δ 2015 → 2023) displayed to the right of each row with colour coding (green = increase, red = decrease)
+
+**Chart 4 — Arrow Plot: Left–Right Political Orientation**
+
+The arrow plot encodes ideological drift between 2015 and 2023. Each generation is represented as a horizontal arrow: an open circle marks the 2015 position, a semi-transparent dot marks 2019, and a filled circle marks 2023. The arrow metaphor makes direction of change immediately legible without requiring the reader to read two bar charts side by side.
+
+- **Data variables**: `lr_scale` (continuous, 1–5 scale, 1 = far left, 5 = far right), `generation`, `year`
+- **Marks**: Lines (arrows), open circles (2015), semi-transparent small dots (2019), filled circles (2023)
+- **Visual channels**: x-position (L–R self-placement 1–5), y-position (generation), colour hue (generation), marker fill (open/filled encodes year); Δ annotation shown to the right
+- **Scale**: Linear x (1–5), categorical y; vertical dashed reference line at centre value (3)
+
+: Data-to-visual mapping overview — Who Decides. {#tbl-encoding-whodecides}
+
+| Chart | Data variables | Mark type | Visual channels | Scale |
 |---|---|---|---|---|
-| e.g. Sales by Region | region (cat.), revenue (quant.) | bar | x-position, length, colour hue | categorical, linear |
-| ... | ... | ... | ... | ... |
+| Parliament chart | `voted`, `generation`, `year` | Square point markers | Position (arc/row), colour hue | Proportional seat allocation |
+| Rank chart | `political_interest`, `generation`, `year` | Smoothed lines, circle markers | x: year, y: rank (inverted), colour hue | Categorical x, ordinal y |
+| Grouped horizontal bar | `demo_satisfaction`, `generation`, `year` | Horizontal bars | x: % satisfied, y: generation, colour lightness: year | Linear x, categorical y |
+| Arrow plot | `lr_scale`, `generation`, `year` | Lines + points | x: L–R scale, y: generation, fill: year, colour hue | Linear x, categorical y |
+
+---
+
+### Who Pays
+
+This section draws on OKP (mandatory health insurance) and AHV (old-age insurance) data spanning 2012 to 2024. Three charts build a sequential argument from system-level to individual-level financial burden.
+
+**Chart 1 — Area Line Chart: AHV Dependency Ratio**
+
+The AHV dependency ratio (number of active wage contributors per pension recipient) is presented as a single time-series line with an area fill to the chart floor. This choice emphasises the downward trend — the shrinking area below the line makes the decline viscerally visible rather than presenting it as an abstract percentage change.
+
+- **Data variables**: contributor count (`n_personen`), pension recipient count (`anzahl_renten`), `year`
+- **Marks**: Line + area fill to a defined floor value
+- **Visual channels**: x-position (year), y-position (ratio value), area size (magnitude of ratio)
+- **Scale**: Linear (both axes), temporal x (2012–2024); y-axis floor set slightly below minimum to accentuate the descent
+- **Annotations**: First and last ratio values labelled on the line; a badge outside the chart frame summarises the change in plain language ("3½ workers funded 1 retiree in 2012 → 3 workers in 2024")
+
+**Chart 2 — Small Multiples Area Chart: OKP Premium vs. Benefits**
+
+The OKP chart compares what each generation pays in net health insurance premiums against what it receives in benefits, faceted by generation. Using two overlapping area fills per panel — darker for premium paid, lighter for benefits received — makes the cross-subsidy structure immediately visible: where the light area (benefits) exceeds the dark area (premium), the generation is a net receiver; where it falls below, the generation is a net contributor.
+
+- **Data variables**: `okp_premium`, `praemienverbilligung`, `okp_bruttoleistungen` (all as per-capita CHF/month), `generation`, `year`
+- **Marks**: Two overlapping filled area traces per generation panel
+- **Visual channels**: x-position (year), y-position (CHF/month), fill opacity (darker = net premium paid; lighter = benefits received), colour hue (generation, consistent with palette); 2024 Δ annotation at the right edge of each panel
+- **Scale**: Linear y (shared across all panels), categorical/temporal x; y-axis shared to enable cross-panel magnitude comparison
+- **Layout**: 5-column small multiples (one per generation), shared y-axis, first and last year labelled on x-axis only
+
+**Chart 3 — Small Multiples Area Chart: Net Cashflow as % of Gross Salary**
+
+The cashflow chart synthesises OKP and AHV flows into a single indicator: net cashflow (benefits received minus contributions paid) expressed as a percentage of the generation's average gross salary. Framing the financial balance as a share of income rather than an absolute CHF figure makes the burden comparable across generations with very different income levels.
+
+- **Data variables**: OKP premium, subsidy, cost sharing, gross benefits, AHV contribution, AHV pension, estimated gross salary, `generation`, `year`
+- **Marks**: Area fill to zero + line + markers (per generation panel)
+- **Visual channels**: x-position (year), y-position (% of gross salary, can be positive or negative), colour hue (generation), area fill direction (above zero = net receiver, below zero = net contributor)
+- **Scale**: Linear y (per-panel, not shared, to show the shape of change within each generation), categorical/temporal x; zero reference line drawn explicitly
+- **Annotations**: First and last year % values labelled; role label ("Net receiver" / "Net contributor") annotated at 2024 endpoint
+
+: Data-to-visual mapping overview — Who Pays. {#tbl-encoding-whopays}
+
+| Chart | Data variables | Mark type | Visual channels | Scale |
+|---|---|---|---|---|
+| AHV dependency ratio | contributor count, pension count, `year` | Area line | x: year, y: ratio, area magnitude | Linear (both) |
+| OKP small multiples | `okp_premium`, subsidy, `okp_bruttoleistungen`, `generation`, `year` | Overlapping area fills | x: year, y: CHF/month, fill opacity: role, colour hue | Linear y (shared), categorical x; faceted by generation |
+| Cashflow % salary | Net cashflow components, gross salary, `generation`, `year` | Area fill + line | x: year, y: % gross salary, colour hue | Linear y (per panel), categorical x; faceted by generation |
+
+---
+
+### Who Owns
+
+This section draws on FSO Structural Survey (occupancy type) and GWS-STATPOP (living space) data from 2019 to 2024. Four charts present ownership, space and the correlation between them.
+
+**Chart 1 — 100% Horizontal Stacked Bar: Owner vs. Renter by Generation**
+
+The 100% stacked bar normalises each generation to a common 100% baseline, making the owner/renter split directly comparable regardless of how large each generation is. Generations are sorted by descending ownership rate (highest at top), so the ownership gradient reads visually from top to bottom — older, higher-ownership generations at the top, younger generations at the bottom.
+
+- **Data variables**: `absolute zahlen` (aggregated by generation and `bewohnertyp`), `generation`, `time_period`
+- **Marks**: Horizontal bars (two segments per row: owner, renter)
+- **Visual channels**: x-position / bar length (% of generation), y-position (generation, sorted by owner %); colour hue: owner = near-black (#020c0b), renter = light grey (#a0a0a0); percentage labels inside bars (only shown if ≥ 8% to avoid clutter)
+- **Scale**: Linear x (0–100%), categorical y; x-range extended slightly left to accommodate a bracket annotation indicating Generation X and Generation Z household-sharing
+- **Annotation**: A subtle bracket on the left side connects Generation X and Generation Z rows, labelled "often share a household", explaining why Gen Z's apparent ownership rate may be inflated
+- **Interaction**: Year radio button (2019–2024) updates the chart; changes propagate to the narrative text (dynamic generation percentages in the intro paragraph)
+
+**Chart 2 — Horizontal Ranking Bar: Living Space by Generation (Snapshot)**
+
+The ranking chart shows average m²/person per generation for a selected year as horizontal bars against a light background track. The background track (full width) provides a visual reference for the maximum value, making relative differences readable without an x-axis.
+
+- **Data variables**: `wohnfläche (in m2) pro person` (averaged by generation), `generation`, `time_period`
+- **Marks**: Two overlapping horizontal bars per generation (background track + coloured foreground bar)
+- **Visual channels**: x-position / bar length (m²/person), y-position (generation, sorted ascending so largest appears at top), colour hue (generation palette); m² value labelled inside each bar
+- **Scale**: Linear x (0 to max × 1.05), categorical y
+- **Interaction**: Year radio button updates the snapshot; temporal trend visible in Chart 3
+
+**Chart 3 — Line Chart with Area: Living Space Trend Over Time**
+
+The time-trend chart shows m²/person per generation as a series of lines across all available years (2019–2024). A shaded area between the top and bottom generation at the last year highlights the magnitude of the gap. Direct generation labels at the right end of each line eliminate the need for a separate legend.
+
+- **Data variables**: `wohnfläche (in m2) pro person` (averaged by generation per year), `generation`, `time_period`
+- **Marks**: Lines + markers (one per generation); area fill between top and bottom generation
+- **Visual channels**: x-position (year), y-position (m²/person), colour hue (generation), fill opacity (area between min and max generation at last year)
+- **Scale**: Linear (both axes), temporal x; y-axis labelled in m²
+- **Annotations**: Direct labels at line ends; gap annotation between top and bottom generation showing +X m² difference at a midpoint year
+
+**Chart 4 — Scatter Plot: Ownership Rate vs. Living Space**
+
+The scatter plot brings together the two preceding themes — ownership rate and living space — into a single view per generation. Each generation is a labelled dot. A linear trend line and Pearson r annotation quantify the relationship. This chart serves as a synthesis: it shows that the two inequalities are not independent but correlated, reinforcing each other.
+
+- **Data variables**: owner % (from `bfs_bewohnertyp_20260414_clean.csv`), m²/person (from `bfs_wohnflaeche_20260414_clean.csv`), `generation`, `time_period`
+- **Marks**: Points (one per generation) + dotted linear trend line
+- **Visual channels**: x-position (ownership rate %), y-position (m²/person), colour hue (generation); generation name as text label above each point
+- **Scale**: Linear (both axes); r value annotated in lower right corner
+- **Interaction**: Year radio button updates all three of the "Who Owns" snapshot charts simultaneously
+
+: Data-to-visual mapping overview — Who Owns. {#tbl-encoding-whoowns}
+
+| Chart | Data variables | Mark type | Visual channels | Scale |
+|---|---|---|---|---|
+| 100% stacked bar | `absolute zahlen`, `bewohnertyp`, `generation`, `year` | Horizontal bars (stacked) | x: % of generation, y: generation, colour hue: tenure type | Linear x, categorical y |
+| Ranking bar | `sqm_per_person`, `generation`, `year` | Horizontal bars + background track | x: m²/person, y: generation, colour hue | Linear x, categorical y |
+| Living space line | `sqm_per_person`, `generation`, `year` | Lines + markers + area fill | x: year, y: m²/person, colour hue | Linear (both), temporal x |
+| Scatter | owner %, `sqm_per_person`, `generation`, `year` | Points + trend line | x: ownership %, y: m²/person, colour hue | Linear (both) |
 
 ## Layout and Composition
-Describe how individual views are composed into the overall visualization product:
 
-* **Spatial arrangement**: How are views arranged on the screen or page? Grid layout, free-form, scrollable narrative, etc.
-* **Coordination between views**: Are views linked (e.g. brushing and linking, shared filters, coordinated highlighting)?
-* **Hierarchy and navigation**: How does the user navigate between different levels of detail or different thematic sections?
-* **Responsive design**: How does the layout adapt to different screen sizes and devices, if applicable?
+### Spatial Arrangement
 
-Include annotated wireframes or layout sketches to illustrate the composition.
+The product is a **vertically scrollable single-page application** built in Streamlit. The layout consists of a fixed sidebar on the left and a main content area on the right. The main area is organised into a sequence of sections separated by visually distinct **hero blocks** — centred headings with white background and a subtitle — that mark transitions between the three thematic dimensions.
+
+Within each section, the layout follows a consistent pattern:
+
+1. A narrative introduction block (grey background, text-first)
+2. A subsection heading (`###` level)
+3. An introductory sentence or paragraph for the chart
+4. The Plotly chart (full container width)
+5. A year selector radio button (where applicable)
+6. A conclusion text block (grey background)
+
+This pattern is repeated for each chart within a section, creating a rhythmic reading experience that alternates between data and interpretation.
+
+When the sidebar is collapsed, the main content expands to full page width via a JavaScript MutationObserver that dynamically adjusts the container margins. This allows users who prefer a wider chart view to collapse the sidebar without layout breakage.
+
+### Coordination Between Views
+
+The central coordination mechanism is the **sidebar generation filter**: a multiselect control that allows users to select which of the five generations are displayed. This selection is stored in Streamlit's `st.session_state` as `sidebar_generations` and is read by all three section renderers on each rerender. Changing the generation filter in the sidebar simultaneously updates:
+
+- The parliament chart and all Who Decides charts
+- The OKP and cashflow facets (Who Pays)
+- The stacked bar, ranking bar, line chart, and scatter plot (Who Owns)
+
+In addition to the sidebar filter, individual charts in the "Who Owns" section have per-chart year selectors (radio buttons). These selectors are independent of each other: the occupancy type chart, the ranking bar chart and the scatter chart each have their own `time_period` state key (`whoowns_year_occ`, `whoowns_year_wf`, `whoowns_year_scatter`). This allows users to compare, for example, the 2019 ownership composition with the 2024 living space snapshot.
+
+### Hierarchy and Navigation
+
+Section navigation is provided through **anchor links** in the sidebar navigation panel. Clicking a link scrolls the page to the corresponding section using HTML `id` anchors (`#who-decides`, `#who-pays`, `#who-owns`) that are injected as invisible `<div>` elements at the start of each section renderer. A References page is accessible via a separate query-parameter route (`?page=references`), keeping secondary content out of the main narrative flow.
+
+### Responsive Design
+
+The layout does not implement explicit responsive breakpoints. At narrow viewport widths, Streamlit's default column behaviour causes some chart elements (particularly the small-multiples charts in "Who Pays") to become compressed. The product is designed primarily for desktop use at standard 1280–1920 px viewport widths.
 
 ## Interaction Design
-If the visualization product includes interactive elements, document them here:
 
-* **Interaction techniques**: Selection, filtering, zooming, panning, brushing, details-on-demand, drill-down, etc.
-* **Input modalities**: Mouse, touch, keyboard shortcuts, search fields, etc.
-* **State management**: How does the system respond to user interactions? What state transitions occur?
-* **Feedback and transitions**: How are changes communicated to the user – animations, highlighting, progressive disclosure?
+### Sidebar Generation Filter
 
-For each interaction, describe which user task (from the user analysis in the Project Charta) it supports and how it contributes to the cognitive, communicative or experiential value of the product.
+- **Technique**: Multiselect checkboxes (Streamlit `st.multiselect`)
+- **Input modality**: Mouse click; keyboard-accessible via Streamlit defaults
+- **State management**: Selection stored in `st.session_state["sidebar_generations"]`; all section renderers read this value at the start of execution
+- **Effect**: Any change to the selection triggers a full rerender of all sections; charts with fewer than the minimum required generations (1 for Who Decides, 2 for Who Owns) display an informational message rather than an empty chart
+- **User task supported**: Generational comparison — users can isolate one or two generations to focus the narrative
+
+### Year Radio Buttons (Who Decides, Who Owns)
+
+- **Technique**: Horizontal radio button groups (Streamlit `st.radio`, `horizontal=True`)
+- **Input modality**: Mouse click
+- **State management**: Each radio button group has a unique `key` in `st.session_state` (e.g. `"wd_parl_year"`, `"whoowns_year_occ"`). The section renderer reads the stored value before building the chart, so the chart title and narrative text update dynamically to reflect the selected year
+- **Effect**: Updates only the chart and narrative text in that subsection; other charts are unaffected
+- **User task supported**: Temporal comparison — users can explore whether patterns have changed over time within the available year range
+
+### Hover Tooltips
+
+All Plotly charts include custom `hovertemplate` definitions that display generation name, the relevant metric and the year on hover. Tooltips are styled with a white background, light border and 14 px font to remain readable against white chart backgrounds.
+
+- **Input modality**: Mouse hover
+- **Feedback**: Tooltip appears adjacent to the hovered element; no state change occurs
+
+### Anchor Navigation
+
+- **Technique**: HTML anchor links in the sidebar rendered via `st.markdown` with `unsafe_allow_html=True`
+- **Input modality**: Mouse click
+- **Effect**: Smooth browser scroll to the target section; no Streamlit state change
 
 ## Visual Style and Aesthetics
-Document the overall visual design language:
 
-* **Typography**: Font families, sizes, hierarchy of text elements (titles, labels, annotations, body text).
-* **Colour palette**: Primary and secondary colours, background, accent colours. Provide colour codes (hex/RGB).
-* **Spacing and alignment**: Grid system, margins, padding, whitespace strategy.
-* **Branding**: Integration of organisational identity, logos, visual style guides, if applicable.
-* **Accessibility**: Considerations for colour-blindness, contrast ratios, screen reader compatibility, font legibility.
+### Colour Palette
+
+The generation colour palette is the most prominent design decision in the product and is applied consistently across every chart, narrative text and annotation.
+
+: Generation colour palette. {#tbl-colour-palette}
+
+| Generation | Birth years | Hex code | Description |
+|---|---|---|---|
+| Silent Generation | ≤ 1945 | `#0f4c5c` | Deep navy teal |
+| Babyboomers | 1946–1964 | `#1d7874` | Medium teal |
+| Generation X | 1965–1980 | `#679289` | Muted sage teal |
+| Millennials / Gen Y | 1981–1996 | `#f4a259` | Warm amber orange |
+| Generation Z | 1997–2012 | `#f25c54` | Coral red |
+
+The palette transitions from cool dark tones for older generations to warm, vivid tones for younger generations. This carries implicit semantic meaning: teal tones evoke stability and establishment (consistent with the asset-rich, politically dominant position of older generations in the data), while the warm orange and coral tones evoke energy, urgency and pressure (consistent with the financially strained, underrepresented position of younger generations). The contrast between the two ends of the palette is high enough for colour-blind accessibility under deuteranopia (the most common form of colour blindness), since the two ends of the spectrum differ in both hue and luminosity. However, the middle range (Generation X teal vs. Babyboomers teal) is similar enough that charts relying solely on colour to distinguish these two generations include direct labels or separate visual marks.
+
+Structural chart elements use neutral greys:
+- Grid lines: `#f0f0f0` (very light grey, background-like)
+- Axis tick labels: `#555555` to `#888888`
+- Chart backgrounds: `#ffffff` (pure white, matching the app background)
+- Narrative text boxes: `#f5f7f6` or `#f7f7f7` (off-white, visually distinct from the pure white chart background)
+- Borders and dividers: `#eeeeee`
+
+The "Who Owns" ownership vs. renting chart uses a two-colour scheme independent of the generation palette: near-black (`#020c0b`) for owners and light grey (`#a0a0a0`) for renters, because the primary encoding is tenure type rather than generation (which is handled by position on the y-axis).
+
+### Typography
+
+- **Primary font**: Inter (preferred), with Arial and sans-serif as fallback
+- **Section headings (H1)**: 3.0 rem, bold, `#111111`, centred in hero blocks
+- **Chart subsection headings (H2/H3)**: 1.7–1.8 rem, weight 800, `#111111`
+- **Narrative text**: 1.05 rem, line height 1.7–1.8, `#333333`
+- **Chart axis labels and tick text**: 11–13 px, `#555555`
+- **Annotations and tooltips**: 9–14 px depending on context, matching the generation colour for generation-specific annotations
+- **Metadata / captions** (small text above/below charts): 0.85 rem, `#666666` to `#888888`
+- **Uppercase labels** (e.g. section dividers, filter labels): 0.75–0.85 rem, letter-spacing 0.07–0.1 em, `#999999` to `#aaaaaa`
+
+### Spacing and Alignment
+
+Charts use `use_container_width=True` in all Streamlit `st.plotly_chart` calls, filling the available main column width. Chart margins follow a consistent pattern: 10–60 px top margin (smaller when a chart is preceded by a caption), 10–50 px bottom margin, 10–60 px left margin, 10–220 px right margin (larger when annotations or legend items appear outside the plot area, as in the AHV dependency ratio chart). Narrative text boxes use 1.25 rem padding on all sides with 4 px border radius. Dividers between subsections are rendered as thin 1 px horizontal lines (`#eeeeee`) with 1.5 rem vertical margin.
+
+### Accessibility
+
+- Colour choices were selected to maximise contrast between generation colours at both ends of the palette, with the primary accessibility concern being deuteranopia (red-green colour blindness). The teal-to-coral palette avoids pure red/green and provides sufficient luminosity contrast.
+- All charts include hover tooltips with text alternatives for the data represented visually.
+- Font sizes are set at or above 11 px in all cases to maintain legibility at standard screen resolutions.
+- The app does not currently include ARIA labels on Plotly chart containers or screen reader support beyond Streamlit defaults.
 
 ## Prototype Description
-Document the developed prototype(s):
 
-* **Prototype fidelity**: Low-fidelity (sketches, wireframes), medium-fidelity (static mockups), high-fidelity (interactive implementation)?
-* **Screenshots and/or link**: Include representative screenshots of the prototype. If the prototype is accessible online, provide the URL.
-* **Technology stack**: Tools, libraries and frameworks used for implementation (e.g. D3.js, Plotly, Tableau, Power BI, Streamlit, Observable, etc.).
-* **Code and version control**: Link to the code repository, branch or tag corresponding to the current prototype version.
+### Prototype Fidelity
+
+The prototype is a **high-fidelity interactive implementation**. All charts are rendered with real data from the processed CSV files and respond to user interactions (generation filter, year selectors, hover tooltips). The visual design is production-quality: typography, colour, spacing, chart style and narrative texts are all in their intended final form.
+
+### Technology Stack
+
+| Component | Technology |
+|---|---|
+| Application framework | Streamlit (Python) |
+| Interactive charts | Plotly Graph Objects (`plotly.graph_objects`) and Plotly Subplots (`plotly.subplots`) |
+| Data manipulation | pandas |
+| Numerical computation | NumPy |
+| Data sources | CSV files (processed, stored in `data/`) |
+| Styling | Custom CSS injected via `st.markdown(..., unsafe_allow_html=True)` |
+| Navigation | HTML anchor links + Streamlit query parameters |
+
+The application entry point is `04_deployment/app.py`. Each thematic section is implemented as a self-contained module:
+
+- `04_deployment/who_decides_section.py` — Who Decides charts and renderer
+- `04_deployment/who_pays_section.py` — Who Pays charts and renderer
+- `04_deployment/who_owns_section.py` — Who Owns charts and renderer
+- `04_deployment/app_config.py` — Shared constants (colours, generation order, data paths)
+- `04_deployment/generationalConflict_app.py` — Home section renderer
+
+### Running the Prototype
+
+To launch the application locally:
+
+```bash
+cd 04_deployment
+streamlit run app.py
+```
+
+The application expects the processed data files to be present at the paths defined in `app_config.py`. Data files are generated by running `01_data_acquisition/load_sources.py` and `01_data_acquisition/load_whopays_final.py`.
+
+### Version Control
+
+The prototype is maintained in the project's Git repository on the `main` branch. All source code is version-controlled; raw data files are excluded from version control via `.gitignore`.
 
 ## Design Rationale and Iterations
-Document key design decisions, alternatives considered and the rationale for the chosen approach. This section ensures traceability and supports the evaluation phase.
 
-* **Design alternatives**: What alternative designs were considered? Sketches, mockups or descriptions of discarded approaches can be valuable for documentation.
-* **Design rationale**: Why was the chosen design preferred? Reference the project objectives, user needs (jobs, pains, gains) and the three value dimensions (cognitive, communicative, experiential).
-* **Iteration history**: If the design evolved through multiple iterations (e.g. based on informal feedback or internal reviews), briefly describe the key changes and their motivation.
+### Generation Colour Palette
+
+**Alternative considered**: A diverging palette centred on a neutral midpoint (e.g. generation-neutral grey at centre, diverging to blue and red for oldest and youngest). This was rejected because it implied a value judgement (red = bad, blue = good) that the project deliberately avoids — the goal is to describe patterns, not assign blame.
+
+**Chosen approach**: A sequential spectral palette from cool to warm, running from the oldest to the youngest generation. This encodes age direction intuitively (cool = established, warm = dynamic/pressured) without implying a positive/negative axis.
+
+### Narrative-Embedded Charts vs. Dashboard Grid
+
+**Alternative considered**: A traditional dashboard layout with multiple charts per page in a grid, allowing side-by-side comparison. This was prototyped early and rejected because it required users to build their own interpretation from the juxtaposition of charts — a high cognitive burden, especially for non-specialist users.
+
+**Chosen approach**: Charts are embedded within explanatory narrative text blocks. Each chart is preceded by a framing sentence and followed by an interpretive conclusion. This reduces the required data literacy of the audience and ensures that the key message of each chart is communicated clearly, while still allowing more engaged users to explore the data through hover tooltips and filters.
+
+### Parliament Chart for Voter Composition
+
+**Alternative considered**: A simple grouped bar chart showing turnout rate by generation. The problem with this approach is that a turnout rate (e.g. "60% of Gen Z eligible voters voted") does not intuitively convey political power — a generation with a high turnout rate but small population still has less electoral influence than a large generation with moderate turnout.
+
+**Chosen approach**: The parliament chart shows the **composition of actual voters**, not turnout rates. This directly answers the question "who is in the room when votes are counted?" The semicircular seat layout is familiar from news media coverage of parliamentary elections, making it immediately interpretable for the target audience. Normalising to 200 seats rather than using raw respondent counts avoids the impression that the chart represents a real election.
+
+### Rank Chart for Political Interest
+
+**Alternative considered**: A grouped bar chart showing absolute mean political interest by generation. This was considered insufficient because all generations score between 2.3 and 2.9 on the 1–4 scale — the absolute differences are so small that the bars look nearly identical. A rank chart eliminates this problem by making the relative ordering visible, even when absolute differences are negligible.
+
+**Chosen approach**: A bump/rank chart with smoothed bezier curves between election years. Ranking is computed per year, so even small differences in absolute values produce a clear visual ranking. Rank numbers are displayed inside each dot to prevent misreading the y-axis direction.
+
+### Small Multiples for Who Pays
+
+**Alternative considered**: A single chart with a generation filter dropdown, showing one generation at a time. This was rejected because the key insight in both the OKP and cashflow charts is the **contrast between generations** — you need to see all generations simultaneously to understand who is cross-subsidising whom.
+
+**Chosen approach**: Small multiples (5-panel layout, one per generation), sharing a y-axis where appropriate. The faceted layout allows direct visual comparison of the curve shapes and magnitudes across all generations simultaneously, without requiring any interaction from the user to access the comparison.
+
+### Synthesis Scatter Plot (Who Owns)
+
+**Rationale**: The scatter chart is the only chart in the project that combines variables from two different source datasets (occupancy type and living space). It was added specifically to show that the ownership gap and the living space gap are not independent observations — they are correlated (r ≈ 0.9), and this correlation strengthens the narrative claim that housing inequality is a compound, reinforcing phenomenon. A Pearson r value is displayed as an annotation to quantify the relationship without requiring the reader to interpret the scatter cloud unaided.
+
+### Iteration: Year-Labelled Narratives
+
+An important implementation detail that evolved through iteration: the intro and conclusion narrative texts in each section are **dynamically populated** with the actual values from the currently selected year and generation filter. For example, the ownership gap headline reads "A 38% ownership gap separates Babyboomers from Millennials" — but if the user changes the year selector, the headline recomputes and updates automatically. This required computing the chart statistics before rendering the text, so that the text and the chart are always consistent. Early versions hardcoded these numbers, leading to inconsistencies when filters were changed.
 
 ## Conclusions and Next Steps
-Summarise the key design decisions and their expected impact on the project objectives. Identify open questions, known limitations of the current prototype and topics to be addressed in the [Evaluation](05_evaluation.qmd) phase.
+
+The current prototype successfully implements the three-section narrative dashboard concept and communicates the core findings of each analytical dimension with data-driven charts and interpretive text. The key design decisions — the spectral generation palette, the narrative-scroll layout, the coordinated sidebar filter and the small-multiples approach for the financial burden section — all serve the project's objective of making complex generational patterns accessible to a broad audience.
+
+**Known limitations of the current prototype:**
+
+- The "Who Pays" section does not include a year selector. All three charts show the full 2012–2024 range, which is appropriate for trend analysis but does not allow snapshot comparisons analogous to those in the "Who Owns" section.
+- The small-multiples charts in "Who Pays" compress significantly at viewport widths below 1100 px, making them difficult to read on smaller laptop screens or tablet devices. A responsive layout or a condensed alternative view for narrow screens would improve usability.
+- Colour accessibility for the middle range of the generation palette (Generation X vs. Babyboomers) relies on direct labels and position rather than colour alone. This is currently adequate but could be further strengthened by adding pattern overlays or shape variation for users with deuteranopia.
+- The cantonal homeownership dataset (`wohneigentumsquote_kanton_2026_clean.csv`) is not yet rendered in the Streamlit application. A choropleth map showing homeownership rates by canton would add a geographic dimension to the "Who Owns" section and is a natural next step.
+- The "Who Decides" section covers three election years (2015, 2019, 2023) but the "Who Owns" and "Who Pays" sections cover different time ranges (2019–2024 and 2012–2024 respectively). Cross-section temporal comparisons are therefore only valid for the overlapping period (2019–2023), a limitation that is not currently communicated explicitly to the user.
+
+**Topics to be addressed in the evaluation phase (see [Evaluation](05_evaluation.qmd)):**
+
+- Whether the narrative structure (text + chart + conclusion) actually aids comprehension compared to a chart-only layout — measurable through the think-aloud protocols and post-task questionnaires planned in the evaluation
+- Whether the generation colour palette is interpretable without the legend for first-time users
+- Whether the sidebar generation filter is discovered and used spontaneously by users, or requires explicit instruction
+- Whether the "working days" metaphor in the "Who Pays" cashflow conclusion (e.g. "Gen X effectively worked 25 days purely to finance transfers") communicates the financial burden effectively or feels reductive

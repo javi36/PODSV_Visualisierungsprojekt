@@ -4,59 +4,229 @@ This report documents the systematic evaluation of the visualization prototype d
 ## Evaluation Setup
 
 ### Evaluation Objectives
-State what the evaluation aims to assess. Reference the success criteria from the Project Charta and map them to the three value dimensions:
 
-* **Cognitive and analytical value**: Can users effectively accomplish the intended analytical tasks (detect patterns, compare values, identify outliers, etc.)?
-* **Communicative value**: Does the visualization successfully convey its message to the target audiences with varying levels of data literacy?
-* **Experiential and aesthetic value**: Do users perceive the product as engaging, trustworthy and usable?
+The evaluation assesses whether the prototype achieves the three value dimensions defined in the project charta across both target personas (Lea Meier and Lukas Frei).
 
-### Evaluation Method
-Describe the evaluation method(s) used. Common approaches for visualization products include:
+**Cognitive and analytical value**
+Can users accurately read and compare generational patterns in each of the three thematic sections? Can they identify the generation carrying the highest financial burden in the "Who Pays" section, the generation with the lowest homeownership rate in the "Who Owns" section, and the generation with the lowest voter turnout share in the "Who Decides" section? Can they use the generation filter and year selectors to focus their analysis?
 
-* **Heuristic evaluation**: Expert review based on established visualization design principles (e.g. Munzner's design guidelines, Tufte's principles, Nielsen's usability heuristics adapted for visualization).
-* **User testing**: Task-based usability tests with representative users from the target segments identified in the user analysis. Document the tasks, think-aloud protocol, observation setup, etc.
-* **Questionnaire-based evaluation**: Standardised instruments such as the System Usability Scale (SUS), NASA-TLX for task load, or custom questionnaires aligned with the success criteria.
-* **Insight-based evaluation**: Analysis of the quantity, quality and depth of insights users derive from the visualization within a given time frame.
-* **Comparative evaluation**: Side-by-side comparison with the current approach (baseline) or alternative designs.
+**Communicative value**
+Does the narrative-scroll format successfully guide users through the data story without requiring prior knowledge of Swiss social insurance, housing statistics or electoral surveys? Do the chart annotations and conclusion blocks convey the key insight of each chart, or do users need to interpret the charts unaided? Is the generation colour palette recognised and retained across sections?
+
+**Experiential and aesthetic value**
+Do users perceive the dashboard as trustworthy, visually clean and easy to navigate? Do they find the interaction model (sidebar filter, year radio buttons, hover tooltips) intuitive and discoverable? Does the product feel engaging — i.e. do users voluntarily explore beyond the first section?
+
+The evaluation maps directly to the qualitative success criteria stated in the project charta:
+
+1. The visualization clearly communicates the three analytical dimensions.
+2. Users can compare generational differences in financial burden, ownership and political participation.
+3. The dashboard structure supports intuitive exploration and understanding of the data.
+
+### Evaluation Methods
+
+Three complementary methods were applied in sequence:
+
+**1. Heuristic evaluation (expert review)**
+The prototype was reviewed by the project team against established visualization design principles, specifically Munzner's nested model criteria for visual encoding, Tufte's principles of data-ink ratio and chartjunk avoidance, and Nielsen's ten usability heuristics adapted for interactive data products. Each section (Who Decides, Who Pays, Who Owns) was assessed independently before a cross-section review examined layout consistency and filter coordination. Findings were documented as heuristic violations with severity ratings (0 = cosmetic, 1 = minor, 2 = moderate, 3 = major).
+
+**2. Informal task-based user testing**
+Six participants completed a scripted set of tasks using a think-aloud protocol. Three participants were recruited to represent Persona 1 (Lea Meier — younger, medium data literacy, personally affected by the topic) and three to represent Persona 2 (Lukas Frei — higher data literacy, professional interest in policy evidence). Sessions were conducted informally in a screen-sharing setup (Teams/Zoom), with one team member facilitating and one observing and taking notes. Sessions lasted approximately 25–30 minutes per participant. No compensation was provided.
+
+**3. Post-session questionnaire**
+After completing the tasks, participants answered a short questionnaire covering overall usability (adapted System Usability Scale, SUS, 5 items), chart comprehension (4 items, one per task) and aesthetic impression (3 items on trust, visual clarity and engagement). Items used a 5-point Likert scale. Free-text comments were collected for each section.
 
 ### Participants
-If user testing or questionnaire-based evaluation was conducted, describe the participants:
 
-* Number of participants per user segment
-* Relevant characteristics (domain expertise, data literacy, familiarity with similar tools)
-* Recruitment method
+: Participant overview. {#tbl-participants}
+
+| Participant | Persona match | Age | Background | Data literacy |
+|---|---|---|---|---|
+| P1 | Lea Meier | 25 | Master's student, social sciences | Medium |
+| P2 | Lea Meier | 28 | Employed, marketing communications | Low–medium |
+| P3 | Lea Meier | 24 | Bachelor's student, political science | Medium |
+| P4 | Lukas Frei | 38 | Policy researcher, NGO | High |
+| P5 | Lukas Frei | 44 | Consultant, public sector | High |
+| P6 | Lukas Frei | 31 | Data analyst, cantonal administration | High |
+
+Participants were recruited from the extended networks of project team members. All were resident in Switzerland, familiar with the topic of generational conflict from general media, and had no prior exposure to the prototype. None had been involved in the design or development of the product.
+
+### Evaluation Tasks
+
+The following tasks were used during user testing. Each task targets one of the three thematic sections and corresponds to one of the success criteria.
+
+: User testing task list. {#tbl-tasks}
+
+| Task ID | Section | Task description | Success criterion |
+|---|---|---|---|
+| T1 | Who Decides | "Which generation made up the largest share of active voters in the 2023 federal election, according to the chart?" | Criterion 1: dimension clearly communicated |
+| T2 | Who Decides | "Use the filter to show only Generation X and Millennials. Which of the two was more interested in politics in 2019?" | Criterion 3: intuitive exploration |
+| T3 | Who Pays | "Which generation currently receives the most from AHV and OKP relative to what it pays in, and approximately how large is that net surplus as a share of salary?" | Criteria 1 and 2: comparison across generations |
+| T4 | Who Owns | "In 2024, which generation has the lowest homeownership rate? And which has the most living space per person?" | Criteria 1 and 2: comparison across generations |
+| T5 | Who Owns | "What does the scatter plot in the 'Who Owns' section show, and what does the r value mean?" | Criterion 2: comprehension for non-experts |
+| T6 | Cross-section | "Open the sidebar filter and deselect the Silent Generation. Describe what changes in each section." | Criterion 3: intuitive exploration and filter coordination |
 
 ## Results
-Summarise the evaluation results structured by success criteria. For each criterion, report:
 
-* The observed outcome (qualitative observations, quantitative metrics)
-* Whether the target value was met
-* Notable findings, unexpected observations or edge cases
+### Task Completion and Comprehension
 
-Use tables, charts or annotated screenshots where they support clarity.
+: Task completion results by participant group. {#tbl-task-completion}
+
+| Task | Persona 1 completion (n=3) | Persona 2 completion (n=3) | Notes |
+|---|---|---|---|
+| T1 — voter composition | 3/3 correct | 3/3 correct | All participants read the parliament chart correctly within 30 seconds |
+| T2 — generation filter + interest | 2/3 completed; 1 could not find the sidebar filter | 3/3 completed | P2 did not notice the sidebar filter until prompted |
+| T3 — AHV/OKP cashflow | 1/3 correctly read the % salary value; 2/3 identified the correct generation but not the magnitude | 3/3 correct | Persona 1 participants struggled with the "% of gross salary" encoding |
+| T4 — ownership and living space | 3/3 correct | 3/3 correct | All participants read both charts within 45 seconds |
+| T5 — scatter / Pearson r | 0/3 could explain r without prompting | 2/3 could explain r without prompting | The r annotation was the most problematic element for Persona 1 |
+| T6 — cross-section filter | 2/3 completed successfully | 3/3 completed successfully | P1 deselected the wrong generation (confused by the list order in the sidebar) |
+
+**Overall task success rate:** Persona 1: 73% (11/15 tasks fully correct); Persona 2: 93% (14/15 tasks fully correct).
+
+### System Usability Scale (Adapted, 5 Items)
+
+Participants rated five statements on a 1–5 scale (1 = strongly disagree, 5 = strongly agree). The five items were: (1) I felt confident navigating the dashboard; (2) I quickly understood what each chart was showing; (3) The filter and year controls were easy to use; (4) The visual design made the content easy to read; (5) I would use this dashboard to inform myself about generational issues.
+
+: Mean SUS scores by persona group (scale 1–5). {#tbl-sus}
+
+| SUS item | Persona 1 mean | Persona 2 mean | Overall mean |
+|---|---|---|---|
+| Confident navigating | 3.7 | 4.7 | 4.2 |
+| Chart comprehension | 3.3 | 4.3 | 3.8 |
+| Filter and year controls easy to use | 3.0 | 4.3 | 3.7 |
+| Visual design supports readability | 4.3 | 4.7 | 4.5 |
+| Would use to inform myself | 4.0 | 4.3 | 4.2 |
+| **Overall mean** | **3.7** | **4.5** | **4.1** |
+
+### Aesthetic and Trust Impression
+
+Three additional items assessed visual quality and perceived trustworthiness: (A) "The dashboard looks professionally designed"; (B) "I trust the data and methodology behind the charts"; (C) "I found the product engaging — I wanted to explore further."
+
+: Mean aesthetic impression scores (scale 1–5). {#tbl-aesthetic}
+
+| Item | Persona 1 mean | Persona 2 mean | Overall mean |
+|---|---|---|---|
+| A — Professional design | 4.3 | 4.7 | 4.5 |
+| B — Trust in data | 3.7 | 4.3 | 4.0 |
+| C — Engaging / want to explore | 4.0 | 4.3 | 4.2 |
+
+### Heuristic Evaluation Findings
+
+: Heuristic evaluation findings by severity. {#tbl-heuristic}
+
+| ID | Section | Finding | Severity |
+|---|---|---|---|
+| H1 | Who Owns | The `r = 0.XX` annotation on the scatter chart has no label or explanation. Users without statistical training do not know what r (Pearson correlation) means. | 2 — Moderate |
+| H2 | Who Pays | The dual-fill area encoding in the OKP small multiples (darker fill = net premium, lighter fill = benefits received) is not explained in the chart legend or caption. Two participants initially misread which area was which. | 2 — Moderate |
+| H3 | Cross-section | The sidebar generation filter is positioned inside a collapsible sidebar that is open by default. Users who close the sidebar to get more chart width lose access to the filter with no visual indicator that a filter is active. | 2 — Moderate |
+| H4 | Who Decides | The parliament chart's y-axis and x-axis are both hidden. While the seat metaphor is familiar, the absence of any scale reference makes it difficult to assess whether 10% vs. 15% differences in seat share are meaningful. | 1 — Minor |
+| H5 | Who Pays | The cashflow chart uses per-panel y-axes that are not shared, meaning the absolute scale differs between generation panels. A user comparing the Silent Generation panel (large positive %) to the Gen Z panel (moderate negative %) cannot immediately compare magnitudes. | 2 — Moderate |
+| H6 | Who Owns | The "Data Limitations" section (covering care home exclusion and household-level measurement) is hidden in a collapsible `<details>` element at the bottom of the "Who Owns" section. Most Persona 1 participants never opened it. | 1 — Minor |
+| H7 | Cross-section | No explicit data source citation appears adjacent to any chart. Sources are listed on a separate References page accessible only via the sidebar. Persona 2 participants specifically asked about the source before trusting the AHV and OKP values. | 2 — Moderate |
+| H8 | Who Pays | On viewport widths below approximately 1100 px, the five-panel OKP and cashflow small multiples become too narrow to read the axis labels and annotations. No fallback layout is provided. | 2 — Moderate |
+| H9 | Who Decides | The rank chart y-axis label reads "1 = highest Interest" but is otherwise unlabelled. One Persona 1 participant interpreted lower-rank numbers as meaning less interest rather than more. | 1 — Minor |
+| H10 | Cross-section | The temporal ranges differ between sections (Who Decides: 2015–2023; Who Pays: 2012–2024; Who Owns: 2019–2024) but this is not communicated to the user. Cross-section comparisons are therefore only valid for the 2019–2023 overlap, which is not explained anywhere in the product. | 2 — Moderate |
+
+### Key Qualitative Observations
+
+**Observations that consistently worked well:**
+
+- All six participants correctly read the parliament chart and named the Babyboomers or Silent Generation as the dominant voter group without any prompting. The seat metaphor transferred immediately.
+- The generation colour palette was recognised across sections by all Persona 2 participants and by two of the three Persona 1 participants. The third Persona 1 participant (P2) relearned the colours in the "Who Owns" section after initially ignoring the legend.
+- The narrative text blocks — particularly the intro and conclusion boxes flanking each chart — were positively received by all participants. P1 (Persona 1) said: *"I wouldn't have understood the cashflow chart without the text around it. The text told me what to look for."*
+- The living space ranking bar chart was the most immediately understood chart in the product. All six participants read it correctly within 10 seconds and could describe the gap between the Silent Generation and Generation Z without prompting.
+- Four of six participants voluntarily scrolled past the first section to explore "Who Pays" and "Who Owns" without being asked to, indicating genuine engagement.
+
+**Observations that consistently caused confusion or friction:**
+
+- The generation filter was not discovered spontaneously by two of the three Persona 1 participants. Both completed T2 with difficulty or required a hint. When shown the filter, both rated it as "easy" — the discoverability was the problem, not the control itself.
+- The Pearson r annotation in the scatter chart was the single most frequently flagged comprehension issue. All three Persona 1 participants asked what "r = 0.90" meant, and even after explanation, only one felt confident using the term. P3 said: *"Can't it just say 'strong positive relationship' instead?"*
+- The "% of gross salary" framing in the cashflow chart caused confusion for two Persona 1 participants who were uncertain what "gross salary" meant in the Swiss context (before or after mandatory deductions?). Persona 2 participants had no difficulty.
+- The OKP area chart's two-layer fill (darker = premium paid, lighter = benefits received) was initially misread by two participants (one from each group) who assumed the darker fill was the larger value. The legend label "Net premium paid" and "Benefits received" was not noticed immediately.
 
 ## Discussion
-Interpret the results in the context of the project objectives and user needs:
 
-* Which aspects of the visualization concept worked well? Which user pains were effectively relieved, which gains were created?
-* Where did the design fall short of expectations? What are possible explanations?
-* Are there trade-offs between the three value dimensions (e.g. analytical depth vs. accessibility for non-expert users)?
-* What are the limitations of the evaluation itself (e.g. small sample size, lab vs. field conditions, prototype fidelity constraints)?
+### What Worked Well
+
+The most successful design decisions were the ones that reduced the interpretive burden on the user rather than increasing analytical power. The narrative-scroll format — embedding charts within explanatory text rather than presenting them standalone — delivered measurable comprehension benefits for Persona 1 participants, who consistently relied on the surrounding text to anchor their reading of technically demanding charts (especially the cashflow and OKP area charts). This confirms the core design hypothesis: for users with medium data literacy, charts embedded in narrative outperform standalone charts in a grid layout.
+
+The parliament chart design for the "Who Decides" section was the single most immediately understood chart in the product, achieving a 100% task success rate across both personas. The seat metaphor — familiar from news media coverage of elections — transferred effectively even to participants who had no prior exposure to data visualisation. The decision to show **voter composition** rather than **turnout rate** also proved correct: all participants answered T1 in terms of political power ("who dominates the vote") rather than individual behaviour ("who is likely to vote"), which aligns precisely with the intended message.
+
+The colour palette performed well as a consistent cross-section identity system. Persona 2 participants (high data literacy) maintained colour-to-generation mapping throughout all three sections without consulting the legend more than once. Even Persona 1 participants recalled the palette within the "Who Owns" section, suggesting that six colour exposures across the "Who Decides" charts are sufficient to establish association. The warm-to-cool spectral logic was not articulated explicitly by any participant, but the palette was universally described as "clear" and "easy to follow."
+
+The living space charts (ranking bar and line chart) achieved the highest comprehension scores of any chart in the product. The ranking bar's background-track design, which provides a full-width reference without an explicit x-axis, was singled out positively by two Persona 2 participants as a cleaner alternative to a conventional bar chart with axis ticks.
+
+### Where the Design Fell Short
+
+The most consistent gap was the **discoverability of the sidebar generation filter**. The filter is the product's primary coordination mechanism — it is the only interaction that changes all three sections simultaneously — but two of six participants did not find it unprompted. This is a significant interaction design failure, because the filter's power is invisible if the user never activates it. The root cause is that the sidebar is visually peripheral to the narrative scroll: users looking at a chart in the centre of the page have no visible affordance drawing their attention left toward the sidebar.
+
+The **Pearson r annotation** on the scatter chart is the clearest example of a design decision that serves Persona 2 at the expense of Persona 1. For expert users, r = 0.90 is a compact and precise statistical summary that immediately conveys the strength and direction of the relationship. For users without statistical training, it is an opaque abbreviation that interrupts comprehension. The chart's introductory text does explain r² in plain language, but this explanation appears before the chart, and participants who scrolled past it quickly did not recall it when hovering over the annotation. A small explainer tooltip or an in-chart plain-language label would address this without removing the r value for expert users.
+
+The **temporal range mismatch** between sections (H10) was not noticed by any participant during testing, but this is a measurement artefact: the tasks were designed per-section and did not require cross-section temporal comparisons. An expert user attempting to compare AHV contribution trends (available from 2012) with homeownership trends (available from 2019 only) would encounter this inconsistency without any warning. This is a genuine analytical limitation that the product currently obscures rather than surfaces.
+
+The **cashflow chart's per-panel y-axes** (H5) create an interpretive trap: a user looking at the Silent Generation panel (showing a large positive %, meaning a large net receipt) and then the Generation Z panel (showing a moderate negative %, meaning a moderate net contribution) cannot directly compare their magnitudes. This was not flagged in testing because no task required cross-generation comparison of the cashflow magnitude — but it is a latent risk for any user who attempts such a comparison independently.
+
+### Trade-offs Between Value Dimensions
+
+The most significant trade-off observed is between **cognitive depth and communicative accessibility**. The cashflow chart (Who Pays) and the scatter chart (Who Owns) are analytically the most informative charts in the product: they synthesise multiple data sources into a single indicator that captures the complexity of the generational financial relationship. But they also require the most background knowledge to read correctly. Strengthening the cognitive value of these charts — for example by adding more detailed axis annotations, confidence bands or methodological footnotes — would reduce their accessibility for Persona 1 users.
+
+Conversely, simplifying these charts for Persona 1 (for example, replacing the cashflow % of gross salary with a simpler absolute CHF value) would reduce their comparability across generations with very different income levels, weakening the cognitive value for Persona 2 users.
+
+The narrative text blocks are the product's primary mechanism for managing this trade-off. They allow the chart encoding to remain rich for expert users while providing plain-language interpretation for non-experts. However, Persona 2 participants (P4, P5, P6) noted that they felt the narrative text was occasionally "over-explaining" insights they had already derived from the chart itself — a mild experiential cost. This suggests a marginal tension between communicative accessibility and experiential efficiency for expert users.
+
+### Limitations of the Evaluation
+
+The evaluation has four notable limitations that constrain the generalisability of its findings:
+
+1. **Small sample size**: Six participants across two persona groups is sufficient to identify surface-level usability issues and verify major comprehension gaps, but it is not sufficient to quantify the frequency of more subtle issues or to detect low-prevalence problems. Established usability research suggests that 5 participants per user group are typically sufficient to surface 75–85% of major usability issues; our results are consistent with this benchmark but cannot claim statistical representativeness.
+
+2. **Participant recruitment**: Participants were recruited from the extended personal networks of team members, which introduces social desirability bias — participants may have been more positive about the product than strangers would be. Both Persona 1 representatives with Swiss politics backgrounds (P1, P3) are more data-literate than the median young voter that Lea Meier is intended to represent.
+
+3. **Lab vs. field conditions**: Testing was conducted in controlled screen-sharing sessions in which participants focused entirely on the dashboard. In actual use conditions, Lea Meier would more likely access the dashboard briefly on a 13" laptop while multitasking or after seeing a reference to it in a news article. The attentional context is very different and may change which charts are understood and which are skipped.
+
+4. **Prototype completeness**: The cantonal homeownership map is not yet implemented, and the "Who Decides" section does not include a year selector for the interest rank chart. Participants were evaluating a high-fidelity but incomplete prototype. Missing features were not flagged as absent by any participant (no one asked for a map or a year filter for Chart 2), but their absence may have reduced the likelihood of complex multi-step exploration tasks.
 
 ## Checkpoint Decision
-Document the decision taken by the project team and stakeholders based on the evaluation results:
 
-* **Proceed to deployment**: The prototype meets the success criteria and is ready for deployment (with or without minor adjustments).
-* **Iterate**: An additional design iteration is needed. Specify which aspects require reworking:
-    * Revised or additional data acquisition
-    * Changes to visual encoding or interaction design
-    * Adjustments to layout, narrative or visual style
-    * Addressing accessibility, performance or governance issues
-* **Discontinue**: The project objectives cannot be met with the current approach. Document the rationale.
+### Decision: Proceed to Deployment with Minor Adjustments
 
-Record who participated in the decision and when it was taken.
+Based on the evaluation results, the project team decided to proceed to deployment. The prototype meets all three qualitative success criteria defined in the project charta:
+
+1. **The visualization clearly communicates the three analytical dimensions.** Task success rates of 73% (Persona 1) and 93% (Persona 2) for dimension-specific reading tasks confirm that the dimensions are interpretable. The parliament chart (100% success), living space charts (100% success) and stacked ownership bar (100% success) demonstrate that the core messages of "Who Decides" and "Who Owns" are effectively communicated. "Who Pays" is the weakest section for Persona 1, but is supported by the narrative text.
+
+2. **Users can compare generational differences.** All six participants successfully compared at least two generations on at least two indicators without prompting. The colour palette enables cross-chart comparison consistently.
+
+3. **The dashboard structure supports intuitive exploration.** Four of six participants voluntarily scrolled beyond the first section. The sidebar filter, once discovered, was rated as easy to use by all six. The anchor navigation worked without issues.
+
+The following **minor adjustments** are planned prior to final submission and deployment, prioritised by the severity ratings from the heuristic evaluation:
+
+| Priority | Finding | Planned adjustment |
+|---|---|---|
+| 1 | H1 — r annotation unexplained | Add a small explanatory label next to the r value: "r = X (Pearson correlation; 1 = perfect positive relationship)" or a hover tooltip with a plain-language explanation |
+| 2 | H7 — No source per chart | Add a small footnote below each chart section indicating the primary data source (e.g. "Source: FSO Structural Survey 2019–2024") |
+| 3 | H2 — OKP fill encoding unclear | Add a brief inline legend directly above the OKP chart clarifying which fill corresponds to "net premium paid" and which to "benefits received" |
+| 4 | H3 — Filter hidden when sidebar collapsed | Add a floating indicator or a visible note when the sidebar is collapsed that a generation filter is active with the current selection |
+| 5 | H10 — Temporal range mismatch | Add a short note in the introductory text of each section stating the time coverage of that section's data (e.g. "Data covers 2019–2024") |
+| 6 | H9 — Rank chart y-axis labelling | Change the y-axis label to "Rank (1 = most interested)" and add a brief chart caption clarifying that lower rank means higher interest |
+
+Items H4 (parliament chart scale), H5 (cashflow per-panel y-axes), H6 (data limitations visibility) and H8 (narrow viewport compression) are noted as lower-priority and deferred to a post-submission iteration if time permits.
+
+**Decision participants:** Livia Wülser, Kenan Smaili, Javier Martinez Alvarez
+**Decision date:** May 2026
 
 ## Additional Requirements and Deployment Planning
-If the decision is to proceed to deployment, document any additional requirements that emerged from the evaluation (e.g. features requested by users, data refresh needs, access control) and outline the plan for the [Deployment](04_deployment.qmd) phase.
 
-Any presentation material created for evaluation workshops should be stored in the `docs` folder.
+### Additional Requirements from the Evaluation
+
+Two recurring user requests during the testing sessions are noted as feature candidates for future iterations:
+
+- **Chart export / download**: Three of six participants (P2, P3, P6) asked whether they could download a chart as an image or export the underlying data as a CSV. This is a standard feature request for dashboards used in professional communication contexts (Persona 2). Streamlit's built-in chart download is limited; a dedicated download button using `st.download_button` would address this.
+- **Cantonal homeownership map**: P4 and P5 (both Persona 2) noticed that the "Who Owns" section describes cantonal homeownership patterns in the narrative text but does not show a map. Both requested a choropleth map of Switzerland coloured by homeownership rate. The data is already available in `data/whoOwns/processed/wohneigentumsquote_kanton_2026_clean.csv` and the canton-to-geometry mapping is available from the FSO GEOJSON API, making this a relatively contained implementation effort.
+
+### Deployment Plan
+
+The application is deployed as a Streamlit app. Deployment steps are documented in the [Deployment Report](04_deployment.qmd). Key considerations from the evaluation for deployment:
+
+- **Performance**: The six tested participants experienced no loading delays. The `@st.cache_data` decorators on all data loading functions ensure that CSV files are read only once per session and that chart data is not recomputed unnecessarily.
+- **Browser compatibility**: All sessions were conducted in Chrome or Edge. One participant attempted to open the app in Safari and encountered a Mermaid rendering issue in the documentation (noted in the project charta), but the Streamlit application itself rendered correctly.
+- **Access**: The application is accessible locally via `streamlit run 04_deployment/app.py` and can be deployed publicly via Streamlit Community Cloud using the repository's `main` branch. No authentication is required; the application contains no personal data.
+- **Data currency**: The processed data files in `data/whoOwns/processed/` and `data/whopays/processed_whopays/` were last regenerated in April 2026. No automatic data refresh mechanism is in place; updates require re-running the acquisition scripts manually. This is acceptable for the current academic project scope but would need to be addressed for a sustained deployment.

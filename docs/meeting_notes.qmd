@@ -3,78 +3,127 @@
 Notes and decisions from the coaching sessions. You might also want to include notes from internal team meetings here, e.g. to document decisions that are relevant for the project and the development of the visualisation product. Sort in reverse chronological order (most recent first).
 
 
+## 07.05.2026
+
+**Type:** Coaching session
+**Participants:** Project team, course lecturer
+
+### Topics and Decisions
+
+**Scrollable single-page layout confirmed**
+The team confirmed that the application should be implemented as a vertically scrollable single-page layout rather than a paginated multi-page structure. This decision was already reflected in the current prototype but is now formally agreed upon. The scroll format supports the narrative-first approach: users move through the three thematic sections in sequence, which reinforces the logical connection between "Who decides?", "Who pays?" and "Who owns?".
+
+**Unified references block**
+A single dedicated references block should be added to the application — not distributed across sections, but collected in one place. The block should list all authors and data sources used (BFS, FORS/SELECTS, FSO, etc.) and explicitly document which data or figures were not available or could not be obtained. This is important for scientific credibility and directly addresses the feedback from the evaluation that source information was not easily discoverable from within the charts.
+
+**Remove horizontal dividers**
+The horizontal dividing lines (rendered as `<hr>` elements via Streamlit's `st.markdown("---")`) between subsections should be removed. They create unnecessary visual fragmentation in a layout that is intended to flow as a coherent narrative. Section breaks should instead be handled through spacing, typography and the hero heading blocks alone.
+
+**Clearer distinction between two text types — merged into one unit**
+A structural distinction was discussed between two types of text that currently coexist in the product: (a) descriptive chart text, which belongs directly to the chart and explains what is shown (data description, axis interpretation, source reference), and (b) journalistic narrative text, which belongs to the story layer and interprets the significance of the finding in its broader context. The current implementation often splits these into a short intro sentence before the chart and a conclusion box after it, which can feel discontinuous. The decision is to merge both text types into a single unified explanatory block per chart — combining the "what the data shows" and "what it means" into one coherent paragraph, rather than sandwiching the chart between two separate text elements.
+
+**Key metrics embedded in text with colour-coded generation labels**
+Numbers and indicators mentioned in the narrative text (so-called Kennzahlen, e.g. ownership percentages, contribution ratios, m² values) should be embedded directly in the text and highlighted in the respective generation's colour. For example, when the text states that Babyboomers have a 58% ownership rate, the number "58%" and the generation name "Babyboomers" should appear in the Babyboomers generation colour (`#1d7874`). This approach — already partially implemented in the "Who Owns" section — should be applied consistently across all three sections to make the colour-to-generation association more salient and to reduce the cognitive distance between reading a number in text and locating it in a chart.
+
+**Sidebar reduced to navigation only — Control Panel removed**
+The sidebar should be simplified to contain only the anchor-link navigation panel (linking to "Who Decides", "Who Pays" and "Who Owns"). The global generation filter (previously labelled "Control Panel") should be removed from the sidebar entirely. This removes the discoverability problem identified in the evaluation (two of six participants did not find the filter unprompted) and avoids the visual disconnect between a control in the sidebar and charts in the main content area. The generation filter functionality is instead replaced by per-section filters (see next point).
+
+**Tooltips should include generation age ranges**
+Hover tooltips on all generation-coloured elements — chart markers, bar segments, line traces — should include the birth-year range of the corresponding generation in addition to the generation name (e.g. "Babyboomers, born 1946–1964" or "Generation Z, born 1997–2012"). The project already maintains these labels in `GENERATION_YEAR_LABELS` in `app_config.py`; they should be used consistently in all `hovertemplate` definitions across all sections.
+
+**Per-section generation filters instead of global sidebar filter**
+As a consequence of removing the Control Panel from the sidebar, each of the three thematic sections should include its own generation selector. This allows a user to compare, for example, only Babyboomers and Millennials in the "Who Pays" section while keeping all generations visible in "Who Owns" — a more flexible and contextually appropriate filtering model than a single global selector. The filter should be placed prominently at the start of each section so that users encounter it before the charts.
+
+**Small multiples with shared y-axis scale**
+Where small-multiple (subplot) charts are used — in particular the OKP area chart and the net cashflow chart in "Who Pays" — the y-axes of all panels should share the same scale. Per-panel independent y-axes, which were used in the current implementation to maximise the visual use of space within each panel, make it impossible to compare the magnitude of values across generations. For example, a user cannot currently compare the net cashflow as a percentage of gross salary between the Silent Generation (large positive values) and Generation Z (moderate negative values) without reading and mentally comparing the individual axis labels of each panel. A shared y-axis resolves this directly, at the cost of some within-panel visual detail for generations with smaller absolute values. This also directly addresses heuristic finding H5 from the evaluation report.
+
+### Next Steps
+
+- Remove horizontal dividers (`---`) from all three section renderers
+- Merge intro + conclusion text into a single explanatory block per chart
+- Apply colour-coded inline Kennzahlen consistently across all narrative text (Who Decides, Who Pays, Who Owns)
+- Move generation filter from sidebar to per-section position; remove "Control Panel" label
+- Update all `hovertemplate` definitions to include birth-year ranges from `GENERATION_YEAR_LABELS`
+- Refactor OKP area chart and cashflow chart in `who_pays_section.py` to use shared y-axis (`shared_yaxes=True` in `make_subplots`)
+- Build and integrate the unified references block (separate page or collapsible section at end of app)
+- Add explicit note in references block listing data that was sought but not found or not used
+
 ## 26.03.2026
-notes:
 
-Voraussetzungen für den Datensätze:
-Möglichst ausgeglichene Menge an Daten pro
-Altersgruppe:
-•	Silent Generation: bis 1945
-•	Babyboomers: bis 1964
-•	Generation X: 1980
-•	Millenials/ Generation Y: 1996
-•	Generation Z: 2012
+**Type:** Coaching session
+**Participants:** Project team, course lecturer
 
-Pro themebereich 3 bis 5 features (oder KPI)
+### Topics and Decisions
+
+**Data requirements for the datasets**
+The first substantive coaching session focused on what quality and quantity of data the project needs in order to make meaningful generational comparisons. The central requirement is a reasonably balanced amount of data per age group across all three thematic dimensions. If one generation is strongly overrepresented or underrepresented in a dataset, comparisons become unreliable and the visualisation can give a misleading picture. The team was advised to check, during the exploratory data analysis phase, whether the data coverage per age group is sufficient before investing in visualisation design.
+
+**Generation taxonomy formally agreed upon**
+The generation cut-off years to be used consistently throughout the project were agreed upon. These definitions form the backbone of every chart, filter and annotation in the product and must be applied uniformly across all three sections and all data sources:
+
+| Generation | Birth years |
+|---|---|
+| Silent Generation | up to and including 1945 |
+| Babyboomers | 1946–1964 |
+| Generation X | 1965–1980 |
+| Millennials / Generation Y | 1981–1996 |
+| Generation Z | 1997–2012 |
+
+These cut-offs are based on widely used sociological conventions and align with definitions used in Swiss media and policy discourse. They were subsequently implemented in `app_config.py` as the `generation_from_birth_year` function and the `GENERATION_ORDER` constant.
+
+**Scope per thematic dimension: 3 to 5 indicators**
+Each of the three thematic areas ("Who pays?", "Who owns?", "Who decides?") should be supported by between three and five key indicators (KPIs or features). This constraint serves two purposes: it keeps the scope manageable within the semester timeline, and it prevents the dashboard from becoming overloaded with charts that dilute the main message. The team should prioritise indicators that are directly relevant to the generational conflict narrative and for which data of sufficient quality exists.
+
+### Next Steps
+
+- Begin data acquisition for all three thematic dimensions
+- Check per-age-group coverage in each candidate dataset during EDA
+- Identify 3–5 key indicators per section and validate their data availability
 
 
 
 ## 23.04.2026
 
-Lading Page:
-* introduction text (of our storystelling, generationvertrag)
-* overview of the generations and KPIs --> details on demand (click and expand)
-* violinplot with bars including a time filtering option. (ab 2'000)
+**Type:** Coaching session
+**Participants:** Project team, course lecturer
 
-* pagination system with 3 pages each one for a topic.
+### Topics and Decisions
 
-page who decides:
-* 
+**Landing page concept discussed**
+The session focused on the design of the landing page and the overall structure of the application. The landing page should serve as a narrative entry point into the project rather than just a menu. It should contain an introductory text that frames the topic — the "Generationenvertrag" (generational contract) concept in Switzerland — and immediately makes clear to the user what the project is about and why it is relevant. This intro text sets the storytelling tone for the rest of the dashboard.
 
-page 
+The landing page should also include an overview of the generations and their key characteristics, with relevant KPIs. The idea discussed was a "details on demand" interaction: users see a compact overview by default, but can click or expand to access more detail about a specific generation. This keeps the landing page clean while still making deeper information accessible.
 
-## 6.05.2026
+For the main data visualisation on the landing page, a **violin plot combined with bar elements** was proposed. The chart would show the age distribution of the Swiss population with a time filter allowing the user to move through the years starting from around the year 2000. This chart would serve as a demographic pyramid alternative — giving an immediate sense of how the relative size of each generation has changed over time and how the population is ageing.
 
-Dinge die man verbessern könnte:
-* Plot auf landing page: Violinplot mit Balken--> ist ja einfach gespiegelt. Das macht aus meiner Sicht nicht so viel Sinn. Sieht zwar mega aus!
+**Overall application structure: scrollable with three thematic sections**
+The application should be structured into three main thematic sections, one for each guiding question. At this stage, a pagination system (three separate pages) was discussed as a possible structure, although the scrollable single-page format was later confirmed as the preferred approach (see meeting 07.05.2026). The three sections are:
 
- 
+1. **Who pays?** — financial burden, AHV and OKP contributions by generation
+2. **Who owns?** — homeownership and living space by generation
+3. **Who decides?** — political participation and voting behaviour by generation
 
+**"Who decides?" section: early concept**
+The content for the "Who decides?" section was briefly discussed but not finalised. The team noted that the SELECTS survey data (political participation, voting behaviour, trust, political orientation) provides a strong empirical base for this section, and that the section should emphasise the imbalance between who votes and who is affected by the outcome. Specific chart types were not agreed upon at this stage.
 
-Topics:
+### Next Steps
 
-* topic 1
-* topic 2
-* ...
+- Develop the landing page visualisation (violin/age distribution chart) with time filter
+- Flesh out the "Who decides?" section chart concepts based on SELECTS data
+- Decide on pagination vs. scroll structure for the overall layout
 
-Decisions:
+## 06.05.2026
 
-* decision 1
-* decision 2
-* ...
+**Type:** Coaching session / prototype review
+**Participants:** Project team, course lecturer
 
-Next steps:
+### Topics and Decisions
 
-* this
-* and that
-* ...
+**Landing page visualisation: violin plot reconsidered**
+The violin plot with bar elements that was proposed in the previous session was reviewed with the first working prototype. The feedback was that the violin plot, as implemented, is essentially a mirrored bar chart — the two sides of the violin show the same distribution reflected along the vertical axis, which does not add analytical information beyond what a simple bar or area chart would provide. While the chart is visually striking and immediately catches the eye, the visual complexity is not justified by the additional insight it delivers. The team was advised to reconsider whether the landing page visualisation should prioritise aesthetic impact or analytical clarity, and to evaluate whether a simpler but more readable chart type (e.g. a population pyramid or a stacked area chart) would serve the user better. This feedback directly informed the subsequent design iteration where the landing page demographic chart was revised.
 
-## 07.04.2022
+### Next Steps
 
-Topics:
-
-* topic 1
-* topic 2
-* ...
-
-Decisions:
-
-* decision 1
-* decision 2
-* ...
-
-Next steps:
-
-* this
-* and that
-* ...
+- Revise the landing page visualisation: evaluate alternatives to the violin plot (population pyramid, stacked age bars, or animated demographic chart)
+- Continue implementation of the three thematic sections
+- Prepare a more complete prototype for review in the next coaching session (07.05.2026)
