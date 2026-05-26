@@ -21,16 +21,119 @@ The raw datasets are documented according to the three main dimensions of the pr
 | Who pays? | AHV expenditure data | Swiss official statistics export | `data/whopays/raw_whopays/px-x-1305000000_103_20260416-235225.xlsx` |
 | Who pays? | Population by age and year | Swiss official population statistics export | `data/raw/px-x-0102020000_103_20260424-164251.xlsx` |
 
-### Details Raw Dataset: Who Decides
+### Details Raw Data: Who Decides – Political Participation and Voting Behaviour
 
-This dataset is used to represent the first analytical dimension of the project: **Who decides?**. It contains information related to political participation, demographic influence or voting behaviour across different age groups. The dataset helps to analyse whether different generations participate equally in democratic decision-making processes.
+The raw data for the analytical dimension **"Who decides?"** consists of three post-election survey datasets from the Swiss Electoral Study (SELECTS), covering the federal elections of 2015, 2019 and 2023. This dimension focuses on political participation and democratic attitudes across age groups and generations in Switzerland. The aim is to analyse whether different generations participate equally in democratic decision-making processes and how the composition of the active electorate has shifted over time.
 
-- Description of what information the dataset contains
-- Details of the data source/provider
-- Information on data procurement
-- Legal aspects of data use, licences, etc.
-- Data governance aspects
-- Relevance for the visualisation dimension "Who decides?"
+The three SELECTS datasets are post-election surveys conducted after each federal election by FORS (Swiss Centre of Expertise in the Social Sciences) at the Université de Lausanne. They are available through the FORS data archive and are distributed under a standard research data licence that permits use for non-commercial scientific and educational purposes. No individual-level personal data is disclosed: respondents are identified only by survey ID, and sensitive attributes such as birth year are available only as aggregated or derived variables.
+
+The raw datasets were accessed and processed in three separate files:
+
+- `data/whodecide/raw/726_Selects2015_PES_Data_v1.03.dta` — SELECTS 2015 raw data in Stata format
+- `data/whodecide/processed/selects_2015_clean.csv` — Preprocessed version of the 2015 data
+- `data/whodecide/processed/selects_2019_clean.csv` — Preprocessed 2019 data
+- `data/whodecide/processed/selects_2023_clean.csv` — Preprocessed 2023 data
+
+The raw SELECTS files are not directly suitable for visualisation because variable names, coding conventions and value ranges differ across survey waves. Variable names follow the standardised SELECTS naming scheme (e.g. `f11100rec`, `f10100`, `f12010`, `f12900rec`) but their internal coding and valid value ranges differ between years. In particular, the left–right self-placement variable uses a 7-point scale in 2015 (`f12900main7`, values 1–7) but a 5-point recoded scale in 2019 and 2023 (`f12900rec`, coded as 10/20/30/40/50). Substantial preprocessing was therefore required to harmonise the three waves into a consistent analytical structure before generation assignment and aggregation.
+
+From a data governance perspective, the SELECTS datasets are public-use research files distributed by FORS under standard terms of use for academic research. They do not contain individually identifiable data. The datasets are widely used in Swiss political science and are considered reliable reference data for electoral behaviour research. The processed outputs derived from these datasets are therefore best understood as analytical summaries of survey-reported behaviour by generation, not as administrative records of individual votes.
+
+The relevance of this data for the visualisation dimension "Who decides?" is direct: the SELECTS surveys are the primary empirical source for measuring voter turnout, political interest, democratic satisfaction and political orientation (left–right self-placement) in Swiss federal elections. By linking survey respondents to their birth year and assigning them to generational groups, the project can show how these four indicators differ across generations and how they have changed over three election cycles (2015, 2019, 2023).
+
+#### Data Catalogue
+
+The data catalogue below describes the harmonised schema produced by the preprocessing pipeline (`who_decides_section.py`). All three processed CSV files share this schema after loading and standardisation. The original SELECTS variable names are retained where possible to ensure traceability back to the source codebooks.
+
+: Data catalogue for the harmonised "Who decides?" datasets. {#tbl-whodecides-data-catalogue}
+
+| Column index | Column name | Datatype | Values / validation rules | Short description |
+|---|---|---|---|---|
+| 1 | `birthyear` | integer | Approximately 1920–2005, depending on survey wave | Birth year of the respondent. Used to derive generation assignment. |
+| 2 | `generation` | string / categorical | `Silent Generation`, `Babyboomers`, `Generation X`, `Millennials / Gen Y`, `Generation Z` | Generation label derived from birth year using fixed cut-off points. Cut-offs: Silent ≤ 1945, Boomers ≤ 1964, Gen X ≤ 1980, Millennials ≤ 1996, Gen Z > 1996. |
+| 3 | `voted` | integer | 0 = did not vote, 1 = voted | Binary indicator of self-reported voter turnout. Derived from `f11100rec` (2019/2023) or `f11100r` (2015 CSV variant). Only non-negative values are retained; invalid codes are excluded. |
+| 4 | `political_interest` | float | 1–4 scale (1 = not at all interested, 4 = very interested); codes −99, −98, 9 treated as missing | Self-reported level of interest in politics. Derived from `f10100`. |
+| 5 | `trust_avg` | float | Mean of three trust items, each on a scale approximately 1–10; codes −99, −98 treated as missing | Average institutional trust score across three items: trust in the federal government (`f11301`), trust in parliament (`f11302`), and satisfaction with democracy (`f11305`). |
+| 6 | `demo_satisfaction` | integer | 0 = not satisfied, 1 = satisfied; codes −99, −98, 8, 9 treated as missing | Binary indicator of democratic satisfaction. Derived from `f12010` (original values: 1 → satisfied, 2 → not satisfied). |
+| 7 | `lr_scale` | float | 1.0–5.0 continuous scale (1 = far left, 5 = far right); codes −99, −98 treated as missing | Left–right self-placement. In 2015: derived from `f12900main7` (7-point scale mapped to 1–5 via fixed mapping). In 2019/2023: derived from `f12900rec` (values 10/20/30/40/50 divided by 10). |
+
+The three processed CSVs do not contain a common `survey_year` column; the year dimension is introduced at load time by the pipeline, which reads each file separately and keys the resulting DataFrames by election year (2015, 2019, 2023).
+
+#### Conceptual Data Relationship Diagram
+
+The "Who decides?" dimension is based on three separate survey waves that are harmonised into a shared analytical structure. The following diagram shows the conceptual flow from raw source files to the Streamlit visualisation.
+
+```{mermaid}
+%%{init: {
+  "flowchart": {
+    "curve": "basis",
+    "nodeSpacing": 40,
+    "rankSpacing": 70
+  },
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Arial",
+    "primaryTextColor": "#111827",
+    "lineColor": "#111827"
+  }
+}}%%
+
+flowchart LR
+
+    %% =========================
+    %% RAW FILES
+    %% =========================
+    subgraph RAW["<b>Raw files from sources</b>"]
+        direction TB
+        A["SELECTS 2015<br/>726_Selects2015_PES_Data_v1.03.dta<br/>Stata format, N ≈ 5 337"]
+        B["SELECTS 2019<br/>selects_2019_clean.csv<br/>N ≈ 6 664"]
+        C["SELECTS 2023<br/>selects_2023_clean.csv<br/>N ≈ 5 033"]
+    end
+
+    %% =========================
+    %% PROCESSED FILES
+    %% =========================
+    subgraph PROC["<b>Processed files</b><br/>harmonised, generation-labelled survey data"]
+        direction TB
+        D["selects_2015_clean.csv<br/>standardised variables,<br/>generation labels"]
+        E["selects_2019_clean.csv<br/>standardised variables,<br/>generation labels"]
+        F["selects_2023_clean.csv<br/>standardised variables,<br/>generation labels"]
+    end
+
+    G["Streamlit: Who decides?<br/>Parliament chart, Interest,<br/>Trust, Left–Right"]
+
+    A --> D
+    B --> E
+    C --> F
+    D --> G
+    E --> G
+    F --> G
+
+    classDef rawNode fill:#f4f1fb,stroke:#5b2ca0,stroke-width:2px,color:#111827;
+    classDef procNode fill:#edf8f5,stroke:#2f7f7b,stroke-width:2px,color:#111827;
+    classDef appNode fill:#f8fafc,stroke:#475569,stroke-width:2px,color:#111827;
+
+    class A,B,C rawNode;
+    class D,E,F procNode;
+    class G appNode;
+
+    style RAW fill:#f7f4ff,stroke:#5b2ca0,stroke-width:2px,color:#111827;
+    style PROC fill:#f0fdfa,stroke:#2f7f7b,stroke-width:2px,color:#111827;
+```
+
+#### Data Characteristics and Quality
+
+The exploratory analysis showed that the SELECTS data is well suited for a generational comparison of political participation across three election cycles, but requires careful handling of several methodological issues.
+
+**Sample sizes and generation coverage.** The three survey waves have the following approximate sample sizes: SELECTS 2015 (N ≈ 5 337), SELECTS 2019 (N ≈ 6 664) and SELECTS 2023 (N ≈ 5 033). After filtering for valid turnout responses and assigning generation labels, the effective analytical sample per wave is somewhat smaller. The Silent Generation cohort is structurally small in recent waves due to demographic attrition, which means that point estimates for this generation should be interpreted with caution in 2019 and 2023. Generation Z respondents are also comparatively few because many members of this cohort were below the voting age of 18 in earlier survey waves.
+
+**Self-reported turnout bias.** Voter turnout in the SELECTS surveys is self-reported. It is well established in electoral survey research that self-reported turnout systematically overestimates actual turnout due to social desirability bias: respondents are more likely to report having voted than they actually did. The parliament chart (chart 1) therefore does not show individual turnout rates but rather the *compositional share* of self-reported voters by generation — this framing reduces the impact of overreporting bias while preserving the key finding that older generations dominate the active electorate.
+
+**Variable coding differences across waves.** As described above, the left–right self-placement variable differs structurally between 2015 (7-point scale) and 2019/2023 (5-point recoded scale). The mapping applied in the preprocessing pipeline (`{1:1.0, 2:1.5, 3:2.5, 4:3.0, 5:3.5, 6:4.5, 7:5.0}`) is a reasonable approximation but introduces some uncertainty in cross-wave comparisons. Trend interpretations for the left–right chart should therefore be treated with caution, particularly for the 2015–2019 transition.
+
+**Missing value treatment.** SELECTS uses standardised missing value codes (−99 = not answered, −98 = does not apply, 9 or 8 = refused or invalid). All such codes are recoded to `NaN` during preprocessing. Aggregations at generation level use only non-missing observations. Where missingness rates are high for a particular generation and year, this is reflected in gaps in the visualisation rather than imputed values.
+
+**Data quality assessment.** Overall, the data quality is sufficient for the intended visualisation purpose. The three survey waves are methodologically consistent, cover the required variables, and are the standard reference source for Swiss electoral behaviour research. The main limitations — self-report bias, varying sample sizes for edge-case generations, and the left–right coding change — are documented here and should be acknowledged when interpreting trends in the "Who decides?" section of the dashboard.
+
 
 ### Details Raw Data: Who Pays - Financial Contributions and Public Transfers
 
