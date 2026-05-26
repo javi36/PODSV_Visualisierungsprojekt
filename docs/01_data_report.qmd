@@ -206,110 +206,167 @@ Several generation-specific values require caution. Very young generations, espe
 
 Overall, the data quality is sufficient for the intended visualisation goal: to show broad generational patterns in mandatory payments, social insurance contributions and public transfers. However, the results should be interpreted as aggregated and methodologically harmonised indicators, not as exact individual-level accounting. The main limitations are the use of population-weighted disaggregation, differences in temporal coverage, changes in raw file structure, missing contributor groups in the AHV income data and the different interpretation of payment-side and benefit-side indicators.
 
-### Details Raw Dataset: Who Owns
+### Details Raw Dataset: Who Owns – Housing Tenure and Living Space
 
-This dataset is used to represent the third analytical dimension of the project: **Who owns?**. It contains information related to wealth, assets, property ownership or household resources. The dataset is used to examine how ownership and accumulated resources are distributed across age groups or generations.
+The raw data for the analytical dimension **"Who owns?"** consists of multiple datasets that document housing tenure status, living space per person and cantonal homeownership rates across Switzerland. This dimension focuses on how residential property ownership and available housing resources are distributed across age groups and generations. The aim is to analyse whether different generations own or rent their homes, how much living space they have available, and how these patterns relate to structural barriers in the Swiss housing market.
 
-- Description of what information the dataset contains
-- Details of the data source/provider
-- Information on data procurement
-- Legal aspects of data use, licences, etc.
-- Data governance aspects
-- Relevance for the visualisation dimension "Who owns?"
+The data acquisition script `01_data_acquisition/load_sources.py` loads three separate source areas: occupancy type data, living space data, and cantonal homeownership rate data. The script explicitly retains the original raw files unchanged and writes the cleaned outputs to `data/whoOwns/processed/`.
+
+The primary raw file is `data/whoOwns/raw/bfs_bewohnertyp_groesse.xlsx`. This Excel workbook is provided by the Swiss Federal Statistical Office (FSO) and contains two distinct types of statistical tables embedded in separate sheets. The first type is stored in sheets prefixed with `SE` (Strukturerhebung, i.e. the Federal Structural Survey). These sheets contain occupancy type data by single age year for the years 2019 to 2024. For each age and year, the data provides the absolute number of persons by occupancy type — owner, renter or cooperative member, other situation — along with share percentages and associated confidence intervals. The second type is stored in sheets prefixed with `GWS-STATPOP`. These sheets contain the average living space in square metres per person by single age year, also for the years 2019 to 2024. This data is derived from the Federal Register of Buildings and Dwellings (GWS) linked with the Federal Population Register (STATPOP) and covers the entire permanently resident population rather than relying on survey sampling alone.
+
+The second raw source is `data/whoOwns/raw/wohneigentumsquote_kanton_2026.csv`. This is a BFS statistical export providing homeownership rates by Swiss canton and year, using semicolons as delimiters. Geographic units are identified using BFS geographic codes (e.g. `CH040` for Uri, `CH010` for Zurich). An accompanying metadata file, `data/whoOwns/raw/metadaten_wohneigentumsquote_kanton_2026.ods`, provides a mapping between BFS geographic codes and canton names in four languages (German, French, Italian, English). During data acquisition, this metadata is joined onto the cantonal data to enrich the geographic identifiers with human-readable labels.
+
+A fourth file, `data/whoOwns/raw/statistik_vermoegen_2022.xlsx`, is present in the raw data directory but is not integrated into the current visualisation pipeline. It contains aggregate wealth statistics from 2022 and was considered during the initial data exploration phase but was ultimately not used because its level of aggregation was not compatible with the age- and generation-based analysis structure of the project.
+
+The raw files are not directly suitable for visualisation because they differ in file format, internal sheet structure and naming conventions. In the `bfs_bewohnertyp_groesse.xlsx` workbook, the year must be inferred from the sheet name because the sheets do not contain a dedicated year column. Column names in the raw sheets contain multi-line headers with special characters and encoding artifacts that require cleaning. The cantonal ownership data uses semicolons as delimiters rather than commas, and the geographic codes require a separate join to obtain readable canton names. The main preprocessing steps therefore include identifying and loading the relevant sheets per data type, inferring the reference year from the sheet name, parsing and cleaning age and occupancy type labels, converting numeric columns from string to float, standardising column names to lowercase with whitespace stripped, and filtering out total rows and non-numeric placeholders. The script distinguishes between `bewohnertyp` and `wohnflaeche` sheet types through a name-matching heuristic that checks for keywords in the sheet name.
+
+From a data governance perspective, all datasets used in this dimension are aggregated statistical datasets published by the Swiss Federal Statistical Office (FSO). They are derived from official administrative registers and the annual Federal Structural Survey (Strukturerhebung), and are accessible for research and educational purposes under FSO data usage conditions. The datasets do not contain individual-level personal data and can therefore be treated as public, aggregate statistical information. However, results must be interpreted with the understanding that the Structural Survey covers only persons aged 15 and older who are part of the permanent resident population and live in private households. Persons residing in collective households — such as care homes, assisted living facilities or other institutional accommodation — are excluded from the survey by design. This exclusion disproportionately affects the oldest age groups, particularly the Silent Generation, because a significant share of very old persons live in care homes. As a consequence, occupancy and living space values for the Silent Generation are likely biased toward owner-occupied large dwellings, since those who remain in private households tend to live in the homes they have owned for decades. This limitation is documented explicitly in the visualisation and must be kept in mind when comparing the Silent Generation with younger generations.
 
 #### Data Catalogue
-The data catalogue basically represents an extended schema of a relational database.
 
+The raw data for the **"Who owns?"** dimension originates from a combined FSO Excel workbook and a supplementary CSV export. Since the original file uses different sheet prefixes to separate occupancy type and living space data, and since both the year and the data type must be inferred from the sheet name during loading, the data catalogue below describes the harmonised schemas of the three processed output files produced by the data acquisition pipeline.
 
-: Data catalogue for Dataset 1. {#tbl-data-catalogue}
+The processed datasets for this dimension are stored in `data/whoOwns/processed/`.
 
-| Column index | Column name |  Datatype | Values (Range, validation rules) | Short description |
+: Role of processed datasets for the "Who owns?" dimension. {#tbl-whoowns-dataset-role}
+
+| Dataset | Role in the project | Directly used for visualisation |
+|---|---|---|
+| `bfs_bewohnertyp_20260414_clean.csv` | Primary occupancy dataset. Contains person counts and shares by age, occupancy type and year, derived from the FSO Structural Survey. | Yes |
+| `bfs_wohnflaeche_20260414_clean.csv` | Primary living space dataset. Contains average living space in m² per person by single age year, derived from GWS-STATPOP register data. | Yes |
+| `wohneigentumsquote_kanton_2026_clean.csv` | Supplementary cantonal homeownership dataset. Contains homeownership rates by canton and year. Not directly used in the Streamlit charts but retained for reference and potential extension. | No |
+
+: Data catalogue for `bfs_bewohnertyp_20260414_clean.csv`. {#tbl-whoowns-bewohnertyp-catalogue}
+
+| Column index | Column name | Datatype | Values / validation rules | Short description |
 |---|---|---|---|---|
-| 1 |   |   |   |   |
-| 2 |   |   |   |   |
-|   |   |   |   |   |
+| 1 | `alter` | integer | 15–100 | Single age year of the person. |
+| 2 | `bewohnertyp` | string / categorical | `Eigentümer`, `Mieter oder Genossenschafter`, `Andere Situation2)`, `Total` | Occupancy type of the household in which the person resides. |
+| 3 | `absolute zahlen` | float | Non-negative | Estimated absolute number of persons in this age and occupancy type category. |
+| 4 | `vertrauens-intervall : ± (in %)` | float | ≥ 0 | Relative confidence interval of the absolute count estimate, expressed as a percentage. |
+| 5 | `anteil in %` | float | 0–100 | Share of this occupancy type within the age group, expressed as a percentage. |
+| 6 | `vertrauens-intervall : ± (in %-pkte)` | float | ≥ 0 | Confidence interval of the share estimate, expressed in percentage points. |
+| 7 | `datenqualität` | string / categorical | Quality flag (e.g. `*`) or blank | Data quality indicator; an asterisk marks cells with limited statistical reliability due to small sample size. |
+| 8 | `time_period` | integer | 2019–2024 | Reference year, inferred from the source Excel sheet name. |
+| 9 | `source_sheet` | string | Examples: `SE2024`, `SE2023` | Name of the source Excel sheet from which the row was extracted. |
+| 10 | `sheet_type` | string / categorical | `bewohnertyp` | Identifies the thematic type of the source sheet. |
 
+: Data catalogue for `bfs_wohnflaeche_20260414_clean.csv`. {#tbl-whoowns-wohnflaeche-catalogue}
 
-#### If applicable: Entity Relationship Diagram
+| Column index | Column name | Datatype | Values / validation rules | Short description |
+|---|---|---|---|---|
+| 1 | `alter` | integer | 0–99 | Single age year of the person. |
+| 2 | `wohnfläche (in m2) pro person` | float | ≥ 0 | Average living space in square metres per person for this age and year, as registered in the GWS-STATPOP database. |
+| 3 | `time_period` | integer | 2019–2024 | Reference year, inferred from the source Excel sheet name. |
+| 4 | `source_sheet` | string | Examples: `GWS-STATPOP2024`, `GWS-STATPOP2023` | Name of the source Excel sheet from which the row was extracted. |
+| 5 | `sheet_type` | string / categorical | `wohnflaeche` | Identifies the thematic type of the source sheet. |
 
+: Data catalogue for `wohneigentumsquote_kanton_2026_clean.csv`. {#tbl-whoowns-kanton-catalogue}
 
-#### Data Chracteristics and Quality
+| Column index | Column name | Datatype | Values / validation rules | Short description |
+|---|---|---|---|---|
+| 1 | `time_period` | integer | 2019–2024 | Reference year of the observation. |
+| 2 | `geo` | string | BFS geographic codes, e.g. `CH010`, `CH040` | Canton identifier using the BFS geographic coding system. |
+| 3 | `obs_value` | float | 0–100 | Homeownership rate for this canton and year, expressed as a percentage. |
+| 4 | `obs_confidence` | float | ≥ 0 | Confidence interval around the observed homeownership rate. |
+| 5 | `obs_status` | string / categorical | `A` | Observation status flag as published by BFS. |
 
-The methods of exploratory data analysis are used to describe relevant characteristics of the data and identify data quality issues. This includes, for example, 
+#### Conceptual Data Relationship Diagram
 
-the univariate andalysis of numerical variables:
+The **"Who owns?"** dimension is not based on a single relational database table. Instead, several raw datasets are loaded and transformed into harmonised analysis files. The following diagram shows the conceptual relationship between the raw sources, the processed datasets and the Streamlit visualisation.
 
-* Number or fraction
-    * of unique values
-    * of missing values
-    * of zero values
-    * of negative values
-* Frequency distribution
-* Extreme values (minimum and maximum)
-* Histogram
-* Measures of central tendency:
-    * arithmetic mean
-    * median
-    * mode
-* Measures of dispersion and visualisation of dispersion:
-    * Range
-    * Quantiles and interquartile range (IQR)
-    * Box plot
-    * Variance and standard deviation 
+```{mermaid}
+%%{init: {
+  "flowchart": {
+    "curve": "basis",
+    "nodeSpacing": 40,
+    "rankSpacing": 70
+  },
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Arial",
+    "primaryTextColor": "#111827",
+    "lineColor": "#111827"
+  }
+}}%%
 
-and for categorical variables:
+flowchart LR
 
-* number of classes
-* and the corresponding distribution of values
-* fraction of missing values
+    %% =========================
+    %% RAW FILES
+    %% =========================
+    subgraph RAW["<b>Raw files from sources</b>"]
+        direction TB
+        A["bfs_bewohnertyp_groesse.xlsx<br/>SE sheets — occupancy type by age"]
+        B["bfs_bewohnertyp_groesse.xlsx<br/>GWS-STATPOP sheets — living space by age"]
+        C["wohneigentumsquote_kanton_2026.csv<br/>homeownership rate by canton"]
+        D["metadaten_wohneigentumsquote_kanton_2026.ods<br/>BFS geo code → canton name mapping"]
+    end
 
-The correlation between variables in the form of
+    %% =========================
+    %% PROCESSED FILES
+    %% =========================
+    subgraph PROC["<b>Processed files</b><br/>constructing variables usable for visualisation"]
+        direction TB
+        E["bfs_bewohnertyp_20260414_clean.csv<br/>occupancy type by single age and year"]
+        F["bfs_wohnflaeche_20260414_clean.csv<br/>living space (m²/person) by single age and year"]
+        G["wohneigentumsquote_kanton_2026_clean.csv<br/>homeownership rate by canton and year"]
+    end
 
-* correlation coefficients (e.g. Pearson, Spearman, Kendall)
-* and corresponding visualizations, e.g. scatter plot, heatmap, grouped box plot (for categorical-numerical relationships), ...
+    K["Streamlit: Who owns?"]
+    H["reference / not visualised"]
 
+    %% =========================
+    %% DATA FLOW
+    %% =========================
+    A --> E
+    B --> F
+    C --> G
+    D --> G
 
-The results the exploratory data analysis should be summarised here (code and full output in the `eda` subfolder) and the implications for the subsequent data pre-processing, visualization design and implementation steps should be discussed. Is the data quality and quantity sufficient to achieve the visualisation goals? Is it necessary to acquire additional or different data? Are there any limitations that need to be considered in the design and implementation of the visualisation product? Are there any specific data characteristics that can be used to enhance the visualisation design? For example, if there are a lot of missing values in a dataset, this might need to be taken into account in the design of the visualisation product, e.g. by using specific visual encodings to indicate missing values or by providing options for filtering or imputing missing values. 
+    E --> K
+    F --> K
+    G -.-> H
 
-Tip: `Ydata-profiling` is a Python library that can be used to perform exploratory data analysis and generate a comprehensive report on the characteristics of the data, including the distribution of values, missing values, correlations between variables, and more. This can be a useful tool to generate the full analysis in the code section and then only include the relevant information here in the data report.
+    %% =========================
+    %% STYLING
+    %% =========================
+    classDef rawNode fill:#f4f1fb,stroke:#5b2ca0,stroke-width:2px,color:#111827;
+    classDef procNode fill:#edf8f5,stroke:#2f7f7b,stroke-width:2px,color:#111827;
+    classDef appNode fill:#f8fafc,stroke:#475569,stroke-width:2px,color:#111827;
+    classDef refNode fill:transparent,stroke:#cccccc,stroke-width:1.5px,color:#888888;
 
-This is an example on how to incorporate executable Python code and show a figure output:
+    class A,B,C,D rawNode;
+    class E,F,G procNode;
+    class K appNode;
+    class H refNode;
 
-```{python}
-#| label: fig-demo
-#| fig-cap: "Distribution of monthly revenue across product categories (sample data)."
-#| echo: true
-#| code-fold: true
-import matplotlib.pyplot as plt
+    style RAW fill:#f7f4ff,stroke:#5b2ca0,stroke-width:2px,color:#111827;
+    style PROC fill:#f0fdfa,stroke:#2f7f7b,stroke-width:2px,color:#111827;
 
-# Sample data
-categories = ['Electronics', 'Clothing', 'Food', 'Books', 'Sports']
-revenue = [42000, 28500, 35200, 12800, 19400]
-
-# Create the bar chart
-fig, ax = plt.subplots(figsize=(6, 3.75))
-
-bars = ax.bar(categories, revenue, color='#4C78A8', edgecolor='white')
-
-ax.set_xlabel('Product Category')
-ax.set_title('Monthly Revenue by Product Category')
-
-ax.spines['top'].set_visible(False)
-ax.spines['right'].set_visible(False)
-ax.spines['left'].set_visible(False)
-ax.yaxis.set_visible(False)
-ax.tick_params(axis='x', length=0)
-
-# Add value labels on bars
-for bar, val in zip(bars, revenue):
-    ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 500,
-            f'{val:,.0f}', ha='center', va='bottom', fontsize=9)
-
-plt.tight_layout()
-plt.show()
 ```
 
-Then the figure can be referenced with @fig-demo.
+No single master table was created before the exploratory analysis because the occupancy type and living space data differ in structure, units, age coverage and statistical derivation method. The cantonal homeownership file has a different unit of analysis (canton rather than individual age) and is therefore kept separate. Keeping the analytical files separate reduces unnecessary complexity and makes the methodological origin of each indicator transparent.
+
+#### Data Characteristics and Quality
+
+The exploratory analysis showed that the data for the **"Who owns?"** dimension is well-suited for a high-level visualisation of generational housing patterns, but with several structural characteristics and limitations that must be considered.
+
+The occupancy type dataset (`bfs_bewohnertyp_20260414_clean.csv`) has 2,040 rows covering ages 15 to approximately 100 across six years (2019–2024) and four occupancy type categories, including a `Total` row per age. The `Total` rows are filtered out in the Streamlit application to avoid double-counting when aggregating by generation. The three substantive occupancy types are `Eigentümer` (owner), `Mieter oder Genossenschafter` (renter or cooperative member) and `Andere Situation` (other situation, e.g. dwelling provided free of charge by a relative or employer). The `Andere Situation` category represents a consistently small share across all age groups and is excluded from the visualisation because it does not contribute meaningfully to the generational comparison.
+
+The confidence intervals in the occupancy data are provided per cell and reflect the sampling uncertainty of the Federal Structural Survey. They tend to be larger at the extremes of the age distribution — for very young adults (15–19) and very old persons (above 80) — because the sample sizes are smaller in those groups. The `datenqualität` column contains a data quality flag (typically `*`) for cells where the FSO considers the estimate to have limited reliability. In the current visualisation, these flagged cells are used as-is, but the affected age groups fall in the margins of the generation distribution where the interpretation is already treated with caution.
+
+The living space dataset (`bfs_wohnflaeche_20260414_clean.csv`) has 600 rows covering ages 0 to 99 across six years (2019–2024). Unlike the Structural Survey data, the GWS-STATPOP register covers the entire permanent resident population at the building and dwelling level, meaning that living space values are calculated from a full population count rather than a sample. There are no missing values in this dataset and no confidence intervals are published alongside the values. The column name `wohnfläche (in m2) pro person` contains special characters (the `ä` umlaut) that require consistent encoding handling during loading; the data acquisition script handles this by reading the CSV with the default UTF-8 encoding, which preserves the character correctly.
+
+Generation labels are not stored in the processed files. In the Streamlit application, generations are derived dynamically by computing `birth_year = time_period - alter` and applying the project's generation definition table (defined in `app_config.py`). This avoids redundancy and keeps the processed files schema-stable as the project's generation boundaries evolve. The generation boundaries used are: Silent Generation (born ≤ 1945), Babyboomers (1946–1964), Generation X (1965–1980), Millennials / Gen Y (1981–1996), Generation Z (1997–2012).
+
+The cantonal homeownership dataset (`wohneigentumsquote_kanton_2026_clean.csv`) has 162 rows covering 27 cantons across six years. Confidence intervals are generally small — mostly below 2 percentage points — reflecting the large sample size of the Structural Survey at the cantonal level. No missing values are present. This dataset is retained for reference and potential future extensions but is not directly rendered in the current Streamlit visualisation.
+
+One important methodological limitation applies across all occupancy and space indicators in this dimension: they reflect **household-level tenure status**, not individual ownership. A young adult still living in a parental owner-occupied home is recorded as residing in an owner-occupied household, which inflates the apparent ownership rate for younger generations such as Generation Z. Conversely, when multiple adults share the same dwelling, the m² per person figure is compressed, which reduces the apparent living space for Generation Z even in owner-occupied homes. These artefacts are inherent to the household-level measurement design of the Structural Survey and are explicitly noted in the visualisation narrative.
+
+A second limitation specific to the oldest age group is the care home exclusion described in the data governance section. Because the Structural Survey only covers persons in private households, those who have moved into care homes or assisted living do not appear in the data. The remaining Silent Generation respondents in the dataset are therefore disproportionately those who continue to live in large owner-occupied homes — skewing both the occupancy rate and the living space figure for this generation upward relative to the true population average.
+
+Overall, the data quality is sufficient for the intended visualisation goal: to show broad generational patterns in housing tenure and living space in Switzerland. The GWS-STATPOP living space data is particularly reliable due to its register-based coverage. The Structural Survey occupancy data is suitable for trend analysis and generational comparison, provided that the household-level measurement artefacts and the care home exclusion are communicated transparently to the user. The main limitations are the household-level tenure definition, the exclusion of collective households, the small-sample confidence intervals for extreme age groups, and the dynamic derivation of generation labels from age data rather than direct individual birth year records.
 
 ## Processed Data
 ### Overview Processed Datasets

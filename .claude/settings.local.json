@@ -20,7 +20,8 @@
       "Bash(\"/Users/K.Smaili_ZHAW/Desktop/ZHAW/4. Semester/PoDSV_Project Orientated Digital Storytelling and Visualization/PODSV_Visualisierungsprojekt/podsv-project/bin/python3\" /tmp/ausgaben_probe.py)",
       "Bash(\"/Users/K.Smaili_ZHAW/Desktop/ZHAW/4. Semester/PoDSV_Project Orientated Digital Storytelling and Visualization/PODSV_Visualisierungsprojekt/podsv-project/bin/python3\" /tmp/ausgaben_probe2.py)",
       "Bash(\"../podsv-project/bin/python3\" load_ahv_ausgaben.py)",
-      "Bash(\"../podsv-project/bin/python3\" load_whopays.py)"
+      "Bash(\"../podsv-project/bin/python3\" load_whopays.py)",
+      "Bash(python -c ' *)"
     ],
     "additionalDirectories": [
       "/tmp",
