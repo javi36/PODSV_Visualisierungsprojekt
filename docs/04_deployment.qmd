@@ -283,7 +283,7 @@ The data pipeline scripts are designed to be idempotent: re-running them overwri
 | Issue | Severity | Status |
 |---|---|---|
 | Processed data files are excluded from the repository, requiring manual setup before the app will run | Moderate | Open — mitigation: commit processed files before cloud deployment |
-| The five-panel OKP and cashflow charts in "Who Pays" compress below approximately 1100 px viewport width, making labels and annotations unreadable | Moderate | Open — no responsive fallback implemented |
+| The five-panel OKP and cashflow charts in "Who Pays" compress below approximately 1100 px viewport width, making labels and annotations unreadable | Minor | Open — no responsive fallback implemented |
 | The cantonal homeownership dataset (`wohneigentumsquote_kanton_2026_clean.csv`) is processed and available but not yet visualised in the app | Low | Open — planned as a future extension (choropleth map) |
 | The Pearson r annotation in the scatter chart ("Who Owns") has no plain-language explanation visible to users without statistical background | Low | Partially addressed in narrative text; a tooltip explainer is planned |
 | Temporal ranges differ between sections: Who Decides (2015–2023), Who Pays (2012–2024), Who Owns (2019–2024). Cross-section comparisons are only valid for the 2019–2023 overlap, which is not communicated in the UI | Low | Open — a short note per section header is planned |

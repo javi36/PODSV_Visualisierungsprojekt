@@ -2,27 +2,31 @@
 
 ## Context and Scope
 
-In recent years, public debates in Switzerland increasingly address the issue of a potential **generational conflict**. Younger generations often face rising living costs, increasing housing prices and higher health insurance premiums, while older generations tend to benefit from greater financial stability and higher rates of property ownership. At the same time, political participation differs significantly between age groups, which may influence how societal decisions are made.
+In recent years, public debates in Switzerland increasingly address the question of whether different age groups experience substantially different economic and political conditions. Younger adults often face rising housing costs, higher health insurance premiums and limited asset accumulation, while older adults tend to benefit from greater financial stability and higher rates of property ownership. At the same time, political participation differs significantly between age groups, which may influence how collective decisions are made.
+
+For the purpose of this project, **generational differences** refer to systematic, measurable disparities in economic outcomes and political participation between distinct age groups. The term **generational conflict** is used in a strictly analytical sense: the project does not presuppose that conflict exists, but investigates whether and to what degree such disparities are observable in the available data. No normative judgement is implied.
+
+**Generations are operationalized as five birth-year cohorts**, applied consistently across all data acquisition scripts and the Streamlit application. The cohort boundaries are: **Silent Generation** (born ≤ 1945), **Babyboomers** (1946–1964), **Generation X** (1965–1980), **Millennials / Gen Y** (1981–1996) and **Generation Z** (1997–2012). These boundaries are defined centrally in `app_config.py` and used to derive generation labels from age and reference year in every dataset.
 
 This project investigates generational differences in Switzerland across three key dimensions:
 
-1. **Who pays?** – the financial burden experienced by different generations, including housing costs, health insurance premiums and taxes relative to income resulting in a  imbalanced cashflow between generations.
+1. **Who pays?** – the distribution of financial burdens across age groups, including housing costs, health insurance premiums and taxes relative to income.
 
-2. **Who owns?** – the distribution of property ownership and housing security across age groups.
+2. **Who owns?** – the distribution of property ownership and wealth across age groups.
 
-3. **Who decides?** – political participation and influence, such as voting behaviour and participation in democratic processes.
+3. **Who decides?** – political participation and influence, such as voting behaviour and engagement in democratic processes.
 
-The project aims to explore whether younger and older generations differ in terms of economic burden, ownership of assets and political influence. By combining socio-economic and political data, the visualization seeks to highlight potential inequalities and structural differences between generations.
+The project aims to explore whether younger and older age groups differ in terms of financial burden, asset ownership and political participation. By combining socio-economic and political data, the visualization provides a descriptive overview of patterns across these three dimensions. The project is explicitly **descriptive**: it documents observed differences in the data, but does not make causal claims about their origins or policy implications.
 
 The data visualization project addresses the following research questions:
 
 - How does the **financial burden** differ between age groups in Switzerland?
-- How is **property ownership and housing security** distributed across generations?
-- How does **political participation and influence** vary by age group?
+- How is **property ownership and wealth** distributed across age groups?
+- How does **political participation** vary by age group?
 
-The expected benefit of the project is to provide a clear and accessible overview of potential generational conflicts in Switzerland. By visualizing complex socio-economic and political data, the project supports users in understanding patterns and relationships between financial burden, ownership and political participation.
+The expected benefit of the project is to provide a clear and accessible overview of age-related differences in Switzerland. By visualizing data from multiple official and scientific sources, the project supports users in identifying patterns across financial burden, ownership and political participation.
 
-The visualization product will be developed as a **dashboard-based visualization**, providing a structured overview of the three dimensions and enabling users to compare generational patterns across the dataset.
+The visualization product will be developed as a **dashboard-based application**, providing a structured overview of the three dimensions and enabling users to compare patterns across age groups.
 
 ---
 
@@ -30,171 +34,145 @@ The visualization product will be developed as a **dashboard-based visualization
 
 ### Project Objectives
 
-From the perspective of the stakeholders, the project aims to provide a clear and understandable visualization of generational differences in Switzerland.
-
-The visualization should enable users to explore and compare generational patterns across three key dimensions:
+The project aims to provide a clear and understandable visualization of age-group differences in Switzerland across three key dimensions:
 
 - **Financial burden (Who pays?)** – illustrating how costs such as housing, health insurance premiums and taxes relate to income across different age groups.
 
-- **Ownership (Who owns?)** – showing how property ownership and housing security are distributed between generations.
+- **Ownership (Who owns?)** – showing how property ownership and wealth are distributed across age groups.
 
 - **Political participation (Who decides?)** – highlighting differences in political engagement and participation across age groups.
 
-The objective of the visualization is to support users in identifying structural patterns and potential inequalities between generations. By presenting socio-economic and political data in a structured and visual form, the project aims to make complex relationships easier to understand and compare.
+The objective is to support users in identifying observable patterns and differences between age groups. By presenting socio-economic and political data in a structured visual form, the project makes complex multi-source information easier to explore and compare.
 
 ### Success Criteria
 
-Since the project is currently in an early conceptual phase, the success criteria focus primarily on qualitative objectives.
+The following criteria define a successful project outcome:
 
-Qualitative success criteria include:
+**Functional criteria:**
 
-- The visualization clearly communicates the three analytical dimensions of the project.
-- Users are able to compare generational differences in financial burden, ownership and political participation.
-- The dashboard structure supports intuitive exploration and understanding of the data.
+- The dashboard correctly implements the three analytical dimensions (Who pays, Who owns, Who decides) as separate, navigable sections.
+- The generation/age-group filter is functional: selecting an age group updates all relevant charts within the active section.
+- All data sources used in the dashboard are labelled with their origin and reference year.
 
-If possible within the project scope, the visualization should allow users to quickly identify major patterns and differences between age groups.
+**Quality criteria:**
+
+- The visualization will be reviewed in at least one structured **peer review session** with a course participant or instructor before final submission. Feedback will be documented and addressed.
+- Chart types, labels and annotations are checked against the operationalized age-group definitions to ensure consistency across all views.
 
 ### Out of Scope
 
 The following aspects are explicitly excluded from the project scope:
 
 - Predictive modelling of future generational developments.
-- Detailed causal explanations of socio-economic or political inequalities.
+- Causal explanations of socio-economic or political disparities.
 - Policy recommendations or political evaluation.
 - International comparisons beyond the Swiss context.
 
-The focus of the project is on the **descriptive visualization and exploration of existing data related to generational differences in Switzerland**.
+The focus is on the **descriptive visualization and exploration of existing data related to age-group differences in Switzerland**.
 
 ---
 
 ## Stakeholder Analysis
-The primary stakeholder in this project is the **political party or interest group** that commissions the visualization. This stakeholder has high influence and high interest, as it defines the thematic focus and expects a clear, evidence-based dashboard for analysis and communication. 
 
-A second group of stakeholders consists of the **broader public**, especially **younger and older generations in Switzerland**, who are directly affected by the topic of generational conflict. Additional stakeholders include **journalists, researchers and civil society organizations**, who may use the visualization to support public debate or further analysis. Finally, **data providers** such as BFS, FORS, ESTV and Selects are relevant because the scope and quality of the dashboard depend strongly on the availability and comparability of their data.
+The primary stakeholder in this project is the **political party or interest group** that commissions the visualization. This stakeholder has high influence and high interest, as it defines the thematic focus and expects a clear, evidence-based dashboard for analysis and communication.
+
+A second group of stakeholders consists of the **broader public**, especially people across different age groups in Switzerland who are directly affected by the topics covered. Additional stakeholders include **journalists, researchers and civil society organizations**, who may use the visualization to support public debate or further analysis. Finally, **data providers** such as BFS, FORS, ESTV and Selects are relevant because the scope and quality of the dashboard depend on the availability and comparability of their data.
 
 ## User Analysis
 
 **Persona 1: Young urban voter affected by cost-of-living pressure**
 
-Name: Lea Meier  
-Age: 27  
+Name: Lea Meier, 27. Lives and works in Zurich, rents a flat, follows politics occasionally, and feels directly affected by rising living costs. Low-to-medium domain expertise; medium data literacy. Accesses the dashboard via a laptop browser — the application requires a desktop environment and is not optimised for mobile use. Uses the dashboard before votes or during public debates.
 
-**Background:** Lives in Zurich, works in a mid-level office or service role, rents a flat, follows politics occasionally, votes in major federal referendums, and feels directly affected by rising living costs. 
+Lea wants to understand whether younger age groups in Switzerland face greater economic pressure than older ones. She needs a dashboard that is visually clear, easy to navigate and immediately relevant to everyday life — with simple comparisons, concise annotations and concrete indicators such as income, rent burden, insurance costs, wealth ownership and voter turnout.
 
-**Domain expertise:** Low to medium. Familiar with the topic from media and personal experience, but not with official statistics or survey methodology.  
+---
 
-**Data literacy:** Medium. Can understand clear charts, filters and comparisons, but does not want to interpret raw datasets or overly technical graphs.  
+**Persona 2: Policy analyst in a political party or interest group**
 
-**Technical environment:** Mostly laptop and smartphone; often accesses content in the browser, sometimes on the go. Screen sizes mainly 13–14" laptop and mobile.  
+Name: Lukas Frei, 42. Works as a policy analyst or campaign strategist, preparing evidence-based briefings and public communication. High domain expertise; high data literacy. Uses browser-based dashboards on desktop, regularly and at key moments in the project cycle.
 
-**Frequency of use:** Occasional to moderate. Likely to use the dashboard before votes, during public debates, or when seeing related news coverage.  
-
-**Why this persona fits the material:** The Swiss Deloitte material suggests that younger adults in Switzerland are strongly concerned about living costs, financial security and inequality, while still caring about purpose, work-life balance and meaningful choices. The same material also shows that Gen Z and Millennials make up roughly half of the workforce in Switzerland, which makes them an important audience for a project on generational conflict.
-
-**User tasks (jobs):** Functionally, Lea wants to understand whether younger generations in Switzerland are really under greater pressure than older ones. She wants to compare age groups on income, housing, ownership and political participation without reading long reports. Socially, she may want to share a chart in a discussion with friends, on social media, or in a university/work context. Emotionally, she wants to feel that her concerns are backed by credible evidence rather than just opinion.
-
-**Pains:** Lea is confronted with many public claims about AHV, housing, taxes and generational fairness, but she often lacks a clear and trustworthy overview. Official datasets are hard to access, fragmented and difficult to interpret. She may also feel that public debates are dominated by older, more politically confident voices, while younger people have less influence and less time to dive into complex evidence. The Deloitte material also suggests strong financial pressure and uncertainty among younger adults, which means that a confusing dashboard would quickly lose her attention.
-
-**Gains:**  Lea wants a dashboard that is visually clear, easy to navigate and immediately relevant to everyday life. She benefits from simple comparisons by generation, concise annotations, and concrete indicators such as income, rent burden, insurance costs, wealth ownership and turnout. She would value a tool that helps her quickly answer questions like: Are younger people really paying more relative to what they earn? Who owns housing? Who participates politically? An especially strong gain would be if the dashboard helps her feel informed and confident enough to discuss the topic publicly or use it before a vote.  
-
-
-**Persona 2: Policy analyst / campaign strategist in a political party or interest group**  
-
-Name: Lukas Frei  
-Age: 42  
-
-**Background:** Works as a policy analyst or campaign strategist for a political party, association or advocacy group in Switzerland. He needs evidence-based material to prepare briefings, presentations, argumentation and public communication.  
-
-**Domain expertise:** High. Strong understanding of Swiss politics, institutions and policy debates; comfortable with socio-economic indicators.  
-
-**Data literacy:** High. Can interpret distributions, trends, survey-based indicators and limitations of data sources.
-
-**Technical environment:** Desktop or large laptop, often in an office setting, sometimes dual-screen. Uses browser-based dashboards, presentations and spreadsheets.  
-
-**Frequency of use:** Regular. Likely to return weekly or at key moments in the project cycle, especially before campaign decisions, briefings or public events.  
-
-**Why this persona fits the material:**  The SILC and SAKE materials show that the topic spans multiple dimensions—income, housing, education, labour-market structure, household models, and institutional attitudes—which means expert users need a dashboard that can synthesize complex official statistics efficiently. The assumed project setting also explicitly positions a party or interest group as a likely commissioning stakeholder, making this persona highly plausible.
-
-**User tasks (jobs):** Functionally, Lukas wants to identify the strongest age-related patterns in the data and translate them into evidence-based messages. He needs to compare indicators across generations, validate claims, detect tensions between subjective perceptions and official statistics, and prepare communication material for colleagues or stakeholders. Socially, he wants to present credible, understandable findings to party leadership, members, journalists or the public. Emotionally, he wants confidence that the dashboard is methodologically serious and will not expose him to criticism for oversimplifying or misrepresenting the data.  
-
-**Pains:** Lukas faces fragmented sources, different definitions across datasets, and the constant risk of drawing conclusions too quickly from complex socio-economic patterns. He must often communicate nuanced findings to non-experts under time pressure. A major pain point is the gap between official data complexity and public communication needs. He needs clarity, but not at the price of losing credibility. The SAKE report itself already shows that generational differences interact with gender, education, labour-market participation and household models, so overly simplistic visuals would be risky for his purposes.
-
-**Gains:** Lukas wants a dashboard that provides a robust overview and lets him move quickly from broad patterns to selected details. He benefits from trustworthy source labels, clear definitions, and filters by age group or generation. He would value concise annotations that summarize the main signal of a chart, as well as visuals that can be reused in briefings or presentations. A major gain would be a tool that allows him to communicate complex evidence in a form that is both politically useful and methodologically defensible.  
+Lukas wants to identify the strongest age-related patterns in the data and translate them into evidence-based messages. He needs trustworthy source labels, clear age-group definitions and filters. Since the dashboard is built with Streamlit, charts are not directly exportable — Lukas will take screenshots of relevant views for use in briefings and presentations. A dashboard that is methodologically serious and communicates nuance without oversimplifying is essential for his work.
 
 ---
 
 ## Situation Assessment
-The project combines several Swiss datasets to analyse generational differences related to the theme **“Who pays, who owns and who decides.”**
 
+The project combines several Swiss datasets to analyse age-group differences related to the theme **"Who pays, who owns and who decides."**
 
 ### Available Resources
 
-**Financial burden – “Who pays?”**  
+**Financial burden – "Who pays?"**
 
-- **[Swiss Inequality Database (SID)](https://www.iwp.swiss/sid/)**  
-  Long-run data on income distribution, tax redistribution and tax contribution shares in Switzerland, based on official federal, cantonal and communal tax statistics.  
+- **[Swiss Inequality Database (SID)](https://www.iwp.swiss/sid/)**
+  Long-run data on income distribution, tax redistribution and tax contribution shares in Switzerland, based on official federal, cantonal and communal tax statistics. *Access: publicly available.*
 
-- **[Eidgenössische Steuerverwaltung (ESTV)](https://www.estv.admin.ch/de/schweizer-steuerstatistiken)**  
-  Official Swiss tax data on taxable income, tax burden and wealth, providing key indicators on fiscal redistribution and the distribution of tax payments.  
+- **[Eidgenössische Steuerverwaltung (ESTV)](https://www.estv.admin.ch/de/schweizer-steuerstatistiken)**
+  Official Swiss tax data on taxable income, tax burden and wealth, providing key indicators on fiscal redistribution and the distribution of tax payments. *Access: publicly available.*
 
-- **[Bundesamt für Statistik (BFS)](https://www.bfs.admin.ch/bfs/de/home/statistiken/wirtschaftliche-soziale-situation-bevoelkerung/erhebungen/habe.html)**  
-  Official survey and statistical data on household income, expenditure and living conditions in Switzerland, supporting age-based comparisons of financial burden.
-
-
-**Ownership – “Who owns?”**
-
-- **[Swiss Household Panel (FORS)](https://forscenter.ch/projects/swiss-household-panel/)**  
-  Individual-level survey data on age, political attitudes, trust in institutions, societal values and life satisfaction.
-
-- **[Home ownership rate (BFS)](https://www.bfs.admin.ch/bfs/rm/home.assetdetail.33947654.html)**  
-  Data on home ownership across the Swiss population.
-
-- **[Wealth distribution (ESTV)](https://www.estv.admin.ch/de/gesamtschweizerische-vermoegenssteuerstatistik)**  
-  National statistics on the distribution of taxable wealth.
-
-- **[Income, consumption and wealth of households (BFS)](https://www.bfs.admin.ch/bfs/de/home/statistiken/wirtschaftliche-soziale-situation-bevoelkerung/einkommen-verbrauch-vermoegen/vermoegen.assetdetail.36207530.html)**  
-  Data on income, consumption and wealth of households in Switzerland.
+- **[Bundesamt für Statistik (BFS)](https://www.bfs.admin.ch/bfs/de/home/statistiken/wirtschaftliche-soziale-situation-bevoelkerung/erhebungen/habe.html)**
+  Official survey and statistical data on household income, expenditure and living conditions in Switzerland, supporting age-based comparisons of financial burden. *Access: publicly available.*
 
 
-**Political Participation – “Who decides?”**
+**Ownership – "Who owns?"**
 
-For the dimension **“Who decides?”**, the project will use data from the **[Selects – Swiss Election Studies](https://forscenter.ch/projects/selects/)** dataset. Selects is a long-running scientific research program that analyzes voting behaviour in Swiss federal elections. The study has been conducted regularly since 1995 and provides detailed survey data on political participation, voting behaviour and political attitudes in Switzerland.
+- **[Home ownership rate (BFS)](https://www.bfs.admin.ch/bfs/rm/home.assetdetail.33947654.html)**
+  Data on home ownership across the Swiss population, disaggregated by age group. *Access: publicly available.*
 
-The dataset includes variables such as age of respondents, participation in federal elections, political preferences and party choice, as well as trust in political institutions. These variables make the dataset particularly suitable for analysing generational differences in political participation.
+- **[Wealth distribution (ESTV)](https://www.estv.admin.ch/de/gesamtschweizerische-vermoegenssteuerstatistik)**
+  National statistics on the distribution of taxable wealth across income and age groups. *Access: publicly available.*
 
-By combining age-related variables with indicators of political engagement, the dataset allows the project to explore how political influence and participation vary across different age groups. The Selects dataset is widely used in political science research and therefore provides a reliable and well-documented data source for analysing the dimension **“Who decides?”** within the broader topic of generational differences in Switzerland.
+- **[Income, consumption and wealth of households (BFS)](https://www.bfs.admin.ch/bfs/de/home/statistiken/wirtschaftliche-soziale-situation-bevoelkerung/einkommen-verbrauch-vermoegen/vermoegen.assetdetail.36207530.html)**
+  Data on income, consumption and net wealth of Swiss households. *Access: publicly available.*
 
-These datasets allow the analysis of: **generational differences**
+
+**Political Participation – "Who decides?"**
+
+- **[Selects – Swiss Election Studies](https://forscenter.ch/projects/selects/)**
+  A long-running scientific research programme analysing voting behaviour in Swiss federal elections since 1995. Provides survey data on political participation, voting behaviour, party preferences and trust in institutions. The dataset includes age variables, enabling analysis of generational differences in political engagement. Three waves are used: 2015, 2019 and 2023. *Access: requires registration via the FORS data portal; available for academic use. Registration status: to be confirmed by project team.*
+
+---
+
+### Data Compatibility and Harmonization
+
+The datasets used in this project differ in their collection years, sample designs, population coverage and variable definitions. To manage this, the project will apply the following mitigation strategy:
+
+- All datasets will be mapped to the five project cohort labels (Silent Generation, Babyboomers, Generation X, Millennials, Generation Z) by deriving birth year from age and reference year, then assigning the corresponding generation label.
+- Where source data uses age groups that do not align exactly with cohort boundaries, population-weighted disaggregation to single ages is applied before cohort assignment. Deviations are noted in chart annotations.
+- Datasets will not be merged at the individual level. Each chart draws on a single primary data source; comparisons across dimensions are presented side by side, not as integrated statistics.
+- All methodological limitations (e.g. differences between survey data and administrative statistics) will be documented in the dashboard and the final data report.
 
 ---
 
 ### Personnel
-Tasks are distributed across:
 
-- data acquisition and preprocessing by subthemes (Who pays, who owns, who decides) 
-- exploratory data analysis  by subthemes (Who pays, who owns, who decides)
-- visualization design and implementation  
-- documentation and presentation  
+Responsibilities are distributed across the three team members by subtheme and function:
+
+| Member | Primary Subtheme | Functional Role |
+|---|---|---|
+| Livia Wülser | Who pays? | Data acquisition, cleaning and EDA for the financial burden dimension; visualization design |
+| Kenan Smaili | Who owns? | Data acquisition, cleaning and EDA for the ownership dimension; Streamlit dashboard development |
+| Javier Martinez Alvarez | Who decides? | Data acquisition, cleaning and EDA for the political participation dimension; documentation and presentation preparation |
+
+All members contribute to integration, review and final quality checks.
 
 ---
 
 ### Software and Tools
 
-- **Python** (Pandas, Plotly, Matplotlib or possibility of others libraries) for analysis and visualization  
-- **GitHub** for version control and collaboration  
-- **Quarto** for documentation  
+- **Python** (Pandas, Plotly, Matplotlib or other libraries as needed) for analysis and visualization
+- **GitHub** for version control and collaboration
+- **Quarto** for documentation
 - **Streamlit** for building the interactive dashboard
 - **GitHub Pages** for publishing the visualization online
 
 ---
 
-
 ### Infrastructure
 
-All code, documentation and visualizations will be maintained in a **shared GitHub repository** provided by the course.  
+All code, documentation and visualizations will be maintained in a **shared GitHub repository** provided by the course.
 
 ---
-
 
 ### Time
 
@@ -202,49 +180,49 @@ The project is conducted during the semester and must be completed by **June 202
 
 ---
 
-
 ### Constraints
 
 - Datasets come from **different sources and formats**
-- Some data are **aggregated statistics**
-- Data access may require **registration**
+- Some data are **aggregated statistics without individual-level records**
+- Data access for Selects and SHP may require **registration via the FORS portal**
 - Visualizations must be **reproducible and documented**
 
 ---
 
 ### Risks
 
-- Data compatibility issues between datasets  
-- Missing values or incomplete variables  
-- Limited comparability between survey data and official statistics  
-- Time constraints during the semester
+| Risk | Likelihood | Mitigation |
+|---|---|---|
+| Data compatibility issues between datasets | Medium | Map all datasets to the five project cohort labels via birth-year derivation and population-weighted disaggregation where needed; document deviations in annotations; do not merge across datasets at individual level |
+| Missing values or incomplete variables | Medium | Use available aggregated fallbacks from BFS or ESTV; document gaps explicitly |
+| Limited comparability between survey data and official statistics | High | Present dimensions side by side, not as merged indicators; note methodological differences in dashboard |
+| Data access for Selects / SHP not granted in time | Low | Confirm registration status early; use BFS voter turnout data as fallback for political participation |
+| Time constraints during the semester | Medium | Prioritize core charts per dimension; defer optional interactivity features |
 
 ---
 
 ## Visualization Concept
 
-The visualization concept translates the project objectives into a **clear and interactive dashboard** that enables users to explore generational differences under the theme:
+The visualization concept translates the project objectives into a **clear and interactive dashboard** that enables users to explore age-group differences across:
 
-**“Who pays, who owns, who decides.”**
+**"Who pays, who owns, who decides."**
 
-The design focuses on **simplicity, comparability and clarity**, addressing the main user needs:  
-- reducing complexity of multi-source data (pain)  
-- enabling comparison between generations (job)  
+The design focuses on **simplicity, comparability and clarity**, addressing the main user needs:
+- reducing complexity of multi-source data (pain)
+- enabling comparison between age groups (job)
 - providing intuitive insights (gain)
 
 ---
 
 ### Product Form
 
-The final product will be an **interactive dashboard**.
+The final product will be an **interactive Streamlit dashboard** structured into three main analytical sections:
 
-The dashboard is structured into three main analytical sections:
+1. **Who pays** → financial burden: income, housing costs, health insurance premiums relative to income
+2. **Who owns** → wealth and property: home ownership rates, net wealth distribution
+3. **Who decides** → political participation: voter turnout, political engagement by age group
 
-1. **Who pays** → income, economic burden  
-2. **Who owns** → wealth, home ownership  
-3. **Who decides** → political attitudes, trust in institutions  
-
-A short overview section will provide key context and allow users to navigate between these dimensions.
+A short overview section will provide key context and allow users to navigate between dimensions.
 
 ---
 
@@ -252,31 +230,29 @@ A short overview section will provide key context and allow users to navigate be
 
 The dashboard uses a small set of clear and effective chart types:
 
-- **Bar charts** → comparison between generations  
-- **Line charts** → trends over time  
-- **Boxplots / distributions** → variability within generations  
-- **Scatter plots** → relationships between variables  
+- **Bar charts** → comparison of a single indicator across age groups
+- **Line charts** → trends over time within or across age groups
+- **Boxplots / distributions** → variability within age groups for a given indicator
+- **Scatter plots** → relationships between two variables (e.g. income vs. rent burden)
 
-The focus is on **readability and comparability**, avoiding unnecessary complexity.
+The focus is on **readability and comparability**, avoiding unnecessary visual complexity.
 
 ---
 
 ### Interactivity
 
-Interactivity will be **kept minimal and purposeful**, depending on available development time.
+Interactivity is **minimal and purposeful**.
 
-Core features:
+**Core features:**
 
-- filter by **generation / age group**  
-- selection of **key indicators** (e.g. trust, income, ownership)  
-- **tooltips** for additional details  
+- **Generation filter** – the user can select one or more of the five cohort groups (Silent Generation, Babyboomers, Generation X, Millennials, Generation Z). When a selection is changed, all charts in all three sections update simultaneously to display only the selected generation(s). When two or more generations are selected, charts show them in a side-by-side or overlaid comparison view.
+- **Indicator selector** – within each section, the user can choose between two or three key indicators (e.g. in "Who pays?": rent burden, health insurance share of income, tax rate). Switching the indicator updates the main chart and its annotation.
+- **Tooltips** – hovering over a chart element shows the underlying value, the age group and the data source.
 
-Optional (if time allows):
+**Optional (if time allows):**
 
-- linked views between charts  
-- additional filtering options  
-
-The goal is to support exploration in our topic without overwhelming the user.
+- Linked views: selecting an age group in one section highlights the same group in a cross-section overview panel.
+- Additional filtering by year where multiple survey waves are available.
 
 ---
 
@@ -284,20 +260,20 @@ The goal is to support exploration in our topic without overwhelming the user.
 
 The dashboard will include **light narrative guidance**:
 
-- short introductory text  
-- section titles aligned with the three core questions  
-- concise annotations highlighting key patterns  
+- short introductory text explaining the analytical framework and the operationalization of age groups
+- section titles aligned with the three core questions
+- concise chart annotations (one sentence per chart) summarizing the main observable pattern
 
-This ensures that users can understand the data **without a full guided story**.
+This ensures that users can interpret the data without requiring prior knowledge of the sources.
 
 ---
 
 ### Target Medium and Integration
 
-The visualization will be implemented as a **web-based interactive application using Streamlit**.
+The visualization will be implemented as a **web-based interactive application using Streamlit**:
 
-- accessible via browser   
-- integrated with the project documentation via GitHub  
+- accessible via browser
+- integrated with the project documentation via GitHub
 
 ---
 
@@ -305,26 +281,25 @@ The visualization will be implemented as a **web-based interactive application u
 
 ### Cognitive and Analytical Value
 
-- Enables direct **comparison between generations**  
-- Supports identification of **patterns, trends and differences**  
-- Reduces complexity by structuring data into three key dimensions  
+- Enables direct **comparison between age groups** on three key dimensions
+- Supports identification of **observable patterns and differences** in the data
+- Reduces complexity by structuring multi-source data into a single coherent framework
 
 ---
 
 ### Communicative Value
 
-- Provides a **clear and focused representation** of the central question   
-- Makes complex socio-economic data understandable for a broad audience  
-- Aligns all visualizations with the core framework  
-  → *Who pays, who owns, who decides*
+- Provides a **clear and focused representation** of the central question
+- Makes complex socio-economic and political data understandable for a broad audience
+- Aligns all visualizations with the core framework: *Who pays, who owns, who decides*
 
 ---
 
 ### Experiential and Aesthetic Value
 
-- Simple and structured layout improves **usability and clarity**  
-- Minimal but effective interactivity increases **engagement**  
-- Clean design fosters **trust and accessibility**
+- Simple and structured layout improves **usability and navigability**
+- Minimal but purposeful interactivity increases **user engagement**
+- Clean design with source labels fosters **trust and credibility**
 
 ---
 
@@ -332,27 +307,26 @@ The visualization will be implemented as a **web-based interactive application u
 
 The dashboard approach directly supports the project objectives:
 
-- comparison between generations → bar charts and filters  
-- understanding relationships → selected plots (e.g. scatter, distributions)  
-- accessibility → simple layout and minimal interactivity  
+- comparison between age groups → bar charts and age-group filter
+- understanding patterns within groups → distributions and scatter plots
+- accessibility → simple layout and minimal interactivity
 
 It addresses user needs by:
 
-- simplifying complex datasets (pain)  
-- enabling flexible exploration (job)  
+- simplifying complex datasets (pain)
+- enabling flexible exploration (job)
 - providing clear and intuitive insights (gain)
 
 The use of a **Streamlit-based web application** ensures reproducibility, accessibility and ease of deployment.
 
 
 ## Project Plan
-Divide the project into individual phases, describe them briefly and draw up a preliminary timetable, e.g. as a Gantt chart:
 
 ```{mermaid}
 %%| label: fig-project-plan
 %%| fig-cap: Preliminary project plan in the form of a Gantt chart.
 gantt
-    title Generational Conflict – "Who Pays, Who Owns, Who Decides"
+    title Generational Differences – "Who Pays, Who Owns, Who Decides"
     dateFormat YYYY-MM-DD
     tickInterval 21day
     todayMarker off
@@ -374,11 +348,13 @@ gantt
         Build Visualizations & Dashboard          :d1, after c1, 14d
 
     section Finalization
-        Testing & Refinement                      :e1, after d1, 5d
+        Testing & Peer Review                     :e1, after d1, 5d
         Prepare Presentation                      :e2, after e1, 5d
         Presentation Submission                   :milestone, m3, 2026-05-18, 1d
-        Final Adjustments                         :e3, after m3, 7d
         Project Presentation                      :milestone, m4, 2026-06-01, 1d
+        Final Documentation & Repository Cleanup  :e3, after m4, 5d
+        Dashboard Deployment (GitHub Pages)       :e4, after m4, 5d
+        Final Project Submission                  :milestone, m5, 2026-06-08, 1d
 ```
 
 See [Mermaid syntax for Gantt charts](https://mermaid.js.org/syntax/gantt.html). It might not be displayed correctly in Safari &#8594; use Chrome. [Live editor with export functionality](https://mermaid.live/)
@@ -387,7 +363,7 @@ See [Mermaid syntax for Gantt charts](https://mermaid.js.org/syntax/gantt.html).
 
 | Name | Role | Responsibilities | Contact |
 |-----|-----|-----|-----|
-| Livia Wülser| Data Analyst | Data acquisition, cleaning and exploratory data analysis | wuelsliv@students.zhaw.ch |
-| Kenan Smaili | Data Analyst | Data acquisition, cleaning and exploratory data analysis | smailken@students.zhaw.ch |
-| Javier Martinez Alvarez | Data Analyst | Data acquisition, cleaning and exploratory data analysis | martijav@students.zhaw.ch |
+| Livia Wülser | Data Analyst & Visualization Designer | Data acquisition, cleaning and EDA for "Who pays?"; visualization design and chart implementation | wuelsliv@students.zhaw.ch |
+| Kenan Smaili | Data Analyst & Dashboard Developer | Data acquisition, cleaning and EDA for "Who owns?"; Streamlit dashboard development and deployment | smailken@students.zhaw.ch |
+| Javier Martinez Alvarez | Data Analyst & Documentation Lead | Data acquisition, cleaning and EDA for "Who decides?"; documentation (Quarto), presentation preparation | martijav@students.zhaw.ch |
 | Course Lecturers | Supervisors | Provide methodological guidance, feedback and evaluation of the project | via course platform |
