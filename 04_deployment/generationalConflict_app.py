@@ -77,6 +77,19 @@ def main() -> None:
 
     # ── Hero ─────────────────────────────────────────────────────────────────
     st.markdown('<div id="home"></div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <style>
+            .block-container { padding-top: 0 !important; }
+            .hero { margin-top: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+            .hero img { margin: 0 auto !important; display: block !important; }
+            .hero h1 { margin-top: 0 !important; padding-top: 0 !important; }
+            div[data-testid="stMarkdown"] { margin: 0 !important; padding: 0 !important; }
+            div[data-testid="element-container"] { margin-bottom: -10rem !important; padding: 0 !important; }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
     # ── Hero ─────────────────────────────────────────────────────────────────
     img_path = Path(__file__).parent / "static" / "Titelbild_Generationen_conflict.png"
@@ -86,7 +99,7 @@ def main() -> None:
         f"""
         <div class="hero">
             <img src="data:image/png;base64,{img_b64}"
-                 style="width:100%; max-width:860px; display:block; margin:0 auto 1rem auto;" />
+                style="width:100%; max-width:860px; display:block; margin:0 auto -10rem auto;" />
             <h1>Generational Conflict</h1>
             <p style="font-size:1.05rem; color:#444444; margin-top:1rem;">
                 The Swiss Federal Constitution promises responsibility towards future generations.

@@ -62,6 +62,11 @@ GLOBAL_STYLES = """
 		max-width: 1200px;
 		margin: 0 auto;
 	}
+	[data-testid="block-container"],
+	.block-container {
+		padding-top: 0 !important;
+		margin-top: -6rem !important;
+	}
 	[data-testid="stSidebar"][aria-expanded="false"] ~ [data-testid="stAppViewContainer"] {
 		margin-left: 0 !important;
 		width: 100% !important;
@@ -84,11 +89,12 @@ GLOBAL_STYLES = """
 	}
 	.hero {
 		text-align: center;
-		padding: 2rem 0 1rem;
+		padding: 0.5rem 0 1rem;
 	}
 	.hero h1 {
 		font-size: 3rem;
 		margin-bottom: 0.25rem;
+		margin-top: 0.3rem;
 		color: #111111;
 	}
 	.hero p {
