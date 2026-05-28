@@ -1,5 +1,7 @@
 ####### NEU: Starten über app.py und nicht diese py-Datei direkt! #######
 import streamlit as st
+from pathlib import Path
+import base64
 
 from app_config import (
     DEMOGRAPHIC_DATA_PATH,
@@ -74,28 +76,26 @@ def main() -> None:
     st.markdown('<div id="home"></div>', unsafe_allow_html=True)
 
     # ── Hero ─────────────────────────────────────────────────────────────────
+    st.markdown('<div id="home"></div>', unsafe_allow_html=True)
+
+    # ── Hero ─────────────────────────────────────────────────────────────────
+    img_path = Path(__file__).parent / "static" / "Titelbild_Generationen_conflict.png"
+    img_b64 = base64.b64encode(img_path.read_bytes()).decode()
+
     st.markdown(
-        """
+        f"""
         <div class="hero">
+            <img src="data:image/png;base64,{img_b64}"
+                 style="width:100%; max-width:860px; display:block; margin:0 auto 1rem auto;" />
             <h1>Generational Conflict</h1>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-    
-    st.markdown(
-        """
-        <div style='text-align:center; margin: 2rem 0 1.5rem;'>
-            <p style='font-size:1.1rem; font-style:italic; color:#333333;'>
-            «Im Bewusstsein der gemeinsamen Errungenschaften und der Verantwortung
-            gegenüber den künftigen Generationen»
+            <p style="font-size:1.05rem; color:#444444; margin-top:1rem;">
+                The Swiss Federal Constitution promises responsibility towards future generations.
             </p>
-            <p style='font-size:0.85rem; font-style:italic; color:#aaaaaa; margin-top:0.2rem;'>
-            "Aware of our common achievements and of our responsibility
-            towards future generations."
+            <p style="font-size:1.05rem; color:#444444; margin-top:0.4rem;">
+                You are that generation. Here are the numbers.
             </p>
-            <p style='font-size:0.8rem; color:#aaaaaa; margin-top:0.3rem;'>
-            — Präambel, Bundesverfassung der Schweizerischen Eidgenossenschaft (SR 101, 1999)
+            <p style="font-size:0.78rem; color:#aaaaaa; margin-top:1.2rem; font-style:italic;">
+                — Preamble, Federal Constitution of the Swiss Confederation (SR 101, 1999)
             </p>
         </div>
         """,
