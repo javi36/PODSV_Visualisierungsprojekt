@@ -1,52 +1,7 @@
 # Meeting Notes
 
-Notes and decisions from the coaching sessions. You might also want to include notes from internal team meetings here, e.g. to document decisions that are relevant for the project and the development of the visualisation product. Sort in reverse chronological order (most recent first).
+Notes and decisions from the coaching sessions. You might also want to include notes from internal team meetings here, e.g. to document decisions that are relevant for the project and the development of the visualisation product. Sorted in chronological order (oldest first).
 
-
-## 07.05.2026
-
-**Type:** Coaching session
-**Participants:** Project team, course lecturer
-
-### Topics and Decisions
-
-**Scrollable single-page layout confirmed**
-The team confirmed that the application should be implemented as a vertically scrollable single-page layout rather than a paginated multi-page structure. This decision was already reflected in the current prototype but is now formally agreed upon. The scroll format supports the narrative-first approach: users move through the three thematic sections in sequence, which reinforces the logical connection between "Who decides?", "Who pays?" and "Who owns?".
-
-**Unified references block**
-A single dedicated references block should be added to the application — not distributed across sections, but collected in one place. The block should list all authors and data sources used (BFS, FORS/SELECTS, FSO, etc.) and explicitly document which data or figures were not available or could not be obtained. This is important for scientific credibility and directly addresses the feedback from the evaluation that source information was not easily discoverable from within the charts.
-
-**Remove horizontal dividers**
-The horizontal dividing lines (rendered as `<hr>` elements via Streamlit's `st.markdown("---")`) between subsections should be removed. They create unnecessary visual fragmentation in a layout that is intended to flow as a coherent narrative. Section breaks should instead be handled through spacing, typography and the hero heading blocks alone.
-
-**Clearer distinction between two text types — merged into one unit**
-A structural distinction was discussed between two types of text that currently coexist in the product: (a) descriptive chart text, which belongs directly to the chart and explains what is shown (data description, axis interpretation, source reference), and (b) journalistic narrative text, which belongs to the story layer and interprets the significance of the finding in its broader context. The current implementation often splits these into a short intro sentence before the chart and a conclusion box after it, which can feel discontinuous. The decision is to merge both text types into a single unified explanatory block per chart — combining the "what the data shows" and "what it means" into one coherent paragraph, rather than sandwiching the chart between two separate text elements.
-
-**Key metrics embedded in text with colour-coded generation labels**
-Numbers and indicators mentioned in the narrative text (so-called Kennzahlen, e.g. ownership percentages, contribution ratios, m² values) should be embedded directly in the text and highlighted in the respective generation's colour. For example, when the text states that Babyboomers have a 58% ownership rate, the number "58%" and the generation name "Babyboomers" should appear in the Babyboomers generation colour (`#1d7874`). This approach — already partially implemented in the "Who Owns" section — should be applied consistently across all three sections to make the colour-to-generation association more salient and to reduce the cognitive distance between reading a number in text and locating it in a chart.
-
-**Sidebar reduced to navigation only — Control Panel removed**
-The sidebar should be simplified to contain only the anchor-link navigation panel (linking to "Who Decides", "Who Pays" and "Who Owns"). The global generation filter (previously labelled "Control Panel") should be removed from the sidebar entirely. This removes the discoverability problem identified in the evaluation (two of six participants did not find the filter unprompted) and avoids the visual disconnect between a control in the sidebar and charts in the main content area. The generation filter functionality is instead replaced by per-section filters (see next point).
-
-**Tooltips should include generation age ranges**
-Hover tooltips on all generation-coloured elements — chart markers, bar segments, line traces — should include the birth-year range of the corresponding generation in addition to the generation name (e.g. "Babyboomers, born 1946–1964" or "Generation Z, born 1997–2012"). The project already maintains these labels in `GENERATION_YEAR_LABELS` in `app_config.py`; they should be used consistently in all `hovertemplate` definitions across all sections.
-
-**Per-section generation filters instead of global sidebar filter**
-As a consequence of removing the Control Panel from the sidebar, each of the three thematic sections should include its own generation selector. This allows a user to compare, for example, only Babyboomers and Millennials in the "Who Pays" section while keeping all generations visible in "Who Owns" — a more flexible and contextually appropriate filtering model than a single global selector. The filter should be placed prominently at the start of each section so that users encounter it before the charts.
-
-**Small multiples with shared y-axis scale**
-Where small-multiple (subplot) charts are used — in particular the OKP area chart and the net cashflow chart in "Who Pays" — the y-axes of all panels should share the same scale. Per-panel independent y-axes, which were used in the current implementation to maximise the visual use of space within each panel, make it impossible to compare the magnitude of values across generations. For example, a user cannot currently compare the net cashflow as a percentage of gross salary between the Silent Generation (large positive values) and Generation Z (moderate negative values) without reading and mentally comparing the individual axis labels of each panel. A shared y-axis resolves this directly, at the cost of some within-panel visual detail for generations with smaller absolute values. This also directly addresses heuristic finding H5 from the evaluation report.
-
-### Next Steps
-
-- Remove horizontal dividers (`---`) from all three section renderers
-- Merge intro + conclusion text into a single explanatory block per chart
-- Apply colour-coded inline Kennzahlen consistently across all narrative text (Who Decides, Who Pays, Who Owns)
-- Move generation filter from sidebar to per-section position; remove "Control Panel" label
-- Update all `hovertemplate` definitions to include birth-year ranges from `GENERATION_YEAR_LABELS`
-- Refactor OKP area chart and cashflow chart in `who_pays_section.py` to use shared y-axis (`shared_yaxes=True` in `make_subplots`)
-- Build and integrate the unified references block (separate page or collapsible section at end of app)
-- Add explicit note in references block listing data that was sought but not found or not used
 
 ## 26.03.2026
 
@@ -79,7 +34,6 @@ Each of the three thematic areas ("Who pays?", "Who owns?", "Who decides?") shou
 - Begin data acquisition for all three thematic dimensions
 - Check per-age-group coverage in each candidate dataset during EDA
 - Identify 3–5 key indicators per section and validate their data availability
-
 
 
 ## 23.04.2026
@@ -127,3 +81,98 @@ The violin plot with bar elements that was proposed in the previous session was 
 - Revise the landing page visualisation: evaluate alternatives to the violin plot (population pyramid, stacked age bars, or animated demographic chart)
 - Continue implementation of the three thematic sections
 - Prepare a more complete prototype for review in the next coaching session (07.05.2026)
+
+## 07.05.2026
+
+**Type:** Coaching session
+**Participants:** Project team, course lecturer
+
+### Topics and Decisions
+
+**Scrollable single-page layout confirmed**
+The team confirmed that the application should be implemented as a vertically scrollable single-page layout rather than a paginated multi-page structure. This decision was already reflected in the current prototype but is now formally agreed upon. The scroll format supports the narrative-first approach: users move through the three thematic sections in sequence, which reinforces the logical connection between "Who decides?", "Who pays?" and "Who owns?".
+
+**Unified references block**
+A single dedicated references block should be added to the application — not distributed across sections, but collected in one place. The block should list all authors and data sources used (BFS, FORS/SELECTS, FSO, etc.) and explicitly document which data or figures were not available or could not be obtained. This is important for scientific credibility and directly addresses the feedback from the evaluation that source information was not easily discoverable from within the charts.
+
+**Remove horizontal dividers**
+The horizontal dividing lines (rendered as `<hr>` elements via Streamlit's `st.markdown("---")`) between subsections should be removed. They create unnecessary visual fragmentation in a layout that is intended to flow as a coherent narrative. Section breaks should instead be handled through spacing, typography and the hero heading blocks alone.
+
+**Clearer distinction between two text types — merged into one unit**
+A structural distinction was discussed between two types of text that currently coexist in the product: (a) descriptive chart text, which belongs directly to the chart and explains what is shown (data description, axis interpretation, source reference), and (b) journalistic narrative text, which belongs to the story layer and interprets the significance of the finding in its broader context. The current implementation often splits these into a short intro sentence before the chart and a conclusion box after it, which can feel discontinuous. The decision is to merge both text types into a single unified explanatory block per chart — combining the "what the data shows" and "what it means" into one coherent paragraph, rather than sandwiching the chart between two separate text elements.
+
+**Key metrics embedded in text with colour-coded generation labels**
+Numbers and indicators mentioned in the narrative text (so-called Kennzahlen, e.g. ownership percentages, contribution ratios, m² values) should be embedded directly in the text and highlighted in the respective generation's colour. For example, when the text states that Babyboomers have a 58% ownership rate, the number "58%" and the generation name "Babyboomers" should appear in the Babyboomers generation colour (`#1d7874`). This approach — already partially implemented in the "Who Owns" section — should be applied consistently across all three sections to make the colour-to-generation association more salient and to reduce the cognitive distance between reading a number in text and locating it in a chart.
+
+**Sidebar reduced to navigation only — Control Panel removed**
+The sidebar should be simplified to contain only the anchor-link navigation panel (linking to "Who Decides", "Who Pays" and "Who Owns"). The global generation filter (previously labelled "Control Panel") should be removed from the sidebar entirely. This removes the discoverability problem identified in the evaluation (two of six participants did not find the filter unprompted) and avoids the visual disconnect between a control in the sidebar and charts in the main content area. The generation filter functionality is instead replaced by per-section filters (see next point).
+
+**Tooltips should include generation age ranges**
+Hover tooltips on all generation-coloured elements — chart markers, bar segments, line traces — should include the birth-year range of the corresponding generation in addition to the generation name (e.g. "Babyboomers, born 1946–1964" or "Generation Z, born 1997–2012"). The project already maintains these labels in `GENERATION_YEAR_LABELS` in `app_config.py`; they should be used consistently in all `hovertemplate` definitions across all sections.
+
+**Per-section generation filters instead of global sidebar filter**
+As a consequence of removing the Control Panel from the sidebar, each of the three thematic sections should include its own generation selector. This allows a user to compare, for example, only Babyboomers and Millennials in the "Who Pays" section while keeping all generations visible in "Who Owns" — a more flexible and contextually appropriate filtering model than a single global selector. The filter should be placed prominently at the start of each section so that users encounter it before the charts.
+
+**Small multiples with shared y-axis scale**
+Where small-multiple (subplot) charts are used — in particular the OKP area chart and the net cashflow chart in "Who Pays" — the y-axes of all panels should share the same scale. Per-panel independent y-axes, which were used in the current implementation to maximise the visual use of space within each panel, make it impossible to compare the magnitude of values across generations. For example, a user cannot currently compare the net cashflow as a percentage of gross salary between the Silent Generation (large positive values) and Generation Z (moderate negative values) without reading and mentally comparing the individual axis labels of each panel. A shared y-axis resolves this directly, at the cost of some within-panel visual detail for generations with smaller absolute values. This also directly addresses heuristic finding H5 from the evaluation report.
+
+### Next Steps
+
+- Remove horizontal dividers (`---`) from all three section renderers
+- Merge intro + conclusion text into a single explanatory block per chart
+- Apply colour-coded inline Kennzahlen consistently across all narrative text (Who Decides, Who Pays, Who Owns)
+- Move generation filter from sidebar to per-section position; remove "Control Panel" label
+- Update all `hovertemplate` definitions to include birth-year ranges from `GENERATION_YEAR_LABELS`
+- Refactor OKP area chart and cashflow chart in `who_pays_section.py` to use shared y-axis (`shared_yaxes=True` in `make_subplots`)
+- Build and integrate the unified references block (separate page or collapsible section at end of app)
+- Add explicit note in references block listing data that was sought but not found or not used
+
+## 28.05.2026
+
+**Type:** Coaching session
+**Participants:** Project team, course lecturer
+
+### Topics and Decisions
+
+**Streamlit application walkthrough and preamble**
+The session opened with a live walkthrough of the current Streamlit application. The team presented the full scrollable layout, walking through all three thematic sections. During the walkthrough, the preamble — the opening quote from the Swiss Federal Constitution regarding responsibility towards future generations — was pointed out as a central framing device for the entire project. The feedback was clear: the preamble should be brought further into the foreground rather than sitting quietly below the title. As it stands, users may scroll past it without recognising its significance. It should be treated as the editorial anchor of the dashboard, not as decorative text. Concretely, this means giving it more visual weight through typography, spacing, or layout — so that a user landing on the page understands immediately that this constitutional principle is the lens through which all the data that follows should be read.
+
+**Title image: artistic fill vs. deliberate visual statement**
+A question was raised about whether the project is allowed to include a custom title image. The confirmation was yes. The team noted that the current hero area on the landing page feels visually empty without a strong visual element alongside the title. The decision is to add an artistic title image — not a data chart, but a deliberately designed visual — that fills this space and gives the landing page a distinct visual character. The image should complement the tone of the content: serious, but not cold; data-driven, but human.
+
+**Font size: look it up and apply consistently**
+A question about font size conventions arose during the walkthrough — specifically whether the sizes currently used across axis labels, annotations, and body text are appropriate. No definitive number was provided in the session, but the action is to look up established typographic guidelines for data visualisation and dashboard design (e.g. Wilke's recommendations in *Fundamentals of Data Visualization*, or Cairo's work) and apply a consistent size hierarchy throughout the product. As a practical benchmark, body text in a browser context is typically 16px; axis labels should be at minimum 11–12px to remain legible without zooming; chart titles and section headings should be scaled proportionally upward. The key principle is that nothing in the final product should require the user to lean in to read it.
+
+**Presentation scope: visualisations, design decisions, and process**
+A question was raised about what the final presentation should focus on — the subject matter of the project (generational inequality in Switzerland), or the visualisation design choices, methodology, and code? The answer given was that the presentation should centre on the **visualisation decisions and the reasoning behind them**: why specific chart types were chosen for this particular target group, what design principles were applied and why, and how the visual language of the product supports the narrative. The content of the charts (AHV data, ownership rates, etc.) serves as context, but the audience of the presentation is interested primarily in the craft and reasoning — not in the political conclusions.
+
+Concretely, the presentation should address the question: *why was this design chosen for our target group?* This means articulating the target audience clearly, explaining which needs or limitations shaped the design choices, and linking specific visual decisions back to those user requirements. For example: why scrollable single-page over pagination? Why a stacked area chart for demographics instead of a violin plot? Why are generation colours used in narrative text and not just in charts? These are the kinds of questions the presentation should be able to answer.
+
+**Presentation logistics: what specifically to prepare**
+In addition to the design rationale, the following concrete points were raised for the presentation:
+
+- The Quarto documentation does need to be mentioned, but does not need to be a live demo. It is sufficient to briefly reference that the project maintains a formal data report (documenting data sources, processing steps, and quality assessment) and that this documentation is part of the project deliverable.
+- The presentation should be structured to show the running application — a live or recorded walkthrough is expected, not just static slides.
+- The team should be prepared to explain the data pipeline at a high level: where the data comes from, how it was processed, and what decisions were made in the preparation step.
+
+### Decisions and Changes to Implement
+
+**Preamble more prominent.** The constitutional preamble should receive a dedicated visual treatment on the landing page — larger type, more white space around it, or a distinct layout block that forces the reader to pause. It should not be skippable.
+
+**Artistic title image.** A custom visual element should be added to the hero area of the landing page. The image should be in keeping with the visual identity of the dashboard — using the project's colour palette — and should fill the empty space without competing with the title text.
+
+**Font size audit.** Look up typographic guidelines for data visualisation (Wilke, Cairo, or equivalent) and document the chosen size scale for the project. Apply the resulting hierarchy consistently: body text, axis labels, tick labels, chart annotations, and headings should all sit at defined, intentional sizes. No text element in the final product should be at size 9 or below except for deliberately secondary labels such as data source credits.
+
+**Data report: add email addresses for data sources.** The data report should include contact information or direct access paths (email addresses or URLs) for the datasets used, so that a reader who wants to reproduce or extend the project can contact the data provider directly. This applies in particular to the SELECTS data (FORS, Université de Lausanne) and the BFS/FSO statistical exports.
+
+**Streamlit references section: citation and reference work for the user.** The references section in the Streamlit application should be positioned and framed not only as a list of academic citations, but explicitly as a reference work — a starting point for readers who want to go deeper into any of the topics covered. Each reference should be navigable and the section as a whole should feel like a curated reading list, not just a compliance checklist.
+
+### Next Steps
+
+- Revise the preamble placement and visual weight on the landing page
+- Design or source an artistic title image for the hero area
+- Conduct font size audit; document and apply a consistent size scale
+- Add contact information and access URLs for all primary data sources in the data report
+- Frame the references section in the Streamlit app explicitly as a curated reference work for further reading
+- Prepare presentation structure around the question: *why this design for this target group?*
+- Confirm that Quarto documentation is referenced (not fully demoed) in the presentation

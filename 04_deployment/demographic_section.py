@@ -131,7 +131,7 @@ def create_generation_pyramid(df: pd.DataFrame, selected_year: int):
             orientation="h",
             marker_color=color,
             showlegend=False,
-            hovertemplate=f"<b>{lgen}</b><br>Alter: %{{y}}<br>Bevölkerung: %{{customdata:,.0f}}<extra></extra>",
+            hovertemplate=f"<b>{lgen}</b><br>Age: %{{y}}<br>Population: %{{customdata:,.0f}}<extra></extra>",
             customdata=pops,
         ))
         # right side (positive) — carries the legend entry
@@ -142,7 +142,7 @@ def create_generation_pyramid(df: pd.DataFrame, selected_year: int):
             orientation="h",
             marker_color=color,
             showlegend=True,
-            hovertemplate=f"<b>{lgen}</b><br>Alter: %{{y}}<br>Bevölkerung: %{{x:,.0f}}<extra></extra>",
+            hovertemplate=f"<b>{lgen}</b><br>Age: %{{y}}<br>Population: %{{x:,.0f}}<extra></extra>",
         ))
 
     max_pop = int(year_data["population"].max()) if not year_data.empty else 100_000
@@ -171,7 +171,7 @@ def create_generation_pyramid(df: pd.DataFrame, selected_year: int):
             tick0=0,
             dtick=5,
             range=[-0.5, 100.5],
-            tickfont=dict(size=10, color="#333333"),
+            tickfont=dict(size=12, color="#333333"),
         ),
         legend=dict(
             orientation="h",
@@ -182,6 +182,14 @@ def create_generation_pyramid(df: pd.DataFrame, selected_year: int):
             title_text="",
             font=dict(size=11),
         ),
+    )
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0, y=-0.07,
+        xanchor="left", yanchor="top",
+        text="Source: BFS — Demografische Bilanz, 2024",
+        showarrow=False,
+        font=dict(size=9, color="#aaaaaa"),
     )
     return fig
 
@@ -222,7 +230,7 @@ def create_generation_area_chart(df: pd.DataFrame, from_year: int, to_year: int)
 
     fig.update_layout(
         height=400,
-        margin=dict(t=10, l=10, r=30, b=110),
+        margin=dict(t=10, l=10, r=30, b=100),
         plot_bgcolor="#ffffff",
         paper_bgcolor="#ffffff",
         xaxis=dict(
@@ -238,19 +246,30 @@ def create_generation_area_chart(df: pd.DataFrame, from_year: int, to_year: int)
             tickfont=dict(size=13, color="#555555"),
         ),
         legend=dict(
-            orientation="h",
-            yanchor="top",
-            y=-0.25,
-            xanchor="center",
-            x=0.5,
+            orientation="v",
+            traceorder="reversed",
+            xanchor="left",
+            x=0.01,
+            yanchor="bottom",
+            y=0.02,
             title_text="",
-            font=dict(size=13),
-            bgcolor="rgba(255,255,255,0.8)",
+            font=dict(size=12),
+            bgcolor="rgba(255,255,255,0.7)",
+            bordercolor="rgba(0,0,0,0.1)",
+            borderwidth=1,
         ),
         hoverlabel=dict(font=dict(size=14)),
         hovermode="x unified",
         legend_itemclick=False,
         legend_itemdoubleclick=False,
+    )
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0, y=-0.26,
+        xanchor="left", yanchor="top",
+        text="Source: BFS — Demografische Bilanz, 2024",
+        showarrow=False,
+        font=dict(size=9, color="#aaaaaa"),
     )
     return fig
 
@@ -270,7 +289,7 @@ def create_generation_pie(df: pd.DataFrame, selected_year: int):
 	)
 	fig.update_layout(
 		height=560,
-		margin=dict(t=30, l=20, r=20, b=20),
+		margin=dict(t=30, l=20, r=20, b=34),
 		showlegend=True,
 		legend=dict(orientation="h", yanchor="bottom", y=-0.08, xanchor="center", x=0.5),
 		annotations=[
@@ -290,5 +309,13 @@ def create_generation_pie(df: pd.DataFrame, selected_year: int):
 		insidetextorientation="radial",
 		hovertemplate="<b>%{label}</b><br>Population: %{value:,.0f}<br>Share: %{percent}<extra></extra>",
 		marker=dict(line=dict(color="#ffffff", width=3)),
+	)
+	fig.add_annotation(
+		xref="paper", yref="paper",
+		x=0, y=-0.06,
+		xanchor="left", yanchor="top",
+		text="Source: BFS — Demografische Bilanz, 2024",
+		showarrow=False,
+		font=dict(size=9, color="#aaaaaa"),
 	)
 	return fig

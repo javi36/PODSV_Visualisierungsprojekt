@@ -59,7 +59,7 @@ components.html(
     height=0,
 )
 
-# ── Sidebar anchor-link styling ───────────────────────────────────────────────
+# ── Sidebar anchor-link styling + section spacing ────────────────────────────
 st.markdown(
     """
     <style>
@@ -76,6 +76,14 @@ st.markdown(
     .sidebar-nav-links a:hover {
         background: #f0f0f0;
         color: #111111;
+    }
+    .section-hero {
+        scroll-margin-top: 60px;
+        border-top: 2px solid #eeeeee;
+        padding-top: 1rem !important;
+    }
+    .section-spacer {
+        height: 5rem;
     }
     </style>
     """,
@@ -132,7 +140,8 @@ else:
     # 2. Who Decides
     st.markdown(
     """
-    <div class="hero">
+    <div id="who-decides" class="section-spacer"></div>
+    <div class="hero section-hero">
         <h1>Who Decides the Rules</h1>
         <p>Political power and voting influence across generations in Switzerland</p>
     </div>
@@ -144,7 +153,8 @@ else:
     # 3. Who Pays
     st.markdown(
     """
-    <div class="hero">
+    <div id="who-pays" class="section-spacer"></div>
+    <div class="hero section-hero">
         <h1>Who Bears the Costs</h1>
         <p>Every generation pays in. But not every generation gets the same deal back.</p>
     </div>
@@ -156,7 +166,8 @@ else:
     # 4. Who Owns
     st.markdown(
     """
-    <div class="hero">
+    <div id="who-owns" class="section-spacer"></div>
+    <div class="hero section-hero">
         <h1>Who Holds the Assets</h1>
         <p>Homeownership rates and living space by generation in Switzerland</p>
     </div>

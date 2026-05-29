@@ -22,45 +22,6 @@ import streamlit as st
 
 REFERENCES: list[dict] = [
     {
-        "key": "BFS_Bewohnertyp",
-        "citation": (
-            "Bundesamt für Statistik (BFS). (2024). "
-            "<em>Bewohnertyp nach Kanton und Gemeindegrösse</em>. "
-            "Neuchâtel: BFS. "
-            "Retrieved from https://www.bfs.admin.ch"
-        ),
-        "note": (
-            "Official statistics on residential occupancy type (owner, tenant, cooperative) "
-            "used as primary data source for the Who Owns section."
-        ),
-    },
-    {
-        "key": "BFS_DemoBilanz",
-        "citation": (
-            "Bundesamt für Statistik (BFS). (2024). "
-            "<em>Demografische Bilanz der Schweiz</em>. "
-            "Neuchâtel: BFS. "
-            "Retrieved from https://www.bfs.admin.ch"
-        ),
-        "note": (
-            "Primary source for Swiss population data by birth year used to build "
-            "the generational area chart and population pyramid on the Home page."
-        ),
-    },
-    {
-        "key": "BFS_Wohnflaeche",
-        "citation": (
-            "Bundesamt für Statistik (BFS). (2024). "
-            "<em>Wohnfläche pro Person nach Kanton</em>. "
-            "Neuchâtel: BFS. "
-            "Retrieved from https://www.bfs.admin.ch"
-        ),
-        "note": (
-            "Official statistics on living space per person by canton, used to "
-            "contextualise ownership patterns in the Who Owns section."
-        ),
-    },
-    {
         "key": "BuehlmannFreitag2006",
         "citation": (
             "Bühlmann, M., &amp; Freitag, M. (2006). "
@@ -83,6 +44,24 @@ REFERENCES: list[dict] = [
         "note": (
             "Practical reference for chart type selection, colour, and annotation "
             "conventions used throughout the dashboard."
+        ),
+    },
+    {
+        "key": "LerchColombierBraendle2025",
+        "citation": (
+            "Lerch, B., Colombier, C., &amp; Brändle, T. (2025). "
+            "<em>Determinants of Healthcare Expenditure: "
+            "Evidence from Switzerland between 1960–2022</em>. "
+            "Federal Finance Administration Working Paper No. 27. "
+            "Berne: FFA. "
+            "Retrieved from https://www.efv.admin.ch"
+        ),
+        "note": (
+            "Time-series analysis (1960–2022) identifying income growth (~50%), "
+            "population ageing (~15%), and Baumol's cost disease as the main drivers "
+            "of healthcare expenditure growth in Switzerland — cited to contextualise "
+            "rising OKP premium burdens and the growing generational transfer imbalance "
+            "in the Who Pays section."
         ),
     },
     {
@@ -114,45 +93,6 @@ REFERENCES: list[dict] = [
         ),
     },
     {
-        "key": "SELECTS2015",
-        "citation": (
-            "Lutz, G., &amp; Selects Team. (2016). "
-            "<em>Swiss Electoral Study SELECTS 2015</em>. "
-            "FORS, Université de Lausanne. "
-            "DOI: 10.23662/FORS-DS-726-3"
-        ),
-        "note": (
-            "Post-election survey (N ≈ 5 337). Used for voter turnout, political interest, "
-            "democratic satisfaction, and left–right orientation (2015 baseline)."
-        ),
-    },
-    {
-        "key": "SELECTS2019",
-        "citation": (
-            "Lutz, G., &amp; Selects Team. (2020). "
-            "<em>Swiss Electoral Study SELECTS 2019</em>. "
-            "FORS, Université de Lausanne. "
-            "DOI: 10.23662/FORS-DS-1077-2"
-        ),
-        "note": (
-            "Post-election survey (N ≈ 6 664). Used as the mid-period observation "
-            "point for all four Who Decides charts."
-        ),
-    },
-    {
-        "key": "SELECTS2023",
-        "citation": (
-            "Lutz, G. (2024). "
-            "<em>Swiss Electoral Study SELECTS 2023</em>. "
-            "FORS, Université de Lausanne. "
-            "DOI: 10.23662/FORS-DS-1512-1"
-        ),
-        "note": (
-            "Post-election survey (N ≈ 5 033). Most recent observation point "
-            "for all four Who Decides charts."
-        ),
-    },
-    {
         "key": "SegelHeer2010",
         "citation": (
             "Segel, E., &amp; Heer, J. (2010). "
@@ -164,6 +104,21 @@ REFERENCES: list[dict] = [
         "note": (
             "Introduces the Martini-Glass narrative structure applied in the "
             "layout of each dashboard section."
+        ),
+    },
+    {
+        "key": "UBSSorgenbarometer2025",
+        "citation": (
+            "gfs.bern. (2025). "
+            "<em>UBS Sorgenbarometer 2025: Die Schweiz in Zeiten internationalen Drucks</em>. "
+            "Im Auftrag der UBS. Bern: gfs.bern. "
+            "Retrieved from https://www.gfsbern.ch/de/news/ubs-sorgenbarometer-2025/"
+        ),
+        "note": (
+            "Representative survey of 2,190 Swiss voters (July–August 2025) conducted by "
+            "gfs.bern on behalf of UBS. Found that healthcare costs remain the top concern "
+            "for 45% of the Swiss population — cited to contextualise the premium burden "
+            "across generations in the Who Pays section."
         ),
     },
     {
@@ -194,80 +149,6 @@ REFERENCES: list[dict] = [
             "Defines the four narrative constituents — narrator presence, sequentiality, "
             "temporal dimension, and tellability — that shaped the dashboard's "
             "storytelling structure."
-        ),
-    },
-    {
-        "key": "LerchColombierBraendle2025",
-        "citation": (
-            "Lerch, B., Colombier, C., &amp; Brändle, T. (2025). "
-            "<em>Determinants of Healthcare Expenditure: Evidence from Switzerland between 1960–2022</em>. "
-            "Federal Finance Administration Working Paper No. 27. Berne: FFA."
-        ),
-        "note": (
-            "Time-series analysis identifying income growth (~50%), population ageing (~15%), "
-            "and Baumol's cost disease as the main drivers of healthcare expenditure growth in Switzerland — "
-            "used to contextualise rising OKP premium burdens in the Who Pays section."
-        ),
-    },
-    {
-        "key": "UBSSorgenbarometer2025",
-        "citation": (
-            "gfs.bern. (2025). "
-            "<em>UBS Sorgenbarometer 2025</em>. "
-            "Im Auftrag der UBS. Bern: gfs.bern. "
-            "Retrieved from https://www.gfsbern.ch/de/news/ubs-sorgenbarometer-2025/"
-        ),
-        "note": (
-            "Representative survey of 2,190 Swiss voters (July–August 2025) showing that healthcare costs "
-            "remain the top concern for 45% of the population — cited to contextualise the premium burden "
-            "across generations in the Who Pays section."
-        ),
-    },
-    {
-        "key": "LerchColombierBraendle2025",
-        "citation": (
-            "Lerch, B., Colombier, C., &amp; Brändle, T. (2025). "
-            "<em>Determinants of Healthcare Expenditure: "
-            "Evidence from Switzerland between 1960–2022</em>. "
-            "Federal Finance Administration Working Paper No. 27. "
-            "Berne: FFA. "
-            "Retrieved from https://www.efv.admin.ch"
-        ),
-        "note": (
-            "Time-series analysis (1960–2022) identifying income growth (~50%), "
-            "population ageing (~15%), and Baumol's cost disease as the main drivers "
-            "of healthcare expenditure growth in Switzerland — cited to contextualise "
-            "rising OKP premium burdens and the growing generational transfer imbalance "
-            "in the Who Pays section."
-        ),
-    },
-    {
-        "key": "UBSSorgenbarometer2025",
-        "citation": (
-            "gfs.bern. (2025). "
-            "<em>UBS Sorgenbarometer 2025: Die Schweiz in Zeiten internationalen Drucks</em>. "
-            "Im Auftrag der UBS. Bern: gfs.bern. "
-            "Retrieved from https://www.gfsbern.ch/de/news/ubs-sorgenbarometer-2025/"
-        ),
-        "note": (
-            "Representative survey of 2,190 Swiss voters (July–August 2025) conducted by "
-            "gfs.bern on behalf of UBS. Found that healthcare costs remain the top concern "
-            "for 45% of the Swiss population — cited to contextualise the premium burden "
-            "across generations in the Who Pays section."
-        ),
-    },
-    {
-        "key": "AHVBSV2024",
-        "citation": (
-            "Bundesamt für Sozialversicherungen (BSV) / Bundesamt für Statistik (BFS). (2024). "
-            "<em>AHV-Statistik 2024</em>. "
-            "Bern: BSV. "
-            "Retrieved from https://www.bsv.admin.ch"
-        ),
-        "note": (
-            "Primary data source for the AHV dependency ratio chart — active contributors "
-            "with wage contributions versus old-age pension recipients, 2012–2024. "
-            "Used in the Who Bears the Costs section."
         ),
     },
 ]

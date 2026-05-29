@@ -16,14 +16,15 @@ The raw datasets are documented according to the three main dimensions of the pr
 
 | Analytical dimension | Dataset name | Source | Storage location |
 |---|---|---|---|
-| Who decides? | SELECTS 2015 post-election survey | Swiss Electoral Study (FORS), Stata format | `data/whodecide/raw/726_Selects2015_PES_Data_v1.03.dta` |
-| Who decides? | SELECTS 2019 post-election survey | Swiss Electoral Study (FORS), CSV format | `data/whodecide/processed/selects_2019_clean.csv` |
-| Who decides? | SELECTS 2023 post-election survey | Swiss Electoral Study (FORS), CSV format | `data/whodecide/processed/selects_2023_clean.csv` |
+| Home / Demographics | Demografische Bilanz der Schweiz | Bundesamt für Statistik (BFS), 2024. Retrieved from https://www.bfs.admin.ch | `data/demografischeBilanz.csv` |
+| Who decides? | SELECTS 2015 post-election survey | Swiss Electoral Study (FORS), Stata format. DOI: 10.23662/FORS-DS-726-3 | `data/whodecide/raw/726_Selects2015_PES_Data_v1.03.dta` |
+| Who decides? | SELECTS 2019 post-election survey | Swiss Electoral Study (FORS), CSV format. DOI: 10.23662/FORS-DS-1077-2 | `data/whodecide/processed/selects_2019_clean.csv` |
+| Who decides? | SELECTS 2023 post-election survey | Swiss Electoral Study (FORS), CSV format. DOI: 10.23662/FORS-DS-1512-1 | `data/whodecide/processed/selects_2023_clean.csv` |
 | Who pays? | Mandatory health insurance statistics (OKP/KVSTAT) | Swiss health insurance statistics, annual Excel files and ZIP archives | `data/whopays/raw_whopays/` |
 | Who pays? | AHV income data | Project-specific AHV income data file | `data/whopays/raw_whopays/ahv_einnahmen_zhaw.xlsx` |
-| Who pays? | AHV expenditure data | Swiss official statistics export | `data/whopays/raw_whopays/px-x-1305000000_103_20260416-235225.xlsx` |
+| Who pays? | AHV expenditure data | Bundesamt für Sozialversicherungen (BSV) / Bundesamt für Statistik (BFS). AHV-Statistik 2024. Retrieved from https://www.bsv.admin.ch | `data/whopays/raw_whopays/px-x-1305000000_103_20260416-235225.xlsx` |
 | Who pays? | Population by age and year | Swiss official population statistics export | `data/raw/px-x-0102020000_103_20260424-164251.xlsx` |
-| Who owns? | Occupancy type and living space by age | FSO Structural Survey + GWS-STATPOP register | `data/whoOwns/raw/bfs_bewohnertyp_groesse.xlsx` |
+| Who owns? | Occupancy type and living space by age | FSO Structural Survey + GWS-STATPOP register. Bewohnertyp nach Kanton und Gemeindegrösse; Wohnfläche pro Person nach Kanton. BFS, 2024. | `data/whoOwns/raw/bfs_bewohnertyp_groesse.xlsx` |
 | Who owns? | Cantonal homeownership rates | FSO statistical export | `data/whoOwns/raw/wohneigentumsquote_kanton_2026.csv` |
 | Who owns? | Canton name metadata | FSO geo code mapping | `data/whoOwns/raw/metadaten_wohneigentumsquote_kanton_2026.ods` |
 
@@ -134,6 +135,16 @@ The exploratory analysis showed that the SELECTS data is well suited for a gener
 
 **Data quality assessment.** Overall, the data quality is sufficient for the intended visualisation purpose. The three survey waves are methodologically consistent, cover the required variables, and are the standard reference source for Swiss electoral behaviour research. The main limitations — self-report bias, varying sample sizes for edge-case generations, and the left–right coding change — are documented here and should be acknowledged when interpreting trends in the "Who decides?" section of the dashboard.
 
+
+### Details Raw Data: Home / Demographics – Demographic Balance of Switzerland
+
+The raw data for the **Home page** demographic visualisations (generational area chart and population pyramid) consists of a single dataset from the Swiss Federal Statistical Office (BFS).
+
+**Source:** Bundesamt für Statistik (BFS). (2024). *Demografische Bilanz der Schweiz*. Neuchâtel: BFS. Retrieved from https://www.bfs.admin.ch
+
+**Storage location:** `data/demografischeBilanz.csv`
+
+The file contains Swiss population data by birth year and calendar year, covering 1981–2024. It is the primary source for assigning population counts to the five generational cohorts (Silent Generation, Babyboomers, Generation X, Millennials / Gen Y, Generation Z) as defined in `app_config.py`. The data is loaded at application startup by `demographic_section.py` via `load_demographic_data()`. Generation labels are derived dynamically from birth year using fixed cut-off points. The dataset does not contain individual-level data and is published as an aggregated official statistic. No missing values are present. The temporal coverage (1981–2024) is sufficient to show the full demographic shift from a Boomer-dominant to a more balanced generational distribution.
 
 ### Details Raw Data: Who Pays - Financial Contributions and Public Transfers
 

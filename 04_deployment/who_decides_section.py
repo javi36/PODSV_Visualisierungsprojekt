@@ -53,14 +53,14 @@ CHART_NARRATIVE = {
         ),
     },
     "interest": {
-        "title": "Does Political Interest Drive Participation?",
+        "title": "Political Interest Mirrors Turnout Gaps",
         "intro": (
             "Political interest has been rising across almost all generations since 2019. "
             "Yet this increased interest has not translated into higher voter turnout — a striking paradox."
         ),
     },
     "trust": {
-        "title": "Does Institutional Trust Explain the Gap?",
+        "title": "Trust Differs Less Than Turnout",
         "intro": (
             "Share of respondents satisfied with democracy, by generation across three elections. "
             "2019 was the peak year for almost every generation — "
@@ -252,7 +252,7 @@ def _chart_parliament(frames: dict, selected_gens: list[str], year: int) -> go.F
 
     fig.update_layout(
         height=420,
-        margin=dict(t=10, b=20, l=10, r=10),
+        margin=dict(t=10, b=42, l=10, r=10),
         plot_bgcolor="white",
         paper_bgcolor="white",
         xaxis=dict(visible=False, range=[-1.25, 1.25]),
@@ -264,6 +264,14 @@ def _chart_parliament(frames: dict, selected_gens: list[str], year: int) -> go.F
             font=dict(size=11, color="#333333", family="Inter, Arial, sans-serif"),
             bgcolor="rgba(0,0,0,0)", borderwidth=0,
         ),
+    )
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0, y=-0.07,
+        xanchor="left", yanchor="top",
+        text=f"Source: Swiss Electoral Study SELECTS {year}, FORS",
+        showarrow=False,
+        font=dict(size=9, color="#aaaaaa"),
     )
     return fig
 
@@ -326,7 +334,7 @@ def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
                         line=dict(color="white", width=2)),
             text=[str(r) for r in y_vals],
             textposition="middle center",
-            textfont=dict(size=10, color="white", family="Inter, Arial, sans-serif"),
+            textfont=dict(size=11, color="white", family="Inter, Arial, sans-serif"),
             hovertemplate=f"<b>{GENERATION_YEAR_LABELS.get(gen, gen)}</b><br>Rang %{{y}} · %{{x}}<extra></extra>",
         ))
 
@@ -352,12 +360,20 @@ def _chart_line(frames: dict, selected_gens: list[str]) -> go.Figure:
             range=[n + 0.6, 0.4],
             tickvals=list(range(1, n + 1)),
             ticktext=[f"#{i}" for i in range(1, n + 1)],
-            title="1 = highest Interest",
+            title=dict(text="1 = highest interest", font=dict(size=13)),
             **_AXIS,
         ),
         xaxis=dict(tickvals=[2015, 2019, 2023], **_AXIS),
         showlegend=False,
     ))
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0, y=-0.09,
+        xanchor="left", yanchor="top",
+        text="Source: Swiss Electoral Study SELECTS 2015, 2019, 2023, FORS",
+        showarrow=False,
+        font=dict(size=9, color="#aaaaaa"),
+    )
     return fig
 
 
@@ -435,7 +451,16 @@ def _chart_trust(frames: dict, selected_gens: list[str]) -> go.Figure:
         ),
     )
     layout["height"] = 360
+    layout["margin"] = dict(t=40, b=52, l=50, r=20)
     fig.update_layout(**layout)
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0, y=-0.12,
+        xanchor="left", yanchor="top",
+        text="Source: Swiss Electoral Study SELECTS 2015, 2019, 2023, FORS",
+        showarrow=False,
+        font=dict(size=9, color="#aaaaaa"),
+    )
     return fig
 
 
@@ -499,7 +524,7 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
                     line=dict(color="white", width=2)),
             text=[f"{v23:.1f}"],
             textposition="top center",
-            textfont=dict(size=10, color=color),
+            textfont=dict(size=12, color=color),
             showlegend=False,
             hovertemplate=f"<b>{lgen}</b><br>2023: {v23:.2f}<br>Δ {diff:+.2f}<extra></extra>",
         ))
@@ -509,7 +534,7 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
             x=8.2, y=lgen,
             text=f"{'→ +' if diff > 0.05 else '→ '}{abs(diff):.1f}",
             showarrow=False,
-            font=dict(size=10, color=color),
+            font=dict(size=12, color=color),
             bgcolor=f"rgba({','.join(str(int(int(color.lstrip('#')[i:i+2],16))) for i in (0,2,4))},0.12)",
             borderpad=3,
             xanchor="left",
@@ -524,13 +549,13 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
         x=4.95, y=0.98, xref="x", yref="paper",
         text="○ 2015 &nbsp;&nbsp; <span style='opacity:0.5'>●</span> 2019 &nbsp;&nbsp; ● 2023",
         showarrow=False,
-        font=dict(size=11, color="#555555", family="Inter, Arial, sans-serif"),
+        font=dict(size=14, color="#444444", family="Inter, Arial, sans-serif"),
         xanchor="right",
         align="right",
-        bgcolor="rgba(255,255,255,0.85)",
-        bordercolor="#dddddd",
+        bgcolor="rgba(255,255,255,0.92)",
+        bordercolor="#cccccc",
         borderwidth=1,
-        borderpad=5,
+        borderpad=8,
     )
     # Centre line
     fig.add_vline(x=3, line_dash="dot", line_color="#cccccc",
@@ -545,6 +570,14 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
         ),
         showlegend=False,
     ))
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0, y=-0.09,
+        xanchor="left", yanchor="top",
+        text="Source: Swiss Electoral Study SELECTS 2015, 2019, 2023, FORS",
+        showarrow=False,
+        font=dict(size=9, color="#aaaaaa"),
+    )
     return fig
 
 
@@ -553,8 +586,6 @@ def _chart_bar_lr(frames: dict, selected_gens: list[str]) -> go.Figure:
 # ─────────────────────────────────────────────
 
 def render_who_decides_section() -> None:
-    st.markdown('<div id="who-decides"></div>', unsafe_allow_html=True)
-
     st.markdown(
         """
         <div class="narrative-text">

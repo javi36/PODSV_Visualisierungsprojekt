@@ -164,7 +164,7 @@ def _apply_base_layout(fig: go.Figure, height: int = 400, **kwargs) -> go.Figure
         paper_bgcolor="#ffffff",
         font=dict(family="sans-serif", size=12, color="#111111"),
         margin=dict(t=60, l=50, r=30, b=50),
-        hoverlabel=dict(font_size=10),
+        hoverlabel=dict(font_size=12),
         height=height,
         **kwargs,
     )
@@ -191,9 +191,8 @@ def _chart_ahv_ratio(
 
     df = pd.DataFrame(records)
 
-    y_min   = df["ratio"].min()
     y_max   = df["ratio"].max()
-    y_floor = round(y_min - 0.05, 2)
+    y_floor = 0
     y_ceil  = round(y_max + 0.10, 2)
 
     first_ratio = df.iloc[0]["ratio"]
@@ -279,7 +278,7 @@ def _chart_ahv_ratio(
     _apply_base_layout(
         fig, height=420,
         yaxis=dict(
-            range=[y_floor - 0.02, y_ceil],
+            range=[0, y_ceil],
             title="Contributors per retiree",
             gridcolor="#f0f0f0",
             tickfont=dict(size=11),
@@ -290,12 +289,19 @@ def _chart_ahv_ratio(
             ticktext=[str(int(j)) for j in jahre],
             showgrid=False,
             tickfont=dict(size=11),
-            title="Jahr",
+            title="Year",
         ),
         showlegend=False,
     )
     fig.update_layout(margin=dict(t=60, l=60, r=220, b=70))
-
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0, y=-0.08,
+        xanchor="left", yanchor="top",
+        text="Source: BSV / BFS — AHV-Statistik, 2024",
+        showarrow=False,
+        font=dict(size=9, color="#aaaaaa"),
+    )
     return fig
 
 
@@ -366,7 +372,7 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
             text=f"<b>{sign}{abs(delta):.0f}<br>CHF/mt</b>",
             showarrow=False,
             yshift=14,
-            font=dict(size=9, color=ann_color),
+            font=dict(size=11, color=ann_color),
             row=1, col=col_i,
         )
 
@@ -382,7 +388,7 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
             showlegend=False,
             hoverinfo="skip",
             name="",
-            hovertemplate="<b>Netto: +%{y:.0f}.-/mt</b><extra></extra>",
+            hovertemplate="<b>Net: +%{y:.0f} CHF/mt</b><extra></extra>",
         ), row=1, col=col_i)
 
         fig.add_trace(go.Scatter(
@@ -392,7 +398,7 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
             showlegend=False,
             hoverinfo="skip",
             name="",
-            hovertemplate="<b>Netto: -%{y:.0f}.-/mt</b><extra></extra>",
+            hovertemplate="<b>Net: -%{y:.0f} CHF/mt</b><extra></extra>",
         ), row=1, col=col_i)
 
     _apply_base_layout(
@@ -411,11 +417,19 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
         tickvals=[okp_jahre[0], okp_jahre[-1]],
         ticktext=[str(int(okp_jahre[0])), str(int(okp_jahre[-1]))],
         tickangle=0,
-        tickfont=dict(size=9),
+        tickfont=dict(size=11),
     )
     for col_i in range(2, n_gens + 1):
         fig.update_yaxes(showticklabels=False, row=1, col=col_i)
 
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0, y=-0.07,
+        xanchor="left", yanchor="top",
+        text="Source: BSV / BFS — OKP-Statistik (Prämien & Leistungen), 2024",
+        showarrow=False,
+        font=dict(size=9, color="#aaaaaa"),
+    )
     return fig
 
 # ─── BAUSTEIN 4: Cashflow OKP + AHV ─────────────────────────────────────────
@@ -465,9 +479,9 @@ def _chart_cashflow_pct(
     n_gens = len(GENS_ORDERED)
     fig = make_subplots(
         rows=1, cols=n_gens,
-        shared_yaxes=False,
+        shared_yaxes=True,
         subplot_titles=[_GEN_SHORT[g] for g in GENS_ORDERED],
-        horizontal_spacing=0.03,
+        horizontal_spacing=0.02,
     )
 
     jahre_int = [int(j) for j in jahre]
@@ -530,7 +544,7 @@ def _chart_cashflow_pct(
             xshift=-2,
             yshift=10 if pct_vals[0] >= 0 else -10,
             yanchor="bottom" if pct_vals[0] >= 0 else "top",
-            font=dict(size=9, color=color),
+            font=dict(size=11, color=color),
             row=1, col=col_i,
         )
 
@@ -540,12 +554,12 @@ def _chart_cashflow_pct(
         ann_color = "#1d7874" if last_pct >= 0 else "#f25c54"
         fig.add_annotation(
             x=jahre_int[-1], y=last_pct,
-            text=f"<b>{last_pct:+.1f}%</b><br><i style='font-size:8px'>{role}</i>",
+            text=f"<b>{last_pct:+.1f}%</b><br><i style='font-size:10px'>{role}</i>",
             showarrow=False,
             xshift=2,
             yshift=10 if last_pct >= 0 else -10,
             yanchor="bottom" if last_pct >= 0 else "top",
-            font=dict(size=9, color=ann_color),
+            font=dict(size=11, color=ann_color),
             row=1, col=col_i,
         )
 
@@ -557,30 +571,35 @@ def _chart_cashflow_pct(
         tickvals=[jahre_int[0], jahre_int[len(jahre_int)//2], jahre_int[-1]],
         ticktext=[str(jahre_int[0]), str(jahre_int[len(jahre_int)//2]), str(jahre_int[-1])],
         tickangle=0,
-        tickfont=dict(size=10),
+        tickfont=dict(size=11),
     )
-    fig.update_yaxes(ticksuffix="%", tickfont=dict(size=10))
+    fig.update_yaxes(ticksuffix="%", tickfont=dict(size=11))
     for col_i in range(2, n_gens + 1):
         fig.update_yaxes(showticklabels=False, row=1, col=col_i)
 
     fig.update_layout(
         margin=dict(t=60, l=60, r=30, b=50),
         hoverlabel=dict(
-            font_size=10,
+            font_size=12,
             bgcolor="white",
             bordercolor="#dddddd",
             namelength=0,
         ),
     )
-
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0, y=-0.08,
+        xanchor="left", yanchor="top",
+        text="Source: BSV / BFS — AHV-Statistik & OKP-Daten, 2024",
+        showarrow=False,
+        font=dict(size=9, color="#aaaaaa"),
+    )
     return fig, working_days
 
 
 # ─── Main render function ─────────────────────────────────────────────────────
 
 def render_who_pays_section() -> None:
-    st.markdown('<div id="who-pays"></div>', unsafe_allow_html=True)
-
     # BAUSTEIN 1 — Narrative Bridge
     st.markdown(
         """

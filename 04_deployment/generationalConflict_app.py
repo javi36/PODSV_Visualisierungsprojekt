@@ -97,7 +97,7 @@ def main() -> None:
 
     st.markdown(
         f"""
-        <div class="hero">
+        <div id="home" class="hero">
             <img src="data:image/png;base64,{img_b64}"
                 style="width:100%; max-width:860px; display:block; margin:0 auto -10rem auto;" />
             <h1>Generational Conflict</h1>

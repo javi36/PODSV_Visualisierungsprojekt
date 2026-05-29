@@ -161,6 +161,14 @@ def create_occupancy_stacked_bar(df: pd.DataFrame, sorted_gens: list[str]) -> go
         ),
         hoverlabel=dict(bgcolor="#ffffff", bordercolor="#dddddd", font_size=14, font_family="Arial"),
     )
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0, y=-0.07,
+        xanchor="left", yanchor="top",
+        text="Source: BFS — Strukturerhebung (Bewohnertyp), 2024",
+        showarrow=False,
+        font=dict(size=9, color="#aaaaaa"),
+    )
 
     # Subtle bracket on the LEFT, flush with the y-axis labels — connects Gen X and Gen Z rows
     if "Generation X" in y_order and "Generation Z" in y_order:
@@ -289,9 +297,17 @@ def create_wohnflaeche_line_chart(df: pd.DataFrame, selected_gens: list[str]) ->
             xref="x", yref="y",
         ))
 
+    annotations.append(dict(
+        xref="paper", yref="paper",
+        x=0, y=-0.09,
+        xanchor="left", yanchor="top",
+        text="Source: BFS — Strukturerhebung (Wohnfläche), 2024",
+        showarrow=False,
+        font=dict(size=9, color="#aaaaaa"),
+    ))
     fig.update_layout(
         height=340,
-        margin=dict(t=10, l=10, r=155, b=30),
+        margin=dict(t=10, l=10, r=155, b=42),
         plot_bgcolor="#ffffff",
         paper_bgcolor="#ffffff",
         xaxis=dict(
@@ -368,6 +384,15 @@ def create_wohnflaeche_ranking_chart(
         ),
         showlegend=False,
     )
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0.01, y=0.005,
+        xanchor="left", yanchor="bottom",
+        text="Source: BFS — Strukturerhebung (Wohnfläche), 2024",
+        showarrow=False,
+        font=dict(size=10, color="#777777"),
+        bgcolor="rgba(255,255,255,0.85)",
+    )
     return fig
 
 
@@ -432,17 +457,26 @@ def create_space_ownership_scatter(
             showlegend=False,
         ))
 
+    # Inline label on the trend line at ~70% along x range
+    x_label = x.min() + (x.max() - x.min()) * 0.68
+    y_label = float(np.polyval(coeffs, x_label))
     fig.add_annotation(
-        x=0.98, y=0.04, xref="paper", yref="paper",
-        text=f"r = {r:.2f}",
+        x=x_label, y=y_label,
+        text=f"Higher ownership → more space<br><span style='font-size:11px;color:#999999'>r = {r:.2f} (strong positive correlation)</span>",
         showarrow=False,
-        font=dict(size=14, color="#111111", family="sans-serif"),
-        xanchor="right",
+        xanchor="left",
+        yanchor="bottom",
+        yshift=8,
+        font=dict(size=12, color="#555555", family="sans-serif"),
+        bgcolor="rgba(255,255,255,0.85)",
+        bordercolor="rgba(0,0,0,0.08)",
+        borderwidth=1,
+        borderpad=5,
     )
 
     fig.update_layout(
         height=320,
-        margin=dict(t=40, l=10, r=20, b=40),
+        margin=dict(t=40, l=10, r=20, b=52),
         plot_bgcolor="#ffffff",
         paper_bgcolor="#ffffff",
         xaxis=dict(
@@ -462,6 +496,14 @@ def create_space_ownership_scatter(
         ),
         showlegend=False,
     )
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0, y=-0.14,
+        xanchor="left", yanchor="top",
+        text="Source: BFS — Strukturerhebung (Bewohnertyp & Wohnfläche), 2024",
+        showarrow=False,
+        font=dict(size=9, color="#aaaaaa"),
+    )
     return fig
 
 
@@ -469,8 +511,6 @@ def render_who_owns_section(
     bewohnertyp_df: pd.DataFrame,
     wohnflaeche_df: pd.DataFrame,
 ) -> None:
-    st.markdown('<div id="who-owns"></div>', unsafe_allow_html=True)
-
     # ── Read shared filters from sidebar session_state ────────────────────────
     selected_gens: list[str] = st.session_state.get("sidebar_generations", GENERATION_ORDER)
 
@@ -509,11 +549,7 @@ def render_who_owns_section(
     gap = max_pct - min_pct
 
     # ── Section header ────────────────────────────────────────────────────────
-    st.markdown(
-        f"<h2 style='font-size:1.7rem;font-weight:800;color:#111111;margin:0 0 1rem;'>"
-        f"A {gap}% ownership gap separates {max_gen} from {min_gen}</h2>",
-        unsafe_allow_html=True,
-    )
+    st.markdown(f"### A {gap}% Ownership Gap: {max_gen} vs. {min_gen}")
 
     # ── Intro paragraph ───────────────────────────────────────────────────────
     _boomer_row = eig[eig["generation"] == "Babyboomers"]
@@ -638,11 +674,7 @@ def render_who_owns_section(
     # ── Living space section ──────────────────────────────────────────────────
     st.markdown("<div style='border-top:1px solid #eeeeee;margin:1.5rem 0 1rem;'></div>", unsafe_allow_html=True)
 
-    st.markdown(
-        "<h2 style='font-size:1.7rem;font-weight:800;color:#111111;margin:0 0 1rem;'>"
-        "Older generations live in twice the space — and the gap is not closing</h2>",
-        unsafe_allow_html=True,
-    )
+    st.markdown("### Older Generations Live in Twice the Space — The Gap Is Not Closing")
 
     year_wf_sel = int(st.session_state.get("whoowns_year_wf", str(_avail_years[-1])))
     year_wf = wf_data[wf_data["year"] == year_wf_sel]
@@ -760,11 +792,7 @@ def render_who_owns_section(
     # ── Scatter: ownership rate vs. living space ──────────────────────────────
     st.markdown("<div style='border-top:1px solid #eeeeee;margin:1.5rem 0 1rem;'></div>", unsafe_allow_html=True)
 
-    st.markdown(
-        "<h2 style='font-size:1.7rem;font-weight:800;color:#111111;margin:0 0 1rem;'>"
-        "Correlation: Ownership Rate vs. Living Space</h2>",
-        unsafe_allow_html=True,
-    )
+    st.markdown("### Ownership Rate vs. Living Space: A Persistent Correlation")
 
     year_scatter = int(st.session_state.get("whoowns_year_scatter", str(_avail_years[-1])))
 
