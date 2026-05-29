@@ -18,8 +18,8 @@ The raw datasets are documented according to the three main dimensions of the pr
 |---|---|---|---|
 | Home / Demographics | Demografische Bilanz der Schweiz | Bundesamt für Statistik (BFS), 2024. Retrieved from https://www.bfs.admin.ch | `data/demografischeBilanz.csv` |
 | Who decides? | SELECTS 2015 post-election survey | Swiss Electoral Study (FORS), Stata format. DOI: 10.23662/FORS-DS-726-3 | `data/whodecide/raw/726_Selects2015_PES_Data_v1.03.dta` |
-| Who decides? | SELECTS 2019 post-election survey | Swiss Electoral Study (FORS), CSV format. DOI: 10.23662/FORS-DS-1077-2 | `data/whodecide/processed/selects_2019_clean.csv` |
-| Who decides? | SELECTS 2023 post-election survey | Swiss Electoral Study (FORS), CSV format. DOI: 10.23662/FORS-DS-1512-1 | `data/whodecide/processed/selects_2023_clean.csv` |
+| Who decides? | SELECTS 2019 post-election survey | Swiss Electoral Study (FORS), CSV format. DOI: 10.23662/FORS-DS-1077-2 | `data/whodecide/raw/1179_Selects2019_PES_Data_v1.1.0.csv` |
+| Who decides? | SELECTS 2023 post-election survey | Swiss Electoral Study (FORS), CSV format. DOI: 10.23662/FORS-DS-1512-1 | `data/whodecide/raw/2634_Selects2023_PES_Data_v2.0.csv` |
 | Who pays? | Mandatory health insurance statistics (OKP/KVSTAT) | Swiss health insurance statistics, annual Excel files and ZIP archives | `data/whopays/raw_whopays/` |
 | Who pays? | AHV income data | Project-specific AHV income data file | `data/whopays/raw_whopays/ahv_einnahmen_zhaw.xlsx` |
 | Who pays? | AHV expenditure data | Bundesamt für Sozialversicherungen (BSV) / Bundesamt für Statistik (BFS). AHV-Statistik 2024. Retrieved from https://www.bsv.admin.ch | `data/whopays/raw_whopays/px-x-1305000000_103_20260416-235225.xlsx` |
@@ -32,14 +32,12 @@ The raw datasets are documented according to the three main dimensions of the pr
 
 The raw data for the dimension **"Who decides?"** consists of three post-election survey datasets from the Swiss Electoral Study (SELECTS), covering the federal elections of 2015, 2019 and 2023. The surveys are conducted by FORS (Swiss Centre of Expertise in the Social Sciences) at the Université de Lausanne and are accessible through the FORS data archive under a standard research data licence for non-commercial academic use. The datasets do not contain individually identifiable data and are considered reliable reference data for Swiss electoral behaviour research.
 
-The three files were accessed as follows:
+The raw files were accessed as follows:
+- `data/whodecide/raw/726_Selects2015_PES_Data_v1.03.dta` — SELECTS 2015 raw data in Stata format (N = 5,337 rows, 430 columns)
+- `data/whodecide/raw/1179_Selects2019_PES_Data_v1.1.0.csv` — SELECTS 2019 raw data in CSV format (N = 6,664 rows, 342 columns)
+- `data/whodecide/raw/2634_Selects2023_PES_Data_v2.0.csv` — SELECTS 2023 raw data in CSV format (N = 5,033 rows, 309 columns)
 
-- `data/whodecide/raw/726_Selects2015_PES_Data_v1.03.dta` — SELECTS 2015 raw data in Stata format
-- `data/whodecide/processed/selects_2015_clean.csv` — Preprocessed 2015 data
-- `data/whodecide/processed/selects_2019_clean.csv` — Preprocessed 2019 data
-- `data/whodecide/processed/selects_2023_clean.csv` — Preprocessed 2023 data
-
-The raw files are not directly suitable for visualisation because variable names and coding conventions differ across survey waves. In particular, the left–right self-placement variable uses a 7-point scale in 2015 (`f12900main7`), whereas 2019 and 2023 use a recoded 5-point scale (`f12900rec`, values 10/20/30/40/50). Preprocessing was therefore required to harmonise all three waves into a consistent analytical structure and assign generation labels.
+The raw files are not directly suitable for visualisation because variable names and coding conventions differ across survey waves. All three waves use the same underlying left–right encoding (`f12900rec` in 2019/2023, `f12900` in 2015), processed identically by dividing values by 10 to yield a 1–5 scale. Preprocessing was therefore required to harmonise all three waves into a consistent analytical structure, standardise column names, and assign generation labels. Note that the trust variables (`f11301`, `f11302`, `f11305`) used a different scale in 2015 than in 2019/2023; trust-based comparisons are therefore limited to 2019 vs. 2023 only.
 
 #### Data Catalogue
 
@@ -55,7 +53,7 @@ The data catalogue below describes the harmonised schema produced by the preproc
 | 4 | `political_interest` | float | 1–4 scale (1 = not at all interested, 4 = very interested); codes −99, −98, 9 treated as missing | Self-reported level of interest in politics. Derived from `f10100`. |
 | 5 | `trust_avg` | float | Mean of three trust items, each on a scale approximately 1–10; codes −99, −98 treated as missing | Average institutional trust score across three items: trust in the federal government (`f11301`), trust in parliament (`f11302`), and satisfaction with democracy (`f11305`). |
 | 6 | `demo_satisfaction` | integer | 0 = not satisfied, 1 = satisfied; codes −99, −98, 8, 9 treated as missing | Binary indicator of democratic satisfaction. Derived from `f12010` (original values: 1 → satisfied, 2 → not satisfied). |
-| 7 | `lr_scale` | float | 1.0–5.0 continuous scale (1 = far left, 5 = far right); codes −99, −98 treated as missing | Left–right self-placement. In 2015: derived from `f12900main7` (7-point scale mapped to 1–5 via fixed mapping). In 2019/2023: derived from `f12900rec` (values 10/20/30/40/50 divided by 10). |
+| 7 | `lr_scale` | float | 1.0–5.0 continuous scale (1 = far left, 5 = far right); codes −99, −98 treated as missing | Left–right self-placement. Derived from `f12900rec` (2019/2023) or `f12900` (2015) by dividing values by 10. Values outside 1–5 are set to `NaN`. |
 
 The three processed CSVs do not contain a common `survey_year` column; the year dimension is introduced at load time by the pipeline, which reads each file separately and keys the resulting DataFrames by election year (2015, 2019, 2023).
 
@@ -129,7 +127,7 @@ The exploratory analysis showed that the SELECTS data is well suited for a gener
 
 **Self-reported turnout bias.** Voter turnout in the SELECTS surveys is self-reported. It is well established in electoral survey research that self-reported turnout systematically overestimates actual turnout due to social desirability bias: respondents are more likely to report having voted than they actually did. The parliament chart (chart 1) therefore does not show individual turnout rates but rather the *compositional share* of self-reported voters by generation — this framing reduces the impact of overreporting bias while preserving the key finding that older generations dominate the active electorate.
 
-**Variable coding differences across waves.** As described above, the left–right self-placement variable differs structurally between 2015 (7-point scale) and 2019/2023 (5-point recoded scale). The mapping applied in the preprocessing pipeline (`{1:1.0, 2:1.5, 3:2.5, 4:3.0, 5:3.5, 6:4.5, 7:5.0}`) is a reasonable approximation but introduces some uncertainty in cross-wave comparisons. Trend interpretations for the left–right chart should therefore be treated with caution, particularly for the 2015–2019 transition.
+**Variable coding differences across waves.** The left–right self-placement variable uses the same underlying encoding across all three waves and is processed identically, making cross-wave comparisons directly valid. However, the trust variables (`f11301`, `f11302`, `f11305`) used a different scale in 2015 than in 2019/2023; trust-based trend interpretations are therefore limited to 2019 vs. 2023 only.
 
 **Missing value treatment.** SELECTS uses standardised missing value codes (−99 = not answered, −98 = does not apply, 9 or 8 = refused or invalid). All such codes are recoded to `NaN` during preprocessing. Aggregations at generation level use only non-missing observations. Where missingness rates are high for a particular generation and year, this is reflected in gaps in the visualisation rather than imputed values.
 
@@ -508,12 +506,12 @@ The 2015 dataset originates from the raw Stata file `726_Selects2015_PES_Data_v1
 - `political_interest`: numeric conversion of `f10100`; codes −99, −98 and 9 are set to `NaN`.
 - `trust_avg`: row-wise mean of `f11301`, `f11302` and `f11305`; codes −99 and −98 are set to `NaN` per column before averaging.
 - `demo_satisfaction`: binary recode of `f12010`; value 1 maps to 1 (satisfied), value 2 maps to 0 (not satisfied); codes −99, −98, 8 and 9 are set to `NaN`.
-- `lr_scale`: left–right self-placement on a 1–5 scale. In 2015, derived from `f12900main7` (7-point scale) using the fixed mapping `{1:1.0, 2:1.5, 3:2.5, 4:3.0, 5:3.5, 6:4.5, 7:5.0}`; invalid codes (−99, −98, 8, 9) set to `NaN`. In 2019 and 2023, derived from `f12900rec` (values 10/20/30/40/50) by dividing by 10; invalid codes set to `NaN`.
+- `lr_scale`: left–right self-placement on a 1–5 scale. Derived from `f12900rec` (2019/2023) or `f12900` (2015) by dividing values by 10; values outside 1–5 are excluded. Invalid codes (−99, −98) are set to `NaN`.
 
 The processed files do not contain a `survey_year` column. The year dimension is introduced at application load time by the `_load_frames()` function, which reads each file separately and stores the resulting DataFrames in a dictionary keyed by election year (2015, 2019, 2023).
 
 **How to access and reproduce:**
-The processed CSV files are read directly by `who_decides_section.py` via the paths `SELECTS_2015_PATH_CSV`, `SELECTS_2019_PATH` and `SELECTS_2023_PATH`. The `_load_frames()` function is decorated with `@st.cache_data`, so the files are loaded once per Streamlit session. To reproduce the preprocessing for the 2015 wave, the raw `.dta` file at `data/whodecide/raw/726_Selects2015_PES_Data_v1.03.dta` must be available. The 2019 and 2023 processed CSVs can be used directly without access to the original raw files.
+The processed CSV files are read directly by `who_decides_section.py` via the paths `SELECTS_2015_PATH_CSV`, `SELECTS_2019_PATH` and `SELECTS_2023_PATH`. The `_load_frames()` function is decorated with `@st.cache_data`, so the files are loaded once per Streamlit session. To reproduce the preprocessing, the following raw files must be available: `data/whodecide/raw/726_Selects2015_PES_Data_v1.03.dta` (2015, Stata format), `data/whodecide/raw/1179_Selects2019_PES_Data_v1.1.0.csv` (2019), and `data/whodecide/raw/2634_Selects2023_PES_Data_v2.0.csv` (2023). All three are processed by `load_sources.py` and written to `data/whodecide/processed/`.
 
 #### Data Characteristics and Quality
 
