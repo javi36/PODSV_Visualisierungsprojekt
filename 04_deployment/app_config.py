@@ -65,7 +65,7 @@ GLOBAL_STYLES = """
 	[data-testid="block-container"],
 	.block-container {
 		padding-top: 0 !important;
-		margin-top: -6rem !important;
+		margin-top: 0.5rem !important;
 	}
 	[data-testid="stSidebar"][aria-expanded="false"] ~ [data-testid="stAppViewContainer"] {
 		margin-left: 0 !important;

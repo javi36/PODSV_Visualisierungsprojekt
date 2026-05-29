@@ -76,38 +76,44 @@ def main() -> None:
     st.markdown('<div id="home"></div>', unsafe_allow_html=True)
 
     # ── Hero ─────────────────────────────────────────────────────────────────
-    st.markdown('<div id="home"></div>', unsafe_allow_html=True)
-    st.markdown(
-        """
-        <style>
-            .block-container { padding-top: 0 !important; }
-            .hero { margin-top: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
-            .hero img { margin: 0 auto !important; display: block !important; }
-            .hero h1 { margin-top: 0 !important; padding-top: 0 !important; }
-            div[data-testid="stMarkdown"] { margin: 0 !important; padding: 0 !important; }
-            div[data-testid="element-container"] { margin-bottom: -10rem !important; padding: 0 !important; }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    # ── Hero ─────────────────────────────────────────────────────────────────
     img_path = Path(__file__).parent / "static" / "Titelbild_Generationen_conflict.png"
     img_b64 = base64.b64encode(img_path.read_bytes()).decode()
 
     st.markdown(
         f"""
-        <div id="home" class="hero">
-            <img src="data:image/png;base64,{img_b64}"
-                style="width:100%; max-width:860px; display:block; margin:0 auto -10rem auto;" />
-            <h1>Generational Conflict</h1>
-            <p style="font-size:1.05rem; color:#444444; margin-top:1rem;">
+        <style>
+            .block-container {{ padding-top: 0 !important; }}
+            .hero-wrapper {{
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                line-height: 0;
+            }}
+            .hero-wrapper img {{
+                width: 100%;
+                max-width: 860px;
+                display: block;
+                margin: 0 auto;
+            }}
+            .hero-text {{
+                text-align: center;
+                line-height: 1.5;
+                margin-top: 0.6rem;
+                padding: 0;
+            }}
+        </style>
+        <div class="hero-wrapper">
+            <img src="data:image/png;base64,{img_b64}" />
+        </div>
+        <h1 style="text-align:center; font-size:3rem; font-weight:700; color:#111111; margin: -7rem 0 0.3rem;">Generational Conflict</h1>
+        <div class="hero-text">
+            <p style="font-size:1.05rem; color:#444444; margin: 0.4rem 0 0.2rem;">
                 The Swiss Federal Constitution promises responsibility towards future generations.
             </p>
-            <p style="font-size:1.05rem; color:#444444; margin-top:0.4rem;">
+            <p style="font-size:1.05rem; color:#444444; margin: 0;">
                 You are that generation. Here are the numbers.
             </p>
-            <p style="font-size:0.78rem; color:#aaaaaa; margin-top:1.2rem; font-style:italic;">
+            <p style="font-size:0.78rem; color:#aaaaaa; margin-top:0.8rem; font-style:italic;">
                 — Preamble, Federal Constitution of the Swiss Confederation (SR 101, 1999)
             </p>
         </div>
