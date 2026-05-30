@@ -53,9 +53,9 @@ For the main data visualisation on the landing page, a **violin plot combined wi
 **Overall application structure: scrollable with three thematic sections**
 The application should be structured into three main thematic sections, one for each guiding question. At this stage, a pagination system (three separate pages) was discussed as a possible structure, although the scrollable single-page format was later confirmed as the preferred approach (see meeting 07.05.2026). The three sections are:
 
-1. **Who pays?** — financial burden, AHV and OKP contributions by generation
-2. **Who owns?** — homeownership and living space by generation
-3. **Who decides?** — political participation and voting behaviour by generation
+1. **Who decides?** — political participation and voting behaviour by generation
+2. **Who pays?** — financial burden, AHV and OKP contributions by generation
+3. **Who owns?** — homeownership and living space by generation
 
 **"Who decides?" section: early concept**
 The content for the "Who decides?" section was briefly discussed but not finalised. The team noted that the SELECTS survey data (political participation, voting behaviour, trust, political orientation) provides a strong empirical base for this section, and that the section should emphasise the imbalance between who votes and who is affected by the outcome. Specific chart types were not agreed upon at this stage.
