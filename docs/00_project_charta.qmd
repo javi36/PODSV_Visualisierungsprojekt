@@ -219,9 +219,9 @@ The design focuses on **simplicity, comparability and clarity**, addressing the 
 
 The final product will be an **interactive Streamlit dashboard** structured into three main analytical sections:
 
-1. **Who pays** → financial burden: income, housing costs, health insurance premiums relative to income
-2. **Who owns** → wealth and property: home ownership rates, net wealth distribution
-3. **Who decides** → political participation: voter turnout, political engagement by age group
+1. **Who decides** → political participation: voter turnout, political engagement by age group
+2. **Who pays** → financial burden: income, housing costs, health insurance premiums relative to income
+3. **Who owns** → wealth and property: home ownership rates, net wealth distribution
 
 A short overview section will provide key context and allow users to navigate between dimensions.
 
