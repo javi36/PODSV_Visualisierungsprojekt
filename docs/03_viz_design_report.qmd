@@ -83,45 +83,49 @@ The arrow plot encodes ideological drift between 2015 and 2023. Each generation 
 
 ### Who Pays
 
-This section draws on OKP (mandatory health insurance) and AHV (old-age insurance) data spanning 2012 to 2024. Three charts build a sequential argument from system-level to individual-level financial burden.
+This section draws on OKP (mandatory health insurance) and AHV (old-age insurance) data spanning 2012 to 2024. The three charts build a sequential argument: first establishing the structural pressure on the AHV system at the macro level, then breaking down what that pressure means in CHF terms for each generation through the OKP lens, and finally synthesising both systems into a single income-relative burden indicator.
 
-**Chart 1 — Area Line Chart: AHV Dependency Ratio**
+**Chart 1 — Line Chart with Area Fill: AHV Contributors per Retiree**
 
-The AHV dependency ratio (number of active wage contributors per pension recipient) is presented as a single time-series line with an area fill to the chart floor. This choice emphasises the downward trend — the shrinking area below the line makes the decline viscerally visible rather than presenting it as an abstract percentage change.
+The AHV dependency ratio — the number of active wage contributors per old-age pension recipient — is displayed as a time-series line running from 2012 to 2024. An area fill between the line and the zero baseline reinforces the sense of a shrinking buffer below the declining trend. Open circle markers are drawn at each annual data point to make individual year values readable without requiring axis interpolation.
 
-- **Data variables**: contributor count (`n_personen`), pension recipient count (`anzahl_renten`), `year`
-- **Marks**: Line + area fill to a defined floor value
-- **Visual channels**: x-position (year), y-position (ratio value), area size (magnitude of ratio)
-- **Scale**: Linear (both axes), temporal x (2012–2024); y-axis floor set slightly below minimum to accentuate the descent
-- **Annotations**: First and last ratio values labelled on the line; a badge outside the chart frame summarises the change in plain language ("3½ workers funded 1 retiree in 2012 → 3 workers in 2024")
+- **Data variables**: contributor count (`n_personen`, summed across all ages), pension recipient count (`anzahl_renten`, summed across all ages), `year`; ratio derived at application load time
+- **Marks**: Line, open circle markers at each year, area fill from line to y = 0
+- **Visual channels**: x-position (year, 2012–2024), y-position (ratio value, continuous), area size (height from zero to line communicates the remaining buffer above zero); colour: neutral dark grey for line and markers, light grey fill for area
+- **Scale**: Linear y-axis starting at 0; x-axis temporal (2012–2024); y-axis ceiling slightly above the first data point (3.49) to avoid clipping the opening annotation
+- **Annotations**: First year (3.49) and last year (3.22) ratio values labelled directly on the line. A styled badge annotation positioned outside the right chart margin provides a plain-language translation: "3½ workers funded 1 retiree in 2012 → 3 workers in 2024", followed by "▼ 7.7% fewer shoulders to carry the financial burden of retirement" in red. This externalised summary decouples the quantitative reading from the interpretive takeaway.
+- **Source**: BSV / BFS — AHV-Statistik, 2024
 
 **Chart 2 — Small Multiples Area Chart: OKP Premium vs. Benefits**
 
-The OKP chart compares what each generation pays in net health insurance premiums against what it receives in benefits, faceted by generation. Using two overlapping area fills per panel — darker for premium paid, lighter for benefits received — makes the cross-subsidy structure immediately visible: where the light area (benefits) exceeds the dark area (premium), the generation is a net receiver; where it falls below, the generation is a net contributor.
+The OKP chart shows what each generation pays in net health insurance premiums against what it receives in benefits, using five generation panels arranged in the project's standard left-to-right order (Silent Generation → Generation Z). Within each panel, two overlapping filled area traces share the same x-axis (year) and y-axis (CHF per person per month). The relative size of the two areas directly encodes whether the generation is a net contributor or net receiver: where the light area (benefits) exceeds the dark area (net premium), the generation benefits from cross-subsidisation; where the dark area dominates, the generation subsidises others.
 
-- **Data variables**: `okp_premium`, `praemienverbilligung`, `okp_bruttoleistungen` (all as per-capita CHF/month), `generation`, `year`
-- **Marks**: Two overlapping filled area traces per generation panel
-- **Visual channels**: x-position (year), y-position (CHF/month), fill opacity (darker = net premium paid; lighter = benefits received), colour hue (generation, consistent with palette); 2024 Δ annotation at the right edge of each panel
-- **Scale**: Linear y (shared across all panels), categorical/temporal x; y-axis shared to enable cross-panel magnitude comparison
-- **Layout**: 5-column small multiples (one per generation), shared y-axis, first and last year labelled on x-axis only
+- **Data variables**: `okp_premium` minus `praemienverbilligung` (= net premium paid), `okp_bruttoleistungen` (= gross benefits received), both as CHF per person per month; `generation`, `year`
+- **Marks**: Two overlapping filled area traces per panel; no line on top of the area fills
+- **Visual channels**: x-position (year, 2012–2024; only first and last year labelled to reduce clutter), y-position (CHF/month), fill colour: dark generation colour for net premium paid, light desaturated variant of the same hue for benefits received; delta annotation colour: teal for positive delta (net receiver), red for negative delta (net contributor)
+- **Scale**: Linear y shared across all five panels (0 to approximately 1 500 CHF/month), enabling direct cross-panel magnitude comparison. This shared scale is a deliberate choice: it makes the order-of-magnitude difference between the Silent Generation surplus (approximately +1 076 CHF/month in 2024) and the younger generations' deficit (approximately −56 to −147 CHF/month) immediately apparent from panel height alone, without requiring the reader to consult axis labels.
+- **Layout**: 5-column small multiples, equal panel widths, shared y-axis grid, generation name as panel title; shared legend below all panels ("Net premium paid" / "Benefits received")
+- **Annotations**: 2024 net delta value labelled at the right edge of each panel in the delta colour (positive in teal, negative in red), formatted as "±X CHF/mt"
+- **Source**: BSV / BFS — OKP-Statistik (Prämien & Leistungen), 2024
 
 **Chart 3 — Small Multiples Area Chart: Net Cashflow as % of Gross Salary**
 
-The cashflow chart synthesises OKP and AHV flows into a single indicator: net cashflow (benefits received minus contributions paid) expressed as a percentage of the generation's average gross salary. Framing the financial balance as a share of income rather than an absolute CHF figure makes the burden comparable across generations with very different income levels.
+The cashflow chart synthesises OKP and AHV contributions and benefits into a single indicator per generation: net cashflow (total benefits received minus total contributions paid, combining both systems) expressed as a percentage of the generation's average gross salary. Normalising by gross salary rather than presenting absolute CHF values makes the burden comparable across generations with structurally different income levels. Each generation panel has its own independent y-axis scale, allowing both the shape and the magnitude of change within each generation to be readable, at the cost of making direct cross-panel scale comparison impossible. The sign and the area fill direction (above or below the zero line) carry the key cross-generational message.
 
-- **Data variables**: OKP premium, subsidy, cost sharing, gross benefits, AHV contribution, AHV pension, estimated gross salary, `generation`, `year`
-- **Marks**: Area fill to zero + line + markers (per generation panel)
-- **Visual channels**: x-position (year), y-position (% of gross salary, can be positive or negative), colour hue (generation), area fill direction (above zero = net receiver, below zero = net contributor)
-- **Scale**: Linear y (per-panel, not shared, to show the shape of change within each generation), categorical/temporal x; zero reference line drawn explicitly
-- **Annotations**: First and last year % values labelled; role label ("Net receiver" / "Net contributor") annotated at 2024 endpoint
+- **Data variables**: OKP net premium, OKP gross benefits, AHV contribution (`sum_beitrag_ahv` per capita), AHV pension receipts (`renten_mittelwert_chf`), estimated average gross salary (derived from AHV contributions using the combined contribution rate); `generation`, `year`
+- **Marks**: Area fill between the cashflow line and y = 0 (fill above zero in generation colour for net receivers, fill below zero for net contributors); line on top of the area fill; open circle markers at each annual data point
+- **Visual channels**: x-position (year, 2012–2024; years 2012, 2018 and 2024 labelled on x-axis), y-position (% of gross salary, per-panel scale, positive = net receiver, negative = net contributor), colour hue (generation palette), area fill direction (above zero = net receiver, below zero = net contributor); zero reference line drawn as a horizontal baseline
+- **Scale**: Per-panel linear y-axis, independently scaled per generation. Silent Generation y-range: approximately 50% to 70%; Babyboomers: approximately 15% to 25%; Gen X, Millennials, Gen Z: approximately −15% to 0%. x-axis temporal (2012–2024)
+- **Annotations**: First year and last year percentage values labelled at the corresponding endpoints; role label ("Net receiver" / "Net contributor") annotated in the generation colour at the 2024 endpoint. Below the charts, a dynamically computed working-days table is rendered as styled HTML: for each net-contributing generation, the net burden is translated into an equivalent number of working days per year (e.g. "Gen X: 23 days"), making the abstract percentage tangible.
+- **Source**: BSV / BFS — AHV-Statistik & OKP-Daten, 2024
 
 : Data-to-visual mapping overview — Who Pays. {#tbl-encoding-whopays}
 
 | Chart | Data variables | Mark type | Visual channels | Scale |
 |---|---|---|---|---|
-| AHV dependency ratio | contributor count, pension count, `year` | Area line | x: year, y: ratio, area magnitude | Linear (both) |
-| OKP small multiples | `okp_premium`, subsidy, `okp_bruttoleistungen`, `generation`, `year` | Overlapping area fills | x: year, y: CHF/month, fill opacity: role, colour hue | Linear y (shared), categorical x; faceted by generation |
-| Cashflow % salary | Net cashflow components, gross salary, `generation`, `year` | Area fill + line | x: year, y: % gross salary, colour hue | Linear y (per panel), categorical x; faceted by generation |
+| AHV dependency ratio | contributor count, pension recipient count, `year` | Line + open circle markers + area fill | x: year, y: ratio, area fill to zero | Linear y (starting at 0), temporal x |
+| OKP small multiples | net premium, `okp_bruttoleistungen`, `generation`, `year` | Two overlapping area fills per panel | x: year, y: CHF/month, fill colour/opacity: role, colour hue; delta annotation colour: role | Linear y (shared across panels), temporal x; faceted by generation |
+| Cashflow % of gross salary | net OKP + AHV cashflow, gross salary estimate, `generation`, `year` | Area fill to zero + line + open circle markers | x: year, y: % gross salary, colour hue, fill direction: net receiver / contributor | Linear y (per panel, independent), temporal x; faceted by generation |
 
 ---
 

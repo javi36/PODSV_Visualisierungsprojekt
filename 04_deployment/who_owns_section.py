@@ -163,7 +163,7 @@ def create_occupancy_stacked_bar(df: pd.DataFrame, sorted_gens: list[str]) -> go
     )
     fig.add_annotation(
         xref="paper", yref="paper",
-        x=0, y=-0.07,
+        x=0, y=-0.1,
         xanchor="left", yanchor="top",
         text="Source: BFS — Strukturerhebung (Bewohnertyp), 2024",
         showarrow=False,
@@ -299,7 +299,7 @@ def create_wohnflaeche_line_chart(df: pd.DataFrame, selected_gens: list[str]) ->
 
     annotations.append(dict(
         xref="paper", yref="paper",
-        x=0, y=-0.09,
+        x=0, y=-0.15,
         xanchor="left", yanchor="top",
         text="Source: BFS — Strukturerhebung (Wohnfläche), 2024",
         showarrow=False,

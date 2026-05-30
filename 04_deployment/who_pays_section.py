@@ -424,7 +424,7 @@ def _chart_okp_area(okp: pd.DataFrame, okp_jahre: list) -> go.Figure:
 
     fig.add_annotation(
         xref="paper", yref="paper",
-        x=0, y=-0.07,
+        x=0, y=-0.1,
         xanchor="left", yanchor="top",
         text="Source: BSV / BFS — OKP-Statistik (Prämien & Leistungen), 2024",
         showarrow=False,
