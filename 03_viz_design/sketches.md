@@ -1,10 +1,5 @@
 # Sketches & Prototypes
 
-Initial concept sketches were done by hand (Kenan). See the presentation concept document for the original mockups:
-`docs/presentation_concept.docx` / `docs/presentation_concept_group3.pdf`
-
----
-
 ## Sketch → Implementation Mapping
 
 | Sketch idea | Implemented as | Notes |
