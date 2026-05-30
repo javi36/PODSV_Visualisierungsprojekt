@@ -1,0 +1,89 @@
+## ANLEITUNG ZUR INTEGRATION
+##
+## SCHRITT 1: Ersetze den gesamten Block "### Who Pays" unter "## Data-to-Visual Mapping"
+##            (von der Zeile "### Who Pays" bis zur Mapping-Tabelle tbl-encoding-whopays)
+##            durch den Abschnitt unter "=== SCHRITT 1 ===" unten.
+##
+## SCHRITT 2: Ersetze den einzelnen Rationale-Eintrag "### Small Multiples for Who Pays"
+##            durch die vier Einträge unter "=== SCHRITT 2 ===".
+##
+## Alle anderen Abschnitte des Berichts bleiben unverändert.
+
+---
+
+### === SCHRITT 1: Data-to-Visual Mapping — Who Pays (vollständige Ersetzung) ===
+
+### Who Pays
+
+This section draws on OKP (mandatory health insurance) and AHV (old-age insurance) data spanning 2012 to 2024. The three charts build a sequential argument: first establishing the structural pressure on the AHV system at the macro level, then breaking down what that pressure means in CHF terms for each generation through the OKP lens, and finally synthesising both systems into a single income-relative burden indicator.
+
+**Chart 1 — Line Chart with Area Fill: AHV Contributors per Retiree**
+
+The AHV dependency ratio — the number of active wage contributors per old-age pension recipient — is displayed as a time-series line running from 2012 to 2024. An area fill between the line and the zero baseline reinforces the sense of a shrinking buffer below the declining trend. Open circle markers are drawn at each annual data point to make individual year values readable without requiring axis interpolation.
+
+- **Data variables**: contributor count (`n_personen`, summed across all ages), pension recipient count (`anzahl_renten`, summed across all ages), `year`; ratio derived at application load time
+- **Marks**: Line, open circle markers at each year, area fill from line to y = 0
+- **Visual channels**: x-position (year, 2012–2024), y-position (ratio value, continuous), area size (height from zero to line communicates the remaining buffer above zero); colour: neutral dark grey for line and markers, light grey fill for area
+- **Scale**: Linear y-axis starting at 0; x-axis temporal (2012–2024); y-axis ceiling slightly above the first data point (3.49) to avoid clipping the opening annotation
+- **Annotations**: First year (3.49) and last year (3.22) ratio values labelled directly on the line. A styled badge annotation positioned outside the right chart margin provides a plain-language translation: "3½ workers funded 1 retiree in 2012 → 3 workers in 2024", followed by "▼ 7.7% fewer shoulders to carry the financial burden of retirement" in red. This externalised summary decouples the quantitative reading from the interpretive takeaway.
+- **Source**: BSV / BFS — AHV-Statistik, 2024
+
+**Chart 2 — Small Multiples Area Chart: OKP Premium vs. Benefits**
+
+The OKP chart shows what each generation pays in net health insurance premiums against what it receives in benefits, using five generation panels arranged in the project's standard left-to-right order (Silent Generation → Generation Z). Within each panel, two overlapping filled area traces share the same x-axis (year) and y-axis (CHF per person per month). The relative size of the two areas directly encodes whether the generation is a net contributor or net receiver: where the light area (benefits) exceeds the dark area (net premium), the generation benefits from cross-subsidisation; where the dark area dominates, the generation subsidises others.
+
+- **Data variables**: `okp_premium` minus `praemienverbilligung` (= net premium paid), `okp_bruttoleistungen` (= gross benefits received), both as CHF per person per month; `generation`, `year`
+- **Marks**: Two overlapping filled area traces per panel; no line on top of the area fills
+- **Visual channels**: x-position (year, 2012–2024; only first and last year labelled to reduce clutter), y-position (CHF/month), fill colour: dark generation colour for net premium paid, light desaturated variant of the same hue for benefits received; delta annotation colour: teal for positive delta (net receiver), red for negative delta (net contributor)
+- **Scale**: Linear y shared across all five panels (0 to approximately 1 500 CHF/month), enabling direct cross-panel magnitude comparison. This shared scale is a deliberate choice: it makes the order-of-magnitude difference between the Silent Generation surplus (approximately +1 076 CHF/month in 2024) and the younger generations' deficit (approximately −56 to −147 CHF/month) immediately apparent from panel height alone, without requiring the reader to consult axis labels.
+- **Layout**: 5-column small multiples, equal panel widths, shared y-axis grid, generation name as panel title; shared legend below all panels ("Net premium paid" / "Benefits received")
+- **Annotations**: 2024 net delta value labelled at the right edge of each panel in the delta colour (positive in teal, negative in red), formatted as "±X CHF/mt"
+- **Source**: BSV / BFS — OKP-Statistik (Prämien & Leistungen), 2024
+
+**Chart 3 — Small Multiples Area Chart: Net Cashflow as % of Gross Salary**
+
+The cashflow chart synthesises OKP and AHV contributions and benefits into a single indicator per generation: net cashflow (total benefits received minus total contributions paid, combining both systems) expressed as a percentage of the generation's average gross salary. Normalising by gross salary rather than presenting absolute CHF values makes the burden comparable across generations with structurally different income levels. Each generation panel has its own independent y-axis scale, allowing both the shape and the magnitude of change within each generation to be readable, at the cost of making direct cross-panel scale comparison impossible. The sign and the area fill direction (above or below the zero line) carry the key cross-generational message.
+
+- **Data variables**: OKP net premium, OKP gross benefits, AHV contribution (`sum_beitrag_ahv` per capita), AHV pension receipts (`renten_mittelwert_chf`), estimated average gross salary (derived from AHV contributions using the combined contribution rate); `generation`, `year`
+- **Marks**: Area fill between the cashflow line and y = 0 (fill above zero in generation colour for net receivers, fill below zero for net contributors); line on top of the area fill; open circle markers at each annual data point
+- **Visual channels**: x-position (year, 2012–2024; years 2012, 2018 and 2024 labelled on x-axis), y-position (% of gross salary, per-panel scale, positive = net receiver, negative = net contributor), colour hue (generation palette), area fill direction (above zero = net receiver, below zero = net contributor); zero reference line drawn as a horizontal baseline
+- **Scale**: Per-panel linear y-axis, independently scaled per generation. Silent Generation y-range: approximately 50% to 70%; Babyboomers: approximately 15% to 25%; Gen X, Millennials, Gen Z: approximately −15% to 0%. x-axis temporal (2012–2024)
+- **Annotations**: First year and last year percentage values labelled at the corresponding endpoints; role label ("Net receiver" / "Net contributor") annotated in the generation colour at the 2024 endpoint. Below the charts, a dynamically computed working-days table is rendered as styled HTML: for each net-contributing generation, the net burden is translated into an equivalent number of working days per year (e.g. "Gen X: 23 days"), making the abstract percentage tangible.
+- **Source**: BSV / BFS — AHV-Statistik & OKP-Daten, 2024
+
+: Data-to-visual mapping overview — Who Pays. {#tbl-encoding-whopays}
+
+| Chart | Data variables | Mark type | Visual channels | Scale |
+|---|---|---|---|---|
+| AHV dependency ratio | contributor count, pension recipient count, `year` | Line + open circle markers + area fill | x: year, y: ratio, area fill to zero | Linear y (starting at 0), temporal x |
+| OKP small multiples | net premium, `okp_bruttoleistungen`, `generation`, `year` | Two overlapping area fills per panel | x: year, y: CHF/month, fill colour/opacity: role, colour hue; delta annotation colour: role | Linear y (shared across panels), temporal x; faceted by generation |
+| Cashflow % of gross salary | net OKP + AHV cashflow, gross salary estimate, `generation`, `year` | Area fill to zero + line + open circle markers | x: year, y: % gross salary, colour hue, fill direction: net receiver / contributor | Linear y (per panel, independent), temporal x; faceted by generation |
+
+---
+
+### === SCHRITT 2: Design Rationale Einträge für Who Pays (4 neue Einträge) ===
+### Diese ersetzen den einzelnen Eintrag "### Small Multiples for Who Pays"
+
+### AHV Dependency Ratio: Line Chart with Area Fill over a Bar Chart
+
+**Alternative considered**: A bar chart showing the ratio for each year as a discrete vertical bar. This was rejected for two reasons. First, bar charts encode magnitude from a common baseline, but the visual interest here is not the absolute level of the ratio (which stays in a narrow range between 3.2 and 3.5) but rather the continuous direction of change — a trend that a connected line communicates far more clearly. Second, discrete bars fragment the visual into 13 separate objects, which works against the intended reading of a slow but relentless structural shift.
+
+**Chosen approach**: A time-series line with open circle markers and a grey area fill to y = 0. The area fill anchors the line visually and gives the declining trend a sense of weight — the shrinking space below the line is directly proportional to the diminishing contributor buffer. Open circle markers at each year allow individual data points to be identified on hover without cluttering the overall trend shape. The y-axis starting at zero was chosen to avoid exaggerating the decline: the actual drop from 3.49 to 3.22 over twelve years is modest in absolute terms, and a cropped y-axis starting near 3.0 would create a misleadingly steep visual impression. The goal is to show a gradual but structural shift, not a crisis.
+
+### AHV Dependency Ratio: Badge Annotation over an In-Chart Legend
+
+**Alternative considered**: A standard chart subtitle or a text annotation placed inside the plot area, listing the start and end ratio values. This approach was considered sufficient for a specialist audience but insufficient for the intended non-specialist reader.
+
+**Chosen approach**: A styled bordered badge positioned outside the right margin of the chart, providing a plain-language translation of the ratio values: "3½ workers funded 1 retiree in 2012 → 3 workers in 2024", followed by a ▼ summary of the relative change in red. This externalised annotation decouples the quantitative reading task (axis position) from the interpretive message (what the number means for the social contract). Placing the badge outside the chart area preserves the uncluttered line chart aesthetic while still ensuring that even a reader who does not engage with the y-axis receives the key finding. This pattern is common in data journalism practice (e.g. the Financial Times, NZZ Visuals) and aligns with the project's narrative-scroll format, in which each chart is expected to convey its main message without requiring the reader to construct the interpretation independently.
+
+### OKP Small Multiples: Overlapping Areas over a Grouped Bar Chart
+
+**Alternative considered**: A grouped bar chart showing net premium and benefits as side-by-side bars per generation and year. This was prototyped and rejected because it requires the reader to mentally subtract one bar from the other to determine the net balance — a multi-step visual arithmetic task that is unnecessary given the available chart vocabulary. A further alternative was a single net balance line per generation plotted on a shared chart. This was rejected because it hides the absolute levels of premium and benefit, which are essential context for understanding why the balance differs so dramatically between generations (older generations receive more in absolute benefits, not only relative to what they pay).
+
+**Chosen approach**: Overlapping filled area traces within small multiples panels, one per generation. The overlap between the dark area (net premium paid) and the light area (benefits received) creates a direct visual encoding of the net balance: the visible gap between the two fills is the surplus or deficit, readable at a glance without calculation. The shared y-axis across all five panels is a critical design decision: because the cross-generational magnitude difference is itself a key finding — Silent Generation net surplus of approximately CHF 1 076/month versus Gen Z deficit of approximately CHF 56/month — a per-panel rescaled y-axis would hide this difference and give the impression of comparable balances across generations. The colour-coded delta annotation (teal for surplus, red for deficit) reinforces the sign distinction for readers who may miss the area overlap at a glance.
+
+### Net Cashflow as % of Gross Salary: Income-Relative Framing over Absolute CHF
+
+**Alternative considered**: Expressing the net cashflow in absolute CHF per month per generation and plotting on a shared y-axis. This was rejected because the resulting chart would confound two effects: a generation's cashflow position in the social insurance system and its average income level. Older generations typically have higher historical wage levels, which would inflate their absolute CHF cashflow relative to younger generations even if their proportional position were similar. A shared-axis absolute CHF chart would therefore overstate the generational gap in the pension system and understate the proportional burden on working generations.
+
+**Chosen approach**: Expressing net cashflow as a percentage of the generation's average gross salary makes the burden indicator comparable across generations with structurally different income bases. A working-age generation that contributes CHF 500/month while earning CHF 5 000/month faces the same relative burden as one contributing CHF 400/month while earning CHF 4 000/month — and the percentage framing makes this equivalence explicit. Per-panel independent y-axis scaling was chosen over a shared scale because the range of percentage values differs dramatically by generation: Silent Generation moves between approximately 50% and 70% (entirely above zero), while working-age generations move between approximately −15% and 0% (entirely below zero). A shared y-axis wide enough to accommodate the full range would compress the working-age generation curves into near-flat lines at the bottom of the chart, hiding the meaningful within-generation trends that the chart is designed to show. The sign (above or below zero) and the area fill direction carry the primary cross-generational comparison, which does not require a shared scale. The working-days translation table below the chart provides a concrete, non-technical anchor for the percentage values: converting "−10.4% of gross salary" into "23 working days per year" makes the abstract burden tangible for a general audience.
