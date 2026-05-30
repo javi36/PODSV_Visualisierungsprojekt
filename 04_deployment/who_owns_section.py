@@ -299,7 +299,7 @@ def create_wohnflaeche_line_chart(df: pd.DataFrame, selected_gens: list[str]) ->
 
     annotations.append(dict(
         xref="paper", yref="paper",
-        x=0, y=-0.15,
+        x=0, y=-1.5,
         xanchor="left", yanchor="top",
         text="Source: BFS — Strukturerhebung (Wohnfläche), 2024",
         showarrow=False,
