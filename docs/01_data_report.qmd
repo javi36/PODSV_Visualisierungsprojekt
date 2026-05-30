@@ -495,9 +495,9 @@ Overall, the data quality is sufficient for the intended visualisation goal: to 
 | Who decides? | `selects_2015_clean.csv` | Swiss Electoral Study SELECTS 2015, FORS. DOI: 10.23662/FORS-DS-726-3 | `data/whodecide/processed/` |
 | Who decides? | `selects_2019_clean.csv` | Swiss Electoral Study SELECTS 2019, FORS. DOI: 10.23662/FORS-DS-1077-2 | `data/whodecide/processed/` |
 | Who decides? | `selects_2023_clean.csv` | Swiss Electoral Study SELECTS 2023, FORS. DOI: 10.23662/FORS-DS-1512-1 | `data/whodecide/processed/` |
-| Who pays? | `okp_by_birth_year.csv` | Swiss mandatory health insurance statistics (OKP/KVSTAT), annual Excel files and ZIP archives; processed by `01_data_acquisition/load_whopays_final.py` | `data/whopays/processed_whopays/` |
-| Who pays? | `ahv_einnahmen_by_birth_year.csv` | AHV income data file `ahv_einnahmen_zhaw.xlsx`; combined with population weights; processed by `01_data_acquisition/load_whopays_final.py` | `data/whopays/processed_whopays/` |
-| Who pays? | `ahv_ausgaben_by_age.csv` | Swiss official statistics export `px-x-1305000000_103_20260416-235225.xlsx`; processed by `01_data_acquisition/load_whopays_final.py` | `data/whopays/processed_whopays/` |
+| Who pays? | `okp_by_birth_year.csv` | Swiss mandatory health insurance statistics (OKP/KVSTAT), annual Excel files and ZIP archives | `data/whopays/processed_whopays/` |
+| Who pays? | `ahv_einnahmen_by_birth_year.csv` | AHV income data file `ahv_einnahmen_zhaw.xlsx`, combined with BFS population weights | `data/whopays/processed_whopays/` |
+| Who pays? | `ahv_ausgaben_by_age.csv` | Swiss official statistics export `px-x-1305000000_103_20260416-235225.xlsx` | `data/whopays/processed_whopays/` |
 | Who owns? | `bfs_bewohnertyp_20260414_clean.csv` | FSO Structural Survey (SE sheets), `bfs_bewohnertyp_groesse.xlsx` | `data/whoOwns/processed/` |
 | Who owns? | `bfs_wohnflaeche_20260414_clean.csv` | FSO GWS-STATPOP register (GWS-STATPOP sheets), `bfs_bewohnertyp_groesse.xlsx` | `data/whoOwns/processed/` |
 | Who owns? | `wohneigentumsquote_kanton_2026_clean.csv` | FSO cantonal homeownership statistics, `wohneigentumsquote_kanton_2026.csv` | `data/whoOwns/processed/` |
