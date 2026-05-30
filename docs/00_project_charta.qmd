@@ -36,11 +36,11 @@ The visualization product will be developed as a **dashboard-based application**
 
 The project aims to provide a clear and understandable visualization of age-group differences in Switzerland across three key dimensions:
 
+- **Political participation (Who decides?)** – highlighting differences in political engagement and participation across age groups.
+
 - **Financial burden (Who pays?)** – illustrating how costs such as housing, health insurance premiums and taxes relate to income across different age groups.
 
 - **Ownership (Who owns?)** – showing how property ownership and wealth are distributed across age groups.
-
-- **Political participation (Who decides?)** – highlighting differences in political engagement and participation across age groups.
 
 The objective is to support users in identifying observable patterns and differences between age groups. By presenting socio-economic and political data in a structured visual form, the project makes complex multi-source information easier to explore and compare.
 
