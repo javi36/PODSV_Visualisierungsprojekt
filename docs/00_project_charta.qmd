@@ -10,19 +10,19 @@ For the purpose of this project, **generational differences** refer to systemati
 
 This project investigates generational differences in Switzerland across three key dimensions:
 
-1. **Who pays?** – the distribution of financial burdens across age groups, including housing costs, health insurance premiums and taxes relative to income.
+1. **Who decides?** – political participation and influence, such as voting behaviour and engagement in democratic processes.
 
-2. **Who owns?** – the distribution of property ownership and wealth across age groups.
+2. **Who pays?** – the distribution of financial burdens across age groups, including housing costs, health insurance premiums and taxes relative to income.
 
-3. **Who decides?** – political participation and influence, such as voting behaviour and engagement in democratic processes.
+3. **Who owns?** – the distribution of property ownership and wealth across age groups.
 
 The project aims to explore whether younger and older age groups differ in terms of financial burden, asset ownership and political participation. By combining socio-economic and political data, the visualization provides a descriptive overview of patterns across these three dimensions. The project is explicitly **descriptive**: it documents observed differences in the data, but does not make causal claims about their origins or policy implications.
 
 The data visualization project addresses the following research questions:
 
+- How does **political participation** vary by age group?
 - How does the **financial burden** differ between age groups in Switzerland?
 - How is **property ownership and wealth** distributed across age groups?
-- How does **political participation** vary by age group?
 
 The expected benefit of the project is to provide a clear and accessible overview of age-related differences in Switzerland. By visualizing data from multiple official and scientific sources, the project supports users in identifying patterns across financial burden, ownership and political participation.
 
