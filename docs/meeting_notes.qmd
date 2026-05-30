@@ -50,7 +50,7 @@ The landing page should also include an overview of the generations and their ke
 
 For the main data visualisation on the landing page, a **violin plot combined with bar elements** was proposed. The chart would show the age distribution of the Swiss population with a time filter allowing the user to move through the years starting from around the year 2000. This chart would serve as a demographic pyramid alternative — giving an immediate sense of how the relative size of each generation has changed over time and how the population is ageing.
 
-![Landing page concept sketch: animated population pyramid with time-based pagination (2010 / 2015 / 2020), generation expansion cards, and a right-hand filter panel for generation selection.](images/meeting_a.png){width=90%}
+![Landing page concept sketch: animated population pyramid with time-based pagination (2010 / 2015 / 2020), generation expansion cards, and a right-hand filter panel for generation selection.](pics/meeting_a.png){width=90%}
 
 **Overall application structure: scrollable with three thematic sections**
 The application should be structured into three main thematic sections, one for each guiding question. At this stage, a pagination system (three separate pages) was discussed as a possible structure, although the scrollable single-page format was later confirmed as the preferred approach (see meeting 07.05.2026). The three sections are:
@@ -59,7 +59,7 @@ The application should be structured into three main thematic sections, one for 
 2. **Who pays?** — financial burden, AHV and OKP contributions by generation
 3. **Who owns?** — homeownership and living space by generation
 
-![First concept sketch: overall application structure with three thematic sections and early chart ideas per section.](images/meeting_b.png){width=90%}
+![First concept sketch: overall application structure with three thematic sections and early chart ideas per section.](pics/meeting_b.png){width=90%}
 
 **"Who decides?" section: early concept**
 The content for the "Who decides?" section was briefly discussed but not finalised. The team noted that the SELECTS survey data (political participation, voting behaviour, trust, political orientation) provides a strong empirical base for this section, and that the section should emphasise the imbalance between who votes and who is affected by the outcome. Specific chart types were not agreed upon at this stage.
