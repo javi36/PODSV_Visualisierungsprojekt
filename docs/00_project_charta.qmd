@@ -102,6 +102,12 @@ The project combines several Swiss datasets to analyse age-group differences rel
 
 ### Available Resources
 
+**Political Participation – "Who decides?"**
+
+- **[Selects – Swiss Election Studies](https://forscenter.ch/projects/selects/)**
+  A long-running scientific research programme analysing voting behaviour in Swiss federal elections since 1995. Provides survey data on political participation, voting behaviour, party preferences and trust in institutions. The dataset includes age variables, enabling analysis of generational differences in political engagement. Three waves are used: 2015, 2019 and 2023. *Access: requires registration via the FORS data portal; available for academic use. Registration status: to be confirmed by project team.*
+
+
 **Financial burden – "Who pays?"**
 
 - **[Swiss Inequality Database (SID)](https://www.iwp.swiss/sid/)**
@@ -124,12 +130,6 @@ The project combines several Swiss datasets to analyse age-group differences rel
 
 - **[Income, consumption and wealth of households (BFS)](https://www.bfs.admin.ch/bfs/de/home/statistiken/wirtschaftliche-soziale-situation-bevoelkerung/einkommen-verbrauch-vermoegen/vermoegen.assetdetail.36207530.html)**
   Data on income, consumption and net wealth of Swiss households. *Access: publicly available.*
-
-
-**Political Participation – "Who decides?"**
-
-- **[Selects – Swiss Election Studies](https://forscenter.ch/projects/selects/)**
-  A long-running scientific research programme analysing voting behaviour in Swiss federal elections since 1995. Provides survey data on political participation, voting behaviour, party preferences and trust in institutions. The dataset includes age variables, enabling analysis of generational differences in political engagement. Three waves are used: 2015, 2019 and 2023. *Access: requires registration via the FORS data portal; available for academic use. Registration status: to be confirmed by project team.*
 
 ---
 
