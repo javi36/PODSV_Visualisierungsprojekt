@@ -364,7 +364,7 @@ See [Mermaid syntax for Gantt charts](https://mermaid.js.org/syntax/gantt.html).
 
 | Name | Role | Responsibilities | Contact |
 |-----|-----|-----|-----|
-| Livia Wülser | Data Analyst & Visualization Designer | Data acquisition, cleaning and EDA for "Who pays?"; visualization design and chart implementation | wuelsliv@students.zhaw.ch |
-| Kenan Smaili | Data Analyst & Dashboard Developer | Data acquisition, cleaning and EDA for "Who owns?"; Streamlit dashboard development and deployment | smailken@students.zhaw.ch |
-| Javier Martinez Alvarez | Data Analyst & Documentation Lead | Data acquisition, cleaning and EDA for "Who decides?"; documentation (Quarto), presentation preparation | martijav@students.zhaw.ch |
+| Livia Wülser | Data Analyst & Visualization Designer | Data acquisition, cleaning and EDA for "Who decides?"; visualization design and chart implementation | wuelsliv@students.zhaw.ch |
+| Kenan Smaili | Data Analyst & Dashboard Developer | Data acquisition, cleaning and EDA for "Who pays?"; Streamlit dashboard development and deployment | smailken@students.zhaw.ch |
+| Javier Martinez Alvarez | Data Analyst & Documentation Lead | Data acquisition, cleaning and EDA for "Who owns?"; documentation (Quarto), presentation preparation | martijav@students.zhaw.ch |
 | Course Lecturers | Supervisors | Provide methodological guidance, feedback and evaluation of the project | via course platform |
