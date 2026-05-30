@@ -150,9 +150,10 @@ Responsibilities are distributed across the three team members by subtheme and f
 
 | Member | Primary Subtheme | Functional Role |
 |---|---|---|
-| Livia Wülser | Who pays? | Data acquisition, cleaning and EDA for the financial burden dimension; visualization design |
-| Kenan Smaili | Who owns? | Data acquisition, cleaning and EDA for the ownership dimension; Streamlit dashboard development |
-| Javier Martinez Alvarez | Who decides? | Data acquisition, cleaning and EDA for the political participation dimension; documentation and presentation preparation |
+| Livia Wülser | Who decides? | Data acquisition, cleaning and EDA for the political participation dimension; documentation and presentation preparation |
+| Kenan Smaili | Who pays? | Data acquisition, cleaning and EDA for the financial burden dimension; visualization design |
+| Javier Martinez Alvarez | Who owns? | Data acquisition, cleaning and EDA for the ownership dimension; Streamlit dashboard development |
+
 
 All members contribute to integration, review and final quality checks.
 
